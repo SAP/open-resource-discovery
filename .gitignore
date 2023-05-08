@@ -1,0 +1,12 @@
+# Logs
+logs/
+tmp/
+*.log
+npm-debug.log*
+
+# Dependency directories
+node_modules/
+
+# Generated files
+build/
+.docusaurus

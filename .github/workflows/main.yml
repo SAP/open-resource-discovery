@@ -1,0 +1,32 @@
+name: Main
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Installing Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: npm install
+        run: npm install
+
+      - name: build
+        run: npm run build
+
+      - name: deploy
+        if: github.ref_name == 'main'
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: build
+          token: ${{ secrets.GH_TOKEN }}

@@ -1,0 +1,6 @@
+**
+
+!dist/**
+!package.json
+!LICENSE
+!static/spec-v1/interfaces/*.json
