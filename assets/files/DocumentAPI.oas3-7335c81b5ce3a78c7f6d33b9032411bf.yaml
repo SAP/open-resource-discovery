@@ -2,11 +2,8 @@
 openapi: 3.0.0
 info:
   description: >-
-    [Open Resource Discovery](https://pages.github.com/SAP/open-resource-discovery/)
-    (ORD)
-
-    is a protocol that standardizes how applications and services publish and discover their exposed resources such as
-    APIs and Events.
+    Open Resource Discovery (ORD) is a protocol that standardizes how applications and services publish and discover
+    their exposed resources such as APIs and Events.
 
 
     This API is an implementation of the [ORD Document API](../index.md#ord-document-api).
@@ -21,9 +18,8 @@ info:
     url: https://www.sap.com/
 externalDocs:
   description: Open Resource Discovery Specification (internal link)
-  url: https://pages.github.com/SAP/open-resource-discovery/
+  url: https://sap.github.io/open-resource-discovery
 servers:
-  - url: https://ord-reference-app.internal.cfapps.sap.hana.ondemand.com
   - url: http://localhost:8080
 tags:
   - name: OpenResourceDiscovery
