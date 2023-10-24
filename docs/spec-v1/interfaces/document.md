@@ -8,7 +8,7 @@ description: Describes the technical interface / schema for ORD Document.
 * The root schema of the document is [ORD Document](#ord-document)
 
 #### Technical information
-* The interface is described as [JSON Schema](https://json-schema.org/specification.html) here: [/spec-v1/interfaces/Document.schema.json](https://pages.github.com/SAP/open-resource-discovery/spec-v1/interfaces/Document.schema.json)
+* The interface is described as [JSON Schema](https://json-schema.org/specification.html) here: [/spec-v1/interfaces/Document.schema.json](https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Document.schema.json)
 * This documentation is automatically generated from [./spec/v1/Document.schema.yaml](https://github.com/SAP/open-resource-discovery/blob/master/v1/Document.schema.yaml)
 
 ## Schema Definitions
@@ -22,7 +22,7 @@ The constraints and considerations on [ORD Documents](../index.md#ord-document) 
 
 | Property | Type | Description |
 | -------- | ---- | ----------- |
-|<div class="interface-property-name anchor" id="ord-document_$schema">$schema<br/><span class="optional">OPTIONAL</span><a class="hash-link" href="#ord-document_$schema" title="Direct link to property"></a></div>|<div class="interface-property-type">string</div>|<div class="interface-property-description">An optional [URL](https://tools.ietf.org/html/rfc3986) to the Open Resource Discovery document schema (Defined as a JSON Schema).<br/><br/>If provided, this enables code intelligence and validation in supported editors (like VSCode) and tools.<br/><hr/><strong>JSON Schema Format</strong>: `uri-reference`<br/><strong>Example Values</strong>: <ul class="examples"><li>`"https://pages.github.com/SAP/open-resource-discovery/spec-v1/interfaces/Document.schema.json"`</li></ul></div>|
+|<div class="interface-property-name anchor" id="ord-document_$schema">$schema<br/><span class="optional">OPTIONAL</span><a class="hash-link" href="#ord-document_$schema" title="Direct link to property"></a></div>|<div class="interface-property-type">string</div>|<div class="interface-property-description">An optional [URL](https://tools.ietf.org/html/rfc3986) to the Open Resource Discovery document schema (Defined as a JSON Schema).<br/><br/>If provided, this enables code intelligence and validation in supported editors (like VSCode) and tools.<br/><hr/><strong>JSON Schema Format</strong>: `uri-reference`<br/><strong>Example Values</strong>: <ul class="examples"><li>`"https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Document.schema.json"`</li></ul></div>|
 |<div class="interface-property-name anchor" id="ord-document_openresourcediscovery">openResourceDiscovery<br/><span class="mandatory">MANDATORY</span><a class="hash-link" href="#ord-document_openresourcediscovery" title="Direct link to property"></a></div>|<div class="interface-property-type">string</div>|<div class="interface-property-description">Version of the Open Resource Discovery specification that is used to describe this document.<br/><hr/><strong>Allowed Values</strong>: <ul><li><p>`"1.0"`: ORD Version 1.0</p></li><li><p>`"1.1"`: ORD Version 1.1</p></li><li><p>`"1.2"`: ORD Version 1.2</p></li><li><p>`"1.3"`: ORD Version 1.3</p></li><li><p>`"1.4"`: ORD Version 1.4</p></li><li><p>`"1.5"`: ORD Version 1.5</p></li><li><p>`"1.6"`: ORD Version 1.6</p></li><li><p>`"1.7"`: ORD Version 1.7</p></li></ul><br/><strong>Example Values</strong>: <ul class="examples"><li>`"1.7"`</li></ul></div>|
 |<div class="interface-property-name anchor" id="ord-document_description">description<br/><span class="optional">OPTIONAL</span><a class="hash-link" href="#ord-document_description" title="Direct link to property"></a></div>|<div class="interface-property-type">string</div>|<div class="interface-property-description">Optional description of the ORD document itself.<br/>Please note that this information is NOT further processed or considered by an ORD aggregator.<br/><br/>Notated in [CommonMark](https://spec.commonmark.org/) (Markdown).<br/><hr/><strong>Minimum Length</strong>: `1`<br/><strong>Example Values</strong>: <ul class="examples"><li>`"This ORD document contains all APIs that are system instance aware and have APIs that\ncan change their behavior at runtime.\n"`</li></ul></div>|
 |<div class="interface-property-name anchor" id="ord-document_describedsysteminstance">describedSystemInstance<br/><span class="optional">OPTIONAL</span><a class="hash-link" href="#ord-document_describedsysteminstance" title="Direct link to property"></a></div>|<div class="interface-property-type">[System Instance](#system-instance)</div>|<div class="interface-property-description">Information on the **system instance** that this ORD document describes.<br/><br/>This information is optional, but RECOMMENDED to add, as it makes the ORD document self contained.<br/>The described system instance MUST be identical to the system instance that provides the ORD information.<br/></div>|
@@ -716,7 +716,7 @@ as only there we know the details and the actual contents of the API Model of th
 For the various resource definition formats the selection of API models may need to be expressed differently.
 As a consequence, there are different types of selectors that are specialized toward certain resource definition formats.
 
-The target of the mapping is a correlation to an entity type via a [Correlation ID](https://pages.github.com/SAP/open-resource-discovery/#/v1/README?id=correlation-id)
+The target of the mapping is a correlation to an entity type via a [Correlation ID](https://sap.github.io/open-resource-discovery/#/v1/README?id=correlation-id)
 or to an [ORD ID] of an entity type.
 It is assumed that the entity types are described in more detail or on a different abstraction level via metadata.
 When the correlation ID is used, an ORD consumer may need to know how to access the entity type metadata through conventions.
@@ -732,7 +732,7 @@ corresponding ODM entity. ORD consumers like SAP Business Accelerator Hub consum
 | Property | Type | Description |
 | -------- | ---- | ----------- |
 |<div class="interface-property-name anchor" id="entity-type-mapping_apimodelselectors">apiModelSelectors<br/><span class="optional">OPTIONAL</span><a class="hash-link" href="#entity-type-mapping_apimodelselectors" title="Direct link to property"></a></div>|<div class="interface-property-type">Array&lt;[API Model Selector (OData)](#api-model-selector-odata) \| [API Model Selector (JSON Pointer)](#api-model-selector-json-pointer)&gt;</div>|<div class="interface-property-description">List of selectors for API models within an API Resource.<br/>If multiple selectors are given, every selected API model maps to the entity type target(s).<br/>If omitted, the complete API resource will be mapped to the `entityTypeTargets` (less specific).<br/><br/>Multiple selectors can be useful, e.g. with a CRUD REST API, to combine the similar API models.<br/><br/>Depending on the chosen API protocol and the available resource definition formats,<br/>different kind of selectors need to be used.<br/></div>|
-|<div class="interface-property-name anchor" id="entity-type-mapping_entitytypetargets">entityTypeTargets<br/><span class="mandatory">MANDATORY</span><a class="hash-link" href="#entity-type-mapping_entitytypetargets" title="Direct link to property"></a></div>|<div class="interface-property-type">Array&lt;[Entity Type Target (ORD ID)](#entity-type-target-ord-id) \| [Entity Type Target (Correlation ID)](#entity-type-target-correlation-id)&gt;</div>|<div class="interface-property-description">List of entity types the ORD resource maps to.<br/>If `apiModelSelectors` are given, the mapping is more precise by also pointing to the specific model in the API.<br/><br/>If multiple entity types are defined as the mapping target,<br/>all of them can be at least partially mapped to the source API model(s).<br/><br/>Entity types can be referenced using either using an [ORD ID](https://pages.github.com/SAP/open-resource-discovery/spec-v1/#ord-id) or a [Correlation ID](https://pages.github.com/SAP/open-resource-discovery/spec-v1/#correlation-id).<br/><hr/><strong>Array Constraint</strong>: MUST have at least 1 items</div>|
+|<div class="interface-property-name anchor" id="entity-type-mapping_entitytypetargets">entityTypeTargets<br/><span class="mandatory">MANDATORY</span><a class="hash-link" href="#entity-type-mapping_entitytypetargets" title="Direct link to property"></a></div>|<div class="interface-property-type">Array&lt;[Entity Type Target (ORD ID)](#entity-type-target-ord-id) \| [Entity Type Target (Correlation ID)](#entity-type-target-correlation-id)&gt;</div>|<div class="interface-property-description">List of entity types the ORD resource maps to.<br/>If `apiModelSelectors` are given, the mapping is more precise by also pointing to the specific model in the API.<br/><br/>If multiple entity types are defined as the mapping target,<br/>all of them can be at least partially mapped to the source API model(s).<br/><br/>Entity types can be referenced using either using an [ORD ID](https://sap.github.io/open-resource-discovery/spec-v1/#ord-id) or a [Correlation ID](https://sap.github.io/open-resource-discovery/spec-v1/#correlation-id).<br/><hr/><strong>Array Constraint</strong>: MUST have at least 1 items</div>|
 
 ### API Model Selector (OData)
 
@@ -782,7 +782,7 @@ MUST only be used if the API Resource provides an API Resource Definition of med
 
 Define which entity type is the target of an entity type mapping
 
-Entity types can be referenced using a [ORD ID](https://pages.github.com/SAP/open-resource-discovery/spec-v1/#ord-id) of an entity type.
+Entity types can be referenced using a [ORD ID](https://sap.github.io/open-resource-discovery/spec-v1/#ord-id) of an entity type.
 
 | Property | Type | Description |
 | -------- | ---- | ----------- |
@@ -792,7 +792,7 @@ Entity types can be referenced using a [ORD ID](https://pages.github.com/SAP/ope
 
 Define which entity type is the target of an entity type mapping
 
-Entity types can be referenced using a [Correlation ID](https://pages.github.com/SAP/open-resource-discovery/spec-v1/#correlation-id).
+Entity types can be referenced using a [Correlation ID](https://sap.github.io/open-resource-discovery/spec-v1/#correlation-id).
 
 | Property | Type | Description |
 | -------- | ---- | ----------- |

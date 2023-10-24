@@ -696,7 +696,7 @@ export interface AccessStrategy {
  * For the various resource definition formats the selection of API models may need to be expressed differently.
  * As a consequence, there are different types of selectors that are specialized toward certain resource definition formats.
  *
- * The target of the mapping is a correlation to an entity type via a [Correlation ID](https://pages.github.com/SAP/open-resource-discovery/#/v1/README?id=correlation-id)
+ * The target of the mapping is a correlation to an entity type via a [Correlation ID](https://sap.github.io/open-resource-discovery/#/v1/README?id=correlation-id)
  * or to an [ORD ID] of an entity type.
  * It is assumed that the entity types are described in more detail or on a different abstraction level via metadata.
  * When the correlation ID is used, an ORD consumer may need to know how to access the entity type metadata through conventions.
@@ -728,7 +728,7 @@ export interface EntityTypeMapping {
    * If multiple entity types are defined as the mapping target,
    * all of them can be at least partially mapped to the source API model(s).
    *
-   * Entity types can be referenced using either using an [ORD ID](https://pages.github.com/SAP/open-resource-discovery/spec-v1/#ord-id) or a [Correlation ID](https://pages.github.com/SAP/open-resource-discovery/spec-v1/#correlation-id).
+   * Entity types can be referenced using either using an [ORD ID](https://sap.github.io/open-resource-discovery/spec-v1/#ord-id) or a [Correlation ID](https://sap.github.io/open-resource-discovery/spec-v1/#correlation-id).
    *
    * @minItems 1
    */
@@ -780,7 +780,7 @@ export interface APIModelSelectorJSONPointer {
 /**
  * Define which entity type is the target of an entity type mapping
  *
- * Entity types can be referenced using a [ORD ID](https://pages.github.com/SAP/open-resource-discovery/spec-v1/#ord-id) of an entity type.
+ * Entity types can be referenced using a [ORD ID](https://sap.github.io/open-resource-discovery/spec-v1/#ord-id) of an entity type.
  */
 export interface EntityTypeTargetORDID {
   /**
@@ -793,7 +793,7 @@ export interface EntityTypeTargetORDID {
 /**
  * Define which entity type is the target of an entity type mapping
  *
- * Entity types can be referenced using a [Correlation ID](https://pages.github.com/SAP/open-resource-discovery/spec-v1/#correlation-id).
+ * Entity types can be referenced using a [Correlation ID](https://sap.github.io/open-resource-discovery/spec-v1/#correlation-id).
  */
 export interface EntityTypeTargetCorrelationID {
   correlationId: string;

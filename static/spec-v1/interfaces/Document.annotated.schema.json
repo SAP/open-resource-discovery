@@ -1,7 +1,7 @@
 {
   "description": "The [ORD Document](../index.md#ord-document) object serves as a wrapper for the **ORD resources** and **ORD taxonomy** and adds further top-level information\nthat are specific to the document/the service it describes.\n\nThe constraints and considerations on [ORD Documents](../index.md#ord-document) MUST be followed.",
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://pages.github.com/SAP/open-resource-discovery/spec-v1/interfaces/Document.schema.json",
+  "$id": "https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Document.schema.json",
   "x-property-order": [
     "Document",
     "APIResource",
@@ -3574,7 +3574,7 @@
       "title": "Entity Type Mapping",
       "x-introduced-in-version": "1.6.0",
       "type": "object",
-      "description": "An API or Event resource may optionally define its `entityTypeMappings`.\nThis is used to map and correlate the API models to the underlying, conceptual **entity types**.\n\nIf the mapping from API resource to entity types is not defined,\ncertain use-cases that rely on this explicit connection will not be possible.\n\nThis mapping is meant to be rather fine granular.\nTherefore, the mapping needs to be done on basis of one of the referenced resource definitions,\nas only there we know the details and the actual contents of the API Model of the API resource.\n\nFor the various resource definition formats the selection of API models may need to be expressed differently.\nAs a consequence, there are different types of selectors that are specialized toward certain resource definition formats.\n\nThe target of the mapping is a correlation to an entity type via a [Correlation ID](https://pages.github.com/SAP/open-resource-discovery/#/v1/README?id=correlation-id)\nor to an [ORD ID] of an entity type.\nIt is assumed that the entity types are described in more detail or on a different abstraction level via metadata.\nWhen the correlation ID is used, an ORD consumer may need to know how to access the entity type metadata through conventions.\nThis can be determined either by the namespace of the correlation ID,\nor through a defined and known `implementationStandard` that can resolve the `localId` fragment of the correlation ID .\n\nAt SAP, the metadata about entity types could be retrieved via the CSN_EXPOSURE service.\nTo indicate this, the service needs to be implemented and described in ORD with `implementationStandard` set to `sap:csn-exposure:v1`).\n\nODM 2.0 relies on the entity type mappings and uses the the mapping to express the relationship of an API to the\ncorresponding ODM entity. ORD consumers like SAP Business Accelerator Hub consume the mapping to make the relationships navigatable for customers.",
+      "description": "An API or Event resource may optionally define its `entityTypeMappings`.\nThis is used to map and correlate the API models to the underlying, conceptual **entity types**.\n\nIf the mapping from API resource to entity types is not defined,\ncertain use-cases that rely on this explicit connection will not be possible.\n\nThis mapping is meant to be rather fine granular.\nTherefore, the mapping needs to be done on basis of one of the referenced resource definitions,\nas only there we know the details and the actual contents of the API Model of the API resource.\n\nFor the various resource definition formats the selection of API models may need to be expressed differently.\nAs a consequence, there are different types of selectors that are specialized toward certain resource definition formats.\n\nThe target of the mapping is a correlation to an entity type via a [Correlation ID](https://sap.github.io/open-resource-discovery/#/v1/README?id=correlation-id)\nor to an [ORD ID] of an entity type.\nIt is assumed that the entity types are described in more detail or on a different abstraction level via metadata.\nWhen the correlation ID is used, an ORD consumer may need to know how to access the entity type metadata through conventions.\nThis can be determined either by the namespace of the correlation ID,\nor through a defined and known `implementationStandard` that can resolve the `localId` fragment of the correlation ID .\n\nAt SAP, the metadata about entity types could be retrieved via the CSN_EXPOSURE service.\nTo indicate this, the service needs to be implemented and described in ORD with `implementationStandard` set to `sap:csn-exposure:v1`).\n\nODM 2.0 relies on the entity type mappings and uses the the mapping to express the relationship of an API to the\ncorresponding ODM entity. ORD consumers like SAP Business Accelerator Hub consume the mapping to make the relationships navigatable for customers.",
       "properties": {
         "apiModelSelectors": {
           "type": "array",
@@ -3592,7 +3592,7 @@
         },
         "entityTypeTargets": {
           "type": "array",
-          "description": "List of entity types the ORD resource maps to.\nIf `apiModelSelectors` are given, the mapping is more precise by also pointing to the specific model in the API.\n\nIf multiple entity types are defined as the mapping target,\nall of them can be at least partially mapped to the source API model(s).\n\nEntity types can be referenced using either using an [ORD ID](https://pages.github.com/SAP/open-resource-discovery/spec-v1/#ord-id) or a [Correlation ID](https://pages.github.com/SAP/open-resource-discovery/spec-v1/#correlation-id).",
+          "description": "List of entity types the ORD resource maps to.\nIf `apiModelSelectors` are given, the mapping is more precise by also pointing to the specific model in the API.\n\nIf multiple entity types are defined as the mapping target,\nall of them can be at least partially mapped to the source API model(s).\n\nEntity types can be referenced using either using an [ORD ID](https://sap.github.io/open-resource-discovery/spec-v1/#ord-id) or a [Correlation ID](https://sap.github.io/open-resource-discovery/spec-v1/#correlation-id).",
           "items": {
             "anyOf": [
               {
@@ -3685,7 +3685,7 @@
       "title": "Entity Type Target (ORD ID)",
       "x-introduced-in-version": "1.6.0",
       "type": "object",
-      "description": "Define which entity type is the target of an entity type mapping\n\nEntity types can be referenced using a [ORD ID](https://pages.github.com/SAP/open-resource-discovery/spec-v1/#ord-id) of an entity type.",
+      "description": "Define which entity type is the target of an entity type mapping\n\nEntity types can be referenced using a [ORD ID](https://sap.github.io/open-resource-discovery/spec-v1/#ord-id) of an entity type.",
       "properties": {
         "ordId": {
           "type": "string",
@@ -3706,7 +3706,7 @@
       "title": "Entity Type Target (Correlation ID)",
       "x-introduced-in-version": "1.6.0",
       "type": "object",
-      "description": "Define which entity type is the target of an entity type mapping\n\nEntity types can be referenced using a [Correlation ID](https://pages.github.com/SAP/open-resource-discovery/spec-v1/#correlation-id).",
+      "description": "Define which entity type is the target of an entity type mapping\n\nEntity types can be referenced using a [Correlation ID](https://sap.github.io/open-resource-discovery/spec-v1/#correlation-id).",
       "properties": {
         "correlationId": {
           "type": "string",
@@ -3731,7 +3731,7 @@
       "format": "uri-reference",
       "description": "An optional [URL](https://tools.ietf.org/html/rfc3986) to the Open Resource Discovery document schema (Defined as a JSON Schema).\n\nIf provided, this enables code intelligence and validation in supported editors (like VSCode) and tools.",
       "examples": [
-        "https://pages.github.com/SAP/open-resource-discovery/spec-v1/interfaces/Document.schema.json"
+        "https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Document.schema.json"
       ]
     },
     "openResourceDiscovery": {

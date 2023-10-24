@@ -107,18 +107,26 @@ This perspective is very important, as it describes technical aspects of product
 
 ### Unified Customer Landscape
 
-The Unified Customer Landscape is foremost a technical background service that offers the system landscape metadata (incl. ORD information) to other applications and services.
-While the [Business Accelerator Hub](#business-accelerator-hub) focuses on the static perspective of a product, the UCL can provide the actual system tenant metadata - including possible customer extensions and customizations.
-
-This is also exposed via the [SAP BTP](https://www.sap.com/products/technology-platform.html) Cockpit in the System Landscape overview.
-Here customers can see their own systems / tenants and manage them, e.g. by grouping them via formations that enable trust and automatic integration between them.
-Systems that are in the same formation usually need to get information about each other, some of which may be provided via ORD.
+Unified Customer Landscape (UCL) is a set of technical services that also offers the system landscape metadata (incl. ORD information) to other applications and services.
+While the [Business Accelerator Hub](#sap-business-accelerator-hub) focuses on the static perspective of a product, the UCL can provide the actual system tenant metadata - including possible customer extensions and customizations.
 
 <details><summary>Click to see UI examples with annotations</summary><p>
 
 ![BTP Cockpit System Landscape via UCL](/img/btp-cockpit-ucl-example.png 'BTP Cockpit System Landscape via UCL')
 
-The most notable concept is the [ORD System Instance](./index.md#def-system-instance), which is usually a tenant.
+The UCL offers information about the customer system landscape and managing integrations, as can be seen in the [SAP BTP](https://www.sap.com/products/technology-platform.html) Cockpit in the System Landscape UI.
+Here customers can see their own systems and manage them e.g. grouping them via formations that enable trust and automatic integration between them for specific scenarios.
+Systems that are in the same formation usually need to get information about each other, some of which may be provided via ORD.
+
+* The UCL automatically aggregates and consolidates all the information about the customer’s IT landscape into one unified machine-readable extensible graph-like landscape model.
+  This model includes information about the customers SAP, Partner 3rd party and on-premise application (service) tenants as well as metadata about their API, event and connectivity-related requirements, existing integrations and their state.
+  This includes amongst other things, also the ORD metadata of the systems.
+* The automatically aggregated landscape model is then *re-exposed for discovery and introspection* to various SAP and Partner UIs and tools that customers use to oversee, manage and monitor their IT landscape.
+  The metadata is also used to simplify development, e.g. for side-by-side extensions and Low-Code/No-Code tools.
+  This is achieved by offering industry-standard GraphQL and OData APIs with rich querying capabilities.
+* Provides the so called "managed by SAP" experience in the domain of integration lifecycle management** and therefore allow customers to focus purely on taking business decisions and not doing or caring about the actual technical wiring and integration setup underneath. This is achieved by providing active automation over the integrations based on already available metadata, specified by the Application Providers about what integrations are required and how they can be established. Leveraging the automated integration lifecycle management makes the life of both Customers and Application Providers much easier, as the day 2 operations, such as credentials rotation also happen automatically.
+
+In the UI screenshot, the most notable concept is the [ORD System Instance](./index.md#def-system-instance), which is usually a tenant.
 If ORD information are provided, the detail view can show them and they will be made available to other systems in the same formation or account context.
 
 </p></details>

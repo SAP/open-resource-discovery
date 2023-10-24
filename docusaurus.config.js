@@ -154,6 +154,10 @@ const config = {
             to: 'disclaimer',
           },
           {
+            label: 'Impressum',
+            to: 'https://www.sap.com/corporate/en/legal/impressum.html',
+          },
+          {
             label: 'GitHub Repository',
             to: 'https://github.com/SAP/open-resource-discovery',
           },
