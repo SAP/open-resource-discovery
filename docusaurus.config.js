@@ -158,7 +158,7 @@ const config = {
             to: 'https://github.com/SAP/open-resource-discovery',
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} SAP SE.`,
+        copyright: `Copyright © ${new Date().getFullYear()} SAP SE and Open Resource Discovery contributors.\nOpen Resource Discovery was founded by SAP as an open source project to contribute to open standardization. Open Resource Discovery is released under the Apache 2 license.\n\n This site is hosted by GitHub Pages. Please see the GitHub Privacy Statement for any information how GitHub processes your personal data.`,
       },
       prism: {
         theme: lightCodeTheme,

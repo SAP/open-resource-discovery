@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: open-resource-discovery
-Upstream-Contact: simon.heimler@sap.com
+Upstream-Contact: ospo@sap.com
 Source: <https://github.com/sap/open-resource-discovery>
 Disclaimer: The code in this project may include calls to APIs ("API Calls") of
  SAP or third-party products or services developed outside of this project

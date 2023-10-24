@@ -6,11 +6,11 @@
 
 ## Summary
 
-[Open Resource Discovery](https://sap.github.io/open-resource-discovery/) (ORD) is a protocol that standardizes how metadata about application resources can be published and discovered.
+Open Resource Discovery (ORD) is a protocol that standardizes how metadata about application resources can be published and discovered.
 
-It is an open standard by SAP, currently geared towards the SAP ecosystem.
+It is an open standard by SAP, currently geared towards the SAP ecosystem. We have tried to build the standard in a way that we can evolve it into a general purpose standard in the future.
 
-**To learn more, have a look at the [Open Resource Discovery Specification](https://pages.github.com/SAP/open-resource-discovery/) documentation.**
+**To learn more, have a look at the [Open Resource Discovery Specification](https://sap.github.io/open-resource-discovery/) documentation.**
 
 ## Communication, Feedback & FAQ
 
@@ -44,7 +44,7 @@ For detailed and recent changes, please refer to the [CHANGELOG.md](CHANGELOG.md
 ## Acknowledgements
 
 * The original authors of the Open Resource Discovery Spec were Harsh Jegadeesan and Divya Mary.
-* Recent core-contributors to the spec are: [Simon Heimler](https://github.com/Fannon), [Sebastian Wennemers](https://github.com/swennemers), [Steffen Göbel](https://github.com/steffengoebel), [Ralf Hofmann](https://github.com/ormos), [Kiril Kabakchiev](https://github.com/KirilKabakchiev), [Nikolay Mateev](https://github.com/NickyMateev), Bibin Thomas and others.
+* Currently active core-contributors to the spec are: [Simon Heimler](https://github.com/Fannon), [Sebastian Wennemers](https://github.com/swennemers), [Steffen Göbel](https://github.com/steffengoebel), [Ralf Hofmann](https://github.com/ormos), [Kiril Kabakchiev](https://github.com/KirilKabakchiev), [Nikolay Mateev](https://github.com/NickyMateev), Bibin Thomas and others.
 
 ## License
 

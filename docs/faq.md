@@ -32,7 +32,7 @@ In SAP context, we support including On-Premises software through [Cloud Connect
 The Open in ORD refers to the protocol itself and that it is published publicly under a permissive license.
 It can therefore be freely implemented by SAP partners or customers.
 
-A public version of the standard is published here: https://github.com/SAP/open-resource-discovery/.
+A public version of the standard is published here: https://sap.github.io/open-resource-discovery.
 
 The governance and the actual development will remain fully at SAP for now.
 In the long term, we can imagine to contribute ORD to an open governance body
