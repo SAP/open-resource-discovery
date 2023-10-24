@@ -205,7 +205,7 @@ components:
 
             If provided, this enables code intelligence and validation in supported editors (like VSCode) and tools.
           example: >-
-            https://pages.github.com/SAP/open-resource-discovery/spec-v1/interfaces/Document.schema.json
+            https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Document.schema.json
         openResourceDiscovery:
           type: string
           description: Version of the Open Resource Discovery specification that is used to describe this document.
@@ -3982,7 +3982,7 @@ components:
 
 
         The target of the mapping is a correlation to an entity type via a [Correlation
-        ID](https://pages.github.com/SAP/open-resource-discovery/#/v1/README?id=correlation-id)
+        ID](https://sap.github.io/open-resource-discovery/#/v1/README?id=correlation-id)
 
         or to an [ORD ID] of an entity type.
 
@@ -4039,9 +4039,9 @@ components:
 
 
             Entity types can be referenced using either using an [ORD
-            ID](https://pages.github.com/SAP/open-resource-discovery/spec-v1/#ord-id)
+            ID](https://sap.github.io/open-resource-discovery/spec-v1/#ord-id)
             or a [Correlation
-            ID](https://pages.github.com/SAP/open-resource-discovery/spec-v1/#correlation-id).
+            ID](https://sap.github.io/open-resource-discovery/spec-v1/#correlation-id).
           items:
             anyOf:
               - $ref: '#/components/schemas/EntityTypeOrdIdTarget'
@@ -4126,7 +4126,7 @@ components:
 
 
         Entity types can be referenced using a [ORD
-        ID](https://pages.github.com/SAP/open-resource-discovery/spec-v1/#ord-id) of
+        ID](https://sap.github.io/open-resource-discovery/spec-v1/#ord-id) of
         an entity type.
       properties:
         ordId:
@@ -4148,7 +4148,7 @@ components:
 
 
         Entity types can be referenced using a [Correlation
-        ID](https://pages.github.com/SAP/open-resource-discovery/spec-v1/#correlation-id).
+        ID](https://sap.github.io/open-resource-discovery/spec-v1/#correlation-id).
       properties:
         correlationId:
           type: string
@@ -4179,7 +4179,7 @@ components:
             An optional URL to the ORD document schema (defined as JSON Schema).
             If given, this enables code intelligence and validation in supported editors (like VSCode) and tools.
           example: >-
-            https://pages.github.com/SAP/open-resource-discovery/spec-v1/interfaces/Configuration.schema.json
+            https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Configuration.schema.json
         baseUrl:
           type: string
           format: uri
