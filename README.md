@@ -31,7 +31,7 @@ We plan to add more in the future.
 
 #### ORD Reference Application
 
-We plan to publish an ORD Reference Application in the future.
+Check out the [ORD Reference Application](https://ord-reference-application.cfapps.sap.hana.ondemand.com/) for an example ORD implementation and how it behaves.
 
 #### ORD Example Data
 
