@@ -92,6 +92,27 @@ We need to make a distinction between describing and understanding:
 
 ## ORD by Examples
 
+### ORD Reference Application
+
+Have a look at the [ORD Reference Application](https://ord-reference-application.cfapps.sap.hana.ondemand.com/) to see a live example.
+
+<iframe src="https://ord-reference-application.cfapps.sap.hana.ondemand.com/" width="100%" height="500px"></iframe>
+
+<details><summary>Click me for more details</summary><p>
+
+The ORD Reference Application shows a simple application, which offers a few APIs and Events.
+Some of the APIs are public and are of interest for outside consumers to learn about.
+
+The flow to crawl the application for relevant metadata is the following:
+
+* Execute an HTTP GET request on the [.well-known/open-resource-discovery](https://ord-reference-application.cfapps.sap.hana.ondemand.com/.well-known/open-resource-discovery) entry point.
+  * With a successful response we now know that ORD is supported, where to find the actual information (`documents.url`) and how to access them (`documents.accessStrategies`)
+* Execute an HTTP GET request on the [first ORD document](https://ord-reference-application.cfapps.sap.hana.ondemand.com/open-resource-discovery/v1/documents/1), we discovered from the previous step.
+  * Here we now find the actual information, like the APIs and Events the application exposes, but also taxonomy like information like what product it is or how the information are structured into packages.
+* For a particular API, we find out that it's a plain REST API, described with OpenAPI v3 in JSON format. We also learn how and where to download its [OpenAPI resource definition](https://ord-reference-application.cfapps.sap.hana.ondemand.com/astronomy/v1/openapi/oas3.json).
+
+</p></details>
+
 ### SAP Business Accelerator Hub
 
 The [SAP Business Accelerator Hub](https://api.sap.com/) is an ORD aggregator that uses static information to present generic documentation.
@@ -110,7 +131,7 @@ This perspective is very important, as it describes technical aspects of product
 Unified Customer Landscape (UCL) is a set of technical services that also offers the system landscape metadata (incl. ORD information) to other applications and services.
 While the [Business Accelerator Hub](#sap-business-accelerator-hub) focuses on the static perspective of a product, the UCL can provide the actual system tenant metadata - including possible customer extensions and customizations.
 
-<details><summary>Click to see UI examples with annotations</summary><p>
+<details><summary>Click to see UI examples with annotations as well as more details on UCL</summary><p>
 
 ![BTP Cockpit System Landscape via UCL](/img/btp-cockpit-ucl-example.png 'BTP Cockpit System Landscape via UCL')
 

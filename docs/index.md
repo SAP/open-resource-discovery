@@ -18,6 +18,10 @@ By adopting ORD, an application will implement a single-entry point ([Service Pr
 
 </div>
 
+## Introduction
+
+Read the 📄 [ORD Introduction](./introduction.mdx) and watch the 🎦[ORD Videos](./details/videos).
+
 ## Goals
 
 <div class="container"><div class="row"><div class="col">
@@ -50,3 +54,12 @@ By adopting ORD, an application will implement a single-entry point ([Service Pr
   - We could change this in the future by introducing more efficient, asynchronous transport modes.
 
 </p></div></div></div></div></div>
+
+## Future Plans
+
+Beta support for describing [Data Products](https://martinfowler.com/articles/data-mesh-principles.html) is coming soon!
+
+We are also thinking about ways to make ORD publishing more efficient when there is a lot of tenant specific metadata or data changes happen frequently and replication is more time critical.
+
+Now that ORD is [open-source](https://sap.github.io/open-resource-discovery/), a potential next step is to work with partners on a true industry wide standard.
+ORD in its current state is focused around SAP. While most SAP specific aspects are described as [spec extensions](./spec-extensions), some concepts like [namespaces](./spec-v1/#namespaces) need more work.
