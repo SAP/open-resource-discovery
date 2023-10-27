@@ -205,7 +205,7 @@ components:
 
             If provided, this enables code intelligence and validation in supported editors (like VSCode) and tools.
           example: >-
-            https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Document.schema.json
+            https://raw.githubusercontent.com/SAP/open-resource-discovery/main/static/spec-v1/interfaces/Document.schema.json
         openResourceDiscovery:
           type: string
           description: Version of the Open Resource Discovery specification that is used to describe this document.
@@ -3321,9 +3321,12 @@ components:
           maxLength: 255
           example: sap.s4:apiResource:API_BILL_OF_MATERIAL_SRV:v1
         minVersion:
-          type: boolean
+          type: string
           description: |
             Minimum version of the references resource that the integration requires.
+          pattern: >-
+            ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+          example: 1.2.3
       required:
         - ordId
     EventResourceIntegrationAspect:
@@ -3341,9 +3344,12 @@ components:
           maxLength: 255
           example: sap.billing.sb:eventResource:BusinessEvents_SubscriptionEvents:v1
         minVersion:
-          type: boolean
+          type: string
           description: |
             Minimum version of the references resource that the integration requires.
+          pattern: >-
+            ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+          example: 1.2.3
         subset:
           type: array
           description: List of individual events or messages that are sufficient to achieve the aspect.
@@ -4179,7 +4185,7 @@ components:
             An optional URL to the ORD document schema (defined as JSON Schema).
             If given, this enables code intelligence and validation in supported editors (like VSCode) and tools.
           example: >-
-            https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Configuration.schema.json
+            https://raw.githubusercontent.com/SAP/open-resource-discovery/main/static/spec-v1/interfaces/Configuration.schema.json
         baseUrl:
           type: string
           format: uri

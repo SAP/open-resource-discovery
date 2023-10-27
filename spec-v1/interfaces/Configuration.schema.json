@@ -117,7 +117,7 @@
       "format": "uri-reference",
       "description": "An optional URL to the ORD document schema (defined as JSON Schema).\nIf given, this enables code intelligence and validation in supported editors (like VSCode) and tools.",
       "examples": [
-        "https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Configuration.schema.json"
+        "https://raw.githubusercontent.com/SAP/open-resource-discovery/main/static/spec-v1/interfaces/Configuration.schema.json"
       ]
     },
     "baseUrl": {

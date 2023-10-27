@@ -2828,8 +2828,13 @@
           ]
         },
         "minVersion": {
-          "type": "boolean",
-          "description": "Minimum version of the references resource that the integration requires.\n"
+          "type": "string",
+          "description": "Minimum version of the references resource that the integration requires.\n",
+          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$",
+          "examples": [
+            "1.2.3",
+            "1.0.0-alpha.1"
+          ]
         }
       },
       "additionalProperties": false,
@@ -2852,8 +2857,13 @@
           ]
         },
         "minVersion": {
-          "type": "boolean",
-          "description": "Minimum version of the references resource that the integration requires.\n"
+          "type": "string",
+          "description": "Minimum version of the references resource that the integration requires.\n",
+          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$",
+          "examples": [
+            "1.2.3",
+            "1.0.0-alpha.1"
+          ]
         },
         "subset": {
           "type": "array",
@@ -3644,7 +3654,7 @@
       "format": "uri-reference",
       "description": "An optional [URL](https://tools.ietf.org/html/rfc3986) to the Open Resource Discovery document schema (Defined as a JSON Schema).\n\nIf provided, this enables code intelligence and validation in supported editors (like VSCode) and tools.",
       "examples": [
-        "https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Document.schema.json"
+        "https://raw.githubusercontent.com/SAP/open-resource-discovery/main/static/spec-v1/interfaces/Document.schema.json"
       ]
     },
     "openResourceDiscovery": {
