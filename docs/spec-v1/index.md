@@ -553,9 +553,10 @@ Each namespace is responsible for ensuring uniqueness and consistency within its
 Namespaces are hierarchical. The responsibility and ownership can either be delegated or centralized.
 How exactly this is ensured and governed is up to the namespace owners, but one possible solution is to maintain a namespace registry.
 
-At SAP, this is ensured via the SAP application-namespace-registry.
+At SAP, this is ensured via the SAP namespace-registry.
 
 A namespace may consist of multiple fragments, delimited by dots (`.`).
+
 For the formatting of the individual fragments of the namespaces, the following rules apply:
 
 - MUST only consist of lower case ASCII letters (`a-z`) and digits (`0-9`).
@@ -569,6 +570,38 @@ A complete namespace MUST match the following [regular expression](https://en.wi
 ```regex
 ^[a-z0-9]+(?:[.][a-z0-9]+)*$
 ```
+
+#### Structure of Namespaces
+
+![Namespace Concept Overview](/img/namespace-concept.svg 'Namespace Concept Overview')
+
+Namespaces MUST follow the below structure:
+
+```xml
+<vendorNamespace> := <vendorId>
+    <vendorId> := identifier of the vendor / organization.
+
+<applicationNamespace> := <vendorNamespace>.<applicationId>
+    <applicationId> := identifier of the service / application.
+
+<authorityNamespace> := <vendorNamespace>.<authorityId>
+    <authorityId> := identifier of the authority.
+```
+
+Optionally, Sub-Contexts can be defined as sub namespaces for application and authority namespaces:
+
+```xml
+<namespace> := <applicationNamespace/authorityNamespace>[.<subContext>]
+    <subContext> := sub context below application or authority namespace. May consist of multiple fragments.
+```
+
+**Constraints**:
+
+* A namespace MUST be ensured to be conflict free. This falls into the responsibility of the registered namespace owner. This registry can be used to ensure this for registered namespaces and sub-namespaces, but within them there needs to be some local governance.
+* All SAP applications MUST use the `sap` vendor namespace.
+* An application / service namespace and an authority namespace MUST always be a sub-namespace of a vendor namespace.
+* A sub-context namespace MUST always be a sub-namespace of either a an application / service namespace or an authority namespace.
+* If sub-context namespaces are described in this registry, the list MUST be complete.
 
 #### Vendor Namespace
 
@@ -585,37 +618,63 @@ A vendor namespace MUST be constructed according to the following rules:
 
 **Examples**: For SAP, we chose and registered `sap`.
 
-#### Unit Namespace
+> 🚧 There is currently no global namespace registry where we can ensure that there are no conflicts across those. If ORD is to be used as a universal standard, this needs to be introduced.
 
-An <dfn id="def-ord-unit-namespace">unit namespace</dfn> is a stable and globally unique identifier namespace that corresponds to a responsible (organizational) unit or area of the vendor.
+#### Application Namespace
 
-It can be used to refer to either:
-* An **application / service**, also referred to in ORD as <a href="#def-system-type">system type</a>.
-* An **authority** as organizational unit responsible for cross-alignment and governance.
+An <dfn id="def-ord-application-namespace">application namespace</dfn> is a stable and globally unique identifier namespace that corresponds to an application or service (ORD <a href="#def-system-type">system type</a>).
 
-Unit namespaces are sub-namespaces of exactly one vendor namespace.
+The application / service is the technical, simplified view on an application or service.
+We are aware that there can be hierarchical groupings of them to higher, logical concepts and also to divide them into multiple sub-components.
+Here we simplify on purpose and **treat the identity of an application / service flatly, without hierarchy**.
+How this boundary is drawn depends on the technical decisions of the application / service.
 
-To model a more complex application or organizational structure, for instance containing multiple modules / components, further sub-fragments may be added as [subcontext namespaces](#subcontext-namespace).
+To model a more complex application or organizational structure, for instance containing multiple modules / components, further sub-fragments MAY be indicated via [subcontext namespaces](#subcontext-namespace).
 
-An unit namespace MUST be constructed according to the following rules:
+Application namespaces are sub-namespaces of exactly one vendor namespace.
 
-`<unitNamespace>` := `<vendorNamespace>.<unitIdentifier>`
+An application namespace MUST be constructed according to the following rules:
 
-- `<vendorNamespace>` MUST be a valid [vendor namespace](#vendor-namespace)
-- `<unitIdentifier>` is the identifier of the application, service or organizational unit.
+`<applicationNamespace>` := `<vendorNamespace>.<unitIdentifier>`
+
+- `<applicationNamespace>` MUST be a valid [vendor namespace](#vendor-namespace)
+- `<unitIdentifier>` is the identifier of the technical application or service.
   - MUST only consist of lower case ASCII letters (`a-z`) and digits (`0-9`) (`^[a-z0-9]+$`).
 
 **Examples**: `sap.s4`, `sap.dsc`.
 
+#### Authority Namespace
+
+An <dfn id="def-ord-authority-namespace">authority namespace</dfn> is a stable and globally unique identifier namespace that corresponds to an application or service (ORD <a href="#def-system-type">system type</a>).
+
+An **authority** is an organizational unit responsible for cross-alignment and governance.
+Authority namespaces are relevant when contracts and interfaces are owned and defined on a level that spans across individual applications or services.
+
+An authority namespace MUST be constructed according to the following rules:
+
+`<authority>` := `<vendorNamespace>.<authorityIdentifier>`
+
+- `<vendorNamespace>` MUST be a valid [vendor namespace](#vendor-namespace)
+- `<authorityIdentifier>` is the identifier of the organizational unit.
+  - MUST only consist of lower case ASCII letters (`a-z`) and digits (`0-9`) (`^[a-z0-9]+$`).
+
+**Examples**: `sap.odm`.
+
 #### Subcontext Namespace
 
-A <dfn id="def-ord-subcontext-namespace">subcontext namespace</dfn> is a stable and globally unique identifier namespace that allows for further sub-grouping within an [unit-namespace](#unit-namespace).
+A <dfn id="def-ord-subcontext-namespace">subcontext namespace</dfn> is a stable and globally unique identifier namespace that allows for further sub-grouping within an [application namespace](#application-namespace) or [authority namespace](#application-namespace).
+
+A subcontext can be motivated by ownership, domain or technical modularity concerns.
+  * A Sub-Context MUST be directly below an application / service namespace or an authority namespace.
+  * A Sub-Context MAY be provided or not, but if they are described here, the list MUST be complete.
+  * A Sub-Context MAY contain further sub-namespaces, e.g. `subcontext.subsubcontext`.
+  * **The Sub-Context MUST NOT be interpreted as identity by services and consumers.**.
 
 An subcontext namespace MUST be constructed according to the following rules:
 
-`<subcontextNamespace>` := `<unitNamespace>.<subContextName>`
+`<subcontextNamespace>` := `<applicationNamespace|authorityNamespace>.<subContextName>`
 
-- `<unitNamespace>` MUST be a valid [unit namespace](#unit-namespace)
+- `<applicationNamespace|authorityNamespace>` MUST be a valid [application namespace](#application-namespace) or [authority namespace](#application-namespace).
 - `<subContextName>` is the identifier of the application / service.
   - MUST only consist of lower case ASCII letters (`a-z`) and digits (`0-9`) (`^[a-z0-9]+$`).
   - MAY include further subcontext namespaces, separated by `.`.
@@ -649,8 +708,12 @@ It MUST be constructed as defined here:
 
 - **`<namespace>`** := an [ORD namespace](#namespaces).
 
-  - MUST be a valid [unit namespace](#def-ord-unit-namespace) or [subcontext namespace](#subcontext-namespace) for `Package`, `ConsumptionBundle`, `APIResource` and `EventResource`
-  - MUST be a valid [vendor namespace](#def-ord-vendor-namespace) for `Vendor` and `Product`
+  - For `Package`, `ConsumptionBundle`, `APIResource` and `EventResource`, `Capability` and `IntegrationDependency`:
+    - MUST be a valid [application namespace](#application-namespace) or an [subcontext namespace](#subcontext-namespace) thereof
+  - For `EntityType`
+    - MUST be a valid [application namespace](#application-namespace), [authority namespace](#authority-namespace) or [subcontext namespace](#subcontext-namespace)
+  - For `Vendor` and `Product`:
+    - MUST be a valid [vendor namespace](#def-ord-vendor-namespace) for `Vendor` and `Product`
 
 - **`<ordType>`** := The ORD type of the described resource / taxonomy.
 
@@ -722,7 +785,7 @@ It MUST be constructed as defined here:
 
 - **`<namespace>`** := an [ORD namespace](#namespaces).
 
-  - MUST be a valid [unit namespace](#def-ord-unit-namespace) or [subcontext namespace](#subcontext-namespace).
+  - MUST be a valid [namespace](#namespaces).
 
 - **`<type>`**: the type of the correlation target (similar as `<ordType>`)
 
@@ -737,7 +800,7 @@ It MUST be constructed as defined here:
   - MUST be unique within the chosen `<namespace>`.
   - SHOULD be (sufficiently) human readable and SEO/URL friendly (avoid UUIDs).
 
-The system of record application / service is indicated through the `<unitNamespace>` and MUST be able to resolve / correlate when given the `<type>` and the `<localIdentifier>`.
+The system of record application / service or responsible org unit is indicated through the [`<namespace>`](#namespaces) and MUST be able to resolve / correlate when given the `<type>` and the `<localIdentifier>`.
 
 A Correlation ID MUST not exceed 255 characters in total.
 
@@ -766,14 +829,14 @@ In some situations it is also used to refer to certain implementation standards 
 
 - **`<namespace>`** := an [ORD namespace](#namespaces).
 
-  - MUST be a valid [vendor namespace](#def-ord-vendor-namespace), [unit namespace](#def-ord-unit-namespace) or [subcontext namespace](#subcontext-namespace).
+  - MUST be a valid [namespace](#namespaces).
 
-  - If the strategy is specific only to a single application, an unit namespace SHOULD be chosen.
+  - If the strategy is specific only to a single application, an [applicatoin namespace](#application-namespace) SHOULD be chosen.
 
-- **`<specificationIdentifier>`** a technical Specification IDentifier that is unique within `<vendorNamespace OR unitNamespace>`
+- **`<specificationIdentifier>`** a technical Specification Identifier that is unique within `<namespace>`
 
   - MUST only contain ASCII letters (`a-z`, `A-Z`), digits (`0-9`) and the special characters `-`, `_`, `/` and `.`.
-  - MUST be unique within `<vendorNamespace>` OR `<unitNamespace>`.
+  - MUST be unique within `<namespace>`.
   - SHOULD be (sufficiently) human readable (avoid UUIDs).
 
 - **`<majorVersion>`** the major version for the chosen strategy

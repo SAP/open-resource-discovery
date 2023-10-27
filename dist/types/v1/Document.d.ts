@@ -1656,7 +1656,7 @@ export interface APIResourceIntegrationAspect {
      * Minimum version of the references resource that the integration requires.
      *
      */
-    minVersion?: boolean;
+    minVersion?: string;
 }
 /**
  * Event resource related integration aspect
@@ -1672,7 +1672,7 @@ export interface EventResourceIntegrationAspect {
      * Minimum version of the references resource that the integration requires.
      *
      */
-    minVersion?: boolean;
+    minVersion?: string;
     /**
      * List of individual events or messages that are sufficient to achieve the aspect.
      */

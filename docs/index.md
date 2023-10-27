@@ -50,7 +50,7 @@ Read the 📄 [ORD Introduction](./introduction.mdx) and watch the 🎦[ORD Vide
 - Currently: Describe resources other than those that are owned and exposed by the systems directly
   (only self-description of systems).
   - We could change this scope in the future if necessary.
-- We don't put fast changing information into ORD, as the current pull-based transport mechanism would be to slow and expensive to support timeliness updates.
+- We don't put fast changing information into ORD, as the current pull-based transport mechanism would be to slow and expensive to support time-critical updates.
   - We could change this in the future by introducing more efficient, asynchronous transport modes.
 
 </p></div></div></div></div></div>
