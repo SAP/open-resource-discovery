@@ -1,4 +1,12 @@
 /**
+ * Define from where the API resource can be used and accessed
+ */
+export type Usage = "external" | "local";
+/**
+ * If provided, all resources that are part of this package can only run on the listed runtime.
+ */
+export type RuntimeRestriction = "sap.datasphere";
+/**
  * The [ORD Document](../index.md#ord-document) object serves as a wrapper for the **ORD resources** and **ORD taxonomy** and adds further top-level information
  * that are specific to the document/the service it describes.
  *
@@ -14,7 +22,7 @@ export interface ORDDocument {
     /**
      * Version of the Open Resource Discovery specification that is used to describe this document.
      */
-    openResourceDiscovery: "1.0" | "1.1" | "1.2" | "1.3" | "1.4" | "1.5" | "1.6" | "1.7";
+    openResourceDiscovery: "1.0" | "1.1" | "1.2" | "1.3" | "1.4" | "1.5" | "1.6" | "1.7" | "1.8";
     /**
      * Optional description of the ORD document itself.
      * Please note that this information is NOT further processed or considered by an ORD aggregator.
@@ -59,6 +67,10 @@ export interface ORDDocument {
      * Array of all capabilities that are described in this ORD document.
      */
     capabilities?: Capability[];
+    /**
+     * Array of all data products that are described in this ORD document.
+     */
+    dataProducts?: DataProduct[];
     /**
      * Array of all integration dependencies that are described in this ORD document.
      */
@@ -331,7 +343,7 @@ export interface APIResource {
     /**
      * The successor resource(s).
      *
-     * MUST be a valid reference to an [API Resource](#api-resource) ORD ID.
+     * MUST be a valid reference to an ORD ID.
      *
      * If the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.
      */
@@ -373,7 +385,7 @@ export interface APIResource {
     /**
      * API Protocol including the protocol version if applicable
      */
-    apiProtocol: "odata-v2" | "odata-v4" | "rest" | "graphql" | "soap-inbound" | "soap-outbound" | "websocket" | "sap-rfc" | "sap-sql-api-v1";
+    apiProtocol: "odata-v2" | "odata-v4" | "rest" | "graphql" | "delta-sharing" | "soap-inbound" | "soap-outbound" | "websocket" | "sap-rfc" | "sap-sql-api-v1" | "sap-ina-api-v1";
     /**
      * List of available machine-readable resource definitions.
      *
@@ -388,7 +400,7 @@ export interface APIResource {
      * All APIs that share the same implementation standard MAY be treated the same by a consumer.
      * However, there MAY be differences in the API URLs, access strategy, and compatible customizations by the implementer.
      */
-    implementationStandard?: "sap:ord-document-api:v1" | "cff:open-service-broker:v2" | "sap:csn-exposure:v1" | "sap:ape-api:v1" | "sap:cdi-api:v1" | "custom";
+    implementationStandard?: "sap:ord-document-api:v1" | "cff:open-service-broker:v2" | "sap:csn-exposure:v1" | "sap:ape-api:v1" | "sap:cdi-api:v1" | "sap:hdlf-delta-sharing:v1" | "sap:hana-cloud-sql:v1" | "custom";
     /**
      * If the fixed `implementationStandard` values need to be extended, an arbitrary `customImplementationStandard` can be provided.
      *
@@ -406,14 +418,21 @@ export interface APIResource {
      */
     customImplementationStandardDescription?: string;
     /**
+     * Contains typically the organization that is responsible in the sense of RACI matrix for this ORD resource. This includes support and feature requests. It is maintained as correlation id to for example support components.
+     */
+    responsible?: string;
+    /**
      * List of use cases (types) how the resource is meant to be used for.
      *
      * This helps consumers better to understand which use cases had been in mind by the provider
      * and are therefore explicitly supported.
+     * This is obviously described from a provider perspective, but stating what consumer use cases it potentially supports.
+     * As it's not possible to create a list of options that are mutually exclusive, all options that apply should be provided.
      *
      * If no array is defined, it is assumed that this information is not provided.
      */
-    supportedUseCases?: (("mass-extraction" | "mass-import") & ("mass-extraction" | "mass-import"))[];
+    supportedUseCases?: (("data-federation" | "snapshot" | "incremental" | "streaming") & ("data-federation" | "snapshot" | "incremental" | "streaming"))[];
+    usage?: Usage;
     /**
      * Describes mappings between the API Models of the described resource to the underlying, conceptual entity types.
      */
@@ -550,7 +569,7 @@ export interface APIResourceDefinition {
      * Type of the API Resource Definition
      * If "custom" is chosen, a customType MUST be provided
      */
-    type: "openapi-v2" | "openapi-v3" | "raml-v1" | "edmx" | "csdl-json" | "graphql-sdl" | "wsdl-v1" | "wsdl-v2" | "sap-rfc-metadata-v1" | "sap-sql-api-definition-v1" | "custom";
+    type: "openapi-v2" | "openapi-v3" | "raml-v1" | "edmx" | "csdl-json" | "graphql-sdl" | "wsdl-v1" | "wsdl-v2" | "sap-delta-sharing-combined" | "sap-rfc-metadata-v1" | "sap-sql-api-definition-v1" | "custom";
     /**
      * If the fixed `type` enum values need to be extended, an arbitrary `customType` can be provided.
      *
@@ -946,7 +965,7 @@ export interface EventResource {
     /**
      * The successor resource(s).
      *
-     * MUST be a valid reference to an [API Resource](#api-resource) ORD ID.
+     * MUST be a valid reference to an ORD ID.
      *
      * If the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.
      */
@@ -989,6 +1008,10 @@ export interface EventResource {
      * SHOULD contain documentation and links that describe the used standard.
      */
     customImplementationStandardDescription?: string;
+    /**
+     * Contains typically the organization that is responsible in the sense of RACI matrix for this ORD resource. This includes support and feature requests. It is maintained as correlation id to for example support components.
+     */
+    responsible?: string;
     /**
      * Describes mappings between the API Models of the described resource to the underlying, conceptual entity types.
      */
@@ -1221,7 +1244,7 @@ export interface EntityType {
     /**
      * The successor resource(s).
      *
-     * MUST be a valid reference to an [API Resource](#api-resource) ORD ID.
+     * MUST be a valid reference to an ORD ID.
      *
      * If the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.
      */
@@ -1461,6 +1484,230 @@ export interface CapabilityDefinition {
     accessStrategies: [AccessStrategy, ...AccessStrategy[]];
 }
 /**
+ * A [Data Product](../../details/articles/data-product) is a data set exposed for consumption outside the boundaries of the producing application via APIs and described by high quality metadata that can be accessed through the [ORD Aggregator](../../spec-v1/#ord-aggregator).
+ *
+ * Please note that this concept is in beta. What this implies is described in [Data Product - Beta Status](../../details/articles/data-product#beta-status).
+ */
+export interface DataProduct {
+    /**
+     * The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.
+     *
+     * It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
+     */
+    ordId: string;
+    /**
+     * Local ID, as known by the described system.
+     */
+    localId?: string;
+    /**
+     * Correlation IDs can be used to create a reference to related data in other repositories (especially to the system of record).
+     *
+     * MUST be a valid [Correlation ID](../index.md#correlation-id).
+     */
+    correlationIds?: string[];
+    /**
+     * Human-readable title.
+     *
+     * MUST NOT exceed 255 chars.
+     * MUST NOT contain line breaks.
+     */
+    title: string;
+    /**
+     * Plain text short description.
+     *
+     * MUST NOT exceed 255 chars.
+     * MUST NOT contain line breaks.
+     */
+    shortDescription?: string;
+    /**
+     * Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+     */
+    description?: string;
+    /**
+     * Defines which Package the resource is part of.
+     *
+     * MUST be a valid reference to a [Package](#package) ORD ID.
+     *
+     * Every resource MUST be part of one package.
+     */
+    partOfPackage: string;
+    /**
+     * The complete [SemVer](https://semver.org/) version string.
+     *
+     * It MUST follow the [Semantic Versioning 2.0.0](https://semver.org/) standard.
+     * It SHOULD be changed if the ORD information or referenced resource definitions changed.
+     * It SHOULD express minor and patch changes that don't lead to incompatible changes.
+     *
+     * When the `version` major version changes, the [ORD ID](#ord-id) `<majorVersion>` fragment MUST be updated to be identical.
+     * In case that a resource definition file also contains a version number (e.g. [OpenAPI `info`.`version`](https://swagger.io/specification/#info-object)), it MUST be equal with the resource `version` to avoid inconsistencies.
+     *
+     * The general [Version and Lifecycle](../index.md#version-and-lifecycle) flow MUST be followed.
+     *
+     * Note: A change is only relevant for a version increment, if it affects the ORD resource or ORD taxonomy directly.
+     * For example: If a resource within a `Package` changes, but the package itself did not, the package version does not need to be incremented.
+     */
+    version: string;
+    /**
+     * Optional, but RECOMMENDED indicator when (date-time) the last change to the resource (including its definitions) happened.
+     *
+     * The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
+     *
+     * In case that this property is available and the value of it hasn't changed since the last crawling, the resource definitions do not need to be fetched and updated.
+     *
+     * Together with `systemInstanceAware`, this property SHOULD be used to optimize the metadata crawling process of the ORD aggregators.
+     */
+    lastUpdate?: string;
+    /**
+     * The visibility/exposure of the data product. A public data product might have private APIs for trusted consumers therefore the having the property on data product
+     */
+    visibility: "public" | "internal" | "private";
+    /**
+     * The `releaseStatus` specifies the stability towards incompatible changes in the future.
+     * In the context of data products, it it covers only properties on the data product level.
+     * APIs that are part of the input and output ports have their own independent `releaseStatus` and `version`.
+     */
+    releaseStatus: "active" | "beta" | "deprecated";
+    /**
+     * Indicates that this resource is currently not available for consumption at runtime, but could be configured to be so.
+     * This can happen either because it has not been setup for use or disabled by an admin / user.
+     *
+     * If the resource is not available in principle for a particular system instance, e.g. due to lack of entitlement, it MUST not be described in the system-instance aware perspective.
+     *
+     * This only needs to reflect the knowledge of the described system instance itself,
+     * meaning that outside factors don't need to be considered (e.g. network connectivity, middlewares).
+     * This information may be of relevance for some ORD consumers that need to filter for active or disabled APIs.
+     *
+     * A disabled resource MAY skip describing its resource definitions.
+     *
+     */
+    disabled?: boolean;
+    /**
+     * The deprecation date defines when the resource has been set as deprecated.
+     * This is not to be confused with the `sunsetDate` which defines when the resource will be actually decommissioned / removed.
+     *
+     * If the `releaseStatus` is set to `deprecated`, the `deprecationDate` SHOULD be provided.
+     *
+     * The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
+     */
+    deprecationDate?: string;
+    /**
+     * The sunset date defines when the resource is scheduled to be decommissioned/removed.
+     *
+     * If the `releaseStatus` is set to `deprecated`, the `sunsetDate` MUST be provided.
+     *
+     * The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
+     */
+    sunsetDate?: string;
+    /**
+     * The successor resource(s).
+     *
+     * MUST be a valid reference to an ORD ID.
+     *
+     * If the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.
+     */
+    successors?: string[];
+    /**
+     * Contains changelog entries that summarize changes with special regards to version and releaseStatus
+     */
+    changelogEntries?: ChangelogEntry[];
+    /**
+     * Type of the data product. Based on the type some properties of a data product may become optional/mandatory.
+     */
+    type: "base" | "derived";
+    /**
+     * Category of the data-set within data product. Based on its definition, a data product is a “data set” - which can include on the values below.
+     * Based on the type some properties of a data product may become optional/mandatory.
+     * Consumers might still do analytics on business object like data products.
+     */
+    category: "business-object" | "analytical" | "other";
+    /**
+     * List of (ODM) entity types that are at least partially exposed by the data product.
+     */
+    entityTypes?: string[];
+    /**
+     * List of Integration Dependencies, whose aspects will form the actual input ports. Therefore, the integration dependencies are an indirection to make use of a more general concern.
+     * Input ports are the public interface to ingest data into the data product.
+     * `derived` typed data products consume data through the input ports. Different input ports allowing ingestion of different sub-sets building up the data-set for the data product.
+     * `base` typed data products might not have any input ports. Their data sets are typically served directly from the application.
+     *
+     * @minItems 0
+     */
+    inputPorts?: IntegrationDependency[];
+    /**
+     * List of output ports.
+     * Output ports are the public interface to access the data set of the data product. Output ports of the same data product might produce different facets of the data set with different qualities.
+     * Different output ports providing access to different sub-sets of the complete data products data-set. As long as different output ports are accessing the same model beneath, they should belong to the same data product.
+     * If multiple output ports structure is too different, splitting and distributing them to different data product is suggested.
+     *
+     * @minItems 0
+     */
+    outputPorts: DataProductOutputPort[];
+    /**
+     * Contains typically the organization that is responsible in the sense of RACI matrix for this ORD resource. This includes support and feature requests. It is maintained as correlation id to for example support components.
+     */
+    responsible: string;
+    /**
+     * Links with semantic meaning that are specific to Data Product Resources.
+     */
+    dataProductLinks?: DataProductLink[];
+    /**
+     * Generic Links with arbitrary meaning and content.
+     */
+    links?: Link[];
+    /**
+     * List of industry tags.
+     * No special characters are allowed except `-`, `_`, `.`, `/` and ` `.
+     *
+     * `industry` that are assigned to a `Package` are inherited to all of the ORD resources it contains.
+     */
+    industry?: ((string | "Aerospace and Defense" | "Automotive" | "Banking" | "Chemicals" | "Consumer Products" | "Defense and Security" | "Engineering Construction and Operations" | "Healthcare" | "Higher Education and Research" | "High Tech" | "Industrial Machinery and Components" | "Insurance" | "Life Sciences" | "Media" | "Mill Products" | "Mining" | "Oil and Gas" | "Professional Services" | "Public Sector" | "Retail" | "Sports and Entertainment" | "Telecommunications" | "Travel and Transportation" | "Utilities" | "Wholesale Distribution") & string)[];
+    /**
+     * List of line of business tags.
+     * No special characters are allowed except `-`, `_`, `.`, `/` and ` `.
+     *
+     * `lineOfBusiness` that are assigned to a `Package` are inherited to all of the ORD resources it contains.
+     */
+    lineOfBusiness?: ((string | "Asset Management" | "Commerce" | "Finance" | "Human Resources" | "Manufacturing" | "Marketing" | "R&D Engineering" | "Sales" | "Service" | "Sourcing and Procurement" | "Supply Chain" | "Sustainability" | "Metering" | "Grid Operations and Maintenance" | "Plant Operations and Maintenance" | "Maintenance and Engineering") & string)[];
+    /**
+     * List of free text style tags.
+     * No special characters are allowed except `-`, `_`, `.`, `/` and ` `.
+     *
+     * Tags that are assigned to a `Package` are inherited to all of the ORD resources it contains.
+     */
+    tags?: string[];
+    labels?: Labels;
+    documentationLabels?: DocumentationLabels;
+    /**
+     * The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that this ORD Document or part of it needs to be compliant with.
+     * Depending on the chosen policy level, certain expectations and validations rules will be applied.
+     *
+     * The policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.
+     *
+     * If not provided, no additional policy level expectations and validations apply.
+     *
+     */
+    policyLevel?: "none" | "sap:core:v1" | "custom";
+    /**
+     * If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.
+     *
+     * The policy level is inherited from packages to resources they contain, but can be overwritten at resource level.
+     *
+     * MUST only be provided if `policyLevel` is set to `custom`.
+     *
+     * MUST be a valid [Specification ID](../index.md#specification-id).
+     */
+    customPolicyLevel?: string;
+    /**
+     * Defines whether this ORD resource is **system instance aware**.
+     * This is the case (and relevant) when the referenced resource definitions are potentially different between **system instances**.
+     *
+     * If this behavior applies, `systemInstanceAware` MUST be set to true.
+     * An ORD aggregator that represents a system instance aware perspective MUST fetch the referenced resource definitions,
+     * not just once per system type, but once per **system instance**.
+     */
+    systemInstanceAware?: boolean;
+}
+/**
  * An [Integration Dependency](../../details/articles/integration-dependency) states that the described system (self) can integrate with external systems (integration target) to achieve an integration purpose.
  * The purpose could be to enable a certain feature or integration scenario, but it could also be a mandatory prerequisite for the described system to work.
  *
@@ -1569,7 +1816,7 @@ export interface IntegrationDependency {
     /**
      * The successor resource(s).
      *
-     * MUST be a valid reference to an [API Resource](#api-resource) ORD ID.
+     * MUST be a valid reference to an ORD ID.
      *
      * If the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.
      */
@@ -1692,6 +1939,44 @@ export interface EventResourceIntegrationAspectSubset {
      * E.g. for CloudEvents, the [type](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#type) can be used.
      */
     eventType: string;
+}
+/**
+ * A data product outport references APIs or Events that expose different sub-sets of the same data-set
+ * Referenced API or Event ORD resources don't need to be provided within the same ORD document. Especially if a data product is built against a specific API contract of another application or data product,
+ * this API resource should be referred to. In this case the other application is responsible for the lifecycle of the API contract and will update its ORD description independently. This is also the main reason for not
+ * directly referencing API or Event resources, so that a data product can attach limited data product specific properties in the future.
+ */
+export interface DataProductOutputPort {
+    /**
+     * The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.
+     *
+     * It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
+     */
+    ordId: string;
+}
+/**
+ * Links with specific semantic meaning that are related to Data Product resources.
+ * If a generic `Link` can also be expressed via `DataProductLink`, the latter MUST be chosen.
+ */
+export interface DataProductLink {
+    /**
+     * API action type.
+     * See also: [WADG0001 WebAPI type extension](https://webapi-discovery.github.io/rfcs/rfc0001.html#webapiactions)
+     */
+    type: "payment" | "service-level-agreement" | "support" | "custom";
+    /**
+     * If the fixed `type` enum values need to be extended, an arbitrary `customType` can be provided.
+     *
+     * MUST be a valid [Specification ID](../index.md#specification-id).
+     *
+     * MUST only be provided if `type` is set to `custom`.
+     */
+    customType?: string;
+    /**
+     * [URL reference](https://tools.ietf.org/html/rfc3986#section-4.1) (URL or relative reference) to the endpoint or UI for the action.
+     * If the link is relative to base URL, it is RECOMMENDED to provide a relative URL to it, starting with `/`.
+     */
+    url: string;
 }
 /**
  * The vendor of a product or a package, usually a corporation or a customer / user.
@@ -1949,6 +2234,7 @@ export interface Package {
      * `industry` that are assigned to a `Package` are inherited to all of the ORD resources it contains.
      */
     industry?: ((string | "Aerospace and Defense" | "Automotive" | "Banking" | "Chemicals" | "Consumer Products" | "Defense and Security" | "Engineering Construction and Operations" | "Healthcare" | "Higher Education and Research" | "High Tech" | "Industrial Machinery and Components" | "Insurance" | "Life Sciences" | "Media" | "Mill Products" | "Mining" | "Oil and Gas" | "Professional Services" | "Public Sector" | "Retail" | "Sports and Entertainment" | "Telecommunications" | "Travel and Transportation" | "Utilities" | "Wholesale Distribution") & string)[];
+    runtimeRestriction?: RuntimeRestriction;
     /**
      * List of free text style tags.
      * No special characters are allowed except `-`, `_`, `.`, `/` and ` `.

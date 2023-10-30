@@ -1,5 +1,5 @@
 {
-  "openResourceDiscovery": "1.7",
+  "openResourceDiscovery": "1.8",
   "description": "Example based on ORD Reference Application",
   "policyLevel": "sap:core:v1",
   "products": [

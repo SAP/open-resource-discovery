@@ -1,5 +1,5 @@
 {
-  "openResourceDiscovery": "1.7",
+  "openResourceDiscovery": "1.8",
   "description": "This ORD Document example contains more special examples, like custom SAP protocols",
   "policyLevel": "sap:core:v1",
 

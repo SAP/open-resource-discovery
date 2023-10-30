@@ -10,6 +10,8 @@ sidebar_position: 0
 
 Open Resource Discovery (ORD) is a protocol that **allows applications and services to self-describe their exposed resources and capabilities**. This can be done at deploy-time for static documentation and at runtime to also reflect tenant specific configuration and extensions.​
 
+The most typical resources to describe are [APIs](./spec-v1/interfaces/document#api-resource) and [Events](./spec-v1/interfaces/document#event-resource). But ORD can also be used to describe higher-level concepts like Business Objects / [Entity Types](./spec-v1/interfaces/document#entity-type) and [Data Products](./spec-v1/interfaces/document#data-products). With [Integration Dependencies](./spec-v1/interfaces/document#integration-dependency) it is also possible to describe how external resources can (potentially) be used. In case what is already standardized is not sufficient, there are extensibility attributes and [Capabilities](./spec-v1/interfaces/document#capability).
+
 By adopting ORD, an application will implement a single-entry point ([Service Provider Interface](https://en.wikipedia.org/wiki/Service_provider_interface)) that can be used to discover and crawl the relevant information / metadata.
 
 <div style={{"text-align": "center", "margin-top": "8px"}}>
@@ -57,9 +59,7 @@ Read the 📄 [ORD Introduction](./introduction.mdx) and watch the 🎦[ORD Vide
 
 ## Future Plans
 
-Beta support for describing [Data Products](https://martinfowler.com/articles/data-mesh-principles.html) is coming soon!
-
-We are also thinking about ways to make ORD publishing more efficient when there is a lot of tenant specific metadata or data changes happen frequently and replication is more time critical.
+We are thinking about ways to make ORD publishing more efficient when there is a lot of tenant specific metadata or data changes happen frequently and replication is more time critical.
 
 Now that ORD is [open-source](https://sap.github.io/open-resource-discovery/), a potential next step is to work with partners on a true industry wide standard.
 ORD in its current state is focused around SAP. While most SAP specific aspects are described as [spec extensions](./spec-extensions), some concepts like [namespaces](./spec-v1/#namespaces) need more work.

@@ -726,6 +726,7 @@ It MUST be constructed as defined here:
   - Use `capability` for `Capability`
   - Use `entityType` for `EntityType`
   - Use `integrationDependency` for `IntegrationDependency`
+  - Use `dataProduct` for `DataProduct`
 
 - **`<resourceId>`** := the technical resource name.
 
@@ -754,7 +755,7 @@ It MUST be constructed as defined here:
 An ORD ID MUST match the following [regular expression](https://en.wikipedia.org/wiki/Regular_expression):
 
 ```regex
-^([a-z0-9-]+(?:[.][a-z0-9-]+)*):(package|consumptionBundle|product|vendor|apiResource|eventResource|capability|entityType|integrationDependency):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*|)$
+^([a-z0-9-]+(?:[.][a-z0-9-]+)*):(package|consumptionBundle|product|vendor|apiResource|eventResource|capability|entityType|integrationDependency|dataProduct):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*|)$
 ```
 
 #### ORD ID Resolving

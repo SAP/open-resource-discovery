@@ -1,5 +1,5 @@
 {
-  "openResourceDiscovery": "1.7",
+  "openResourceDiscovery": "1.8",
   "description": "Example for entity types as they will be exposed by ODM",
   "policyLevel": "sap:core:v1",
   "packages": [

@@ -8,6 +8,7 @@
     "EventResource",
     "EntityType",
     "Capability",
+    "DataProduct",
     "IntegrationDependency",
     "Vendor",
     "Product",
@@ -325,6 +326,18 @@
               "Public Sector"
             ],
             []
+          ]
+        },
+        "runtimeRestriction": {
+          "x-introduced-in-version": "1.8.0",
+          "x-feature-status": "alpha",
+          "title": "Runtime Restriction",
+          "description": "If provided, all resources that are part of this package can only run on the listed runtime.",
+          "type": "string",
+          "oneOf": [
+            {
+              "const": "sap.datasphere"
+            }
           ]
         },
         "tags": {
@@ -707,7 +720,7 @@
         },
         "successors": {
           "type": "array",
-          "description": "The successor resource(s).\n\nMUST be a valid reference to an [API Resource](#api-resource) ORD ID.\n\nIf the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.",
+          "description": "The successor resource(s).\n\nMUST be a valid reference to an ORD ID.\n\nIf the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.",
           "items": {
             "type": "string",
             "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):(apiResource):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
@@ -777,7 +790,12 @@
             },
             {
               "const": "graphql",
-              "description": "[GraphQL](https://graphql.org/) API.\n\nAn API Resource definition of type `graphql-sdl` SHOULD be provided.\nFor each API Resource definition: `type` MUST ONLY be set to `graphql-sdl` or `custom`."
+              "description": "[GraphQL](https://graphql.org/) API.\nAn API Resource definition of type `graphql-sdl` SHOULD be provided.\nFor each API Resource definition: `type` MUST ONLY be set to `graphql-sdl` or `custom`."
+            },
+            {
+              "const": "delta-sharing",
+              "x-introduced-in-version": "1.8.0",
+              "description": "[Delta Sharing](https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md) Protocol.\nAn API Resource corresponds to a share.\nFor each API Resource definition: `type` MUST ONLY be set to `sap-delta-sharing-combined` or `custom` or left out in case standard delta-sharing metadata requests needs to be made."
             },
             {
               "const": "soap-inbound",
@@ -798,6 +816,11 @@
             {
               "const": "sap-sql-api-v1",
               "description": "SAP SQL API.\nAn API Resource definition of type `sap-sql-api-definition-v1` MUST be provided.\nFor each API Resource definition: `type` MUST ONLY be set to `sap-sql-api-definition-v1` or `custom`."
+            },
+            {
+              "const": "sap-ina-api-v1",
+              "x-introduced-in-version": "1.8.0",
+              "description": "SAP InA APIs are used by SAP Analytics Cloud solutions to capture data. It is an SAP proprietary protocol that only\nSAP Analytics Cloud MUST consume. It contains a protocol specific metadata retrieval mechanism so that SAP Analytics Cloud users can\nsee the schema of an InA API in SAP Analytics Cloud. An API Resource definition MUST NOT be provided."
             }
           ],
           "examples": [
@@ -829,11 +852,21 @@
             },
             {
               "const": "sap:ape-api:v1",
-              "description": "Implementation of the SAP ABAP Pipeline Engine (APE) API via ABAP WebSocket RFC for efficient data extraction.\nThe `apiProtocol` MUST be set to `websocket`."
+              "description": "Implementation of the [SAP ABAP Pipeline Engine (APE) API](https://help.sap.com/docs/SAP_DATA_INTELLIGENCE/3a65df0ce7cd40d3a61225b7d3c86703/8b287f0f0033447c8a57a1bee74cd840.html) via ABAP WebSocket RFC for efficient data extraction.\nThe `apiProtocol` MUST be set to `websocket`."
             },
             {
               "const": "sap:cdi-api:v1",
               "description": "Implementation of the SAP Cloud Data Integration (CDI) interface for delta-enabled data extraction.\nThe `apiProtocol` MUST be set to `odata-v4`."
+            },
+            {
+              "const": "sap:hdlf-delta-sharing:v1",
+              "x-introduced-in-version": "1.8.0",
+              "description": "HANA Data Lake File based implementation of `delta-sharing` API protocol. This implementation has some extension wrt. to standard delta-share such as providing key information.\nThe `apiProtocol` MUST be set to `delta-sharing`."
+            },
+            {
+              "const": "sap:hana-cloud-sql:v1",
+              "x-introduced-in-version": "1.8.0",
+              "description": "Specific additional implementation of the sap-sql-api-v1 API protocol that provide replication support when connecting from an Hana Cloud system\nsee [SAP HANA Cloud documentation](https://help.sap.com/docs/hana-cloud-database/sap-hana-cloud-sap-hana-database-data-access-guide/replicating-tables-from-remote-sources).\nThe `apiProtocol` MUST be set to `sap-sql-api-v1`."
             },
             {
               "const": "custom",
@@ -857,31 +890,68 @@
           "type": "string",
           "description": "Full description of the custom implementation standard, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).\n\nMUST only be provided if `implementationStandard` is set to `custom`.\n\nSHOULD contain documentation and links that describe the used standard.",
           "examples": [
-            "Implemented as defined in the [S/4Hana Attachment Service documentation](https://api.sap.com/api/API_CV_ATTACHMENT_SRV/overview)"
+            "Implemented as defined in the [S/4HANA Attachment Service documentation](https://api.sap.com/api/API_CV_ATTACHMENT_SRV/overview)"
+          ]
+        },
+        "responsible": {
+          "type": "string",
+          "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-\\/]+):([a-zA-Z0-9._\\-\\/]+)$",
+          "maxLength": 255,
+          "x-introduced-in-version": "1.8.0",
+          "description": "Contains typically the organization that is responsible in the sense of RACI matrix for this ORD resource. This includes support and feature requests. It is maintained as correlation id to for example support components.",
+          "examples": [
+            "sap:ach:CIC-DP-CO"
           ]
         },
         "supportedUseCases": {
           "type": "array",
-          "description": "List of use cases (types) how the resource is meant to be used for.\n\nThis helps consumers better to understand which use cases had been in mind by the provider\nand are therefore explicitly supported.\n\nIf no array is defined, it is assumed that this information is not provided.",
-          "x-introduced-in-version": "1.2.0",
+          "description": "List of use cases (types) how the resource is meant to be used for.\n\nThis helps consumers better to understand which use cases had been in mind by the provider\nand are therefore explicitly supported.\nThis is obviously described from a provider perspective, but stating what consumer use cases it potentially supports.\nAs it's not possible to create a list of options that are mutually exclusive, all options that apply should be provided.\n\nIf no array is defined, it is assumed that this information is not provided.",
+          "x-introduced-in-version": "1.8.0",
+          "x-feature-status": "beta",
           "items": {
             "type": "string",
             "oneOf": [
               {
-                "const": "mass-extraction",
-                "description": "Resource can be used for performant mass extraction (ETL) purposes."
+                "const": "data-federation",
+                "description": "Resources are designed to support [data federation](https://en.wikipedia.org/wiki/Federated_database_system). This goes beyond plain queries, but typically allowing connections on the data base level, in the context of a business user.\nAs consumers will directly access data, performance of the system must support these use cases."
               },
               {
-                "const": "mass-import",
-                "description": "Resource can be used for performant mass import purposes."
+                "const": "snapshot",
+                "description": "Resource can be used to get a snapshot with inherent consistency including potential paging requests. Such a snapshot might be the basis for incremental updates. A snapshot API is typically providing unfiltered, complete mass data access by a technical user.\nAs data is typically replicated, performance of the API is important, but less critical for an end-user experience."
+              },
+              {
+                "const": "incremental",
+                "description": "Resource gives incremental updates on top of snapshots."
+              },
+              {
+                "const": "streaming",
+                "description": "Resource can be used to get streaming updates. The difference to 'incremental' is that it doesn't need a snapshot ."
               }
             ]
           },
           "examples": [
             [
-              "mass-extraction"
+              "data-federation"
             ]
           ]
+        },
+        "usage": {
+          "x-introduced-in-version": "1.8.0",
+          "x-feature-status": "alpha",
+          "type": "string",
+          "title": "Usage",
+          "description": "Define from where the API resource can be used and accessed",
+          "oneOf": [
+            {
+              "const": "external",
+              "description": "The API entryPoints are accessible external from the application providing it."
+            },
+            {
+              "const": "local",
+              "description": "The API is only accessible within the application providing it. Access to (in-app) development tooling is necessary."
+            }
+          ],
+          "default": "external"
         },
         "entityTypeMappings": {
           "type": "array",
@@ -1357,7 +1427,7 @@
         },
         "successors": {
           "type": "array",
-          "description": "The successor resource(s).\n\nMUST be a valid reference to an [API Resource](#api-resource) ORD ID.\n\nIf the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.",
+          "description": "The successor resource(s).\n\nMUST be a valid reference to an ORD ID.\n\nIf the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.",
           "items": {
             "type": "string",
             "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):(eventResource):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
@@ -1410,6 +1480,16 @@
           "description": "Full description of the custom implementation standard, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).\n\nMUST only be provided if `implementationStandard` is set to `custom`.\n\nSHOULD contain documentation and links that describe the used standard.",
           "examples": [
             "Implemented as defined in [Some Application Documentation](some link)."
+          ]
+        },
+        "responsible": {
+          "type": "string",
+          "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-\\/]+):([a-zA-Z0-9._\\-\\/]+)$",
+          "maxLength": 255,
+          "x-introduced-in-version": "1.8.0",
+          "description": "Contains typically the organization that is responsible in the sense of RACI matrix for this ORD resource. This includes support and feature requests. It is maintained as correlation id to for example support components.",
+          "examples": [
+            "sap:ach:CIC-DP-CO"
           ]
         },
         "entityTypeMappings": {
@@ -1875,7 +1955,7 @@
         },
         "successors": {
           "type": "array",
-          "description": "The successor resource(s).\n\nMUST be a valid reference to an [API Resource](#api-resource) ORD ID.\n\nIf the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.",
+          "description": "The successor resource(s).\n\nMUST be a valid reference to an ORD ID.\n\nIf the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.",
           "items": {
             "type": "string",
             "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):(entityType):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
@@ -2002,6 +2082,539 @@
         "lastUpdate"
       ]
     },
+    "DataProduct": {
+      "type": "object",
+      "title": "Data Product",
+      "x-introduced-in-version": "1.8.0",
+      "x-feature-status": "beta",
+      "description": "A [Data Product](../../details/articles/data-product) is a data set exposed for consumption outside the boundaries of the producing application via APIs and described by high quality metadata that can be accessed through the [ORD Aggregator](../../spec-v1/#ord-aggregator).\n\nPlease note that this concept is in beta. What this implies is described in [Data Product - Beta Status](../../details/articles/data-product#beta-status).",
+      "properties": {
+        "ordId": {
+          "type": "string",
+          "description": "The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.\n\nIt MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.",
+          "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):(dataProduct):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
+          "maxLength": 255,
+          "examples": [
+            "sap.foo.bar:dataProduct:CustomerOrder:v1"
+          ]
+        },
+        "localId": {
+          "type": "string",
+          "x-introduced-in-version": "1.2.1",
+          "description": "Local ID, as known by the described system.",
+          "maxLength": 255,
+          "examples": [
+            "CustomerOrder"
+          ]
+        },
+        "correlationIds": {
+          "type": "array",
+          "description": "Correlation IDs can be used to create a reference to related data in other repositories (especially to the system of record).\n\nMUST be a valid [Correlation ID](../index.md#correlation-id).",
+          "items": {
+            "type": "string",
+            "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-\\/]+):([a-zA-Z0-9._\\-\\/]+)$",
+            "maxLength": 255
+          },
+          "examples": [
+            [
+              "sap.s4:communicationScenario:SAP_COM_0008"
+            ]
+          ]
+        },
+        "title": {
+          "type": "string",
+          "description": "Human-readable title.\n\nMUST NOT exceed 255 chars.\nMUST NOT contain line breaks.",
+          "minLength": 1,
+          "maxLength": 255,
+          "examples": [
+            "Customer Order"
+          ]
+        },
+        "shortDescription": {
+          "type": "string",
+          "description": "Plain text short description.\n\nMUST NOT exceed 255 chars.\nMUST NOT contain line breaks.",
+          "minLength": 1,
+          "maxLength": 255,
+          "examples": [
+            "Offering access to all online and offline orders submitted by customers"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).",
+          "examples": [
+            "The data product Customer Order offers access to all online and offline orders submitted by customers. It provides a customer view on the orders. For fulfillment-specific aspects please refer to the data product Fulfillment Order."
+          ]
+        },
+        "partOfPackage": {
+          "type": "string",
+          "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):(package):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
+          "maxLength": 255,
+          "description": "Defines which Package the resource is part of.\n\nMUST be a valid reference to a [Package](#package) ORD ID.\n\nEvery resource MUST be part of one package.",
+          "examples": [
+            "sap.xref:package:SomePackage:v1"
+          ]
+        },
+        "version": {
+          "type": "string",
+          "description": "The complete [SemVer](https://semver.org/) version string.\n\nIt MUST follow the [Semantic Versioning 2.0.0](https://semver.org/) standard.\nIt SHOULD be changed if the ORD information or referenced resource definitions changed.\nIt SHOULD express minor and patch changes that don't lead to incompatible changes.\n\nWhen the `version` major version changes, the [ORD ID](#ord-id) `<majorVersion>` fragment MUST be updated to be identical.\nIn case that a resource definition file also contains a version number (e.g. [OpenAPI `info`.`version`](https://swagger.io/specification/#info-object)), it MUST be equal with the resource `version` to avoid inconsistencies.\n\nThe general [Version and Lifecycle](../index.md#version-and-lifecycle) flow MUST be followed.\n\nNote: A change is only relevant for a version increment, if it affects the ORD resource or ORD taxonomy directly.\nFor example: If a resource within a `Package` changes, but the package itself did not, the package version does not need to be incremented.",
+          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$",
+          "examples": [
+            "1.2.3",
+            "1.0.0-alpha.1"
+          ]
+        },
+        "lastUpdate": {
+          "type": "string",
+          "format": "date-time",
+          "x-introduced-in-version": "1.4.0",
+          "description": "Optional, but RECOMMENDED indicator when (date-time) the last change to the resource (including its definitions) happened.\n\nThe date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).\n\nIn case that this property is available and the value of it hasn't changed since the last crawling, the resource definitions do not need to be fetched and updated.\n\nTogether with `systemInstanceAware`, this property SHOULD be used to optimize the metadata crawling process of the ORD aggregators.",
+          "examples": [
+            "2022-12-19T15:47:04+00:00"
+          ]
+        },
+        "visibility": {
+          "type": "string",
+          "description": "The visibility/exposure of the data product. A public data product might have private APIs for trusted consumers therefore the having the property on data product",
+          "oneOf": [
+            {
+              "const": "public",
+              "description": "Resources are publicly accessible to customers and 3rd parties.\nUsually this includes an contract on the API stability, e.g. the [SAP API Deprecation Policy](https://help.sap.com/viewer/84b35b9c39b247e3ba2a31f02beee46d/Cloud/en-US/5cbfda5a9efe4e97a3e24ddaf7ec5c16.html)."
+            },
+            {
+              "const": "internal",
+              "description": "Resources are accessible to other applications within the same organization.\nHowever, they are not officially exposed and communicated to customers and 3rd parties.\nThey might not come with the same guarantees on API stability.\n\nInternal resources MUST NOT be made available to consumers without checking the necessary access permissions, e.g., a public API Catalog.\nInternal resources MAY be published through an internal API Catalog if the access permissions are ensured by it."
+            },
+            {
+              "const": "private",
+              "description": "Resources that are exclusively used within an application or service.\nThis includes resources that may be called from outside but serve purely private purposes and are not supposed to be known by other outside parties.\nE.g., webhooks for provisioning callbacks or backing services.\n\nPrivate resources MUST NOT be made available to public consumers or consumers outside of the \"private\" scope or without the necessary access permissions."
+            }
+          ]
+        },
+        "releaseStatus": {
+          "type": "string",
+          "description": "The `releaseStatus` specifies the stability towards incompatible changes in the future.\nIn the context of data products, it it covers only properties on the data product level.\nAPIs that are part of the input and output ports have their own independent `releaseStatus` and `version`.",
+          "oneOf": [
+            {
+              "const": "active",
+              "description": "Resource is meant for productive use and provides a stable API contract."
+            },
+            {
+              "const": "beta",
+              "description": "The contract for the resource is beta and MAY not be meant for productive use.\n\nIn the SAP context, `beta` APIs may be changed or deleted at SAPs discretion."
+            },
+            {
+              "const": "deprecated",
+              "description": "Resource has been deprecated and is destined to be decommissioned (removed) in the future.\n\nOnce the resource is decommissioned:\n * It MUST be removed from ORD.\n * Its removal MUST be explicitly indicated through a `Tombstone`.\n * If successor resources exists, they MUST be referenced through `successors`.\n\nIn cases where an `active` version of the API exists, it is advisable to migrate to the `active` version,\nhowever, an `active` version may not exist in all cases."
+            }
+          ],
+          "examples": [
+            "active"
+          ]
+        },
+        "disabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Indicates that this resource is currently not available for consumption at runtime, but could be configured to be so.\nThis can happen either because it has not been setup for use or disabled by an admin / user.\n\nIf the resource is not available in principle for a particular system instance, e.g. due to lack of entitlement, it MUST not be described in the system-instance aware perspective.\n\nThis only needs to reflect the knowledge of the described system instance itself,\nmeaning that outside factors don't need to be considered (e.g. network connectivity, middlewares).\nThis information may be of relevance for some ORD consumers that need to filter for active or disabled APIs.\n\nA disabled resource MAY skip describing its resource definitions.\n"
+        },
+        "deprecationDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The deprecation date defines when the resource has been set as deprecated.\nThis is not to be confused with the `sunsetDate` which defines when the resource will be actually decommissioned / removed.\n\nIf the `releaseStatus` is set to `deprecated`, the `deprecationDate` SHOULD be provided.\n\nThe date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).",
+          "examples": [
+            "2020-12-08T15:47:04+00:00"
+          ]
+        },
+        "sunsetDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The sunset date defines when the resource is scheduled to be decommissioned/removed.\n\nIf the `releaseStatus` is set to `deprecated`, the `sunsetDate` MUST be provided.\n\nThe date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).",
+          "examples": [
+            "2022-01-08T15:47:04+00:00"
+          ]
+        },
+        "successors": {
+          "type": "array",
+          "description": "The successor resource(s).\n\nMUST be a valid reference to an ORD ID.\n\nIf the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.",
+          "items": {
+            "type": "string",
+            "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):(dataProduct):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
+            "maxLength": 255
+          },
+          "examples": [
+            [
+              "sap.foo.bar:dataProduct:CustomerOrder:v1"
+            ]
+          ]
+        },
+        "changelogEntries": {
+          "type": "array",
+          "description": "Contains changelog entries that summarize changes with special regards to version and releaseStatus",
+          "items": {
+            "$ref": "#/definitions/ChangelogEntry"
+          }
+        },
+        "type": {
+          "description": "Type of the data product. Based on the type some properties of a data product may become optional/mandatory.",
+          "type": "string",
+          "oneOf": [
+            {
+              "const": "base",
+              "description": "A producer aligned also known as base data product. Such a data product will be typically served directly from an application and might not have input ports."
+            },
+            {
+              "const": "derived",
+              "description": "A data product that typically aggregates and combines data from multiple sources to provider value added data sets on top.\nDerived data products must provide at least one input port with an integration dependency that has at least one requirement.\nTo be clarified if we need an additional analytical type for data products that focus on calculating KPIs."
+            }
+          ],
+          "examples": [
+            "base"
+          ]
+        },
+        "category": {
+          "description": "Category of the data-set within data product. Based on its definition, a data product is a “data set” - which can include on the values below.\nBased on the type some properties of a data product may become optional/mandatory.\nConsumers might still do analytics on business object like data products.",
+          "type": "string",
+          "oneOf": [
+            {
+              "const": "business-object",
+              "description": "Business Objects: master data, transaction data"
+            },
+            {
+              "const": "analytical",
+              "description": "Analytical data, including cubes, KPIs and metrics"
+            },
+            {
+              "const": "other",
+              "description": "Other objects, eg: config data, mixed or just unspecified"
+            }
+          ],
+          "examples": [
+            "business-object"
+          ]
+        },
+        "entityTypes": {
+          "type": "array",
+          "description": "List of (ODM) entity types that are at least partially exposed by the data product.",
+          "items": {
+            "type": "string",
+            "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):(entityType):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
+            "maxLength": 255
+          },
+          "examples": [
+            [
+              "sap.odm:entityType:CustomerOrder:v1",
+              "sap.odm:entityType:BusinessPartner:v1"
+            ]
+          ]
+        },
+        "inputPorts": {
+          "type": "array",
+          "description": "List of Integration Dependencies, whose aspects will form the actual input ports. Therefore, the integration dependencies are an indirection to make use of a more general concern.\nInput ports are the public interface to ingest data into the data product.\n`derived` typed data products consume data through the input ports. Different input ports allowing ingestion of different sub-sets building up the data-set for the data product.\n`base` typed data products might not have any input ports. Their data sets are typically served directly from the application.",
+          "minItems": 0,
+          "items": {
+            "$ref": "#/definitions/IntegrationDependency"
+          }
+        },
+        "outputPorts": {
+          "type": "array",
+          "description": "List of output ports.\nOutput ports are the public interface to access the data set of the data product. Output ports of the same data product might produce different facets of the data set with different qualities.\nDifferent output ports providing access to different sub-sets of the complete data products data-set. As long as different output ports are accessing the same model beneath, they should belong to the same data product.\nIf multiple output ports structure is too different, splitting and distributing them to different data product is suggested.",
+          "minItems": 0,
+          "items": {
+            "$ref": "#/definitions/DataProductOutputPort"
+          }
+        },
+        "responsible": {
+          "type": "string",
+          "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-\\/]+):([a-zA-Z0-9._\\-\\/]+)$",
+          "maxLength": 255,
+          "x-introduced-in-version": "1.8.0",
+          "description": "Contains typically the organization that is responsible in the sense of RACI matrix for this ORD resource. This includes support and feature requests. It is maintained as correlation id to for example support components.",
+          "examples": [
+            "sap:ach:CIC-DP-CO"
+          ]
+        },
+        "dataProductLinks": {
+          "type": "array",
+          "description": "Links with semantic meaning that are specific to Data Product Resources.",
+          "items": {
+            "$ref": "#/definitions/DataProductLink"
+          }
+        },
+        "links": {
+          "type": "array",
+          "description": "Generic Links with arbitrary meaning and content.",
+          "items": {
+            "$ref": "#/definitions/Link"
+          }
+        },
+        "industry": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_.\\/& ]*$",
+            "minLength": 1,
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "const": "Aerospace and Defense"
+              },
+              {
+                "const": "Automotive"
+              },
+              {
+                "const": "Banking"
+              },
+              {
+                "const": "Chemicals"
+              },
+              {
+                "const": "Consumer Products"
+              },
+              {
+                "const": "Defense and Security"
+              },
+              {
+                "const": "Engineering Construction and Operations"
+              },
+              {
+                "const": "Healthcare"
+              },
+              {
+                "const": "Higher Education and Research"
+              },
+              {
+                "const": "High Tech"
+              },
+              {
+                "const": "Industrial Machinery and Components"
+              },
+              {
+                "const": "Insurance"
+              },
+              {
+                "const": "Life Sciences"
+              },
+              {
+                "const": "Media"
+              },
+              {
+                "const": "Mill Products"
+              },
+              {
+                "const": "Mining"
+              },
+              {
+                "const": "Oil and Gas"
+              },
+              {
+                "const": "Professional Services"
+              },
+              {
+                "const": "Public Sector"
+              },
+              {
+                "const": "Retail"
+              },
+              {
+                "const": "Sports and Entertainment"
+              },
+              {
+                "const": "Telecommunications"
+              },
+              {
+                "const": "Travel and Transportation"
+              },
+              {
+                "const": "Utilities"
+              },
+              {
+                "const": "Wholesale Distribution"
+              }
+            ]
+          },
+          "description": "List of industry tags.\nNo special characters are allowed except `-`, `_`, `.`, `/` and ` `.\n\n`industry` that are assigned to a `Package` are inherited to all of the ORD resources it contains.",
+          "examples": [
+            [
+              "Automotive"
+            ],
+            [
+              "Retail",
+              "Public Sector"
+            ],
+            []
+          ]
+        },
+        "lineOfBusiness": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_.\\/& ]*$",
+            "minLength": 1,
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "const": "Asset Management"
+              },
+              {
+                "const": "Commerce"
+              },
+              {
+                "const": "Finance"
+              },
+              {
+                "const": "Human Resources"
+              },
+              {
+                "const": "Manufacturing"
+              },
+              {
+                "const": "Marketing"
+              },
+              {
+                "const": "R&D Engineering"
+              },
+              {
+                "const": "Sales"
+              },
+              {
+                "const": "Service"
+              },
+              {
+                "const": "Sourcing and Procurement"
+              },
+              {
+                "const": "Supply Chain"
+              },
+              {
+                "const": "Sustainability"
+              },
+              {
+                "const": "Metering"
+              },
+              {
+                "const": "Grid Operations and Maintenance"
+              },
+              {
+                "const": "Plant Operations and Maintenance"
+              },
+              {
+                "const": "Maintenance and Engineering"
+              }
+            ]
+          },
+          "description": "List of line of business tags.\nNo special characters are allowed except `-`, `_`, `.`, `/` and ` `.\n\n`lineOfBusiness` that are assigned to a `Package` are inherited to all of the ORD resources it contains.",
+          "examples": [
+            [
+              "Sales"
+            ]
+          ]
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_.\\/ ]*$",
+            "minLength": 1
+          },
+          "description": "List of free text style tags.\nNo special characters are allowed except `-`, `_`, `.`, `/` and ` `.\n\nTags that are assigned to a `Package` are inherited to all of the ORD resources it contains.",
+          "examples": [
+            [
+              "storage",
+              "high-availability"
+            ]
+          ]
+        },
+        "labels": {
+          "$ref": "#/definitions/Labels",
+          "description": "Generic labels that can be applied to most ORD information."
+        },
+        "documentationLabels": {
+          "$ref": "#/definitions/DocumentationLabels",
+          "description": "Generic documentation labels that can be applied to most ORD information."
+        },
+        "policyLevel": {
+          "type": "string",
+          "description": "The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that this ORD Document or part of it needs to be compliant with.\nDepending on the chosen policy level, certain expectations and validations rules will be applied.\n\nThe policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.\n\nIf not provided, no additional policy level expectations and validations apply.\n",
+          "x-introduced-in-version": "1.3.0",
+          "oneOf": [
+            {
+              "const": "none",
+              "description": "No policy level chosen. Only the base rules on how to create correct ORD documents apply.\n\nThis corresponds to the SAP `sap:base:v1` compliance level."
+            },
+            {
+              "const": "sap:core:v1",
+              "description": "SAP core rules and guidelines apply.\n\nIf chosen the [SAP Core V1](../../spec-extensions/policy-levels/sap-core-v1) rules MUST be followed."
+            },
+            {
+              "const": "custom",
+              "description": "Custom policy level.\n\nFurther validation MAY be defined and implemented by the policy-level owner.\nThis level MAY be chosen by 3rd party or customer solutions.\n\nIf chosen, `customPolicyLevel` MUST be provided."
+            }
+          ],
+          "examples": [
+            "sap:core:v1"
+          ]
+        },
+        "customPolicyLevel": {
+          "type": "string",
+          "description": "If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.\n\nThe policy level is inherited from packages to resources they contain, but can be overwritten at resource level.\n\nMUST only be provided if `policyLevel` is set to `custom`.\n\nMUST be a valid [Specification ID](../index.md#specification-id).",
+          "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-]+):v([0-9]+)$",
+          "maxLength": 255,
+          "examples": [
+            "sap.xref:customPolicy:v1"
+          ]
+        },
+        "systemInstanceAware": {
+          "type": "boolean",
+          "description": "Defines whether this ORD resource is **system instance aware**.\nThis is the case (and relevant) when the referenced resource definitions are potentially different between **system instances**.\n\nIf this behavior applies, `systemInstanceAware` MUST be set to true.\nAn ORD aggregator that represents a system instance aware perspective MUST fetch the referenced resource definitions,\nnot just once per system type, but once per **system instance**.",
+          "default": false,
+          "examples": [
+            true
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ordId",
+        "type",
+        "category",
+        "title",
+        "version",
+        "releaseStatus",
+        "visibility",
+        "partOfPackage",
+        "responsible",
+        "outputPorts"
+      ],
+      "x-recommended": [
+        "lastUpdate"
+      ]
+    },
+    "DataProductOutputPort": {
+      "type": "object",
+      "title": "Data Product Output Port",
+      "description": "A data product outport references APIs or Events that expose different sub-sets of the same data-set\nReferenced API or Event ORD resources don't need to be provided within the same ORD document. Especially if a data product is built against a specific API contract of another application or data product,\nthis API resource should be referred to. In this case the other application is responsible for the lifecycle of the API contract and will update its ORD description independently. This is also the main reason for not\ndirectly referencing API or Event resources, so that a data product can attach limited data product specific properties in the future.",
+      "properties": {
+        "ordId": {
+          "type": "string",
+          "description": "The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.\n\nIt MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.",
+          "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):(apiResource|eventResource):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
+          "maxLength": 255,
+          "examples": [
+            "sap.cic:apiResource:RetailTransactionOData:v1",
+            "sap.cic:eventResource:RawCustomerOrder:v2"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ordId"
+      ]
+    },
     "APIResourceDefinition": {
       "type": "object",
       "title": "API Resource Definition",
@@ -2033,7 +2646,7 @@
             },
             {
               "const": "graphql-sdl",
-              "description": "[GraphQL](https://graphql.org/) APIs can be described via the [GraphQL Schema Definition Language](https://graphql.org/learn/schema/).\nSee also: [GraphQL Specification > Type System](https://spec.graphql.org/October2021/#sec-Type-System).\n\nThe `mediaType` MUST be be set to `text/plain`.\nThe `apiProtocol` MUST be set to `graphql`."
+              "description": "[GraphQL](https://graphql.org/) APIs can be described via the [GraphQL Schema Definition Language](https://graphql.org/learn/schema/).\nSee also: [GraphQL Specification > Type System](https://spec.graphql.org/October2021/#sec-Type-System).\nThe `mediaType` MUST be be set to `text/plain`.\nThe `apiProtocol` MUST be set to `graphql`."
             },
             {
               "const": "wsdl-v1",
@@ -2044,12 +2657,18 @@
               "description": "[WSDL 2](https://www.w3.org/TR/2007/REC-wsdl20-20070626/) API Definition for [SOAP](https://en.wikipedia.org/wiki/SOAP) APIs.\nThe `mediaType` MUST be be set to `application/xml`.\nThe `apiProtocol` MUST be set to `soap-inbound` or `soap-outbound`."
             },
             {
+              "const": "sap-delta-sharing-combined",
+              "x-introduced-in-version": "1.8.0",
+              "x-feature-status": "beta",
+              "description": "[Delta Sharing](https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md) metadata definition that combines all the metadata of a single share in a single document\nthat combines the requests for `{share}/schemas/`, `{share}/schemas/{schema}/tables` and `{share}/schemas/{schema}/tables/{table}/metadata`.\nThe `mediaType` MUST be be set to `application/json`.\nThe `apiProtocol` MUST be set to `delta-sharing`."
+            },
+            {
               "const": "sap-rfc-metadata-v1",
               "description": "Proprietary metadata description format for [SAP RFC](https://help.sap.com/viewer/753088fc00704d0a80e7fbd6803c8adb/202009.000/en-US/4888068ad9134076e10000000a42189d.html).\nThe `mediaType` MUST be be set to `application/xml`."
             },
             {
               "const": "sap-sql-api-definition-v1",
-              "description": "Proprietary metadata description format for SAP SQL API.\n\nThe `mediaType` MUST be be set to `application/json`.\nThe `apiProtocol` MUST be set to `sap-sql-api-v1`."
+              "description": "Proprietary metadata description format for SAP SQL API.\nThe `mediaType` MUST be be set to `application/json`.\nThe `apiProtocol` MUST be set to `sap-sql-api-v1`."
             },
             {
               "const": "custom",
@@ -2756,7 +3375,7 @@
         },
         "successors": {
           "type": "array",
-          "description": "The successor resource(s).\n\nMUST be a valid reference to an [API Resource](#api-resource) ORD ID.\n\nIf the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.",
+          "description": "The successor resource(s).\n\nMUST be a valid reference to an ORD ID.\n\nIf the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.",
           "items": {
             "type": "string",
             "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):(integrationDependency):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
@@ -3297,6 +3916,67 @@
         }
       ]
     },
+    "DataProductLink": {
+      "type": "object",
+      "title": "Data Product Link",
+      "description": "Links with specific semantic meaning that are related to Data Product resources.\nIf a generic `Link` can also be expressed via `DataProductLink`, the latter MUST be chosen.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "API action type.\nSee also: [WADG0001 WebAPI type extension](https://webapi-discovery.github.io/rfcs/rfc0001.html#webapiactions)",
+          "oneOf": [
+            {
+              "const": "payment",
+              "description": "Links to a resource detailing pricing details of the data product."
+            },
+            {
+              "const": "service-level-agreement",
+              "description": "Links to a resource detailing the Service Level Agreement relating to the data product.\nThis may be machine- or human-readable."
+            },
+            {
+              "const": "support",
+              "description": "Links to a resource where a client may obtain support for the data product."
+            },
+            {
+              "const": "custom",
+              "description": "If chosen, `customType` MUST be provided."
+            }
+          ],
+          "examples": [
+            "support"
+          ]
+        },
+        "customType": {
+          "type": "string",
+          "description": "If the fixed `type` enum values need to be extended, an arbitrary `customType` can be provided.\n\nMUST be a valid [Specification ID](../index.md#specification-id).\n\nMUST only be provided if `type` is set to `custom`.",
+          "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-]+):v([0-9]+)$",
+          "maxLength": 255,
+          "examples": [
+            "sap:custom-definition-format:v1"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "format": "uri-reference",
+          "description": "[URL reference](https://tools.ietf.org/html/rfc3986#section-4.1) (URL or relative reference) to the endpoint or UI for the action.\nIf the link is relative to base URL, it is RECOMMENDED to provide a relative URL to it, starting with `/`.",
+          "examples": [
+            "/some/relative/url",
+            "https://example.com/some/absolute/url"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "url",
+        "type"
+      ],
+      "examples": [
+        {
+          "type": "support",
+          "url": "https://support.sap.com/CIC_DP_RT/issue/"
+        }
+      ]
+    },
     "Tombstone": {
       "type": "object",
       "title": "Tombstone",
@@ -3305,7 +3985,7 @@
         "ordId": {
           "type": "string",
           "description": "[ORD ID](../index.md#ord-id) of the ORD resource/taxonomy that has been removed.",
-          "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):(package|consumptionBundle|product|vendor|apiResource|eventResource|capability|entityType|integrationDependency):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*|)?$",
+          "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):(package|consumptionBundle|product|vendor|apiResource|eventResource|capability|entityType|integrationDependency|dataProduct):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*|)?$",
           "maxLength": 255,
           "examples": [
             "sap.xref:package:SomePackage:v1"
@@ -3779,10 +4459,14 @@
         {
           "const": "1.7",
           "description": "ORD Version 1.7"
+        },
+        {
+          "const": "1.8",
+          "description": "ORD Version 1.8"
         }
       ],
       "examples": [
-        "1.7"
+        "1.8"
       ]
     },
     "description": {
@@ -3855,6 +4539,14 @@
       "x-introduced-in-version": "1.4.0",
       "items": {
         "$ref": "#/definitions/Capability"
+      }
+    },
+    "dataProducts": {
+      "type": "array",
+      "description": "Array of all data products that are described in this ORD document.",
+      "x-introduced-in-version": "1.8.0",
+      "items": {
+        "$ref": "#/definitions/DataProduct"
       }
     },
     "integrationDependencies": {

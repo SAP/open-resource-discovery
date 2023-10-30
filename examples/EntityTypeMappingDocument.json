@@ -1,5 +1,5 @@
 {
-  "openResourceDiscovery": "1.7",
+  "openResourceDiscovery": "1.8",
   "description": "This Example demonstrates the Entity Type Mapping feature",
   "policyLevel": "sap:core:v1",
   "apiResources": [
