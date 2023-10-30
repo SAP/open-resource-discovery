@@ -2251,7 +2251,7 @@
         "outputPorts": {
           "type": "array",
           "description": "List of output ports.\nOutput ports are the public interface to access the data set of the data product. Output ports of the same data product might produce different facets of the data set with different qualities.\nDifferent output ports providing access to different sub-sets of the complete data products data-set. As long as different output ports are accessing the same model beneath, they should belong to the same data product.\nIf multiple output ports structure is too different, splitting and distributing them to different data product is suggested.",
-          "minItems": 0,
+          "minItems": 1,
           "items": {
             "$ref": "#/definitions/DataProductOutputPort"
           }
