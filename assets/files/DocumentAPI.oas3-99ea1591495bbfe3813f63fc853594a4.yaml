@@ -218,7 +218,8 @@ components:
             - '1.5'
             - '1.6'
             - '1.7'
-          example: '1.7'
+            - '1.8'
+          example: '1.8'
         description:
           type: string
           minLength: 1
@@ -288,6 +289,11 @@ components:
           description: Array of all capabilities that are described in this ORD document.
           items:
             $ref: '#/components/schemas/Capability'
+        dataProducts:
+          type: array
+          description: Array of all data products that are described in this ORD document.
+          items:
+            $ref: '#/components/schemas/DataProduct'
         integrationDependencies:
           type: array
           description: Array of all integration dependencies that are described in this ORD document.
@@ -654,6 +660,12 @@ components:
             `industry` that are assigned to a `Package` are inherited to all of the ORD resources it contains.
           example:
             - Automotive
+        runtimeRestriction:
+          title: Runtime Restriction
+          description: If provided, all resources that are part of this package can only run on the listed runtime.
+          type: string
+          enum:
+            - sap.datasphere
         tags:
           type: array
           items:
@@ -1154,7 +1166,7 @@ components:
           description: |-
             The successor resource(s).
 
-            MUST be a valid reference to an [API Resource](#api-resource) ORD ID.
+            MUST be a valid reference to an ORD ID.
 
             If the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.
           items:
@@ -1238,11 +1250,13 @@ components:
             - odata-v4
             - rest
             - graphql
+            - delta-sharing
             - soap-inbound
             - soap-outbound
             - websocket
             - sap-rfc
             - sap-sql-api-v1
+            - sap-ina-api-v1
           example: rest
         resourceDefinitions:
           type: array
@@ -1270,6 +1284,8 @@ components:
             - sap:csn-exposure:v1
             - sap:ape-api:v1
             - sap:cdi-api:v1
+            - sap:hdlf-delta-sharing:v1
+            - sap:hana-cloud-sql:v1
             - custom
           example: sap:ord-document-api:v1
         customImplementationStandard:
@@ -1298,31 +1314,78 @@ components:
 
             SHOULD contain documentation and links that describe the used standard.
           example: >-
-            Implemented as defined in the [S/4Hana Attachment Service
+            Implemented as defined in the [S/4HANA Attachment Service
             documentation](https://api.sap.com/api/API_CV_ATTACHMENT_SRV/overview)
+        responsible:
+          type: string
+          pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-\/]+):([a-zA-Z0-9._\-\/]+)$
+          maxLength: 255
+          description: >-
+            Contains typically the organization that is responsible in the sense of RACI matrix for this ORD resource.
+            This includes support and feature requests. It is maintained as correlation id to for example support
+            components.
+          example: sap:ach:CIC-DP-CO
         supportedUseCases:
           type: array
-          description: |-
+          description: >-
             List of use cases (types) how the resource is meant to be used for.
 
+
             This helps consumers better to understand which use cases had been in mind by the provider
+
             and are therefore explicitly supported.
+
+            This is obviously described from a provider perspective, but stating what consumer use cases it potentially
+            supports.
+
+            As it's not possible to create a list of options that are mutually exclusive, all options that apply should
+            be provided.
+
 
             If no array is defined, it is assumed that this information is not provided.
           items:
             type: string
             oneOf:
-              - description: Resource can be used for performant mass extraction (ETL) purposes.
+              - description: >-
+                  Resources are designed to support [data
+                  federation](https://en.wikipedia.org/wiki/Federated_database_system). This goes beyond plain queries,
+                  but typically allowing connections on the data base level, in the context of a business user.
+
+                  As consumers will directly access data, performance of the system must support these use cases.
                 enum:
-                  - mass-extraction
-              - description: Resource can be used for performant mass import purposes.
+                  - data-federation
+              - description: >-
+                  Resource can be used to get a snapshot with inherent consistency including potential paging requests.
+                  Such a snapshot might be the basis for incremental updates. A snapshot API is typically providing
+                  unfiltered, complete mass data access by a technical user.
+
+                  As data is typically replicated, performance of the API is important, but less critical for an
+                  end-user experience.
                 enum:
-                  - mass-import
+                  - snapshot
+              - description: Resource gives incremental updates on top of snapshots.
+                enum:
+                  - incremental
+              - description: >-
+                  Resource can be used to get streaming updates. The difference to 'incremental' is that it doesn't need
+                  a snapshot .
+                enum:
+                  - streaming
             enum:
-              - mass-extraction
-              - mass-import
+              - data-federation
+              - snapshot
+              - incremental
+              - streaming
           example:
-            - mass-extraction
+            - data-federation
+        usage:
+          type: string
+          title: Usage
+          description: Define from where the API resource can be used and accessed
+          default: external
+          enum:
+            - external
+            - local
         entityTypeMappings:
           type: array
           description: >-
@@ -1813,7 +1876,7 @@ components:
           description: |-
             The successor resource(s).
 
-            MUST be a valid reference to an [API Resource](#api-resource) ORD ID.
+            MUST be a valid reference to an ORD ID.
 
             If the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.
           items:
@@ -1881,6 +1944,15 @@ components:
 
             SHOULD contain documentation and links that describe the used standard.
           example: Implemented as defined in [Some Application Documentation](some link).
+        responsible:
+          type: string
+          pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-\/]+):([a-zA-Z0-9._\-\/]+)$
+          maxLength: 255
+          description: >-
+            Contains typically the organization that is responsible in the sense of RACI matrix for this ORD resource.
+            This includes support and feature requests. It is maintained as correlation id to for example support
+            components.
+          example: sap:ach:CIC-DP-CO
         entityTypeMappings:
           type: array
           description: >-
@@ -2307,7 +2379,7 @@ components:
           description: |-
             The successor resource(s).
 
-            MUST be a valid reference to an [API Resource](#api-resource) ORD ID.
+            MUST be a valid reference to an ORD ID.
 
             If the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.
           items:
@@ -2436,6 +2508,524 @@ components:
         - visibility
         - partOfPackage
         - releaseStatus
+    DataProduct:
+      type: object
+      title: Data Product
+      description: >-
+        A [Data Product](../../details/articles/data-product) is a data set exposed for consumption outside the
+        boundaries of the producing application via APIs and described by high quality metadata that can be accessed
+        through the [ORD Aggregator](../../spec-v1/#ord-aggregator).
+
+
+        Please note that this concept is in beta. What this implies is described in [Data Product - Beta
+        Status](../../details/articles/data-product#beta-status).
+      properties:
+        ordId:
+          type: string
+          description: |-
+            The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.
+
+            It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
+          pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):(dataProduct):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
+          maxLength: 255
+          example: sap.foo.bar:dataProduct:CustomerOrder:v1
+        localId:
+          type: string
+          description: Local ID, as known by the described system.
+          maxLength: 255
+          example: CustomerOrder
+        correlationIds:
+          type: array
+          description: >-
+            Correlation IDs can be used to create a reference to related data in other repositories (especially to the
+            system of record).
+
+
+            MUST be a valid [Correlation ID](../index.md#correlation-id).
+          items:
+            type: string
+            pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-\/]+):([a-zA-Z0-9._\-\/]+)$
+            maxLength: 255
+          example:
+            - sap.s4:communicationScenario:SAP_COM_0008
+        title:
+          type: string
+          description: |-
+            Human-readable title.
+
+            MUST NOT exceed 255 chars.
+            MUST NOT contain line breaks.
+          minLength: 1
+          maxLength: 255
+          example: Customer Order
+        shortDescription:
+          type: string
+          description: |-
+            Plain text short description.
+
+            MUST NOT exceed 255 chars.
+            MUST NOT contain line breaks.
+          minLength: 1
+          maxLength: 255
+          example: Offering access to all online and offline orders submitted by customers
+        description:
+          type: string
+          minLength: 1
+          description: Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+          example: >-
+            The data product Customer Order offers access to all online and offline orders submitted by customers. It
+            provides a customer view on the orders. For fulfillment-specific aspects please refer to the data product
+            Fulfillment Order.
+        partOfPackage:
+          type: string
+          pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):(package):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
+          maxLength: 255
+          description: |-
+            Defines which Package the resource is part of.
+
+            MUST be a valid reference to a [Package](#package) ORD ID.
+
+            Every resource MUST be part of one package.
+          example: sap.xref:package:SomePackage:v1
+        version:
+          type: string
+          description: >-
+            The complete [SemVer](https://semver.org/) version string.
+
+
+            It MUST follow the [Semantic Versioning 2.0.0](https://semver.org/) standard.
+
+            It SHOULD be changed if the ORD information or referenced resource definitions changed.
+
+            It SHOULD express minor and patch changes that don't lead to incompatible changes.
+
+
+            When the `version` major version changes, the [ORD ID](#ord-id) `<majorVersion>` fragment MUST be updated to
+            be identical.
+
+            In case that a resource definition file also contains a version number (e.g. [OpenAPI
+            `info`.`version`](https://swagger.io/specification/#info-object)), it MUST be equal with the resource
+            `version` to avoid inconsistencies.
+
+
+            The general [Version and Lifecycle](../index.md#version-and-lifecycle) flow MUST be followed.
+
+
+            Note: A change is only relevant for a version increment, if it affects the ORD resource or ORD taxonomy
+            directly.
+
+            For example: If a resource within a `Package` changes, but the package itself did not, the package version
+            does not need to be incremented.
+          pattern: >-
+            ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+          example: 1.2.3
+        lastUpdate:
+          type: string
+          format: date-time
+          description: >-
+            Optional, but RECOMMENDED indicator when (date-time) the last change to the resource (including its
+            definitions) happened.
+
+
+            The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
+
+
+            In case that this property is available and the value of it hasn't changed since the last crawling, the
+            resource definitions do not need to be fetched and updated.
+
+
+            Together with `systemInstanceAware`, this property SHOULD be used to optimize the metadata crawling process
+            of the ORD aggregators.
+          example: '2022-12-19T15:47:04+00:00'
+        visibility:
+          type: string
+          description: >-
+            The visibility/exposure of the data product. A public data product might have private APIs for trusted
+            consumers therefore the having the property on data product
+          enum:
+            - public
+            - internal
+            - private
+        releaseStatus:
+          type: string
+          description: |-
+            The `releaseStatus` specifies the stability towards incompatible changes in the future.
+            In the context of data products, it it covers only properties on the data product level.
+            APIs that are part of the input and output ports have their own independent `releaseStatus` and `version`.
+          enum:
+            - active
+            - beta
+            - deprecated
+          example: active
+        disabled:
+          type: boolean
+          default: false
+          description: >
+            Indicates that this resource is currently not available for consumption at runtime, but could be configured
+            to be so.
+
+            This can happen either because it has not been setup for use or disabled by an admin / user.
+
+
+            If the resource is not available in principle for a particular system instance, e.g. due to lack of
+            entitlement, it MUST not be described in the system-instance aware perspective.
+
+
+            This only needs to reflect the knowledge of the described system instance itself,
+
+            meaning that outside factors don't need to be considered (e.g. network connectivity, middlewares).
+
+            This information may be of relevance for some ORD consumers that need to filter for active or disabled APIs.
+
+
+            A disabled resource MAY skip describing its resource definitions.
+        deprecationDate:
+          type: string
+          format: date-time
+          description: >-
+            The deprecation date defines when the resource has been set as deprecated.
+
+            This is not to be confused with the `sunsetDate` which defines when the resource will be actually
+            decommissioned / removed.
+
+
+            If the `releaseStatus` is set to `deprecated`, the `deprecationDate` SHOULD be provided.
+
+
+            The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
+          example: '2020-12-08T15:47:04+00:00'
+        sunsetDate:
+          type: string
+          format: date-time
+          description: |-
+            The sunset date defines when the resource is scheduled to be decommissioned/removed.
+
+            If the `releaseStatus` is set to `deprecated`, the `sunsetDate` MUST be provided.
+
+            The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
+          example: '2022-01-08T15:47:04+00:00'
+        successors:
+          type: array
+          description: |-
+            The successor resource(s).
+
+            MUST be a valid reference to an ORD ID.
+
+            If the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.
+          items:
+            type: string
+            pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):(dataProduct):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
+            maxLength: 255
+          example:
+            - sap.foo.bar:dataProduct:CustomerOrder:v1
+        changelogEntries:
+          type: array
+          description: Contains changelog entries that summarize changes with special regards to version and releaseStatus
+          items:
+            $ref: '#/components/schemas/ChangelogEntry'
+        type:
+          description: Type of the data product. Based on the type some properties of a data product may become optional/mandatory.
+          type: string
+          enum:
+            - base
+            - derived
+          example: base
+        category:
+          description: >-
+            Category of the data-set within data product. Based on its definition, a data product is a “data set” -
+            which can include on the values below.
+
+            Based on the type some properties of a data product may become optional/mandatory.
+
+            Consumers might still do analytics on business object like data products.
+          type: string
+          enum:
+            - business-object
+            - analytical
+            - other
+          example: business-object
+        entityTypes:
+          type: array
+          description: List of (ODM) entity types that are at least partially exposed by the data product.
+          items:
+            type: string
+            pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):(entityType):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
+            maxLength: 255
+          example:
+            - sap.odm:entityType:CustomerOrder:v1
+            - sap.odm:entityType:BusinessPartner:v1
+        inputPorts:
+          type: array
+          description: >-
+            List of Integration Dependencies, whose aspects will form the actual input ports. Therefore, the integration
+            dependencies are an indirection to make use of a more general concern.
+
+            Input ports are the public interface to ingest data into the data product.
+
+            `derived` typed data products consume data through the input ports. Different input ports allowing ingestion
+            of different sub-sets building up the data-set for the data product.
+
+            `base` typed data products might not have any input ports. Their data sets are typically served directly
+            from the application.
+          minItems: 0
+          items:
+            $ref: '#/components/schemas/IntegrationDependency'
+        outputPorts:
+          type: array
+          description: >-
+            List of output ports.
+
+            Output ports are the public interface to access the data set of the data product. Output ports of the same
+            data product might produce different facets of the data set with different qualities.
+
+            Different output ports providing access to different sub-sets of the complete data products data-set. As
+            long as different output ports are accessing the same model beneath, they should belong to the same data
+            product.
+
+            If multiple output ports structure is too different, splitting and distributing them to different data
+            product is suggested.
+          minItems: 0
+          items:
+            $ref: '#/components/schemas/DataProductOutputPort'
+        responsible:
+          type: string
+          pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-\/]+):([a-zA-Z0-9._\-\/]+)$
+          maxLength: 255
+          description: >-
+            Contains typically the organization that is responsible in the sense of RACI matrix for this ORD resource.
+            This includes support and feature requests. It is maintained as correlation id to for example support
+            components.
+          example: sap:ach:CIC-DP-CO
+        dataProductLinks:
+          type: array
+          description: Links with semantic meaning that are specific to Data Product Resources.
+          items:
+            $ref: '#/components/schemas/DataProductLink'
+        links:
+          type: array
+          description: Generic Links with arbitrary meaning and content.
+          items:
+            $ref: '#/components/schemas/Link'
+        industry:
+          type: array
+          items:
+            type: string
+            pattern: ^[a-zA-Z0-9-_.\/& ]*$
+            minLength: 1
+            anyOf:
+              - type: string
+              - enum:
+                  - Aerospace and Defense
+              - enum:
+                  - Automotive
+              - enum:
+                  - Banking
+              - enum:
+                  - Chemicals
+              - enum:
+                  - Consumer Products
+              - enum:
+                  - Defense and Security
+              - enum:
+                  - Engineering Construction and Operations
+              - enum:
+                  - Healthcare
+              - enum:
+                  - Higher Education and Research
+              - enum:
+                  - High Tech
+              - enum:
+                  - Industrial Machinery and Components
+              - enum:
+                  - Insurance
+              - enum:
+                  - Life Sciences
+              - enum:
+                  - Media
+              - enum:
+                  - Mill Products
+              - enum:
+                  - Mining
+              - enum:
+                  - Oil and Gas
+              - enum:
+                  - Professional Services
+              - enum:
+                  - Public Sector
+              - enum:
+                  - Retail
+              - enum:
+                  - Sports and Entertainment
+              - enum:
+                  - Telecommunications
+              - enum:
+                  - Travel and Transportation
+              - enum:
+                  - Utilities
+              - enum:
+                  - Wholesale Distribution
+          description: |-
+            List of industry tags.
+            No special characters are allowed except `-`, `_`, `.`, `/` and ` `.
+
+            `industry` that are assigned to a `Package` are inherited to all of the ORD resources it contains.
+          example:
+            - Automotive
+        lineOfBusiness:
+          type: array
+          items:
+            type: string
+            pattern: ^[a-zA-Z0-9-_.\/& ]*$
+            minLength: 1
+            anyOf:
+              - type: string
+              - enum:
+                  - Asset Management
+              - enum:
+                  - Commerce
+              - enum:
+                  - Finance
+              - enum:
+                  - Human Resources
+              - enum:
+                  - Manufacturing
+              - enum:
+                  - Marketing
+              - enum:
+                  - R&D Engineering
+              - enum:
+                  - Sales
+              - enum:
+                  - Service
+              - enum:
+                  - Sourcing and Procurement
+              - enum:
+                  - Supply Chain
+              - enum:
+                  - Sustainability
+              - enum:
+                  - Metering
+              - enum:
+                  - Grid Operations and Maintenance
+              - enum:
+                  - Plant Operations and Maintenance
+              - enum:
+                  - Maintenance and Engineering
+          description: |-
+            List of line of business tags.
+            No special characters are allowed except `-`, `_`, `.`, `/` and ` `.
+
+            `lineOfBusiness` that are assigned to a `Package` are inherited to all of the ORD resources it contains.
+          example:
+            - Sales
+        tags:
+          type: array
+          items:
+            type: string
+            pattern: ^[a-zA-Z0-9-_.\/ ]*$
+            minLength: 1
+          description: |-
+            List of free text style tags.
+            No special characters are allowed except `-`, `_`, `.`, `/` and ` `.
+
+            Tags that are assigned to a `Package` are inherited to all of the ORD resources it contains.
+          example:
+            - storage
+            - high-availability
+        labels:
+          $ref: '#/components/schemas/Labels'
+        documentationLabels:
+          $ref: '#/components/schemas/DocumentationLabels'
+        policyLevel:
+          type: string
+          description: >
+            The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that this ORD Document
+            or part of it needs to be compliant with.
+
+            Depending on the chosen policy level, certain expectations and validations rules will be applied.
+
+
+            The policy level can be defined on ORD Document level, but also be overwritten on an individual package or
+            resource level.
+
+
+            If not provided, no additional policy level expectations and validations apply.
+          enum:
+            - none
+            - sap:core:v1
+            - custom
+          example: sap:core:v1
+        customPolicyLevel:
+          type: string
+          description: >-
+            If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.
+
+
+            The policy level is inherited from packages to resources they contain, but can be overwritten at resource
+            level.
+
+
+            MUST only be provided if `policyLevel` is set to `custom`.
+
+
+            MUST be a valid [Specification ID](../index.md#specification-id).
+          pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-]+):v([0-9]+)$
+          maxLength: 255
+          example: sap.xref:customPolicy:v1
+        systemInstanceAware:
+          type: boolean
+          description: >-
+            Defines whether this ORD resource is **system instance aware**.
+
+            This is the case (and relevant) when the referenced resource definitions are potentially different between
+            **system instances**.
+
+
+            If this behavior applies, `systemInstanceAware` MUST be set to true.
+
+            An ORD aggregator that represents a system instance aware perspective MUST fetch the referenced resource
+            definitions,
+
+            not just once per system type, but once per **system instance**.
+          default: false
+          example: true
+      required:
+        - ordId
+        - type
+        - category
+        - title
+        - version
+        - releaseStatus
+        - visibility
+        - partOfPackage
+        - responsible
+        - outputPorts
+    DataProductOutputPort:
+      type: object
+      title: Data Product Output Port
+      description: >-
+        A data product outport references APIs or Events that expose different sub-sets of the same data-set
+
+        Referenced API or Event ORD resources don't need to be provided within the same ORD document. Especially if a
+        data product is built against a specific API contract of another application or data product,
+
+        this API resource should be referred to. In this case the other application is responsible for the lifecycle of
+        the API contract and will update its ORD description independently. This is also the main reason for not
+
+        directly referencing API or Event resources, so that a data product can attach limited data product specific
+        properties in the future.
+      properties:
+        ordId:
+          type: string
+          description: |-
+            The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.
+
+            It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
+          pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):(apiResource|eventResource):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
+          maxLength: 255
+          example: sap.cic:apiResource:RetailTransactionOData:v1
+      required:
+        - ordId
     APIResourceDefinition:
       type: object
       title: API Resource Definition
@@ -2457,6 +3047,7 @@ components:
             - graphql-sdl
             - wsdl-v1
             - wsdl-v2
+            - sap-delta-sharing-combined
             - sap-rfc-metadata-v1
             - sap-sql-api-definition-v1
             - custom
@@ -3184,7 +3775,7 @@ components:
           description: |-
             The successor resource(s).
 
-            MUST be a valid reference to an [API Resource](#api-resource) ORD ID.
+            MUST be a valid reference to an ORD ID.
 
             If the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.
           items:
@@ -3633,6 +4224,52 @@ components:
       example:
         type: api-documentation
         url: https://api.sap.com/api/API_OPLACCTGDOCITEMCUBE_SRV/resource
+    DataProductLink:
+      type: object
+      title: Data Product Link
+      description: |-
+        Links with specific semantic meaning that are related to Data Product resources.
+        If a generic `Link` can also be expressed via `DataProductLink`, the latter MUST be chosen.
+      properties:
+        type:
+          type: string
+          description: >-
+            API action type.
+
+            See also: [WADG0001 WebAPI type
+            extension](https://webapi-discovery.github.io/rfcs/rfc0001.html#webapiactions)
+          enum:
+            - payment
+            - service-level-agreement
+            - support
+            - custom
+          example: support
+        customType:
+          type: string
+          description: |-
+            If the fixed `type` enum values need to be extended, an arbitrary `customType` can be provided.
+
+            MUST be a valid [Specification ID](../index.md#specification-id).
+
+            MUST only be provided if `type` is set to `custom`.
+          pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-]+):v([0-9]+)$
+          maxLength: 255
+          example: sap:custom-definition-format:v1
+        url:
+          type: string
+          format: uri-reference
+          description: >-
+            [URL reference](https://tools.ietf.org/html/rfc3986#section-4.1) (URL or relative reference) to the endpoint
+            or UI for the action.
+
+            If the link is relative to base URL, it is RECOMMENDED to provide a relative URL to it, starting with `/`.
+          example: /some/relative/url
+      required:
+        - url
+        - type
+      example:
+        type: support
+        url: https://support.sap.com/CIC_DP_RT/issue/
     Tombstone:
       type: object
       title: Tombstone
@@ -3647,7 +4284,7 @@ components:
           type: string
           description: '[ORD ID](../index.md#ord-id) of the ORD resource/taxonomy that has been removed.'
           pattern: >-
-            ^([a-z0-9]+(?:[.][a-z0-9]+)*):(package|consumptionBundle|product|vendor|apiResource|eventResource|capability|entityType|integrationDependency):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*|)?$
+            ^([a-z0-9]+(?:[.][a-z0-9]+)*):(package|consumptionBundle|product|vendor|apiResource|eventResource|capability|entityType|integrationDependency|dataProduct):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*|)?$
           maxLength: 255
           example: sap.xref:package:SomePackage:v1
         removalDate:
