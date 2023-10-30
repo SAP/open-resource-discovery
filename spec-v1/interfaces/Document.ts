@@ -1776,9 +1776,9 @@ export interface DataProduct {
    * Different output ports providing access to different sub-sets of the complete data products data-set. As long as different output ports are accessing the same model beneath, they should belong to the same data product.
    * If multiple output ports structure is too different, splitting and distributing them to different data product is suggested.
    *
-   * @minItems 0
+   * @minItems 1
    */
-  outputPorts: DataProductOutputPort[];
+  outputPorts: [DataProductOutputPort, ...DataProductOutputPort[]];
   /**
    * Contains typically the organization that is responsible in the sense of RACI matrix for this ORD resource. This includes support and feature requests. It is maintained as correlation id to for example support components.
    */

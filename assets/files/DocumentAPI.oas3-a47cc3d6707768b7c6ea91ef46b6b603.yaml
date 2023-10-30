@@ -2784,7 +2784,7 @@ components:
 
             If multiple output ports structure is too different, splitting and distributing them to different data
             product is suggested.
-          minItems: 0
+          minItems: 1
           items:
             $ref: '#/components/schemas/DataProductOutputPort'
         responsible:
