@@ -803,37 +803,37 @@
         },
         "implementationStandard": {
           "type": "string",
-          "description": "Declares this API to be a valid implementation of a standardized or shared API contract.\n\nAll APIs that share the same implementation standard MAY be treated the same by a consumer.\nHowever, there MAY be differences in the API URLs, access strategy, and compatible customizations by the implementer.",
+          "description": "Declares this API to be a valid implementation of an externally standardized API contract, sub-protocol or protocol variant.\n\nAll APIs that share the same implementation standard MAY be treated the same or similar by a consumer client.",
           "oneOf": [
             {
               "const": "sap:ord-document-api:v1",
-              "description": "Implementation of the Open Resource Discovery v1 [Document API](../index.md#ord-document-api)."
+              "description": "API follows the Open Resource Discovery v1 [Document API](../index.md#ord-document-api) contract."
             },
             {
               "const": "cff:open-service-broker:v2",
-              "description": "Implementation of [Open Service Broker API V2](https://github.com/openservicebrokerapi/servicebroker)."
+              "description": "API follows the [Open Service Broker API V2](https://github.com/openservicebrokerapi/servicebroker)."
             },
             {
               "const": "sap:csn-exposure:v1",
-              "description": "Implementation of the SAP CSN_EXPOSURE service for exposing metadata in the [CSN-format](https://cap.cloud.sap/docs/cds/csn)."
+              "description": "API follows the SAP CSN_EXPOSURE service for exposing metadata in the [CSN-format](https://cap.cloud.sap/docs/cds/csn)."
             },
             {
               "const": "sap:ape-api:v1",
-              "description": "Implementation of the [SAP ABAP Pipeline Engine (APE) API](https://help.sap.com/docs/SAP_DATA_INTELLIGENCE/3a65df0ce7cd40d3a61225b7d3c86703/8b287f0f0033447c8a57a1bee74cd840.html) via ABAP WebSocket RFC for efficient data extraction.\nThe `apiProtocol` MUST be set to `websocket`."
+              "description": "API follows the [SAP ABAP Pipeline Engine (APE) API](https://help.sap.com/docs/SAP_DATA_INTELLIGENCE/3a65df0ce7cd40d3a61225b7d3c86703/8b287f0f0033447c8a57a1bee74cd840.html) protocol via ABAP WebSocket RFC for efficient data extraction.\nThe `apiProtocol` MUST be set to `websocket`."
             },
             {
               "const": "sap:cdi-api:v1",
-              "description": "Implementation of the SAP Cloud Data Integration (CDI) interface for delta-enabled data extraction.\nThe `apiProtocol` MUST be set to `odata-v4`."
+              "description": "Implementation of the SAP Cloud Data Integration (CDI) interface for delta-enabled data extraction.\nThe `apiProtocol` MUST be set to `odata-v4`, as this is a sub-protocol of OData."
             },
             {
               "const": "sap:hdlf-delta-sharing:v1",
               "x-introduced-in-version": "1.8.0",
-              "description": "HANA Data Lake File based implementation of `delta-sharing` API protocol. This implementation has some extension wrt. to standard delta-share such as providing key information.\nThe `apiProtocol` MUST be set to `delta-sharing`."
+              "description": "HANA Data Lake File based implementation of `delta-sharing` API protocol. This implementation has some extension wrt. to standard delta-share such as providing key information.\nThe `apiProtocol` MUST be set to `delta-sharing`, as this is a special flavor of Delta Sharing."
             },
             {
               "const": "sap:hana-cloud-sql:v1",
               "x-introduced-in-version": "1.8.0",
-              "description": "Specific additional implementation of the sap-sql-api-v1 API protocol that provide replication support when connecting from an Hana Cloud system\nsee [SAP HANA Cloud documentation](https://help.sap.com/docs/hana-cloud-database/sap-hana-cloud-sap-hana-database-data-access-guide/replicating-tables-from-remote-sources).\nThe `apiProtocol` MUST be set to `sap-sql-api-v1`."
+              "description": "Specific additional implementation of the sap-sql-api-v1 API (sub-)protocol that provide replication support when connecting from an Hana Cloud system\nsee [SAP HANA Cloud documentation](https://help.sap.com/docs/hana-cloud-database/sap-hana-cloud-sap-hana-database-data-access-guide/replicating-tables-from-remote-sources).\nThe `apiProtocol` MUST be set to `sap-sql-api-v1`, as this is a sub-protocol / variant of the SAP SQL API."
             },
             {
               "const": "custom",

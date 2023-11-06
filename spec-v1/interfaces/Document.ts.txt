@@ -409,10 +409,9 @@ export interface APIResource {
    */
   resourceDefinitions?: APIResourceDefinition[];
   /**
-   * Declares this API to be a valid implementation of a standardized or shared API contract.
+   * Declares this API to be a valid implementation of an externally standardized API contract, sub-protocol or protocol variant.
    *
-   * All APIs that share the same implementation standard MAY be treated the same by a consumer.
-   * However, there MAY be differences in the API URLs, access strategy, and compatible customizations by the implementer.
+   * All APIs that share the same implementation standard MAY be treated the same or similar by a consumer client.
    */
   implementationStandard?:
     | "sap:ord-document-api:v1"
