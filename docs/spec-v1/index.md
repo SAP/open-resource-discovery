@@ -70,7 +70,7 @@ This specification defines the following terms (for the ORD context):
 
   A system instance can act as an [ORD Provider](#ord-provider).
 
-- A <dfn id="def-system-landscape">system landscape</dfn> is a set of <a href="#def-system-instance">system instances</a> that are explicitly combined together, for example via a shared zone of trust/connectivity or an account or a namespace concept.
+- A <dfn id="def-system-landscape">system landscape</dfn> is a set of <a href="#def-system-instance">system instances</a> that are explicitly combined together, for example via a shared zone of trust/connectivity, an account or a [namespace concept](#namespaces).
 
 - A <dfn id="def-resource">resource</dfn> is provided by or for a [system instance](#def-system-instance) for outside consumption and/or communication.
 
@@ -570,6 +570,9 @@ A complete namespace MUST match the following [regular expression](https://en.wi
 ```regex
 ^[a-z0-9]+(?:[.][a-z0-9]+)*$
 ```
+
+> ℹ ORD can already be used outside of the SAP context, but this requires the adopting company to take care of namespaces.
+> It does not matter this is achieved, but it needs to be ensured that namespaces within the company are conflict free and follow the ORD namespace structure and constraints.
 
 #### Structure of Namespaces
 

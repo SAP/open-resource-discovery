@@ -4,13 +4,14 @@ toc_max_heading_level: 3
 
 # ORD Introduction
 
+> 🎦 There is also an [ORD Introduction video](./details/videos/introduction.md), based on this article.
+
 ## Why ORD?
 
 * We need consistent **technical documentation how applications and services can be integrated with and developed against**.
-* We and our customers need to **understand run-time system landscapes, reflecting customizations and extensions** - so developers and architects know how to work with it.
+* We and our customers need to **understand actual system landscapes, reflecting customizations and extensions**.
 * We need provide **more automation and a better development experience** for integrating SAP products with each other, the BTP SAP ecosystem and side-by-side extensions.
 * Many AI and Analytics use-cases **rely on consistent and standardized metadata** to deliver value or scale well.
-* Support a **heterogenous landscape** of different products and tech-stacks that may also be owned by customers and partners.
 
 <details><summary>Metadata integration without alignment</summary><p>
 
@@ -35,7 +36,7 @@ Second, use a **central aggregator**, which can read metadata from all providers
 
 > ℹ Read the [Why ORD?](./details/articles/why-ord.md) article for more background.
 
-## Quick Overview
+## Metadata Discovery Protocol
 
 Open Resource Discovery (ORD) is a protocol that **allows applications and services to self-describe their exposed resources and capabilities**. This can be done at deploy-time for publishing static documentation and at runtime to also reflect tenant specific configuration and extensions.​
 
@@ -74,6 +75,22 @@ The specification provides a shared contract and alignment point for the ecosyst
 
 </p></details>
 
+## Data Model Overview
+
+The most typical resources to describe are [APIs](./spec-v1/interfaces/document#api-resource) and [Events](./spec-v1/interfaces/document#event-resource).
+But ORD can also be used to describe higher-level concepts like [Entity Types](./spec-v1/interfaces/document#entity-type) (Business Objects) and [Data Products](./spec-v1/interfaces/document#data-products).
+With [Integration Dependencies](./spec-v1/interfaces/document#integration-dependency) it is possible to also describe how external resources are or can be be used.
+In case that the standardized concepts or attributes are not sufficient, there are extensibility attributes and [Capabilities](./spec-v1/interfaces/document#capability).
+
+The mentioned concepts can be grouped by different concerns via [Packages](./spec-v1/interfaces/document#package) and [Consumption Bundles](./spec-v1/interfaces/document#consumption-bundle) and various taxonomy attributes.
+Additionally, relations between the concepts can be expressed (e.g., which APIs and Events share the same Entity Types?).
+
+<div style={{"text-align": "center"}}>
+
+![ORD Data Model Overview](/img/ord-high-level-data-model.drawio.svg 'ORD Data Model Overview')
+
+</div>
+
 ## ORD Architecture at SAP
 
 Below is a simplified overview of how ORD has been adopted at SAP:
@@ -98,7 +115,7 @@ Have a look at the [ORD Reference Application](https://ord-reference-application
 
 <iframe src="https://ord-reference-application.cfapps.sap.hana.ondemand.com/" width="100%" height="500px"></iframe>
 
-<details><summary>Click me for more details</summary><p>
+<details><summary>More Explanation on the ORD Reference Application</summary><p>
 
 The ORD Reference Application shows a simple application, which offers a few APIs and Events.
 Some of the APIs are public and are of interest for outside consumers to learn about.
@@ -118,7 +135,7 @@ The flow to crawl the application for relevant metadata is the following:
 The [SAP Business Accelerator Hub](https://api.sap.com/) is an ORD aggregator that uses static information to present generic documentation.
 This perspective is very important, as it describes technical aspects of products without the need to first own and provision the system.
 
-<details><summary>Click to see UI examples with annotations</summary><p>
+<details><summary>More UI examples with annotations</summary><p>
 
 ![SAP Business Accelerator Hub Example 1](/img/business-accelerator-hub-example1.png 'SAP Business Accelerator Hub Example 1')
 
@@ -131,7 +148,7 @@ This perspective is very important, as it describes technical aspects of product
 Unified Customer Landscape (UCL) is a set of technical services that also offers the system landscape metadata (incl. ORD information) to other applications and services.
 While the [Business Accelerator Hub](#sap-business-accelerator-hub) focuses on the static perspective of a product, the UCL can provide the actual system tenant metadata - including possible customer extensions and customizations.
 
-<details><summary>Click to see UI examples with annotations as well as more details on UCL</summary><p>
+<details><summary>More UI examples with annotations and more details on UCL</summary><p>
 
 ![BTP Cockpit System Landscape via UCL](/img/btp-cockpit-ucl-example.png 'BTP Cockpit System Landscape via UCL')
 
@@ -151,14 +168,6 @@ In the UI screenshot, the most notable concept is the [ORD System Instance](./in
 If ORD information are provided, the detail view can show them and they will be made available to other systems in the same formation or account context.
 
 </p></details>
-
-### API Metadata Validator
-
-We believe that standards and policies can only realistically be ensured if we can automatically verify for correctness and compliance.
-
-This is why we have a complementary project, called the SAP API Metadata Validator.
-It can validate ORD documents, but also a other metadata formats that we usually pass along via the ORD protocol, like OpenAPI documents.
-We use this also to not just test for technical correctness, but also to adhere to certain compliance levels.
 
 ## ORD in More Detail
 

@@ -43,8 +43,8 @@ For detailed and recent changes, please refer to the [CHANGELOG.md](CHANGELOG.md
 
 ## Acknowledgements
 
-* The original authors of the Open Resource Discovery Spec were Harsh Jegadeesan and Divya Mary.
-* Currently active core-contributors to the spec are: [Simon Heimler](https://github.com/Fannon), [Sebastian Wennemers](https://github.com/swennemers), [Steffen Göbel](https://github.com/steffengoebel), [Ralf Hofmann](https://github.com/ormos), [Kiril Kabakchiev](https://github.com/KirilKabakchiev), [Nikolay Mateev](https://github.com/NickyMateev), Bibin Thomas and others.
+* The original idea for ORD came from Harsh Jegadeesan and Divya Mary.
+* The currently active core-contributors to the spec are: [Simon Heimler](https://github.com/Fannon), [Sebastian Wennemers](https://github.com/swennemers), [Steffen Göbel](https://github.com/steffengoebel), [Ralf Hofmann](https://github.com/ormos), [Kiril Kabakchiev](https://github.com/KirilKabakchiev), [Nikolay Mateev](https://github.com/NickyMateev), [Bibin Thomas](https://github.com/Bibin-T) and others.
 
 ## License
 

@@ -1,4 +1,12 @@
-# Data Product (beta)
+---
+sidebar_position: 3
+description: A Data Product is a data set exposed for consumption outside the boundaries of the producing application or service via APIs. They are described through high quality metadata that can be accessed through the Data Product Directory.
+title: Data Product
+---
+
+# Data Product <span class="feature-status-beta">BETA</span>
+
+> 🚧 Please note that the [Data Products](../../spec-v1/interfaces/document#data-product) concept is currently in [Beta Status](#beta-status).
 
 ## Definition
 
@@ -9,8 +17,6 @@ The Data Product concept is based on [Data Mesh Principles](https://martinfowler
 While that provides a concise definition, let's support that with a few more clarification points:
 
 The following aspects of the definition are essential: (1) [data](#data-aspect), (2) [APIs](#api-aspect), (3) [metadata](#metadata-aspect) and (4) [product](#product-aspect). If they are not covered, it’s not a Data Product. Optionally, a Data Product can also have (5) [business semantics](#business-semantic-aspect).
-
-> 🚧 Please note that the [Data Products](../../spec-v1/interfaces/document#data-product) concept is currently in [Beta Status](#beta-status).
 
 ### Data Aspect
 

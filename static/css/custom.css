@@ -135,7 +135,7 @@ article .card {
 }
 
 .markdown details {
-  padding: 4px 8px;
+  padding: 4px 8px 4px 14px;
 }
 .markdown details .collapsibleContent_node_modules-\@docusaurus-theme-common-lib-components-Details-styles-module {
   margin: 4px 0 0 0;

@@ -8,9 +8,13 @@ sidebar_position: 0
 
 ## Summary
 
-Open Resource Discovery (ORD) is a protocol that **allows applications and services to self-describe their exposed resources and capabilities**. This can be done at deploy-time for static documentation and at runtime to also reflect tenant specific configuration and extensions.​
+Open Resource Discovery (ORD) is a protocol that **allows applications and services to self-describe their exposed resources and capabilities**.
+This can be done at deploy-time for static documentation and at runtime to also reflect tenant specific configuration and extensions.​
 
-The most typical resources to describe are [APIs](./spec-v1/interfaces/document#api-resource) and [Events](./spec-v1/interfaces/document#event-resource). But ORD can also be used to describe higher-level concepts like Business Objects / [Entity Types](./spec-v1/interfaces/document#entity-type) and [Data Products](./spec-v1/interfaces/document#data-products). With [Integration Dependencies](./spec-v1/interfaces/document#integration-dependency) it is possible to also describe how external resources are or can be be used. In case that the standardized concepts or attributes are not sufficient, there are extensibility attributes and [Capabilities](./spec-v1/interfaces/document#capability).
+The most typical resources to describe are [APIs](./spec-v1/interfaces/document#api-resource) and [Events](./spec-v1/interfaces/document#event-resource).
+But ORD can also be used to describe higher-level concepts like [Entity Types](./spec-v1/interfaces/document#entity-type) (Business Objects) and [Data Products](./spec-v1/interfaces/document#data-products).
+With [Integration Dependencies](./spec-v1/interfaces/document#integration-dependency) it is possible to also describe how external resources are or can be be used.
+In case that the standardized concepts or attributes are not sufficient, there are extensibility attributes and [Capabilities](./spec-v1/interfaces/document#capability).
 
 By adopting ORD, an application will implement a single-entry point ([Service Provider Interface](https://en.wikipedia.org/wiki/Service_provider_interface)) that can be used to discover and crawl the relevant information / metadata.
 
@@ -23,6 +27,8 @@ By adopting ORD, an application will implement a single-entry point ([Service Pr
 ## Introduction
 
 Read the 📄 [ORD Introduction](./introduction.mdx) and watch the 🎦[ORD Videos](./details/videos).
+
+<iframe id="kaltura_player_1031387753" width="800" height="454" src="https://cdnapisec.kaltura.com/p/1921661/sp/192166100/embedIframeJs/uiconf_id/35919811/partner_id/1921661?iframeembed=true&playerId=kaltura_player_1031387753&entry_id=1_xhsv983f&wid=_1921661&flashvars[sideBarContainer.plugin]=true&flashvars[sideBarContainer.position]=left&flashvars[sideBarContainer.clickToClose]=true&flashvars[chapters.plugin]=true&flashvars[chapters.layout]=vertical&flashvars[chapters.thumbnailRotator]=false&flashvars[streamSelector.plugin]=true&flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&flashvars[dualScreen.plugin]=true&flashvars[hotspots.plugin]=true" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *"></iframe>
 
 ## Goals
 

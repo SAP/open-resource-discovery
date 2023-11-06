@@ -98,6 +98,10 @@ It defines the core rules and guidelines that are shared across SAP, although mo
       - Consequently, the producing application cannot describe how they are eventually consumed.
 - SAP Event Catalogs SHOULD be validated via the SAP API Metadata Validator, using `sap:core:v1` compliance level.
 
+### Entity Types
+
+- All Entity Type `description` values MUST NOT exceed 1000 characters
+
 ### Extensible
 
 - If the mandatory [Extensible](../../spec-v1/interfaces/document.md#extensible) object has a [description](../../spec-v1/interfaces/document.md#extensible_description), it MUST follow the guidance and rules of the SAP Technology Guideline TG12.R2.
