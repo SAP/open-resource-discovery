@@ -9,7 +9,7 @@ sidebar_position: 0
 ## Summary
 
 Open Resource Discovery (ORD) is a protocol that **allows applications and services to self-describe their exposed resources and capabilities**.
-This can be done at deploy-time for static documentation and at runtime to also reflect tenant specific configuration and extensions.​
+It can be used to describe static documentation, but can also reflect tenant specific configuration and extensions (at run-time).​
 
 The most typical resources to describe are [APIs](./spec-v1/interfaces/document#api-resource) and [Events](./spec-v1/interfaces/document#event-resource).
 But ORD can also be used to describe higher-level concepts like [Entity Types](./spec-v1/interfaces/document#entity-type) (Business Objects) and [Data Products](./spec-v1/interfaces/document#data-products).
@@ -23,6 +23,10 @@ By adopting ORD, an application will implement a single-entry point ([Service Pr
 ![ORD Provider Overview](/img/ord-provider-overview.svg 'ORD Provider Overview')
 
 </div>
+
+> ℹ ORD is an open standard by SAP, currently geared towards the SAP ecosystem.
+> However, it is built to be a generic standard and could be used outside of SAP, if the infrastructure (aggregators, namespace registry) is built or adjusted.
+> The standard is extensible through extensibility attributes, custom types and policy levels.
 
 ## Introduction
 
