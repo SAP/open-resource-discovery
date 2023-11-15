@@ -737,6 +737,8 @@ It MUST be constructed as defined here:
   - MUST be unique within the `<namespace>`.
   - SHOULD be a (somewhat) human readable and SEO/URL friendly string (avoid UUIDs).
   - SHOULD be kept stable, when a new `<majorVersion>` is introduced, so multiple major versions of the same resource share the same `<namespace>:<ordType>:<resourceId>:` part of the ORD ID.
+    - This can help an aggregator to group the semantically same APIs multiple major versions together
+    - If this cannot be followed, the relationship to the successor APIs can still be indicated via the `successors` property.
 
 - **`<majorVersion>`** := a version incrementor of the resource that increases on breaking changes.
 

@@ -372,6 +372,9 @@ pricing for the usage of the packages, APIs, Events, etc.
 
 A package SHOULD contain at least one resource. Avoid empty packages.
 
+A package does not have a `visibility` property.
+Whether it is displayed is decided by the fact, whether it contains any visible resources according to the visibility role of the aggregator.
+
 | Property | Type | Description |
 | -------- | ---- | ----------- |
 |<div class="interface-property-name anchor" id="package_ordid">ordId<br/><span class="mandatory">MANDATORY</span><a class="hash-link" href="#package_ordid" title="Direct link to property"></a></div>|<div class="interface-property-type">string</div>|<div class="interface-property-description">The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.<br/><br/>It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.<br/><hr/><strong>Regex Pattern</strong>: <code class="regex">^(\[a-z0-9\]+(?:\[.\]\[a-z0-9\]+)\*):(package):(\[a-zA-Z0-9.\_\\-\]+):(v0\|v\[1-9\]\[0-9\]\*)$</code><br/><strong>Maximum Length</strong>: `255`<br/><strong>Example Values</strong>: <ul class="examples"><li>`"sap.xref:package:SomePackage:v1"`</li></ul></div>|
@@ -485,7 +488,7 @@ For example, OpenAPI definition, OData Metadata, etc.
 |<div class="interface-property-name anchor" id="api-resource-definition_customtype">customType<br/><span class="optional">OPTIONAL</span><a class="hash-link" href="#api-resource-definition_customtype" title="Direct link to property"></a></div>|<div class="interface-property-type">string</div>|<div class="interface-property-description">If the fixed `type` enum values need to be extended, an arbitrary `customType` can be provided.<br/><br/>MUST be a valid [Specification ID](../index.md#specification-id).<br/><br/>MUST only be provided if `type` is set to `custom`.<br/><hr/><strong>Regex Pattern</strong>: <code class="regex">^(\[a-z0-9\]+(?:\[.\]\[a-z0-9\]+)\*):(\[a-zA-Z0-9.\_\\-\]+):v(\[0-9\]+)$</code><br/><strong>Maximum Length</strong>: `255`<br/><strong>Example Values</strong>: <ul class="examples"><li>`"sap:custom-definition-format:v1"`</li></ul></div>|
 |<div class="interface-property-name anchor" id="api-resource-definition_mediatype">mediaType<br/><span class="mandatory">MANDATORY</span><a class="hash-link" href="#api-resource-definition_mediatype" title="Direct link to property"></a></div>|<div class="interface-property-type">string</div>|<div class="interface-property-description">The [Media Type](https://www.iana.org/assignments/media-types/media-types.xhtml) of the definition serialization format.<br/>A consuming application can use this information to know which file format parser it needs to use.<br/>For example, for OpenAPI 3, it's valid to express the same definition in both YAML and JSON.<br/><br/>If no Media Type is registered for the referenced file,<br/>`text/plain` MAY be used for arbitrary plain-text and `application/octet-stream` for arbitrary binary data.<br/><br/><hr/><strong>Allowed Values</strong>: <ul><li><p>`"application/json"`</p></li><li><p>`"application/xml"`</p></li><li><p>`"text/yaml"`</p></li><li><p>`"text/plain"`: For a plain-text format where no other serialization Media Type fits</p></li><li><p>`"application/octet-stream"`: For a binary format where no other serialization Media Type fits</p></li></ul><br/><strong>Example Values</strong>: <ul class="examples"><li>`"application/json"`</li></ul></div>|
 |<div class="interface-property-name anchor" id="api-resource-definition_url">url<br/><span class="mandatory">MANDATORY</span><a class="hash-link" href="#api-resource-definition_url" title="Direct link to property"></a></div>|<div class="interface-property-type">string</div>|<div class="interface-property-description">[URL reference](https://tools.ietf.org/html/rfc3986#section-4.1) (URL or relative reference) to the resource definition file.<br/><br/>It is RECOMMENDED to provide a relative URL (to base URL), starting with `/`.<br/><hr/><strong>JSON Schema Format</strong>: `uri-reference`<br/><strong>Example Values</strong>: <ul class="examples"><li>`"/api/openApi.yaml"`</li><li>`"https://example.com/api/API_RFQ_PROCESS_SRV/$metadata"`</li></ul></div>|
-|<div class="interface-property-name anchor" id="api-resource-definition_accessstrategies">accessStrategies<br/><span class="mandatory">MANDATORY</span><a class="hash-link" href="#api-resource-definition_accessstrategies" title="Direct link to property"></a></div>|<div class="interface-property-type">Array&lt;[Access Strategy](#access-strategy)&gt;</div>|<div class="interface-property-description">List of supported access strategies for retrieving metadata from the ORD provider.<br/><br/>An ORD Consumer/ORD Aggregator MAY choose any of the strategies.<br/><hr/><strong>Array Constraint</strong>: MUST have at least 1 items</div>|
+|<div class="interface-property-name anchor" id="api-resource-definition_accessstrategies">accessStrategies<br/><span class="optional">OPTIONAL</span><a class="hash-link" href="#api-resource-definition_accessstrategies" title="Direct link to property"></a></div>|<div class="interface-property-type">Array&lt;[Access Strategy](#access-strategy)&gt;</div>|<div class="interface-property-description">List of supported access strategies for retrieving metadata from the ORD provider.<br/>An ORD Consumer/ORD Aggregator MAY choose any of the strategies.<br/><br/>If this property is not provided, the definition URL will be available through the same access strategy as this ORD document.<br/>We RECOMMEND anyway that the attached metadata definitions are available with the same access strategies, to simplify the aggregator crawling process.<br/><hr/><strong>Array Constraint</strong>: MUST have at least 1 items</div>|
 
 ### Event Resource Definition
 
@@ -498,7 +501,7 @@ For example, AsyncAPI or OpenAPI with callbacks, etc.
 |<div class="interface-property-name anchor" id="event-resource-definition_customtype">customType<br/><span class="optional">OPTIONAL</span><a class="hash-link" href="#event-resource-definition_customtype" title="Direct link to property"></a></div>|<div class="interface-property-type">string</div>|<div class="interface-property-description">If the fixed `type` enum values need to be extended, an arbitrary `customType` can be provided.<br/><br/>MUST be a valid [Specification ID](../index.md#specification-id).<br/><br/>MUST only be provided if `type` is set to `custom`.<br/><hr/><strong>Regex Pattern</strong>: <code class="regex">^(\[a-z0-9\]+(?:\[.\]\[a-z0-9\]+)\*):(\[a-zA-Z0-9.\_\\-\]+):v(\[0-9\]+)$</code><br/><strong>Maximum Length</strong>: `255`<br/><strong>Example Values</strong>: <ul class="examples"><li>`"sap:custom-definition-format:v1"`</li></ul></div>|
 |<div class="interface-property-name anchor" id="event-resource-definition_mediatype">mediaType<br/><span class="mandatory">MANDATORY</span><a class="hash-link" href="#event-resource-definition_mediatype" title="Direct link to property"></a></div>|<div class="interface-property-type">string</div>|<div class="interface-property-description">The [Media Type](https://www.iana.org/assignments/media-types/media-types.xhtml) of the definition serialization format.<br/>A consuming application can use this information to know which file format parser it needs to use.<br/>For example, for OpenAPI 3, it's valid to express the same definition in both YAML and JSON.<br/><br/>If no Media Type is registered for the referenced file,<br/>`text/plain` MAY be used for arbitrary plain-text and `application/octet-stream` for arbitrary binary data.<br/><br/><hr/><strong>Allowed Values</strong>: <ul><li><p>`"application/json"`</p></li><li><p>`"application/xml"`</p></li><li><p>`"text/yaml"`</p></li><li><p>`"text/plain"`: For a plain-text format where no other serialization Media Type fits</p></li><li><p>`"application/octet-stream"`: For a binary format where no other serialization Media Type fits</p></li></ul><br/><strong>Example Values</strong>: <ul class="examples"><li>`"application/json"`</li></ul></div>|
 |<div class="interface-property-name anchor" id="event-resource-definition_url">url<br/><span class="mandatory">MANDATORY</span><a class="hash-link" href="#event-resource-definition_url" title="Direct link to property"></a></div>|<div class="interface-property-type">string</div>|<div class="interface-property-description">[URL reference](https://tools.ietf.org/html/rfc3986#section-4.1) (URL or relative reference) to the resource definition file.<br/><br/>It is RECOMMENDED to provide a relative URL (to base URL), starting with `/`.<br/><hr/><strong>JSON Schema Format</strong>: `uri-reference`<br/><strong>Example Values</strong>: <ul class="examples"><li>`"/some/url/events/eventCatalog.json"`</li></ul></div>|
-|<div class="interface-property-name anchor" id="event-resource-definition_accessstrategies">accessStrategies<br/><span class="mandatory">MANDATORY</span><a class="hash-link" href="#event-resource-definition_accessstrategies" title="Direct link to property"></a></div>|<div class="interface-property-type">Array&lt;[Access Strategy](#access-strategy)&gt;</div>|<div class="interface-property-description">List of supported access strategies for retrieving metadata from the ORD provider.<br/><br/>An ORD Consumer/ORD Aggregator MAY choose any of the strategies.<br/><hr/><strong>Array Constraint</strong>: MUST have at least 1 items</div>|
+|<div class="interface-property-name anchor" id="event-resource-definition_accessstrategies">accessStrategies<br/><span class="optional">OPTIONAL</span><a class="hash-link" href="#event-resource-definition_accessstrategies" title="Direct link to property"></a></div>|<div class="interface-property-type">Array&lt;[Access Strategy](#access-strategy)&gt;</div>|<div class="interface-property-description">List of supported access strategies for retrieving metadata from the ORD provider.<br/>An ORD Consumer/ORD Aggregator MAY choose any of the strategies.<br/><br/>If this property is not provided, the definition URL will be available through the same access strategy as this ORD document.<br/>We RECOMMEND anyway that the attached metadata definitions are available with the same access strategies, to simplify the aggregator crawling process.<br/><hr/><strong>Array Constraint</strong>: MUST have at least 1 items</div>|
 
 ### Capability Definition
 
@@ -510,7 +513,7 @@ Link and categorization of a machine-readable capability definition.
 |<div class="interface-property-name anchor" id="capability-definition_customtype">customType<br/><span class="optional">OPTIONAL</span><a class="hash-link" href="#capability-definition_customtype" title="Direct link to property"></a></div>|<div class="interface-property-type">string</div>|<div class="interface-property-description">If the fixed `type` enum values need to be extended, an arbitrary `customType` can be provided.<br/><br/>MUST be a valid [Specification ID](../index.md#specification-id).<br/><br/>MUST only be provided if `type` is set to `custom`.<br/><hr/><strong>Regex Pattern</strong>: <code class="regex">^(\[a-z0-9\]+(?:\[.\]\[a-z0-9\]+)\*):(\[a-zA-Z0-9.\_\\-\]+):v(\[0-9\]+)$</code><br/><strong>Maximum Length</strong>: `255`<br/><strong>Example Values</strong>: <ul class="examples"><li>`"sap:custom-definition-format:v1"`</li></ul></div>|
 |<div class="interface-property-name anchor" id="capability-definition_mediatype">mediaType<br/><span class="mandatory">MANDATORY</span><a class="hash-link" href="#capability-definition_mediatype" title="Direct link to property"></a></div>|<div class="interface-property-type">string</div>|<div class="interface-property-description">The [Media Type](https://www.iana.org/assignments/media-types/media-types.xhtml) of the definition serialization format.<br/>A consuming application can use this information to know which file format parser it needs to use.<br/>For example, for OpenAPI 3, it's valid to express the same definition in both YAML and JSON.<br/><br/>If no Media Type is registered for the referenced file,<br/>`text/plain` MAY be used for arbitrary plain-text and `application/octet-stream` for arbitrary binary data.<br/><br/><hr/><strong>Allowed Values</strong>: <ul><li><p>`"application/json"`</p></li><li><p>`"application/xml"`</p></li><li><p>`"text/yaml"`</p></li><li><p>`"text/plain"`: For a plain-text format where no other serialization Media Type fits</p></li><li><p>`"application/octet-stream"`: For a binary format where no other serialization Media Type fits</p></li></ul><br/><strong>Example Values</strong>: <ul class="examples"><li>`"application/json"`</li></ul></div>|
 |<div class="interface-property-name anchor" id="capability-definition_url">url<br/><span class="mandatory">MANDATORY</span><a class="hash-link" href="#capability-definition_url" title="Direct link to property"></a></div>|<div class="interface-property-type">string</div>|<div class="interface-property-description">[URL reference](https://tools.ietf.org/html/rfc3986#section-4.1) (URL or relative reference) to the resource definition file.<br/><br/>It is RECOMMENDED to provide a relative URL (to base URL), starting with `/`.<br/><hr/><strong>JSON Schema Format</strong>: `uri-reference`<br/><strong>Example Values</strong>: <ul class="examples"><li>`"/capabilities/someCapability/someDocument.json"`</li></ul></div>|
-|<div class="interface-property-name anchor" id="capability-definition_accessstrategies">accessStrategies<br/><span class="mandatory">MANDATORY</span><a class="hash-link" href="#capability-definition_accessstrategies" title="Direct link to property"></a></div>|<div class="interface-property-type">Array&lt;[Access Strategy](#access-strategy)&gt;</div>|<div class="interface-property-description">List of supported access strategies for retrieving metadata from the ORD provider.<br/><br/>An ORD Consumer/ORD Aggregator MAY choose any of the strategies.<br/><hr/><strong>Array Constraint</strong>: MUST have at least 1 items</div>|
+|<div class="interface-property-name anchor" id="capability-definition_accessstrategies">accessStrategies<br/><span class="optional">OPTIONAL</span><a class="hash-link" href="#capability-definition_accessstrategies" title="Direct link to property"></a></div>|<div class="interface-property-type">Array&lt;[Access Strategy](#access-strategy)&gt;</div>|<div class="interface-property-description">List of supported access strategies for retrieving metadata from the ORD provider.<br/>An ORD Consumer/ORD Aggregator MAY choose any of the strategies.<br/><br/>If this property is not provided, the definition URL will be available through the same access strategy as this ORD document.<br/>We RECOMMEND anyway that the attached metadata definitions are available with the same access strategies, to simplify the aggregator crawling process.<br/><hr/><strong>Array Constraint</strong>: MUST have at least 1 items</div>|
 
 ### Aspect
 
@@ -965,12 +968,7 @@ Entity types can be referenced using a [Correlation ID](https://sap.github.io/op
         {
           "type": "openapi-v3",
           "mediaType": "application/json",
-          "url": "/astronomy/v1/openapi/oas3.json",
-          "accessStrategies": [
-            {
-              "type": "open"
-            }
-          ]
+          "url": "/astronomy/v1/openapi/oas3.json"
         }
       ],
       "entryPoints": [
@@ -996,12 +994,7 @@ Entity types can be referenced using a [Correlation ID](https://sap.github.io/op
         {
           "type": "asyncapi-v2",
           "mediaType": "application/json",
-          "url": "/some/path/asyncApi2.json",
-          "accessStrategies": [
-            {
-              "type": "open"
-            }
-          ]
+          "url": "/some/path/asyncApi2.json"
         }
       ],
       "extensible": {
@@ -1022,12 +1015,7 @@ Entity types can be referenced using a [Correlation ID](https://sap.github.io/op
         {
           "type": "asyncapi-v2",
           "mediaType": "application/json",
-          "url": "/api/eventCatalog.json",
-          "accessStrategies": [
-            {
-              "type": "open"
-            }
-          ]
+          "url": "/api/eventCatalog.json"
         }
       ],
       "extensible": {
@@ -1051,12 +1039,7 @@ Entity types can be referenced using a [Correlation ID](https://sap.github.io/op
         {
           "type": "sap.mdo:mdi-capability-definition:v1",
           "mediaType": "application/json",
-          "url": "/capabilities/foo.bar.json",
-          "accessStrategies": [
-            {
-              "type": "open"
-            }
-          ]
+          "url": "/capabilities/foo.bar.json"
         }
       ]
     }

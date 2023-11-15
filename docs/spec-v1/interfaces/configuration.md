@@ -76,17 +76,12 @@ Defines the [access strategy](../../spec-extensions/access-strategies/) for acce
         "url": "/open-resource-discovery/v1/documents/2",
         "accessStrategies": [
           {
-            "type": "custom",
-            "customType": "sap.foo:open-global-tenant-id:v1",
-            "customDescription": "The metadata information is openly accessible but system instance aware.\nThe tenant is selected by providing a global tenant ID header.\nTo understand how to use this access strategy, please read the documentation on the [ORD Reference App Access Strategies](https://pages.github.com/SAP/open-resource-discovery-reference-application/blob/master/docs/README.md#access-strategies)."
-          },
-          {
-            "type": "custom",
-            "customType": "sap.foo:open-local-tenant-id:v1",
-            "customDescription": "The metadata information is openly accessible but system instance aware.\nThe tenant is selected by providing a local tenant ID header.\nTo understand how to use this access strategy, please read the documentation on the [ORD Reference App Access Strategies](https://pages.github.com/SAP/open-resource-discovery-reference-application/blob/master/docs/README.md#access-strategies)."
-          },
-          {
             "type": "open"
+          },
+          {
+            "type": "custom",
+            "customType": "sap.foo:open-with-tenant-id:v1",
+            "customDescription": "The metadata information is openly accessible but system instance aware.\nThe tenant is selected by providing a global or local tenant ID header.\nTo understand how to use this access strategy, please read the documentation on the [ORD Reference App Access Strategies](https://pages.github.com/SAP/open-resource-discovery-reference-application/blob/master/docs/README.md#access-strategies)."
           }
         ],
         "systemInstanceAware": true

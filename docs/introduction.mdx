@@ -51,17 +51,16 @@ By adopting ORD, an application will implement a single-entry point ([Service Pr
 
 > ℹ Please note that ORD does not replace already established standards to describe resources in detail.
 > For example, plain REST APIs could be described via [OpenAPI](https://www.openapis.org/).
-> ORD will enable the discovery of this fact and the relevant metadata detail documents.
+> ORD will enable the discovery of this fact and can pass along the relevant detailed metadata documents.
 
 <details><summary>More Detail: How ORD helps with Self-Description</summary><p>
 
 In the picture above, the center is an application or service describing itself.
 They typically have multiple resources and capabilities that are outward facing and are of interest for external consumers.
 
-The most typical information to describe with ORD are **APIs** and **Events**.
-But due to its general purpose nature, it can also be used to describe other aspects.
-For example what additional **capabilities** there are; a description the underlying conceptual models (Domain Model) as **Entity Types**, external **Integration Dependencies** and potentially also **Data Products** in the future.
-All those information can be brought into relation with each other.
+Typically, ORD is used to describe [APIs](./spec-v1/interfaces/document#api-resource) and [Events](./spec-v1/interfaces/document#event-resource), but it also supports higher-level concepts like [Entity Types](./spec-v1/interfaces/document#entity-type) (Business Objects) and [Data Products](./spec-v1/interfaces/document#data-products) (beta).
+With [Integration Dependencies](./spec-v1/interfaces/document#integration-dependency) the (potential) use of external resources can be stated, too.
+In case that the standardized concepts or attributes are not sufficient, there are extensibility attributes and [Capabilities](./spec-v1/interfaces/document#capability).
 
 ORD standardizes how those information can be automatically discovered and aggregated.
 Please note that ORD is no replacement for detailed resource definition standards like OpenAPI.

@@ -15,6 +15,13 @@ It defines the core rules and guidelines that are shared across SAP, although mo
 
 ## General Policies
 
+### Access Strategies
+
+- SAP applications and services MUST use SAP specific access strategies:
+  - [`sap.businesshub:basic-auth:v1`](../access-strategies/sap-businesshub-basic-v1.md) for the [SAP Business Accelerator Hub](https://api.sap.com/).
+    - The use of "mixed" access strategies is not supported, so both the ORD documents AND the attached resource definitions MUST be available through the same access strategy.
+  - [`sap:cmp-mtls:v1`](../access-strategies/sap-cmp-mtls-v1.md) for the Unified Customer Landscape.
+
 ### Namespaces
 
 - All SAP [namespaces](../../spec-v1/index.md#namespaces) MUST be registered in the SAP namespace-registry.
@@ -22,13 +29,19 @@ It defines the core rules and guidelines that are shared across SAP, although mo
 
 ### ID Constraints
 
-- ORD IDs of packages and their resources that have already been published to the public [SAP Business Accelerator Hub](https://api.sap.com/) MUST have a correlation to their already existing ID. This is necessary to keep existing URLs stable and know that the same resource is now described via ORD, not a new one is to be created.
-  - Add a [Correlation ID](../../spec-v1/index.md#correlation-id) to the old ID:
+IF the resources have already been published to the public [SAP Business Accelerator Hub](https://api.sap.com/) we MUST somehow keep a correlation between their ORD ID and already existing Business Hub ID. This is necessary to keep existing URLs stable and to ensure we update the existing entries, not create new ones.
+
+- **Preferred Approach**:
+  - Get in touch with the Business Hub colleagues, to clarify which existing packages need to be associated with the registered [namespace](../../spec-v1/index.md#namespaces) (from step above).
+  - Keep the `<resourceId>` fragment of the [ORD ID](../../spec-v1/index.md#ord-id) identical to the ID that was previously published on the Business Accelerator Hub.
+  <!-- - Alternatively, add a [Correlation ID](../../spec-v1/index.md#correlation-id) to the resource:
     - Add a `correlationIds` entry, that starts with `sap.businesshub` namespace and then the Business Accelerator Hub concept name (that is also part of the Old URL), e.g. `api` or `package`
     - Package Example: `{ "ordId": "sap.s4:package:SomeName:v1", "correlationIds": ["sap.businesshub:package:SAPS4HANACloud"] }`
-    - API Example: `{ "ordId": "sap.s4:apiResource:AccountingDocumentRead:v1", "correlationIds": ["sap.businesshub:api:API_OPLACCTGDOCITEMCUBE_SRV"] }`
+    - API Example: `{ "ordId": "sap.s4:apiResource:AccountingDocumentRead:v1", "correlationIds": ["sap.businesshub:api:API_OPLACCTGDOCITEMCUBE_SRV"] }` -->
 
 ### Title Constraints
+
+The following constraints apply in addition to the constraints defined in the [ORD Document](https://sap.github.io/open-resource-discovery/spec-v1/interfaces/document/).
 
 - All `title` values (except link titles) MUST NOT exceed 120 characters, as per SAP API Style Guide and SAP Business Accelerator Hub guideline recommendations.
 - All `title` values (except link titles) MUST NOT contain the term "Deprecated" or "Decommissioned". Use `releaseStatus` to indicate this instead, if available.
@@ -37,11 +50,18 @@ It defines the core rules and guidelines that are shared across SAP, although mo
 
 ### Description Constraints
 
+The following constraints apply in addition to the constraints defined in the [ORD Document](https://sap.github.io/open-resource-discovery/spec-v1/interfaces/document/).
+
+- All `description` values MUST NOT contain the short description.
+  They are complementary to the short description and should not just be a longer replacement.
+
+### Short Description Constraints
+
+The following constraints apply in addition to the constraints defined in the [ORD Document](https://sap.github.io/open-resource-discovery/spec-v1/interfaces/document/).
+
 - All `shortDescription` values SHOULD NOT exceed 180 characters.
 - All `shortDescription` values MUST NOT repeat or start with the object name.
 - All `shortDescription` values SHOULD only use alphanumeric characters, spaces, underscores, hyphens, period, comma, parentheses, possessive apostrophes and specially approved names (`S/4HANA`, `country/region` and `G/L` (General ledger))
-- All `description` values MUST NOT contain the short description.
-  They are complementary to the short description and should not just be a longer replacement.
 
 ### Misc Constraints
 

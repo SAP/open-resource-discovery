@@ -11,9 +11,8 @@ sidebar_position: 0
 Open Resource Discovery (ORD) is a protocol that **allows applications and services to self-describe their exposed resources and capabilities**.
 It can be used to describe static documentation, but can also reflect tenant specific configuration and extensions (at run-time).​
 
-The most typical resources to describe are [APIs](./spec-v1/interfaces/document#api-resource) and [Events](./spec-v1/interfaces/document#event-resource).
-But ORD can also be used to describe higher-level concepts like [Entity Types](./spec-v1/interfaces/document#entity-type) (Business Objects) and [Data Products](./spec-v1/interfaces/document#data-products).
-With [Integration Dependencies](./spec-v1/interfaces/document#integration-dependency) it is possible to also describe how external resources are or can be be used.
+Typically, ORD is used to describe [APIs](./spec-v1/interfaces/document#api-resource) and [Events](./spec-v1/interfaces/document#event-resource), but it also supports higher-level concepts like [Entity Types](./spec-v1/interfaces/document#entity-type) (Business Objects) and [Data Products](./spec-v1/interfaces/document#data-products) (beta).
+With [Integration Dependencies](./spec-v1/interfaces/document#integration-dependency) the (potential) use of external resources can be stated, too.
 In case that the standardized concepts or attributes are not sufficient, there are extensibility attributes and [Capabilities](./spec-v1/interfaces/document#capability).
 
 By adopting ORD, an application will implement a single-entry point ([Service Provider Interface](https://en.wikipedia.org/wiki/Service_provider_interface)) that can be used to discover and crawl the relevant information / metadata.
@@ -24,15 +23,16 @@ By adopting ORD, an application will implement a single-entry point ([Service Pr
 
 </div>
 
-> ℹ ORD is an open standard by SAP, currently geared towards the SAP ecosystem.
-> However, it is built to be a generic standard and could be used outside of SAP, if the infrastructure (aggregators, namespace registry) is built or adjusted.
+> ℹ ORD is an open standard by SAP, released as open source under the Apache 2 license (see [public announcement](https://blogs.sap.com/2023/11/14/open-resource-discovery-a-protocol-for-decentralized-metadata-discovery-is-now-open-source/)).
+>
+> It is built to be a generic standard and could be used outside of SAP, if the infrastructure (aggregators, namespace registry) is built or adjusted.
 > The standard is extensible through extensibility attributes, custom types and policy levels.
 
 ## Introduction
 
 Read the 📄 [ORD Introduction](./introduction.mdx) and watch the 🎦[ORD Videos](./details/videos).
 
-<iframe id="kaltura_player_1031387753" width="800" height="454" src="https://cdnapisec.kaltura.com/p/1921661/sp/192166100/embedIframeJs/uiconf_id/35919811/partner_id/1921661?iframeembed=true&playerId=kaltura_player_1031387753&entry_id=1_xhsv983f&wid=_1921661&flashvars[sideBarContainer.plugin]=true&flashvars[sideBarContainer.position]=left&flashvars[sideBarContainer.clickToClose]=true&flashvars[chapters.plugin]=true&flashvars[chapters.layout]=vertical&flashvars[chapters.thumbnailRotator]=false&flashvars[streamSelector.plugin]=true&flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&flashvars[dualScreen.plugin]=true&flashvars[hotspots.plugin]=true" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *"></iframe>
+<iframe width="800" height="454" src="https://www.youtube.com/embed/7Z818CdoZJg" title="Introducing the Open Resource Discovery protocol" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## Goals
 

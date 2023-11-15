@@ -5,7 +5,7 @@
     "Package": {
       "type": "object",
       "title": "Package",
-      "description": "A **Package** organizes a set of related resources together, by considering all of the following concerns:\n\n* The resources are created by the same vendor or customer.\n* The resources are published together. They share the same development and publishing lifecycle and ownership.\n* The resources share certain aspects/taxonomy that is inherited down to them (e.g. `vendor`).\n* If applicable: The resources are meant to be used by only a particular target platform / software.\n\nAll resources that are not created by the described systems vendor MUST be put into separate packages.\nThis is the case, when:\n\n* The resources are created by the customer (user) of the system.\n  All such resources MUST be assigned to a dedicated Package, where `vendor` is set to `customer:vendor:Customer:`.\n* The resources are created by partners or third parties.\n  All such resources MUST be assigned to a dedicated Package for each partner / third party.\n  The `vendor` MUST be set to a registered, matching Vendor ID (implies also a registered namespace).\n\nAnother responsibility of a package is human-readable documentation and presentation.\nIt can also express information about the resource providers, terms of use of the APIs,\npricing for the usage of the packages, APIs, Events, etc.\n\nA package SHOULD contain at least one resource. Avoid empty packages.",
+      "description": "A **Package** organizes a set of related resources together, by considering all of the following concerns:\n\n* The resources are created by the same vendor or customer.\n* The resources are published together. They share the same development and publishing lifecycle and ownership.\n* The resources share certain aspects/taxonomy that is inherited down to them (e.g. `vendor`).\n* If applicable: The resources are meant to be used by only a particular target platform / software.\n\nAll resources that are not created by the described systems vendor MUST be put into separate packages.\nThis is the case, when:\n\n* The resources are created by the customer (user) of the system.\n  All such resources MUST be assigned to a dedicated Package, where `vendor` is set to `customer:vendor:Customer:`.\n* The resources are created by partners or third parties.\n  All such resources MUST be assigned to a dedicated Package for each partner / third party.\n  The `vendor` MUST be set to a registered, matching Vendor ID (implies also a registered namespace).\n\nAnother responsibility of a package is human-readable documentation and presentation.\nIt can also express information about the resource providers, terms of use of the APIs,\npricing for the usage of the packages, APIs, Events, etc.\n\nA package SHOULD contain at least one resource. Avoid empty packages.\n\nA package does not have a `visibility` property.\nWhether it is displayed is decided by the fact, whether it contains any visible resources according to the visibility role of the aggregator.",
       "properties": {
         "ordId": {
           "type": "string",
@@ -2650,7 +2650,7 @@
         },
         "accessStrategies": {
           "type": "array",
-          "description": "List of supported access strategies for retrieving metadata from the ORD provider.\n\nAn ORD Consumer/ORD Aggregator MAY choose any of the strategies.",
+          "description": "List of supported access strategies for retrieving metadata from the ORD provider.\nAn ORD Consumer/ORD Aggregator MAY choose any of the strategies.\n\nIf this property is not provided, the definition URL will be available through the same access strategy as this ORD document.\nWe RECOMMEND anyway that the attached metadata definitions are available with the same access strategies, to simplify the aggregator crawling process.",
           "items": {
             "$ref": "#/definitions/AccessStrategy"
           },
@@ -2661,8 +2661,7 @@
       "required": [
         "type",
         "mediaType",
-        "url",
-        "accessStrategies"
+        "url"
       ]
     },
     "EventResourceDefinition": {
@@ -2732,7 +2731,7 @@
         },
         "accessStrategies": {
           "type": "array",
-          "description": "List of supported access strategies for retrieving metadata from the ORD provider.\n\nAn ORD Consumer/ORD Aggregator MAY choose any of the strategies.",
+          "description": "List of supported access strategies for retrieving metadata from the ORD provider.\nAn ORD Consumer/ORD Aggregator MAY choose any of the strategies.\n\nIf this property is not provided, the definition URL will be available through the same access strategy as this ORD document.\nWe RECOMMEND anyway that the attached metadata definitions are available with the same access strategies, to simplify the aggregator crawling process.",
           "items": {
             "$ref": "#/definitions/AccessStrategy"
           },
@@ -2743,8 +2742,7 @@
       "required": [
         "type",
         "mediaType",
-        "url",
-        "accessStrategies"
+        "url"
       ]
     },
     "Product": {
@@ -3134,7 +3132,7 @@
         },
         "accessStrategies": {
           "type": "array",
-          "description": "List of supported access strategies for retrieving metadata from the ORD provider.\n\nAn ORD Consumer/ORD Aggregator MAY choose any of the strategies.",
+          "description": "List of supported access strategies for retrieving metadata from the ORD provider.\nAn ORD Consumer/ORD Aggregator MAY choose any of the strategies.\n\nIf this property is not provided, the definition URL will be available through the same access strategy as this ORD document.\nWe RECOMMEND anyway that the attached metadata definitions are available with the same access strategies, to simplify the aggregator crawling process.",
           "items": {
             "$ref": "#/definitions/AccessStrategy"
           },
@@ -3145,8 +3143,7 @@
       "required": [
         "type",
         "mediaType",
-        "url",
-        "accessStrategies"
+        "url"
       ]
     },
     "IntegrationDependency": {

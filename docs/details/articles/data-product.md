@@ -46,6 +46,7 @@ The following aspects of the definition are essential: (1) [data](#data-aspect),
 
 * The word "Product" does not imply that it’s something on the price list. Instead it only implies a product mindset towards its consumers. Typically, Data Products are not independent "products" but are available as part of a larger product that produces them.
 * Data Products have owners that are responsible for defining what Data Products to produce to meet the needs of consumers. All data products have owners.
+* The owners of the data product (at least of its definition) are ideally the domain owners / the same team that is responsible for the operational data (decentralized data products).
 
 ### Business Semantic Aspect
 
