@@ -23,10 +23,7 @@ By adopting ORD, an application will implement a single-entry point ([Service Pr
 
 </div>
 
-> ℹ ORD is an open standard by SAP, released as open source under the Apache 2 license (see [public announcement](https://blogs.sap.com/2023/11/14/open-resource-discovery-a-protocol-for-decentralized-metadata-discovery-is-now-open-source/)).
->
-> It is built to be a generic standard and could be used outside of SAP, if the infrastructure (aggregators, namespace registry) is built or adjusted.
-> The standard is extensible through extensibility attributes, custom types and policy levels.
+> ℹ ORD is an open standard by SAP, released as [open source](https://github.com/SAP/open-resource-discovery) under the Apache 2 license (see [public announcement](https://blogs.sap.com/2023/11/14/open-resource-discovery-a-protocol-for-decentralized-metadata-discovery-is-now-open-source/)).
 
 ## Introduction
 
@@ -50,7 +47,7 @@ Read the 📄 [ORD Introduction](./introduction.mdx) and watch the 🎦[ORD Vide
   - Support of many different metadata-driven use-cases and consumer requirements
 - ORD is an **open standard**
   - It is open-source an can be used by SAP partners and customers if they see a value in adopting it, like better integration in the SAP ecosystem
-  - The specification is open for extensions via labels, custom types etc. that don't need to go through alignment first.
+  - The specification is open for extensions via labels, custom types, spec extensions. Those don't need to go through alignment first.
 
 </p></div></div></div>
 <div class="col"><div class="card"><div class="card__header">
@@ -71,5 +68,6 @@ Read the 📄 [ORD Introduction](./introduction.mdx) and watch the 🎦[ORD Vide
 
 We are thinking about ways to make ORD publishing more efficient when there is a lot of tenant specific metadata or data changes happen frequently and replication is more time critical.
 
-Now that ORD is [open-source](https://sap.github.io/open-resource-discovery/), a potential next step is to work with partners on a true industry wide standard.
-ORD in its current state is focused around SAP. While most SAP specific aspects are described as [spec extensions](./spec-extensions), some concepts like [namespaces](./spec-v1/#namespaces) need more work.
+Now that ORD is [open-source](https://sap.github.io/open-resource-discovery/), a potential next step is to work with partners on a true industry wide standard, as ORD is currently focused on  SAPs requirements.
+The specification itself is designed to be generic, so most SAP specific aspects are described as [spec extensions](./spec-extensions).
+Some concepts like [namespaces](./spec-v1/#namespaces) could be further standardized if there's a need for cross-company metadata exchange.

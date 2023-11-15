@@ -3628,7 +3628,9 @@ components:
 
         The integration dependency includes a list of individual **aspects** that the integration consists of.
 
-        Each aspect can express alternatives (OR condition) on what  API and event resources can be used to achieve the
+        Aspects are an "ingredient" for the integration scenario (and are logically combined with AND condition).
+
+        Each aspect can express alternatives (OR condition) on what API and event resources can be used to achieve the
         same outcome.
 
 

@@ -263,7 +263,8 @@ An [Integration Dependency](../../details/articles/integration-dependency) state
 The purpose could be to enable a certain feature or integration scenario, but it could also be a mandatory prerequisite for the described system to work.
 
 The integration dependency includes a list of individual **aspects** that the integration consists of.
-Each aspect can express alternatives (OR condition) on what  API and event resources can be used to achieve the same outcome.
+Aspects are an "ingredient" for the integration scenario (and are logically combined with AND condition).
+Each aspect can express alternatives (OR condition) on what API and event resources can be used to achieve the same outcome.
 
 The direction of connection establishment, data flow is not directly implied and needs to be inferred from the referenced resources.
 
