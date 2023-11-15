@@ -677,12 +677,14 @@ export interface APIResourceDefinition {
   url: string;
   /**
    * List of supported access strategies for retrieving metadata from the ORD provider.
-   *
    * An ORD Consumer/ORD Aggregator MAY choose any of the strategies.
+   *
+   * If this property is not provided, the definition URL will be available through the same access strategy as this ORD document.
+   * We RECOMMEND anyway that the attached metadata definitions are available with the same access strategies, to simplify the aggregator crawling process.
    *
    * @minItems 1
    */
-  accessStrategies: [AccessStrategy, ...AccessStrategy[]];
+  accessStrategies?: [AccessStrategy, ...AccessStrategy[]];
 }
 /**
  * Defines the [access strategy](../../spec-extensions/access-strategies/) for accessing the resource definitions.
@@ -1259,12 +1261,14 @@ export interface EventResourceDefinition {
   url: string;
   /**
    * List of supported access strategies for retrieving metadata from the ORD provider.
-   *
    * An ORD Consumer/ORD Aggregator MAY choose any of the strategies.
+   *
+   * If this property is not provided, the definition URL will be available through the same access strategy as this ORD document.
+   * We RECOMMEND anyway that the attached metadata definitions are available with the same access strategies, to simplify the aggregator crawling process.
    *
    * @minItems 1
    */
-  accessStrategies: [AccessStrategy, ...AccessStrategy[]];
+  accessStrategies?: [AccessStrategy, ...AccessStrategy[]];
 }
 /**
  * An entity type ideally describes an underlying conceptual model that is then exposed through one or multiple API and events resources.
@@ -1612,12 +1616,14 @@ export interface CapabilityDefinition {
   url: string;
   /**
    * List of supported access strategies for retrieving metadata from the ORD provider.
-   *
    * An ORD Consumer/ORD Aggregator MAY choose any of the strategies.
+   *
+   * If this property is not provided, the definition URL will be available through the same access strategy as this ORD document.
+   * We RECOMMEND anyway that the attached metadata definitions are available with the same access strategies, to simplify the aggregator crawling process.
    *
    * @minItems 1
    */
-  accessStrategies: [AccessStrategy, ...AccessStrategy[]];
+  accessStrategies?: [AccessStrategy, ...AccessStrategy[]];
 }
 /**
  * A [Data Product](../../details/articles/data-product) is a data set exposed for consumption outside the boundaries of the producing application via APIs and described by high quality metadata that can be accessed through the [ORD Aggregator](../../spec-v1/#ord-aggregator).
@@ -2288,6 +2294,9 @@ export interface Product {
  * pricing for the usage of the packages, APIs, Events, etc.
  *
  * A package SHOULD contain at least one resource. Avoid empty packages.
+ *
+ * A package does not have a `visibility` property.
+ * Whether it is displayed is decided by the fact, whether it contains any visible resources according to the visibility role of the aggregator.
  */
 export interface Package {
   /**
