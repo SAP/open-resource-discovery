@@ -8,8 +8,9 @@ description: Describes the technical interface / schema for ORD Configuration.
 * The root schema of the document is [ORD Configuration](#ord-configuration)
 
 #### Technical information
-* The interface is described as [JSON Schema](https://json-schema.org/specification.html) here: [/spec-v1/interfaces/Configuration.schema.json](https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Configuration.schema.json)
-* This documentation is automatically generated from [./spec/v1/Configuration.schema.yaml](https://github.com/SAP/open-resource-discovery/blob/master/v1/Configuration.schema.yaml)
+* The interface is described as [JSON Schema](https://json-schema.org/specification.html) here: [/spec-v1/interfaces/Configuration.schema.json](https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Configuration.schema.json).
+* A high-level overview can also be exported as [Excel](https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Configuration.xlsx) and [CSV](https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Configuration.csv) file.
+* This documentation is automatically generated from [./spec/v1/Configuration.schema.yaml](https://github.com/SAP/open-resource-discovery/blob/master/v1/Configuration.schema.yaml).
 
 ## Schema Definitions
 

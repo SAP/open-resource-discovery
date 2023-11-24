@@ -45,8 +45,37 @@ The following constraints apply in addition to the constraints defined in the [O
 
 - All `title` values (except link titles) MUST NOT exceed 120 characters, as per SAP API Style Guide and SAP Business Accelerator Hub guideline recommendations.
 - All `title` values (except link titles) MUST NOT contain the term "Deprecated" or "Decommissioned". Use `releaseStatus` to indicate this instead, if available.
-- All `title` values (except link titles) SHOULD only contain alphanumeric characters, spaces, hyphens, comma, parentheses and forward slashes (but only if it is not used used as a substitute for 'and' or 'or').
-- All `title` values (except link titles) SHOULD NOT contain version number and operation words like create, read, delete, and update.
+- All `title` values (except link titles) SHOULD use the following charset:
+
+  | Chars        | Description       |
+  | ------------ | ----------------- |
+  | `A-Z`, `a-z` | Latin letters     |
+  | `0-9`        | Numbers           |
+  | ` `          | Space             |
+  | `-` `—` `–`  | Different hyphens |
+  | `,`          | Comma             |
+  | `(` `)`      | Parentheses       |
+
+- **package** `title` values MAY use the following additional characters:
+
+  | Char | Description   |
+  | ---- | ------------- |
+  | `/`  | Forward slash |
+
+- All `title` values (except link titles) SHOULD NOT contain the following terms:
+
+  | Term                                          | Description     |
+  | --------------------------------------------- | --------------- |
+  | `create`<br/>`read`<br/>`delete`<br/>`update` | Operation words |
+  | `v1`, `v2`, etc.                              | Versions        |
+
+- All `title` values (except link titles) MAY use the following specially approved terms:
+
+  | Approved Term    | Description                            |
+  | ---------------- | -------------------------------------- |
+  | `S/4HANA`        | Approved product name                  |
+  | `country/region` | Approved name                          |
+  | `G/L`            | General ledger. Approved abbreviation. |
 
 ### Description Constraints
 
@@ -61,7 +90,27 @@ The following constraints apply in addition to the constraints defined in the [O
 
 - All `shortDescription` values SHOULD NOT exceed 180 characters.
 - All `shortDescription` values MUST NOT repeat or start with the object name.
-- All `shortDescription` values SHOULD only use alphanumeric characters, spaces, underscores, hyphens, period, comma, parentheses, possessive apostrophes and specially approved names (`S/4HANA`, `country/region` and `G/L` (General ledger))
+- All `shortDescription` values SHOULD use the following charset:
+
+  | Chars        | Description           |
+  | ------------ | --------------------- |
+  | `A-Z`, `a-z` | Latin letters         |
+  | `0-9`        | Numbers               |
+  | ` `          | Space                 |
+  | `_`          | Underscores           |
+  | `-` `—` `–`  | Different hyphens     |
+  | `.`          | Fullstop (Period)     |
+  | `,`          | Comma                 |
+  | `(` `)`      | Parentheses           |
+  | `'s`         | Possessive apostrophe |
+
+- All `shortDescription` values MAY use the following specially approved terms:
+
+  | Approved Name    | Description                            |
+  | ---------------- | -------------------------------------- |
+  | `S/4HANA`        | Approved product name                  |
+  | `country/region` | Approved name                          |
+  | `G/L`            | General ledger. Approved abbreviation. |
 
 ### Misc Constraints
 

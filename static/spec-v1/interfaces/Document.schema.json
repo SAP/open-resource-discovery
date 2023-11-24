@@ -9,7 +9,7 @@
       "properties": {
         "ordId": {
           "type": "string",
-          "description": "The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.\n\nIt MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.",
+          "description": "The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.\n\nIt MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.",
           "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):(package):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
           "maxLength": 255,
           "examples": [
@@ -75,7 +75,7 @@
         "customPolicyLevel": {
           "type": "string",
           "description": "If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.\n\nThe policy level is inherited from packages to resources they contain, but can be overwritten at resource level.\n\nMUST only be provided if `policyLevel` is set to `custom`.\n\nMUST be a valid [Specification ID](../index.md#specification-id).",
-          "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-]+):v([0-9]+)$",
+          "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
           "maxLength": 255,
           "examples": [
             "sap.xref:customPolicy:v1"
@@ -360,7 +360,7 @@
       "properties": {
         "ordId": {
           "type": "string",
-          "description": "The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.\n\nIt MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.",
+          "description": "The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.\n\nIt MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.",
           "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):(consumptionBundle):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
           "maxLength": 255,
           "examples": [
@@ -506,7 +506,7 @@
       "properties": {
         "ordId": {
           "type": "string",
-          "description": "The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.\n\nIt MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.",
+          "description": "The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.\n\nIt MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.",
           "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):(apiResource):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
           "maxLength": 255,
           "examples": [
@@ -762,7 +762,7 @@
             {
               "const": "delta-sharing",
               "x-introduced-in-version": "1.8.0",
-              "description": "[Delta Sharing](https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md) Protocol.\nAn API Resource corresponds to a share.\nFor each API Resource definition: `type` MUST ONLY be set to `sap-delta-sharing-combined` or `custom` or left out in case standard delta-sharing metadata requests needs to be made."
+              "description": "[Delta Sharing](https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md) Protocol.\nAn API Resource corresponds to a share.\nFor each API Resource definition: `type` MUST ONLY be set `custom` or left out in case standard delta-sharing metadata requests needs to be made."
             },
             {
               "const": "soap-inbound",
@@ -1164,7 +1164,7 @@
         "customPolicyLevel": {
           "type": "string",
           "description": "If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.\n\nThe policy level is inherited from packages to resources they contain, but can be overwritten at resource level.\n\nMUST only be provided if `policyLevel` is set to `custom`.\n\nMUST be a valid [Specification ID](../index.md#specification-id).",
-          "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-]+):v([0-9]+)$",
+          "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
           "maxLength": 255,
           "examples": [
             "sap.xref:customPolicy:v1"
@@ -1199,7 +1199,7 @@
       "properties": {
         "ordId": {
           "type": "string",
-          "description": "The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.\n\nIt MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.",
+          "description": "The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.\n\nIt MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.",
           "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):(eventResource):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
           "maxLength": 255,
           "examples": [
@@ -1695,7 +1695,7 @@
         "customPolicyLevel": {
           "type": "string",
           "description": "If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.\n\nThe policy level is inherited from packages to resources they contain, but can be overwritten at resource level.\n\nMUST only be provided if `policyLevel` is set to `custom`.\n\nMUST be a valid [Specification ID](../index.md#specification-id).",
-          "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-]+):v([0-9]+)$",
+          "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
           "maxLength": 255,
           "examples": [
             "sap.xref:customPolicy:v1"
@@ -1729,7 +1729,7 @@
       "properties": {
         "ordId": {
           "type": "string",
-          "description": "The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.\n\nIt MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.",
+          "description": "The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.\n\nIt MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.",
           "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):(entityType):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
           "maxLength": 255,
           "examples": [
@@ -1991,7 +1991,7 @@
         "customPolicyLevel": {
           "type": "string",
           "description": "If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.\n\nThe policy level is inherited from packages to resources they contain, but can be overwritten at resource level.\n\nMUST only be provided if `policyLevel` is set to `custom`.\n\nMUST be a valid [Specification ID](../index.md#specification-id).",
-          "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-]+):v([0-9]+)$",
+          "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
           "maxLength": 255,
           "examples": [
             "sap.xref:customPolicy:v1"
@@ -2025,7 +2025,7 @@
       "properties": {
         "ordId": {
           "type": "string",
-          "description": "The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.\n\nIt MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.",
+          "description": "The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.\n\nIt MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.",
           "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):(dataProduct):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
           "maxLength": 255,
           "examples": [
@@ -2490,7 +2490,7 @@
         "customPolicyLevel": {
           "type": "string",
           "description": "If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.\n\nThe policy level is inherited from packages to resources they contain, but can be overwritten at resource level.\n\nMUST only be provided if `policyLevel` is set to `custom`.\n\nMUST be a valid [Specification ID](../index.md#specification-id).",
-          "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-]+):v([0-9]+)$",
+          "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
           "maxLength": 255,
           "examples": [
             "sap.xref:customPolicy:v1"
@@ -2526,7 +2526,7 @@
       "properties": {
         "ordId": {
           "type": "string",
-          "description": "The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.\n\nIt MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.",
+          "description": "The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.\n\nIt MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.",
           "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):(apiResource|eventResource):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
           "maxLength": 255,
           "examples": [
@@ -2580,12 +2580,6 @@
             {
               "const": "wsdl-v2",
               "description": "[WSDL 2](https://www.w3.org/TR/2007/REC-wsdl20-20070626/) API Definition for [SOAP](https://en.wikipedia.org/wiki/SOAP) APIs.\nThe `mediaType` MUST be be set to `application/xml`.\nThe `apiProtocol` MUST be set to `soap-inbound` or `soap-outbound`."
-            },
-            {
-              "const": "sap-delta-sharing-combined",
-              "x-introduced-in-version": "1.8.0",
-              "x-feature-status": "beta",
-              "description": "[Delta Sharing](https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md) metadata definition that combines all the metadata of a single share in a single document\nthat combines the requests for `{share}/schemas/`, `{share}/schemas/{schema}/tables` and `{share}/schemas/{schema}/tables/{table}/metadata`.\nThe `mediaType` MUST be be set to `application/json`.\nThe `apiProtocol` MUST be set to `delta-sharing`."
             },
             {
               "const": "sap-rfc-metadata-v1",
@@ -2752,7 +2746,7 @@
       "properties": {
         "ordId": {
           "type": "string",
-          "description": "The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.\n\nIt MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.",
+          "description": "The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.\n\nIt MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.",
           "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):(product):([a-zA-Z0-9._\\-]+):()$",
           "maxLength": 255,
           "examples": [
@@ -2775,7 +2769,9 @@
         },
         "title": {
           "type": "string",
-          "description": "Human readable title of the product",
+          "description": "Human-readable title.\n\nMUST NOT exceed 255 chars.\nMUST NOT contain line breaks.",
+          "minLength": 1,
+          "maxLength": 255,
           "examples": [
             "SAP S/4HANA Cloud"
           ]
@@ -2851,8 +2847,8 @@
       "properties": {
         "ordId": {
           "type": "string",
-          "description": "The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.\n\nIt MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.",
-          "pattern": "^([a-z0-9-]+(?:[.][a-z0-9-]+)*):(capability):([a-zA-Z0-9._\\-]+):(alpha|beta|v[0-9]+|)$",
+          "description": "The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.\n\nIt MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.",
+          "pattern": "^([a-z0-9-]+(?:[.][a-z0-9-]+)*):(capability):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
           "maxLength": 255,
           "examples": [
             "sap.foo.bar:capability:fieldExtensibility:v1"
@@ -3153,8 +3149,8 @@
       "properties": {
         "ordId": {
           "type": "string",
-          "description": "The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.\n\nIt MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.",
-          "pattern": "^([a-z0-9-]+(?:[.][a-z0-9-]+)*):(integrationDependency):([a-zA-Z0-9._\\-]+):(alpha|beta|v[0-9]+|)$",
+          "description": "The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.\n\nIt MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.",
+          "pattern": "^([a-z0-9-]+(?:[.][a-z0-9-]+)*):(integrationDependency):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
           "maxLength": 255,
           "examples": [
             "sap.foo.bar:integrationDependency:CustomerOrder:v1"
@@ -3311,7 +3307,7 @@
           "description": "If an Integration Dependency conceptually belongs or related to another Integration Dependency, this can be indicated here.\nOne situation would be where two systems each have an Integration Dependency to describe a two-sided integration from each side.",
           "items": {
             "type": "string",
-            "pattern": "^([a-z0-9-]+(?:[.][a-z0-9-]+)*):(integrationDependency):([a-zA-Z0-9._\\-]+):(alpha|beta|v[0-9]+|)$"
+            "pattern": "^([a-z0-9-]+(?:[.][a-z0-9-]+)*):(integrationDependency):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$"
           },
           "examples": [
             [
@@ -3417,7 +3413,7 @@
       "properties": {
         "ordId": {
           "type": "string",
-          "description": "The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.\n\nIt MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.",
+          "description": "The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.\n\nIt MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.",
           "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):(apiResource):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
           "maxLength": 255,
           "examples": [
@@ -3446,7 +3442,7 @@
       "properties": {
         "ordId": {
           "type": "string",
-          "description": "The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.\n\nIt MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.",
+          "description": "The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.\n\nIt MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.",
           "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):(eventResource):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
           "maxLength": 255,
           "examples": [
@@ -3500,7 +3496,7 @@
       "properties": {
         "ordId": {
           "type": "string",
-          "description": "The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.\n\nIt MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.",
+          "description": "The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.\n\nIt MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.",
           "pattern": "^([a-z0-9]+):(vendor):([a-zA-Z0-9._\\-]+):()$",
           "maxLength": 255,
           "examples": [
@@ -4270,7 +4266,7 @@
       "properties": {
         "ordId": {
           "type": "string",
-          "description": "The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.\n\nIt MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.",
+          "description": "The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.\n\nIt MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.",
           "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):(entityType):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
           "maxLength": 255,
           "examples": [
@@ -4396,7 +4392,7 @@
     "customPolicyLevel": {
       "type": "string",
       "description": "If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.\n\nThe policy level is inherited from packages to resources they contain, but can be overwritten at resource level.\n\nMUST only be provided if `policyLevel` is set to `custom`.\n\nMUST be a valid [Specification ID](../index.md#specification-id).",
-      "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-]+):v([0-9]+)$",
+      "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
       "maxLength": 255,
       "examples": [
         "sap.xref:customPolicy:v1"

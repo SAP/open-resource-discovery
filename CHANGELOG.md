@@ -7,6 +7,31 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [unreleased]
 
+## [1.8.3]
+
+### Added
+
+- Added Excel and CSV files export that gives a high-level overview of ORD entities and their attributes
+
+### Fixed
+
+- Fixed some ORD ID regexp, where it was still allowed to have `alpha` or `beta` instead of a major version
+  - This affected Capability and Integration Dependency.
+  - Instead, the `releaseStatus` property should be used to set `beta`.
+
+## [1.8.2]
+
+### Changed
+
+- Made `accessStrategies` optional within the ORD document.
+  - If this property is not provided, the definition URL will be available through the same access strategy as this ORD document.
+  - We RECOMMEND anyway that the attached metadata definitions are available with the same access strategies, to simplify the aggregator crawling process.
+- Minor clarification on visibility of Packages (since they don't have an explicit property for it)
+
+### Fixed
+
+- Product `title` property did not properly inherit constraints like the other `title` attributes (min- and max-length)
+
 ## [1.8.1]
 
 ### Changed
