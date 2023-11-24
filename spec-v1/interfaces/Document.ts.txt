@@ -201,7 +201,7 @@ export interface DocumentationLabels {
  */
 export interface APIResource {
   /**
-   * The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.
+   * The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.
    *
    * It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
    */
@@ -647,7 +647,6 @@ export interface APIResourceDefinition {
     | "graphql-sdl"
     | "wsdl-v1"
     | "wsdl-v2"
-    | "sap-delta-sharing-combined"
     | "sap-rfc-metadata-v1"
     | "sap-sql-api-definition-v1"
     | "custom";
@@ -811,7 +810,7 @@ export interface APIModelSelectorJSONPointer {
  */
 export interface EntityTypeTargetORDID {
   /**
-   * The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.
+   * The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.
    *
    * It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
    */
@@ -911,7 +910,7 @@ export interface Extensible {
  */
 export interface EventResource {
   /**
-   * The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.
+   * The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.
    *
    * It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
    */
@@ -1278,7 +1277,7 @@ export interface EventResourceDefinition {
  */
 export interface EntityType {
   /**
-   * The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.
+   * The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.
    *
    * It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
    */
@@ -1459,7 +1458,7 @@ export interface EntityType {
  */
 export interface Capability {
   /**
-   * The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.
+   * The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.
    *
    * It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
    */
@@ -1632,7 +1631,7 @@ export interface CapabilityDefinition {
  */
 export interface DataProduct {
   /**
-   * The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.
+   * The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.
    *
    * It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
    */
@@ -1919,7 +1918,7 @@ export interface DataProduct {
  */
 export interface IntegrationDependency {
   /**
-   * The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.
+   * The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.
    *
    * It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
    */
@@ -2084,7 +2083,7 @@ export interface Aspect {
  */
 export interface APIResourceIntegrationAspect {
   /**
-   * The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.
+   * The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.
    *
    * It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
    */
@@ -2100,7 +2099,7 @@ export interface APIResourceIntegrationAspect {
  */
 export interface EventResourceIntegrationAspect {
   /**
-   * The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.
+   * The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.
    *
    * It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
    */
@@ -2138,7 +2137,7 @@ export interface EventResourceIntegrationAspectSubset {
  */
 export interface DataProductOutputPort {
   /**
-   * The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.
+   * The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.
    *
    * It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
    */
@@ -2184,7 +2183,7 @@ export interface DataProductLink {
  */
 export interface Vendor {
   /**
-   * The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.
+   * The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.
    *
    * It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
    */
@@ -2225,7 +2224,7 @@ export interface Vendor {
  */
 export interface Product {
   /**
-   * The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.
+   * The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.
    *
    * It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
    */
@@ -2237,7 +2236,10 @@ export interface Product {
    */
   correlationIds?: string[];
   /**
-   * Human readable title of the product
+   * Human-readable title.
+   *
+   * MUST NOT exceed 255 chars.
+   * MUST NOT contain line breaks.
    */
   title: string;
   /**
@@ -2301,7 +2303,7 @@ export interface Product {
  */
 export interface Package {
   /**
-   * The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.
+   * The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.
    *
    * It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
    */
@@ -2536,7 +2538,7 @@ export interface PackageLink {
  */
 export interface ConsumptionBundle {
   /**
-   * The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.
+   * The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.
    *
    * It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
    */

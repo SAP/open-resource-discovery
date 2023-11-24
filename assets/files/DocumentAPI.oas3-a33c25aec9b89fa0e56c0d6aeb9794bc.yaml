@@ -264,7 +264,7 @@ components:
 
 
             MUST be a valid [Specification ID](../index.md#specification-id).
-          pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-]+):v([0-9]+)$
+          pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
           maxLength: 255
           example: sap.xref:customPolicy:v1
         apiResources:
@@ -373,7 +373,7 @@ components:
         ordId:
           type: string
           description: |-
-            The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.
+            The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.
 
             It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
           pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):(package):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
@@ -473,7 +473,7 @@ components:
 
 
             MUST be a valid [Specification ID](../index.md#specification-id).
-          pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-]+):v([0-9]+)$
+          pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
           maxLength: 255
           example: sap.xref:customPolicy:v1
         packageLinks:
@@ -741,7 +741,7 @@ components:
         ordId:
           type: string
           description: |-
-            The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.
+            The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.
 
             It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
           pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):(consumptionBundle):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
@@ -938,7 +938,7 @@ components:
         ordId:
           type: string
           description: |-
-            The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.
+            The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.
 
             It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
           pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):(apiResource):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
@@ -1601,7 +1601,7 @@ components:
 
 
             MUST be a valid [Specification ID](../index.md#specification-id).
-          pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-]+):v([0-9]+)$
+          pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
           maxLength: 255
           example: sap.xref:customPolicy:v1
         systemInstanceAware:
@@ -1651,7 +1651,7 @@ components:
         ordId:
           type: string
           description: |-
-            The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.
+            The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.
 
             It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
           pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):(eventResource):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
@@ -2168,7 +2168,7 @@ components:
 
 
             MUST be a valid [Specification ID](../index.md#specification-id).
-          pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-]+):v([0-9]+)$
+          pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
           maxLength: 255
           example: sap.xref:customPolicy:v1
         systemInstanceAware:
@@ -2215,7 +2215,7 @@ components:
         ordId:
           type: string
           description: |-
-            The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.
+            The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.
 
             It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
           pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):(entityType):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
@@ -2492,7 +2492,7 @@ components:
 
 
             MUST be a valid [Specification ID](../index.md#specification-id).
-          pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-]+):v([0-9]+)$
+          pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
           maxLength: 255
           example: sap.xref:customPolicy:v1
         systemInstanceAware:
@@ -2536,7 +2536,7 @@ components:
         ordId:
           type: string
           description: |-
-            The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.
+            The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.
 
             It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
           pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):(dataProduct):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
@@ -2982,7 +2982,7 @@ components:
 
 
             MUST be a valid [Specification ID](../index.md#specification-id).
-          pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-]+):v([0-9]+)$
+          pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
           maxLength: 255
           example: sap.xref:customPolicy:v1
         systemInstanceAware:
@@ -3031,7 +3031,7 @@ components:
         ordId:
           type: string
           description: |-
-            The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.
+            The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.
 
             It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
           pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):(apiResource|eventResource):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
@@ -3060,7 +3060,6 @@ components:
             - graphql-sdl
             - wsdl-v1
             - wsdl-v2
-            - sap-delta-sharing-combined
             - sap-rfc-metadata-v1
             - sap-sql-api-definition-v1
             - custom
@@ -3225,7 +3224,7 @@ components:
         ordId:
           type: string
           description: |-
-            The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.
+            The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.
 
             It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
           pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):(product):([a-zA-Z0-9._\-]+):()$
@@ -3247,7 +3246,13 @@ components:
             - sap.xref:product:ABC
         title:
           type: string
-          description: Human readable title of the product
+          description: |-
+            Human-readable title.
+
+            MUST NOT exceed 255 chars.
+            MUST NOT contain line breaks.
+          minLength: 1
+          maxLength: 255
           example: SAP S/4HANA Cloud
         shortDescription:
           type: string
@@ -3322,10 +3327,10 @@ components:
         ordId:
           type: string
           description: |-
-            The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.
+            The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.
 
             It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
-          pattern: ^([a-z0-9-]+(?:[.][a-z0-9-]+)*):(capability):([a-zA-Z0-9._\-]+):(alpha|beta|v[0-9]+|)$
+          pattern: ^([a-z0-9-]+(?:[.][a-z0-9-]+)*):(capability):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
           maxLength: 255
           example: sap.foo.bar:capability:fieldExtensibility:v1
         localId:
@@ -3661,10 +3666,10 @@ components:
         ordId:
           type: string
           description: |-
-            The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.
+            The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.
 
             It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
-          pattern: ^([a-z0-9-]+(?:[.][a-z0-9-]+)*):(integrationDependency):([a-zA-Z0-9._\-]+):(alpha|beta|v[0-9]+|)$
+          pattern: ^([a-z0-9-]+(?:[.][a-z0-9-]+)*):(integrationDependency):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
           maxLength: 255
           example: sap.foo.bar:integrationDependency:CustomerOrder:v1
         localId:
@@ -3838,7 +3843,7 @@ components:
             integration from each side.
           items:
             type: string
-            pattern: ^([a-z0-9-]+(?:[.][a-z0-9-]+)*):(integrationDependency):([a-zA-Z0-9._\-]+):(alpha|beta|v[0-9]+|)$
+            pattern: ^([a-z0-9-]+(?:[.][a-z0-9-]+)*):(integrationDependency):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
           example:
             - sap.foo.bar:integrationDependency:SomethingRelated:v1
         links:
@@ -3938,7 +3943,7 @@ components:
         ordId:
           type: string
           description: |-
-            The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.
+            The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.
 
             It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
           pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):(apiResource):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
@@ -3961,7 +3966,7 @@ components:
         ordId:
           type: string
           description: |-
-            The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.
+            The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.
 
             It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
           pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):(eventResource):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
@@ -4034,7 +4039,7 @@ components:
         ordId:
           type: string
           description: |-
-            The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.
+            The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.
 
             It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
           pattern: ^([a-z0-9]+):(vendor):([a-zA-Z0-9._\-]+):()$
@@ -4808,7 +4813,7 @@ components:
         ordId:
           type: string
           description: |-
-            The ORD ID is a stable, globally unique ID for ORD resources or taxonomy.
+            The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.
 
             It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
           pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):(entityType):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
