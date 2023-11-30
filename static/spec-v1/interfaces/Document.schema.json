@@ -2021,7 +2021,7 @@
     "DataProduct": {
       "type": "object",
       "title": "Data Product",
-      "description": "A [Data Product](../../details/articles/data-product) is a data set exposed for consumption outside the boundaries of the producing application via APIs and described by high quality metadata that can be accessed through the [ORD Aggregator](../../spec-v1/#ord-aggregator).\n\nPlease note that this concept is in beta. What this implies is described in [Data Product - Beta Status](../../details/articles/data-product#beta-status).",
+      "description": "A [Data Product](../../details/articles/data-product) is a data set exposed for consumption outside the boundaries of the producing application via APIs and described by high quality metadata that can be accessed through the [ORD Aggregator](../../spec-v1/#ord-aggregator).\n\nPlease note that this concept is in beta, see [Data Product - Beta Status](../../details/articles/data-product#beta-status).",
       "properties": {
         "ordId": {
           "type": "string",
@@ -2193,7 +2193,7 @@
           "oneOf": [
             {
               "const": "base",
-              "description": "A producer aligned also known as base data product. Such a data product will be typically served directly from an application and might not have input ports."
+              "description": "A producer aligned data product, aka base data product. Such a data product will be typically served directly from an application and might not have input ports."
             },
             {
               "const": "derived",
@@ -2227,7 +2227,7 @@
         },
         "entityTypes": {
           "type": "array",
-          "description": "List of (ODM) entity types that are at least partially exposed by the data product.",
+          "description": "List of entity types that are at least partially exposed by the data product.",
           "items": {
             "type": "string",
             "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):(entityType):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
@@ -2242,19 +2242,36 @@
         },
         "inputPorts": {
           "type": "array",
-          "description": "List of Integration Dependencies, whose aspects will form the actual input ports. Therefore, the integration dependencies are an indirection to make use of a more general concern.\nInput ports are the public interface to ingest data into the data product.\n`derived` typed data products consume data through the input ports. Different input ports allowing ingestion of different sub-sets building up the data-set for the data product.\n`base` typed data products might not have any input ports. Their data sets are typically served directly from the application.",
+          "description": "The input ports of a data product indicate the data inputs for lineage purposes.\n\nIt is a list of Integration Dependencies, whose aspects will form the actual input ports.\n\nInput ports can also be understood as the public interface to ingest data into the data product.\nData products of type `derived` consume data through the input ports. Different input ports allowing ingestion of different sub-sets building up the data-set for the data product.\nData products of type `base` might not have any input ports. Their data sets are typically based directly on the applications / services own data.",
           "minItems": 0,
           "items": {
-            "$ref": "#/definitions/IntegrationDependency"
-          }
+            "$ref": "#/definitions/DataProductInputPort"
+          },
+          "examples": [
+            [
+              {
+                "ordId": "sap.xref:integrationDependency:CustomerOrder:v1"
+              }
+            ]
+          ]
         },
         "outputPorts": {
           "type": "array",
-          "description": "List of output ports.\nOutput ports are the public interface to access the data set of the data product. Output ports of the same data product might produce different facets of the data set with different qualities.\nDifferent output ports providing access to different sub-sets of the complete data products data-set. As long as different output ports are accessing the same model beneath, they should belong to the same data product.\nIf multiple output ports structure is too different, splitting and distributing them to different data product is suggested.",
+          "description": "Output ports are the interface (APIs and Events) through with the data of the data product can be accessed.\n\nOutput ports of the same data product might produce different facets of the data set with different qualities.\nA data set can also be made available via different protocols, which also results in different ports.\n\nAs long as different output ports are accessing the same model beneath, they should belong to the same data product.\nIf the above criteria cannot be reasonably met, consider splitting the data product into multiple smaller data products.",
           "minItems": 1,
           "items": {
             "$ref": "#/definitions/DataProductOutputPort"
-          }
+          },
+          "examples": [
+            [
+              {
+                "ordId": "sap.cic:apiResource:RetailTransactionOData:v1"
+              },
+              {
+                "ordId": "sap.cic:eventResource:RawCustomerOrder:v2"
+              }
+            ]
+          ]
         },
         "responsible": {
           "type": "string",
@@ -2519,10 +2536,30 @@
         "outputPorts"
       ]
     },
+    "DataProductInputPort": {
+      "type": "object",
+      "title": "Data Product Input Port",
+      "description": "An input port of a data product states where it retrieves its data inputs from.\n\nIt is described as via an ORD Integration Dependency.",
+      "properties": {
+        "ordId": {
+          "type": "string",
+          "description": "The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.\n\nIt MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.",
+          "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):(integrationDependency):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
+          "maxLength": 255,
+          "examples": [
+            "sap.foo.bar:integrationDependency:CustomerOrder:v1"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ordId"
+      ]
+    },
     "DataProductOutputPort": {
       "type": "object",
       "title": "Data Product Output Port",
-      "description": "A data product outport references APIs or Events that expose different sub-sets of the same data-set\nReferenced API or Event ORD resources don't need to be provided within the same ORD document. Especially if a data product is built against a specific API contract of another application or data product,\nthis API resource should be referred to. In this case the other application is responsible for the lifecycle of the API contract and will update its ORD description independently. This is also the main reason for not\ndirectly referencing API or Event resources, so that a data product can attach limited data product specific properties in the future.",
+      "description": "A data product output port references the APIs or Events that can be used to access the data-set.\nIt MAY provide full access to the complete data set, but can also just expose a subset of it - if other output ports cover the missing parts.\n\nReferenced API or Event ORD resources don't need to be provided within the same ORD document.\nIf a data product is built against a specific API contract of another application or data product, this API resource should be referred to.\nIn this case the other application is responsible for the lifecycle of the API contract and will update its ORD description independently.",
       "properties": {
         "ordId": {
           "type": "string",
@@ -2742,7 +2779,7 @@
     "Product": {
       "type": "object",
       "title": "Product",
-      "description": "A **product** in ORD is understood as a software product:\nA non-versioned, high-level entity for structuring the software portfolio from a software logistics perspective.\nWhile **system type** is a technical concept, **product** is the term to use for internal or customer-facing communication.\n\nPlease note that the ORD concept of a product is very simple on purpose.\nThere are no product versions, product variants, and other more detailed concepts.\nORD assumes that this is handled by specialized systems and that ORD only provides the means to correlate to them.",
+      "description": "A **product** in ORD is understood as a commercial product or service.\n\nIt is a high-level entity for structuring the software portfolio from a sales / software logistics perspective.\nWhile **system type** is a technical concept, **product** covers the commercial and marketing view.\n\nPlease note that the ORD concept of a product is very simple on purpose.\nThere is no distinction between products and services and concepts like product versions, variants, etc.\n\nORD assumes that this is handled by specialized systems and that ORD only provides the means to correlate to them.",
       "properties": {
         "ordId": {
           "type": "string",
@@ -4289,7 +4326,7 @@
           "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-\\/]+):([a-zA-Z0-9._\\-\\/]+)$",
           "maxLength": 255,
           "examples": [
-            "sap.s4:csnEntity:Attachment"
+            "sap.csnexposure:entity:Attachment"
           ]
         }
       },

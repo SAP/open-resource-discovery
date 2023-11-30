@@ -40,8 +40,9 @@
           ]
         }
       ],
-      "entryPoints": ["/API_RFQ_PROCESS_SRV/v1"],
-      "supportedUseCases": ["mass-extraction"],
+      "entryPoints": [
+        "/API_RFQ_PROCESS_SRV/v1"
+      ],
       "entityTypeMappings": [
         {
           "apiModelSelectors": [
@@ -90,8 +91,9 @@
           ]
         }
       ],
-      "entryPoints": ["/path/to/api/v1"],
-      "supportedUseCases": ["mass-extraction"],
+      "entryPoints": [
+        "/path/to/api/v1"
+      ],
       "entityTypeMappings": [
         {
           "apiModelSelectors": [

@@ -1491,7 +1491,7 @@ export interface CapabilityDefinition {
 /**
  * A [Data Product](../../details/articles/data-product) is a data set exposed for consumption outside the boundaries of the producing application via APIs and described by high quality metadata that can be accessed through the [ORD Aggregator](../../spec-v1/#ord-aggregator).
  *
- * Please note that this concept is in beta. What this implies is described in [Data Product - Beta Status](../../details/articles/data-product#beta-status).
+ * Please note that this concept is in beta, see [Data Product - Beta Status](../../details/articles/data-product#beta-status).
  */
 export interface DataProduct {
     /**
@@ -1626,23 +1626,29 @@ export interface DataProduct {
      */
     category: "business-object" | "analytical" | "other";
     /**
-     * List of (ODM) entity types that are at least partially exposed by the data product.
+     * List of entity types that are at least partially exposed by the data product.
      */
     entityTypes?: string[];
     /**
-     * List of Integration Dependencies, whose aspects will form the actual input ports. Therefore, the integration dependencies are an indirection to make use of a more general concern.
-     * Input ports are the public interface to ingest data into the data product.
-     * `derived` typed data products consume data through the input ports. Different input ports allowing ingestion of different sub-sets building up the data-set for the data product.
-     * `base` typed data products might not have any input ports. Their data sets are typically served directly from the application.
+     * The input ports of a data product indicate the data inputs for lineage purposes.
+     *
+     * It is a list of Integration Dependencies, whose aspects will form the actual input ports.
+     *
+     * Input ports can also be understood as the public interface to ingest data into the data product.
+     * Data products of type `derived` consume data through the input ports. Different input ports allowing ingestion of different sub-sets building up the data-set for the data product.
+     * Data products of type `base` might not have any input ports. Their data sets are typically based directly on the applications / services own data.
      *
      * @minItems 0
      */
-    inputPorts?: IntegrationDependency[];
+    inputPorts?: DataProductInputPort[];
     /**
-     * List of output ports.
-     * Output ports are the public interface to access the data set of the data product. Output ports of the same data product might produce different facets of the data set with different qualities.
-     * Different output ports providing access to different sub-sets of the complete data products data-set. As long as different output ports are accessing the same model beneath, they should belong to the same data product.
-     * If multiple output ports structure is too different, splitting and distributing them to different data product is suggested.
+     * Output ports are the interface (APIs and Events) through with the data of the data product can be accessed.
+     *
+     * Output ports of the same data product might produce different facets of the data set with different qualities.
+     * A data set can also be made available via different protocols, which also results in different ports.
+     *
+     * As long as different output ports are accessing the same model beneath, they should belong to the same data product.
+     * If the above criteria cannot be reasonably met, consider splitting the data product into multiple smaller data products.
      *
      * @minItems 1
      */
@@ -1711,6 +1717,59 @@ export interface DataProduct {
      * not just once per system type, but once per **system instance**.
      */
     systemInstanceAware?: boolean;
+}
+/**
+ * An input port of a data product states where it retrieves its data inputs from.
+ *
+ * It is described as via an ORD Integration Dependency.
+ */
+export interface DataProductInputPort {
+    /**
+     * The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.
+     *
+     * It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
+     */
+    ordId: string;
+}
+/**
+ * A data product output port references the APIs or Events that can be used to access the data-set.
+ * It MAY provide full access to the complete data set, but can also just expose a subset of it - if other output ports cover the missing parts.
+ *
+ * Referenced API or Event ORD resources don't need to be provided within the same ORD document.
+ * If a data product is built against a specific API contract of another application or data product, this API resource should be referred to.
+ * In this case the other application is responsible for the lifecycle of the API contract and will update its ORD description independently.
+ */
+export interface DataProductOutputPort {
+    /**
+     * The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.
+     *
+     * It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
+     */
+    ordId: string;
+}
+/**
+ * Links with specific semantic meaning that are related to Data Product resources.
+ * If a generic `Link` can also be expressed via `DataProductLink`, the latter MUST be chosen.
+ */
+export interface DataProductLink {
+    /**
+     * API action type.
+     * See also: [WADG0001 WebAPI type extension](https://webapi-discovery.github.io/rfcs/rfc0001.html#webapiactions)
+     */
+    type: "payment" | "service-level-agreement" | "support" | "custom";
+    /**
+     * If the fixed `type` enum values need to be extended, an arbitrary `customType` can be provided.
+     *
+     * MUST be a valid [Specification ID](../index.md#specification-id).
+     *
+     * MUST only be provided if `type` is set to `custom`.
+     */
+    customType?: string;
+    /**
+     * [URL reference](https://tools.ietf.org/html/rfc3986#section-4.1) (URL or relative reference) to the endpoint or UI for the action.
+     * If the link is relative to base URL, it is RECOMMENDED to provide a relative URL to it, starting with `/`.
+     */
+    url: string;
 }
 /**
  * An [Integration Dependency](../../details/articles/integration-dependency) states that the described system (self) can integrate with external systems (integration target) to achieve an integration purpose.
@@ -1947,44 +2006,6 @@ export interface EventResourceIntegrationAspectSubset {
     eventType: string;
 }
 /**
- * A data product outport references APIs or Events that expose different sub-sets of the same data-set
- * Referenced API or Event ORD resources don't need to be provided within the same ORD document. Especially if a data product is built against a specific API contract of another application or data product,
- * this API resource should be referred to. In this case the other application is responsible for the lifecycle of the API contract and will update its ORD description independently. This is also the main reason for not
- * directly referencing API or Event resources, so that a data product can attach limited data product specific properties in the future.
- */
-export interface DataProductOutputPort {
-    /**
-     * The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.
-     *
-     * It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
-     */
-    ordId: string;
-}
-/**
- * Links with specific semantic meaning that are related to Data Product resources.
- * If a generic `Link` can also be expressed via `DataProductLink`, the latter MUST be chosen.
- */
-export interface DataProductLink {
-    /**
-     * API action type.
-     * See also: [WADG0001 WebAPI type extension](https://webapi-discovery.github.io/rfcs/rfc0001.html#webapiactions)
-     */
-    type: "payment" | "service-level-agreement" | "support" | "custom";
-    /**
-     * If the fixed `type` enum values need to be extended, an arbitrary `customType` can be provided.
-     *
-     * MUST be a valid [Specification ID](../index.md#specification-id).
-     *
-     * MUST only be provided if `type` is set to `custom`.
-     */
-    customType?: string;
-    /**
-     * [URL reference](https://tools.ietf.org/html/rfc3986#section-4.1) (URL or relative reference) to the endpoint or UI for the action.
-     * If the link is relative to base URL, it is RECOMMENDED to provide a relative URL to it, starting with `/`.
-     */
-    url: string;
-}
-/**
  * The vendor of a product or a package, usually a corporation or a customer / user.
  *
  * The vendor of a `Package` is the owner or creator of the content of the package.
@@ -2031,12 +2052,14 @@ export interface Vendor {
     documentationLabels?: DocumentationLabels;
 }
 /**
- * A **product** in ORD is understood as a software product:
- * A non-versioned, high-level entity for structuring the software portfolio from a software logistics perspective.
- * While **system type** is a technical concept, **product** is the term to use for internal or customer-facing communication.
+ * A **product** in ORD is understood as a commercial product or service.
+ *
+ * It is a high-level entity for structuring the software portfolio from a sales / software logistics perspective.
+ * While **system type** is a technical concept, **product** covers the commercial and marketing view.
  *
  * Please note that the ORD concept of a product is very simple on purpose.
- * There are no product versions, product variants, and other more detailed concepts.
+ * There is no distinction between products and services and concepts like product versions, variants, etc.
+ *
  * ORD assumes that this is handled by specialized systems and that ORD only provides the means to correlate to them.
  */
 export interface Product {

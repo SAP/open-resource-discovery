@@ -221,7 +221,7 @@ This is the same idea and mechanism as with API resources and their resource def
 
 A [Data Product](../../details/articles/data-product) is a data set exposed for consumption outside the boundaries of the producing application via APIs and described by high quality metadata that can be accessed through the [ORD Aggregator](../../spec-v1/#ord-aggregator).
 
-Please note that this concept is in beta. What this implies is described in [Data Product - Beta Status](../../details/articles/data-product#beta-status).
+Please note that this concept is in beta, see [Data Product - Beta Status](../../details/articles/data-product#beta-status).
 
 | Property | Type | Description |
 | -------- | ---- | ----------- |
@@ -241,11 +241,11 @@ Please note that this concept is in beta. What this implies is described in [Dat
 |<div class="interface-property-name anchor" id="data-product_sunsetdate">sunsetDate<br/><span class="optional">OPTIONAL</span><a class="hash-link" href="#data-product_sunsetdate" title="Direct link to property"></a></div>|<div class="interface-property-type">string</div>|<div class="interface-property-description">The sunset date defines when the resource is scheduled to be decommissioned/removed.<br/><br/>If the `releaseStatus` is set to `deprecated`, the `sunsetDate` MUST be provided.<br/><br/>The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).<br/><hr/><strong>JSON Schema Format</strong>: `date-time`<br/><strong>Example Values</strong>: <ul class="examples"><li>`"2022-01-08T15:47:04+00:00"`</li></ul></div>|
 |<div class="interface-property-name anchor" id="data-product_successors">successors<br/><span class="optional">OPTIONAL</span><a class="hash-link" href="#data-product_successors" title="Direct link to property"></a></div>|<div class="interface-property-type">Array&lt;string&gt;</div>|<div class="interface-property-description">The successor resource(s).<br/><br/>MUST be a valid reference to an ORD ID.<br/><br/>If the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.<br/><hr/><strong>Array Item Regex Pattern</strong>: <code class="regex">^(\[a-z0-9\]+(?:\[.\]\[a-z0-9\]+)\*):(dataProduct):(\[a-zA-Z0-9.\_\\-\]+):(v0\|v\[1-9\]\[0-9\]\*)$</code><br/><strong>Example Values</strong>: <ul class="examples"><li>`["sap.foo.bar:dataProduct:CustomerOrder:v1"]`</li></ul></div>|
 |<div class="interface-property-name anchor" id="data-product_changelogentries">changelogEntries<br/><span class="optional">OPTIONAL</span><a class="hash-link" href="#data-product_changelogentries" title="Direct link to property"></a></div>|<div class="interface-property-type">Array&lt;[Changelog Entry](#changelog-entry)&gt;</div>|<div class="interface-property-description">Contains changelog entries that summarize changes with special regards to version and releaseStatus<br/></div>|
-|<div class="interface-property-name anchor" id="data-product_type">type<br/><span class="mandatory">MANDATORY</span><a class="hash-link" href="#data-product_type" title="Direct link to property"></a></div>|<div class="interface-property-type">string</div>|<div class="interface-property-description">Type of the data product. Based on the type some properties of a data product may become optional/mandatory.<br/><hr/><strong>Allowed Values</strong>: <ul><li><p>`"base"`: A producer aligned also known as base data product. Such a data product will be typically served directly from an application and might not have input ports.</p></li><li><p>`"derived"`: A data product that typically aggregates and combines data from multiple sources to provider value added data sets on top.<br/>Derived data products must provide at least one input port with an integration dependency that has at least one requirement.<br/>To be clarified if we need an additional analytical type for data products that focus on calculating KPIs.</p></li></ul><br/><strong>Example Values</strong>: <ul class="examples"><li>`"base"`</li></ul></div>|
+|<div class="interface-property-name anchor" id="data-product_type">type<br/><span class="mandatory">MANDATORY</span><a class="hash-link" href="#data-product_type" title="Direct link to property"></a></div>|<div class="interface-property-type">string</div>|<div class="interface-property-description">Type of the data product. Based on the type some properties of a data product may become optional/mandatory.<br/><hr/><strong>Allowed Values</strong>: <ul><li><p>`"base"`: A producer aligned data product, aka base data product. Such a data product will be typically served directly from an application and might not have input ports.</p></li><li><p>`"derived"`: A data product that typically aggregates and combines data from multiple sources to provider value added data sets on top.<br/>Derived data products must provide at least one input port with an integration dependency that has at least one requirement.<br/>To be clarified if we need an additional analytical type for data products that focus on calculating KPIs.</p></li></ul><br/><strong>Example Values</strong>: <ul class="examples"><li>`"base"`</li></ul></div>|
 |<div class="interface-property-name anchor" id="data-product_category">category<br/><span class="mandatory">MANDATORY</span><a class="hash-link" href="#data-product_category" title="Direct link to property"></a></div>|<div class="interface-property-type">string</div>|<div class="interface-property-description">Category of the data-set within data product. Based on its definition, a data product is a “data set” - which can include on the values below.<br/>Based on the type some properties of a data product may become optional/mandatory.<br/>Consumers might still do analytics on business object like data products.<br/><hr/><strong>Allowed Values</strong>: <ul><li><p>`"business-object"`: Business Objects: master data, transaction data</p></li><li><p>`"analytical"`: Analytical data, including cubes, KPIs and metrics</p></li><li><p>`"other"`: Other objects, eg: config data, mixed or just unspecified</p></li></ul><br/><strong>Example Values</strong>: <ul class="examples"><li>`"business-object"`</li></ul></div>|
-|<div class="interface-property-name anchor" id="data-product_entitytypes">entityTypes<br/><span class="optional">OPTIONAL</span><a class="hash-link" href="#data-product_entitytypes" title="Direct link to property"></a></div>|<div class="interface-property-type">Array&lt;string&gt;</div>|<div class="interface-property-description">List of (ODM) entity types that are at least partially exposed by the data product.<br/><hr/><strong>Array Item Regex Pattern</strong>: <code class="regex">^(\[a-z0-9\]+(?:\[.\]\[a-z0-9\]+)\*):(entityType):(\[a-zA-Z0-9.\_\\-\]+):(v0\|v\[1-9\]\[0-9\]\*)$</code><br/><strong>Example Values</strong>: <ul class="examples"><li>`["sap.odm:entityType:CustomerOrder:v1","sap.odm:entityType:BusinessPartner:v1"]`</li></ul></div>|
-|<div class="interface-property-name anchor" id="data-product_inputports">inputPorts<br/><span class="optional">OPTIONAL</span><a class="hash-link" href="#data-product_inputports" title="Direct link to property"></a></div>|<div class="interface-property-type">Array&lt;[Integration Dependency](#integration-dependency)&gt;</div>|<div class="interface-property-description">List of Integration Dependencies, whose aspects will form the actual input ports. Therefore, the integration dependencies are an indirection to make use of a more general concern.<br/>Input ports are the public interface to ingest data into the data product.<br/>`derived` typed data products consume data through the input ports. Different input ports allowing ingestion of different sub-sets building up the data-set for the data product.<br/>`base` typed data products might not have any input ports. Their data sets are typically served directly from the application.<br/></div>|
-|<div class="interface-property-name anchor" id="data-product_outputports">outputPorts<br/><span class="mandatory">MANDATORY</span><a class="hash-link" href="#data-product_outputports" title="Direct link to property"></a></div>|<div class="interface-property-type">Array&lt;[Data Product Output Port](#data-product-output-port)&gt;</div>|<div class="interface-property-description">List of output ports.<br/>Output ports are the public interface to access the data set of the data product. Output ports of the same data product might produce different facets of the data set with different qualities.<br/>Different output ports providing access to different sub-sets of the complete data products data-set. As long as different output ports are accessing the same model beneath, they should belong to the same data product.<br/>If multiple output ports structure is too different, splitting and distributing them to different data product is suggested.<br/><hr/><strong>Array Constraint</strong>: MUST have at least 1 items</div>|
+|<div class="interface-property-name anchor" id="data-product_entitytypes">entityTypes<br/><span class="optional">OPTIONAL</span><a class="hash-link" href="#data-product_entitytypes" title="Direct link to property"></a></div>|<div class="interface-property-type">Array&lt;string&gt;</div>|<div class="interface-property-description">List of entity types that are at least partially exposed by the data product.<br/><hr/><strong>Array Item Regex Pattern</strong>: <code class="regex">^(\[a-z0-9\]+(?:\[.\]\[a-z0-9\]+)\*):(entityType):(\[a-zA-Z0-9.\_\\-\]+):(v0\|v\[1-9\]\[0-9\]\*)$</code><br/><strong>Example Values</strong>: <ul class="examples"><li>`["sap.odm:entityType:CustomerOrder:v1","sap.odm:entityType:BusinessPartner:v1"]`</li></ul></div>|
+|<div class="interface-property-name anchor" id="data-product_inputports">inputPorts<br/><span class="optional">OPTIONAL</span><a class="hash-link" href="#data-product_inputports" title="Direct link to property"></a></div>|<div class="interface-property-type">Array&lt;[Data Product Input Port](#data-product-input-port)&gt;</div>|<div class="interface-property-description">The input ports of a data product indicate the data inputs for lineage purposes.<br/><br/>It is a list of Integration Dependencies, whose aspects will form the actual input ports.<br/><br/>Input ports can also be understood as the public interface to ingest data into the data product.<br/>Data products of type `derived` consume data through the input ports. Different input ports allowing ingestion of different sub-sets building up the data-set for the data product.<br/>Data products of type `base` might not have any input ports. Their data sets are typically based directly on the applications / services own data.<br/><hr/><strong>Example Values</strong>: <ul class="examples"><li>`[{"ordId":"sap.xref:integrationDependency:CustomerOrder:v1"}]`</li></ul></div>|
+|<div class="interface-property-name anchor" id="data-product_outputports">outputPorts<br/><span class="mandatory">MANDATORY</span><a class="hash-link" href="#data-product_outputports" title="Direct link to property"></a></div>|<div class="interface-property-type">Array&lt;[Data Product Output Port](#data-product-output-port)&gt;</div>|<div class="interface-property-description">Output ports are the interface (APIs and Events) through with the data of the data product can be accessed.<br/><br/>Output ports of the same data product might produce different facets of the data set with different qualities.<br/>A data set can also be made available via different protocols, which also results in different ports.<br/><br/>As long as different output ports are accessing the same model beneath, they should belong to the same data product.<br/>If the above criteria cannot be reasonably met, consider splitting the data product into multiple smaller data products.<br/><hr/><strong>Array Constraint</strong>: MUST have at least 1 items<br/><strong>Example Values</strong>: <ul class="examples"><li>`[{"ordId":"sap.cic:apiResource:RetailTransactionOData:v1"},{"ordId":"sap.cic:eventResource:RawCustomerOrder:v2"}]`</li></ul></div>|
 |<div class="interface-property-name anchor" id="data-product_responsible">responsible<br/><span class="mandatory">MANDATORY</span><a class="hash-link" href="#data-product_responsible" title="Direct link to property"></a></div>|<div class="interface-property-type">string</div>|<div class="interface-property-description">Contains typically the organization that is responsible in the sense of RACI matrix for this ORD resource. This includes support and feature requests. It is maintained as correlation id to for example support components.<br/><hr/><strong>Regex Pattern</strong>: <code class="regex">^(\[a-z0-9\]+(?:\[.\]\[a-z0-9\]+)\*):(\[a-zA-Z0-9.\_\\-\\/\]+):(\[a-zA-Z0-9.\_\\-\\/\]+)$</code><br/><strong>Maximum Length</strong>: `255`<br/><strong class="introduced-version">Introduced in Version</strong>: 1.8.0<br/><strong>Example Values</strong>: <ul class="examples"><li>`"sap:ach:CIC-DP-CO"`</li></ul></div>|
 |<div class="interface-property-name anchor" id="data-product_dataproductlinks">dataProductLinks<br/><span class="optional">OPTIONAL</span><a class="hash-link" href="#data-product_dataproductlinks" title="Direct link to property"></a></div>|<div class="interface-property-type">Array&lt;[Data Product Link](#data-product-link)&gt;</div>|<div class="interface-property-description">Links with semantic meaning that are specific to Data Product Resources.<br/></div>|
 |<div class="interface-property-name anchor" id="data-product_links">links<br/><span class="optional">OPTIONAL</span><a class="hash-link" href="#data-product_links" title="Direct link to property"></a></div>|<div class="interface-property-type">Array&lt;[Link](#link)&gt;</div>|<div class="interface-property-description">Generic Links with arbitrary meaning and content.<br/></div>|
@@ -329,12 +329,14 @@ For example: The only correct value for a SAP vendor reference is `sap:vendor:SA
 
 ### Product
 
-A **product** in ORD is understood as a software product:
-A non-versioned, high-level entity for structuring the software portfolio from a software logistics perspective.
-While **system type** is a technical concept, **product** is the term to use for internal or customer-facing communication.
+A **product** in ORD is understood as a commercial product or service.
+
+It is a high-level entity for structuring the software portfolio from a sales / software logistics perspective.
+While **system type** is a technical concept, **product** covers the commercial and marketing view.
 
 Please note that the ORD concept of a product is very simple on purpose.
-There are no product versions, product variants, and other more detailed concepts.
+There is no distinction between products and services and concepts like product versions, variants, etc.
+
 ORD assumes that this is handled by specialized systems and that ORD only provides the means to correlate to them.
 
 | Property | Type | Description |
@@ -468,12 +470,24 @@ This is a complex object to allow additional properties / selections to be attac
 |<div class="interface-property-name anchor" id="consumption-bundle-reference_ordid">ordId<br/><span class="mandatory">MANDATORY</span><a class="hash-link" href="#consumption-bundle-reference_ordid" title="Direct link to property"></a></div>|<div class="interface-property-type">string</div>|<div class="interface-property-description">The consumption bundle ORD ID (`ConsumptionBundle.ordId`) this reference points to.<br/><hr/><strong>Regex Pattern</strong>: <code class="regex">^(\[a-z0-9\]+(?:\[.\]\[a-z0-9\]+)\*):(consumptionBundle):(\[a-zA-Z0-9.\_\\-\]+):(v0\|v\[1-9\]\[0-9\]\*)$</code><br/><strong>Maximum Length</strong>: `255`<br/><strong>Example Values</strong>: <ul class="examples"><li>`"sap.xref:consumptionBundle:bundleXYZ:v1"`</li></ul></div>|
 |<div class="interface-property-name anchor" id="consumption-bundle-reference_defaultentrypoint">defaultEntryPoint<br/><span class="optional">OPTIONAL</span><a class="hash-link" href="#consumption-bundle-reference_defaultentrypoint" title="Direct link to property"></a></div>|<div class="interface-property-type">string</div>|<div class="interface-property-description">In case that an API Resource has multiple entry points, this will indicate which entry point should be used by default<br/>when discovering this resource from the context of the referenced Consumption Bundle.<br/><br/>MUST NOT be provided for Event Resources, as they don't have entry points.<br/>MUST only be provided if the resource has more than one entry point.<br/>MUST be in the list of `entryPoints` of the affected resource.<br/><hr/><strong>JSON Schema Format</strong>: `uri-reference`</div>|
 
+### Data Product Input Port
+
+An input port of a data product states where it retrieves its data inputs from.
+
+It is described as via an ORD Integration Dependency.
+
+| Property | Type | Description |
+| -------- | ---- | ----------- |
+|<div class="interface-property-name anchor" id="data-product-input-port_ordid">ordId<br/><span class="mandatory">MANDATORY</span><a class="hash-link" href="#data-product-input-port_ordid" title="Direct link to property"></a></div>|<div class="interface-property-type">string</div>|<div class="interface-property-description">The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.<br/><br/>It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.<br/><hr/><strong>Regex Pattern</strong>: <code class="regex">^(\[a-z0-9\]+(?:\[.\]\[a-z0-9\]+)\*):(integrationDependency):(\[a-zA-Z0-9.\_\\-\]+):(v0\|v\[1-9\]\[0-9\]\*)$</code><br/><strong>Maximum Length</strong>: `255`<br/><strong>Example Values</strong>: <ul class="examples"><li>`"sap.foo.bar:integrationDependency:CustomerOrder:v1"`</li></ul></div>|
+
 ### Data Product Output Port
 
-A data product outport references APIs or Events that expose different sub-sets of the same data-set
-Referenced API or Event ORD resources don't need to be provided within the same ORD document. Especially if a data product is built against a specific API contract of another application or data product,
-this API resource should be referred to. In this case the other application is responsible for the lifecycle of the API contract and will update its ORD description independently. This is also the main reason for not
-directly referencing API or Event resources, so that a data product can attach limited data product specific properties in the future.
+A data product output port references the APIs or Events that can be used to access the data-set.
+It MAY provide full access to the complete data set, but can also just expose a subset of it - if other output ports cover the missing parts.
+
+Referenced API or Event ORD resources don't need to be provided within the same ORD document.
+If a data product is built against a specific API contract of another application or data product, this API resource should be referred to.
+In this case the other application is responsible for the lifecycle of the API contract and will update its ORD description independently.
 
 | Property | Type | Description |
 | -------- | ---- | ----------- |
@@ -882,7 +896,7 @@ Entity types can be referenced using a [Correlation ID](https://sap.github.io/op
 
 | Property | Type | Description |
 | -------- | ---- | ----------- |
-|<div class="interface-property-name anchor" id="entity-type-target-(correlation-id)_correlationid">correlationId<br/><span class="mandatory">MANDATORY</span><a class="hash-link" href="#entity-type-target-(correlation-id)_correlationid" title="Direct link to property"></a></div>|<div class="interface-property-type">string</div>|<div class="interface-property-description"><hr/><strong>Regex Pattern</strong>: <code class="regex">^(\[a-z0-9\]+(?:\[.\]\[a-z0-9\]+)\*):(\[a-zA-Z0-9.\_\\-\\/\]+):(\[a-zA-Z0-9.\_\\-\\/\]+)$</code><br/><strong>Maximum Length</strong>: `255`<br/><strong>Example Values</strong>: <ul class="examples"><li>`"sap.s4:csnEntity:Attachment"`</li></ul></div>|
+|<div class="interface-property-name anchor" id="entity-type-target-(correlation-id)_correlationid">correlationId<br/><span class="mandatory">MANDATORY</span><a class="hash-link" href="#entity-type-target-(correlation-id)_correlationid" title="Direct link to property"></a></div>|<div class="interface-property-type">string</div>|<div class="interface-property-description"><hr/><strong>Regex Pattern</strong>: <code class="regex">^(\[a-z0-9\]+(?:\[.\]\[a-z0-9\]+)\*):(\[a-zA-Z0-9.\_\\-\\/\]+):(\[a-zA-Z0-9.\_\\-\\/\]+)$</code><br/><strong>Maximum Length</strong>: `255`<br/><strong>Example Values</strong>: <ul class="examples"><li>`"sap.csnexposure:entity:Attachment"`</li></ul></div>|
 
 
 ## Complete Examples
@@ -1050,6 +1064,828 @@ Entity types can be referenced using a [Correlation ID](https://sap.github.io/op
     {
       "ordId": "sap.foo:apiResource:astronomy:v0",
       "removalDate": "2020-12-02T14:12:59Z"
+    }
+  ]
+}
+```
+
+### examples/DataProductDocument.json
+
+```json
+{
+  "openResourceDiscovery": "1.8",
+  "policyLevel": "sap:core:v1",
+  "products": [
+    {
+      "ordId": "sap:product:SampleProduct:",
+      "title": "Some Sample Product for Data Product Evaluation in Business Accelerator Hub",
+      "shortDescription": "The next generation digital core designed to help you run simple in a digital economy.",
+      "vendor": "sap:vendor:SAP:"
+    }
+  ],
+  "packages": [
+    {
+      "ordId": "sap.xref:package:SomePackageDataProduct:v1",
+      "title": "Sample Package DP",
+      "shortDescription": "Sample Package for Data Product Evaluation in Business Accelerator Hub",
+      "description": "...",
+      "version": "1.0.0",
+      "vendor": "sap:vendor:SAP:",
+      "partOfProducts": [
+        "sap:product:SampleProduct:"
+      ]
+    },
+    {
+      "ordId": "sap.xref:package:SomePackageIntegrationDependencies:v1",
+      "title": "Sample Package Integration Dependencies",
+      "shortDescription": "Sample Package for Data Product Evaluation in Business Accelerator Hub",
+      "description": "...",
+      "version": "1.0.0",
+      "vendor": "sap:vendor:SAP:",
+      "partOfProducts": [
+        "sap:product:SampleProduct:"
+      ]
+    },
+    {
+      "ordId": "sap.xref:package:SomePackageAPIs:v1",
+      "title": "Sample Package APIs",
+      "shortDescription": "Sample Package for Data Product Evaluation in Business Accelerator Hub",
+      "description": "...",
+      "version": "1.0.0",
+      "vendor": "sap:vendor:SAP:",
+      "partOfProducts": [
+        "sap:product:SampleProduct:"
+      ]
+    },
+    {
+      "ordId": "sap.xref:package:SomePackageEvents:v1",
+      "title": "Sample Package Events",
+      "shortDescription": "Sample Package for Data Product Evaluation in Business Accelerator Hub",
+      "description": "...",
+      "version": "1.0.0",
+      "vendor": "sap:vendor:SAP:",
+      "partOfProducts": [
+        "sap:product:SampleProduct:"
+      ]
+    }
+  ],
+  "dataProducts": [
+    {
+      "ordId": "sap.xref:dataProduct:Customer:v1",
+      "localId": "Customer",
+      "correlationIds": [
+        "sap.xref:foo:bar"
+      ],
+      "title": "Customer",
+      "shortDescription": "A deprecated DP example",
+      "description": "The Customer data product offers access to all customers. And can be very long ........",
+      "partOfPackage": "sap.xref:package:SomePackageDataProduct:v1",
+      "visibility": "public",
+      "releaseStatus": "deprecated",
+      "version": "1.9.0",
+      "deprecationDate": "2020-12-08T15:47:04+00:00",
+      "sunsetDate": "2022-01-08T15:47:04+00:00",
+      "successors": [
+        "sap.xref:dataProduct:Customer:v2"
+      ],
+      "type": "base",
+      "category": "business-object",
+      "outputPorts": [
+        {
+          "ordId": "sap.xref:apiResource:Customer:v1"
+        }
+      ],
+      "responsible": "sap:ach:CIC-DP-CO"
+    },
+    {
+      "ordId": "sap.xref:dataProduct:Customer:v2",
+      "localId": "Customer",
+      "correlationIds": [
+        "sap.xref:foo:bar"
+      ],
+      "title": "Customer",
+      "shortDescription": "A minimal DP example",
+      "description": "The Customer data product offers access to all customers. And can be very long ........",
+      "partOfPackage": "sap.xref:package:SomePackageDataProduct:v1",
+      "visibility": "public",
+      "releaseStatus": "active",
+      "version": "2.1.0",
+      "type": "base",
+      "category": "business-object",
+      "outputPorts": [
+        {
+          "ordId": "sap.xref:apiResource:Customer:v1"
+        }
+      ],
+      "responsible": "sap:ach:CIC-DP-CO"
+    },
+    {
+      "ordId": "sap.xref:dataProduct:CustomerOrder:v1",
+      "localId": "CustomerOrder",
+      "correlationIds": [
+        "sap.xref:foo:bar"
+      ],
+      "title": "Customer Order",
+      "shortDescription": "The full example",
+      "description": "The data product Customer Order offers access to all online and offline orders submitted by customers. It provides a customer view on the orders. For fulfillment-specific aspects please refer to the data product Fulfillment Order.",
+      "partOfPackage": "sap.xref:package:SomePackageDataProduct:v1",
+      "lastUpdate": "2022-12-19T15:47:04+00:00",
+      "visibility": "public",
+      "version": "1.4.0",
+      "releaseStatus": "active",
+      "disabled": false,
+      "changelogEntries": [
+        {
+          "date": "2020-04-29",
+          "description": "## Changelog\n...",
+          "releaseStatus": "active",
+          "version": "1.1.3",
+          "url": "https://www.sap.com/foo/bar"
+        },
+        {
+          "date": "2022-04-29",
+          "description": "## Changelog\n...",
+          "releaseStatus": "active",
+          "version": "1.2.3",
+          "url": "https://www.sap.com/foo/bar"
+        }
+      ],
+      "type": "derived",
+      "category": "business-object",
+      "entityTypes": [
+        "sap.odm:entityType:CustomerOrder:v1",
+        "sap.odm:entityType:RetailTransaction:v1"
+      ],
+      "inputPorts": [
+        {
+          "ordId": "sap.xref:integrationDependency:CustomerOrder:v1"
+        }
+      ],
+      "outputPorts": [
+        {
+          "ordId": "sap.xref:apiResource:CustomerOrderHeaderSQLPort:v1"
+        },
+        {
+          "ordId": "sap.xref:apiResource:CustomerOrderDeltaSharing:v1"
+        },
+        {
+          "ordId": "sap.xref:apiResource:CustomerOrderRest:v1"
+        },
+        {
+          "ordId": "sap.xref:eventResource:CustomerOrder:v1"
+        }
+      ],
+      "responsible": "sap:ach:CIC-DP-CO",
+      "dataProductLinks": [
+        {
+          "type": "support",
+          "url": "https://example.com/some/absolute/url"
+        },
+        {
+          "type": "service-level-agreement",
+          "url": "https://example.com/some/absolute/url"
+        },
+        {
+          "type": "payment",
+          "url": "https://example.com/some/absolute/url"
+        },
+        {
+          "type": "custom",
+          "customType": "sap:some-custom-definition-format-type:v1",
+          "url": "https://example.com/some/absolute/url"
+        }
+      ],
+      "links": [
+        {
+          "title": "Greatest DP of all time",
+          "description": "This gives you an overview how a customer is using the data product.\n",
+          "url": "https://blogs.sap.com/2018/04/11/testing-of-s4hana-inventory-management-odata-apis-via-sap-api-hub/"
+        }
+      ],
+      "industry": [
+        "Retail",
+        "Consumer Products"
+      ],
+      "lineOfBusiness": [
+        "Sales"
+      ],
+      "tags": [
+        "CustomerOrder",
+        "Order",
+        "Online Sales",
+        "Offline Sales"
+      ],
+      "labels": {
+        "label-key-1": [
+          "label-value-1",
+          "label-value-2"
+        ]
+      },
+      "documentationLabels": {
+        "Scope Items": [
+          "[Basic Bank Account Management (BFA)](https://rapid.sap.com/bp/#/scopeitems/BFA \\\" Link To BP \\\")"
+        ]
+      },
+      "systemInstanceAware": true
+    }
+  ],
+  "integrationDependencies": [
+    {
+      "ordId": "sap.xref:integrationDependency:CustomerOrder:v1",
+      "localId": "CustomerOrder",
+      "title": "Customer Order Integration Needs",
+      "shortDescription": "Integration dependency to realize customer order data product",
+      "description": "This integration dependency describes all the necessary aspects needed for the custom order data product to get data from. ...",
+      "partOfPackage": "sap.xref:package:SomePackageIntegrationDependencies:v1",
+      "version": "1.2.3",
+      "lastUpdate": "2022-12-19T15:47:04+00:00",
+      "visibility": "public",
+      "releaseStatus": "active",
+      "mandatory": true,
+      "aspects": [
+        {
+          "title": "RawCustomerOrder",
+          "description": "Raw Custom Order Data (For this test case the API reference is not part of this ORD document and will eventually be uploaded to Business Accelerator Hub!)",
+          "mandatory": true,
+          "supportMultipleProviders": true,
+          "apiResources": [
+            {
+              "ordId": "sap.s4:apiResource:RawCustomerOrderData:v1"
+            }
+          ],
+          "eventResources": [
+            {
+              "ordId": "sap.xref:eventResource:RawCustomerOrder:v1",
+              "minVersion": "1.3.0",
+              "subset": [
+                {
+                  "eventType": "sap.xref.Order.OrderTransferred.v1"
+                }
+              ]
+            },
+            {
+              "ordId": "sap.xref:eventResource:RawCustomerOrder:v2",
+              "subset": [
+                {
+                  "eventType": "sap.xref.Order.OrderTransferred.v2"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "RetailTransaction",
+          "description": "Optional aspect to include retail transactions as customer orders (in this test case the alternative is between different APIs that can be used to injest data",
+          "mandatory": false,
+          "apiResources": [
+            {
+              "ordId": "sap.xref:apiResource:RetailTransactionOData:v1",
+              "minVersion": "1.3.3"
+            },
+            {
+              "ordId": "sap.xref:apiResource:RetailTransactionSQL:v2"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "apiResources": [
+    {
+      "ordId": "sap.xref:apiResource:CSN_EXPOSURE:v1",
+      "title": "CSN EXPOSURE Endpoint",
+      "shortDescription": "Exposing CSN",
+      "description": "Internal CSN Exposure API",
+      "version": "1.2.3",
+      "releaseStatus": "active",
+      "apiProtocol": "rest",
+      "visibility": "internal",
+      "partOfPackage": "sap.xref:package:SomePackageAPIs:v1",
+      "entryPoints": [
+        "./CSN_EXPOSURE"
+      ],
+      "implementationStandard": "sap:csn-exposure:v1",
+      "resourceDefinitions": [
+        {
+          "type": "openapi-v3",
+          "mediaType": "application/json",
+          "url": "/api/csn_exposure-oa3.json",
+          "accessStrategies": [
+            {
+              "type": "open"
+            }
+          ]
+        }
+      ],
+      "extensible": {
+        "supported": "no"
+      }
+    },
+    {
+      "ordId": "sap.xref:apiResource:RetailTransactionSQL:v2",
+      "localId": "RetailTransactionSQL",
+      "title": "Retail Transactions",
+      "shortDescription": "Exposing Retail Transactions...",
+      "description": "Retail Transactions SQL API",
+      "version": "2.2.3",
+      "releaseStatus": "active",
+      "visibility": "public",
+      "partOfPackage": "sap.xref:package:SomePackageAPIs:v1",
+      "entryPoints": [
+        "sap://my.lob.data.platform.endpoint:30015"
+      ],
+      "apiProtocol": "sap-sql-api-v1",
+      "resourceDefinitions": [
+        {
+          "type": "sap-sql-api-definition-v1",
+          "mediaType": "application/json",
+          "url": "/api/retail-transaction-sql-v1.json",
+          "accessStrategies": [
+            {
+              "type": "open"
+            }
+          ]
+        }
+      ],
+      "implementationStandard": "sap:hana-cloud-sql:v1",
+      "supportedUseCases": [
+        "data-federation"
+      ],
+      "entityTypeMappings": [
+        {
+          "entityTypeTargets": [
+            {
+              "ordId": "sap.odm:entityType:RetailTransaction:v1"
+            }
+          ]
+        },
+        {
+          "apiModelSelectors": [
+            {
+              "type": "json-pointer",
+              "jsonPointer": "#/components/schemas/RETAIL/TRANSACTIONS"
+            }
+          ],
+          "entityTypeTargets": [
+            {
+              "correlationId": "sap.csnexposure:entity:RetailTransaction"
+            }
+          ]
+        }
+      ],
+      "apiResourceLinks": [
+        {
+          "type": "api-documentation",
+          "url": "/some/relative/url"
+        },
+        {
+          "type": "authentication",
+          "url": "https://example.com/some/absolute/url"
+        },
+        {
+          "type": "service-level-agreement",
+          "url": "https://example.com/some/absolute/url"
+        }
+      ],
+      "extensible": {
+        "supported": "manual",
+        "description": "API can be extended by custom fields on the following business contexts (field usage for this API needs to be selected):\r\n* Procurement: Purchasing Document (MM_PURDOC_HEADER)\r\n* Procurement: Purchasing Document Item (MM_PURDOC_ITEM)\r\n\r\n[How to add an extension field to an API](https://help.sap.com/viewer/9a281eac983f4f688d0deedc96b3c61c/latest/en-US/57909455bf7c4fdd8bcf48d76c1eae33.html)"
+      },
+      "countries": [
+        "DE",
+        "US"
+      ],
+      "lineOfBusiness": [
+        "Sales"
+      ],
+      "industry": [
+        "Retail",
+        "Consumer Products"
+      ],
+      "tags": [
+        "Commerce"
+      ],
+      "labels": {
+        "label-key-1": [
+          "label-value-1",
+          "label-value-2"
+        ]
+      },
+      "documentationLabels": {
+        "Expected Access Performance ": [
+          "free text/markdown"
+        ]
+      }
+    },
+    {
+      "ordId": "sap.xref:apiResource:RetailTransactionOData:v1",
+      "localId": "RetailTransactionOData",
+      "title": "Retail Transactions",
+      "shortDescription": "Exposing Retail Transactions...",
+      "description": "Retail Transactions OData API",
+      "version": "1.2.3",
+      "releaseStatus": "active",
+      "visibility": "public",
+      "partOfPackage": "sap.xref:package:SomePackageAPIs:v1",
+      "entryPoints": [
+        "sap://my.lob.data.platform.endpoint:30015"
+      ],
+      "apiProtocol": "odata-v2",
+      "resourceDefinitions": [
+        {
+          "type": "openapi-v3",
+          "mediaType": "application/json",
+          "url": "/api/customer-order-openapi/oas3.json",
+          "accessStrategies": [
+            {
+              "type": "open"
+            }
+          ]
+        },
+        {
+          "type": "edmx",
+          "mediaType": "application/xml",
+          "url": "/api/customer-order-edmx.xml",
+          "accessStrategies": [
+            {
+              "type": "open"
+            }
+          ]
+        }
+      ],
+      "entityTypeMappings": [
+        {
+          "entityTypeTargets": [
+            {
+              "ordId": "sap.odm:entityType:CustomerOrder:v1"
+            }
+          ]
+        },
+        {
+          "apiModelSelectors": [
+            {
+              "type": "json-pointer",
+              "jsonPointer": "#/components/schemas/CUSTOMER-ORDER/CUSTOMER_ORDER_HEADER"
+            }
+          ],
+          "entityTypeTargets": [
+            {
+              "correlationId": "sap.csnexposure:entity:CustomerOrder"
+            }
+          ]
+        }
+      ],
+      "extensible": {
+        "supported": "no"
+      }
+    },
+    {
+      "ordId": "sap.xref:apiResource:CustomerOrderHeaderSQLPort:v1",
+      "localId": "CustomerOrderHeaderSQLPort",
+      "title": "Customer Order",
+      "shortDescription": "Exposing Customer Order...",
+      "description": "Customer Order SQL API ...",
+      "version": "1.2.3",
+      "releaseStatus": "active",
+      "visibility": "public",
+      "partOfPackage": "sap.xref:package:SomePackageAPIs:v1",
+      "entryPoints": [
+        "sap://my.lob.data.platform.endpoint:30015"
+      ],
+      "apiProtocol": "sap-sql-api-v1",
+      "resourceDefinitions": [
+        {
+          "type": "sap-sql-api-definition-v1",
+          "mediaType": "application/json",
+          "url": "/api/customer-order-sql-v1.json",
+          "accessStrategies": [
+            {
+              "type": "open"
+            }
+          ]
+        }
+      ],
+      "implementationStandard": "sap:hana-cloud-sql:v1",
+      "supportedUseCases": [
+        "data-federation"
+      ],
+      "entityTypeMappings": [
+        {
+          "entityTypeTargets": [
+            {
+              "ordId": "sap.odm:entityType:CustomerOrder:v1"
+            }
+          ]
+        },
+        {
+          "apiModelSelectors": [
+            {
+              "type": "json-pointer",
+              "jsonPointer": "#/components/schemas/CUSTOMER-ORDER/ORDER-HEADER"
+            }
+          ],
+          "entityTypeTargets": [
+            {
+              "correlationId": "sap.csnexposure:entity:CustomerOrder"
+            }
+          ]
+        }
+      ],
+      "apiResourceLinks": [
+        {
+          "type": "api-documentation",
+          "url": "/some/relative/url"
+        },
+        {
+          "type": "authentication",
+          "url": "https://example.com/some/absolute/url"
+        },
+        {
+          "type": "service-level-agreement",
+          "url": "https://example.com/some/absolute/url"
+        }
+      ],
+      "extensible": {
+        "supported": "no"
+      },
+      "countries": [
+        "DE",
+        "US"
+      ],
+      "lineOfBusiness": [
+        "Sales"
+      ],
+      "industry": [
+        "Retail",
+        "Consumer Products"
+      ],
+      "tags": [
+        "Commerce"
+      ],
+      "labels": {
+        "label-key-1": [
+          "label-value-1",
+          "label-value-2"
+        ]
+      },
+      "documentationLabels": {
+        "Expected Access Performance ": [
+          "free text/markdown"
+        ]
+      }
+    },
+    {
+      "ordId": "sap.xref:apiResource:CustomerOrderDeltaSharing:v1",
+      "localId": "CustomerOrderDeltaSharing",
+      "title": "Customer Order",
+      "shortDescription": "Exposing Customer Order...",
+      "description": "Customer Order Delta Sharing API ...",
+      "version": "1.2.3",
+      "releaseStatus": "active",
+      "visibility": "public",
+      "partOfPackage": "sap.xref:package:SomePackageAPIs:v1",
+      "entryPoints": [
+        "sap://my.lob.data.platform.endpoint:30015"
+      ],
+      "apiProtocol": "delta-sharing",
+      "implementationStandard": "sap:hdlf-delta-sharing:v1",
+      "supportedUseCases": [
+        "streaming"
+      ],
+      "entityTypeMappings": [
+        {
+          "entityTypeTargets": [
+            {
+              "ordId": "sap.odm:entityType:CustomerOrder:v1"
+            }
+          ]
+        }
+      ],
+      "apiResourceLinks": [
+        {
+          "type": "api-documentation",
+          "url": "/some/relative/url"
+        },
+        {
+          "type": "authentication",
+          "url": "https://example.com/some/absolute/url"
+        },
+        {
+          "type": "service-level-agreement",
+          "url": "https://example.com/some/absolute/url"
+        }
+      ],
+      "extensible": {
+        "supported": "no"
+      },
+      "countries": [
+        "DE",
+        "US"
+      ],
+      "lineOfBusiness": [
+        "Sales"
+      ],
+      "industry": [
+        "Retail",
+        "Consumer Products"
+      ],
+      "tags": [
+        "Commerce"
+      ],
+      "labels": {
+        "label-key-1": [
+          "label-value-1",
+          "label-value-2"
+        ]
+      },
+      "documentationLabels": {
+        "Expected Access Performance ": [
+          "free text/markdown"
+        ]
+      }
+    },
+    {
+      "ordId": "sap.xref:apiResource:CustomerOrderRest:v1",
+      "localId": "CustomerOrderRest",
+      "title": "Customer Order",
+      "shortDescription": "Exposing Customer Order...",
+      "description": "Customer Order Rest API ...",
+      "version": "1.2.3",
+      "releaseStatus": "active",
+      "visibility": "public",
+      "partOfPackage": "sap.xref:package:SomePackageAPIs:v1",
+      "entryPoints": [
+        "sap://my.lob.data.platform.endpoint:30015"
+      ],
+      "apiProtocol": "rest",
+      "resourceDefinitions": [
+        {
+          "type": "openapi-v3",
+          "mediaType": "application/json",
+          "url": "/api/customer-order-oas3.json",
+          "accessStrategies": [
+            {
+              "type": "open"
+            }
+          ]
+        }
+      ],
+      "supportedUseCases": [
+        "snapshot"
+      ],
+      "entityTypeMappings": [
+        {
+          "entityTypeTargets": [
+            {
+              "ordId": "sap.odm:entityType:CustomerOrder:v1"
+            }
+          ]
+        },
+        {
+          "apiModelSelectors": [
+            {
+              "type": "json-pointer",
+              "jsonPointer": "#/components/schemas/CUSTOMER-ORDER/ORDER-HEADER"
+            }
+          ],
+          "entityTypeTargets": [
+            {
+              "correlationId": "sap.csnexposure:entity:CustomerOrder"
+            }
+          ]
+        }
+      ],
+      "apiResourceLinks": [
+        {
+          "type": "api-documentation",
+          "url": "/some/relative/url"
+        },
+        {
+          "type": "authentication",
+          "url": "https://example.com/some/absolute/url"
+        },
+        {
+          "type": "service-level-agreement",
+          "url": "https://example.com/some/absolute/url"
+        }
+      ],
+      "extensible": {
+        "supported": "no"
+      },
+      "countries": [
+        "DE",
+        "US"
+      ],
+      "lineOfBusiness": [
+        "Sales"
+      ],
+      "industry": [
+        "Retail",
+        "Consumer Products"
+      ],
+      "tags": [
+        "Commerce"
+      ],
+      "labels": {
+        "label-key-1": [
+          "label-value-1",
+          "label-value-2"
+        ]
+      },
+      "documentationLabels": {
+        "Expected Access Performance ": [
+          "free text/markdown"
+        ]
+      }
+    }
+  ],
+  "eventResources": [
+    {
+      "ordId": "sap.xref:eventResource:RawCustomerOrder:v1",
+      "version": "1.3.3",
+      "title": "Raw Customer Order events",
+      "shortDescription": "Exposing raw Customer Order events",
+      "description": "Some longer description understanding that this event is exposing raw Customer Order events",
+      "releaseStatus": "active",
+      "visibility": "public",
+      "partOfPackage": "sap.xref:package:SomePackageEvents:v1",
+      "resourceDefinitions": [
+        {
+          "type": "asyncapi-v2",
+          "url": "/some/url/events/eventCatalog.json",
+          "mediaType": "application/json"
+        }
+      ],
+      "entityTypeMappings": [
+        {
+          "entityTypeTargets": [
+            {
+              "ordId": "sap.odm:entityType:CustomerOrder:v1"
+            }
+          ]
+        }
+      ],
+      "extensible": {
+        "supported": "no"
+      }
+    },
+    {
+      "ordId": "sap.xref:eventResource:RawCustomerOrder:v2",
+      "version": "2.2.3",
+      "title": "Raw Customer Order events",
+      "shortDescription": "Exposing raw Customer Order events",
+      "description": "Some longer description understanding that this event is exposing raw Customer Order events",
+      "releaseStatus": "active",
+      "visibility": "public",
+      "partOfPackage": "sap.xref:package:SomePackageEvents:v1",
+      "resourceDefinitions": [
+        {
+          "type": "asyncapi-v2",
+          "url": "/some/url/events/eventCatalog2.json",
+          "mediaType": "application/json"
+        }
+      ],
+      "entityTypeMappings": [
+        {
+          "entityTypeTargets": [
+            {
+              "ordId": "sap.odm:entityType:CustomerOrder:v1"
+            }
+          ]
+        }
+      ],
+      "extensible": {
+        "supported": "no"
+      }
+    },
+    {
+      "ordId": "sap.xref:eventResource:CustomerOrder:v1",
+      "version": "1.2.3",
+      "title": "Aggregated Customer Order events",
+      "shortDescription": "Exposing Customer Order events",
+      "description": "Some longer description understanding that this event is exposing Customer Order events",
+      "releaseStatus": "active",
+      "visibility": "public",
+      "partOfPackage": "sap.xref:package:SomePackageEvents:v1",
+      "resourceDefinitions": [
+        {
+          "type": "asyncapi-v2",
+          "url": "/some/url/events/eventCatalog2.json",
+          "mediaType": "application/json"
+        }
+      ],
+      "entityTypeMappings": [
+        {
+          "entityTypeTargets": [
+            {
+              "ordId": "sap.odm:entityType:CustomerOrder:v1"
+            }
+          ]
+        }
+      ],
+      "extensible": {
+        "supported": "no"
+      }
     }
   ]
 }

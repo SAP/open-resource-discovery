@@ -350,7 +350,7 @@ The rules on [ORD Provider Cache Handling](#ord-provider-cache-handling) apply.
 
 It is RECOMMENDED to make this endpoint public.
 
-It is RECOMMENDED use the fixed [Well-Known URI](https://tools.ietf.org/html/rfc8615#section-3) `/.well-known/open-resource-discovery` that is relative to the system instances [base URL](#def-base-url).
+It is RECOMMENDED use the fixed [Well-Known URI](https://tools.ietf.org/html/rfc8615#section-3) `/.well-known/open-resource-discovery` (as registered [here](https://www.iana.org/assignments/well-known-uris/well-known-uris.xhtml)) that is relative to the system instances [base URL](#def-base-url).
 
 Since the ORD config does not contain any tenant specific information, it is RECOMMENDED to only provide one ORD configuration endpoint for one [system installation](#def-system-installation) (same [base URL](#def-base-url)) of a multi-tenant application.
 
@@ -618,10 +618,13 @@ A vendor namespace MUST be constructed according to the following rules:
 - `<vendorId>` is a registered ID of a vendor.
   - MUST only consist of lower case ASCII letters (`a-z`) and digits (`0-9`) (`^[a-z0-9]+$`).
   - The organization using ORD MUST ensure that `<vendorId>` is uniquely registered, e.g. in a namespace registry.
+  - There is a special reserved vendor namespace `customer`:
+    - It can be used in extension scenarios, where the customer of an applications creates their own ORD resources.
+    - This avoids that customers need to register their own namespaces (which could still be done as an alternative).
 
 **Examples**: For SAP, we chose and registered `sap`.
 
-> 🚧 There is currently no global namespace registry where we can ensure that there are no conflicts across those. If ORD is to be used as a universal standard, this needs to be introduced.
+> 🚧 There is currently no global namespace registry where we can ensure that there are no conflicts across different vendors.
 
 #### Application Namespace
 

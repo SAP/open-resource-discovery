@@ -3,15 +3,35 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
-This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) rules, but omits the **patch** level in the spec version number.
+This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) rules,
+but omits the **patch** level in the spec version number.
+
+For a roadmap including expected timeline, please refer to [ROADMAP.md](./ROADMAP.md)
 
 ## [unreleased]
+
+## [1.8.4]
+
+### Fixed
+
+- **Breaking**: The relation of a data product input port to the integration dependency was accidentally modeled as composition, not association,
+  - Since the Data Product concept is still in beta, we'll ship this change as a fix and notify current adopters
+
+### Added
+
+- Added statement that there's a reserved `customer` vendor namespace
+- The `.well-known/open-resource-discovery` URI is now [officially registered](https://www.iana.org/assignments/well-known-uris/well-known-uris.xhtml).
 
 ## [1.8.3]
 
 ### Added
 
 - Added Excel and CSV files export that gives a high-level overview of ORD entities and their attributes
+
+### Removed
+
+- Removed `sap-delta-sharing-combined` API resource definition format, as it has not be specified yet.
+  - It may be reintroduced in the future, if a specification exists and a producer for it exists.
 
 ### Fixed
 
@@ -72,4 +92,12 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Added
 
-- This is the first public release of the ORD specification.
+- ORD has been made public as Open Source under Apache 2 license.
+  - GitHub: https://github.com/SAP/open-resource-discovery
+  - Announcement: https://blogs.sap.com/2023/11/14/open-resource-discovery-a-protocol-for-decentralized-metadata-discovery-is-now-open-source/
+- Added `eventResourceLinks` that allow to add typed links with predefined semantics
+  - This was already available for APIs and just missing for event resources
+  - In both cases, they share the same interface and predefined types
+  - The internal interface name changed from `APIResourceLink` to `APIEventResourceLink`
+    - This doesn't have any effect on the interface contract, but may need to be considered for internal refactoring / renaming.
+

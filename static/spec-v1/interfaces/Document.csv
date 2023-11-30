@@ -157,7 +157,7 @@ Data Product,changelogEntries,false,array<ChangelogEntry>
 Data Product,type,true,string
 Data Product,category,true,string
 Data Product,entityTypes,false,array<string>
-Data Product,inputPorts,false,array<IntegrationDependency>
+Data Product,inputPorts,false,array<DataProductInputPort>
 Data Product,outputPorts,true,array<DataProductOutputPort>
 Data Product,responsible,true,string
 Data Product,dataProductLinks,false,array<DataProductLink>
@@ -170,6 +170,7 @@ Data Product,documentationLabels,false,DocumentationLabels
 Data Product,policyLevel,false,string
 Data Product,customPolicyLevel,false,string
 Data Product,systemInstanceAware,false,boolean
+Data Product Input Port,ordId,true,string
 Data Product Output Port,ordId,true,string
 API Resource Definition,type,true,string
 API Resource Definition,customType,false,string
