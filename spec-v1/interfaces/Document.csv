@@ -56,7 +56,7 @@ API Resource,changelogEntries,false,array<ChangelogEntry>
 API Resource,entryPoints,false,array<string>
 API Resource,direction,false,string
 API Resource,apiProtocol,true,string
-API Resource,resourceDefinitions,false,array<APIResourceDefinition>
+API Resource,resourceDefinitions,false,array<ApiResourceDefinition>
 API Resource,implementationStandard,false,string
 API Resource,customImplementationStandard,false,string
 API Resource,customImplementationStandardDescription,false,string
