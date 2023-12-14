@@ -4,7 +4,7 @@ description: A Data Product is a data set exposed for consumption outside the bo
 title: Data Product
 ---
 
-# Data Product <span class="feature-status-beta">BETA</span>
+# Data Product <span className="feature-status-beta">BETA</span>
 
 > 🚧 Please note that the [Data Products](../../spec-v1/interfaces/document#data-product) concept is currently in [Beta Status](#beta-status).
 
@@ -76,7 +76,7 @@ Data Products are exposed by **Producers** so that they can be used by **Consume
 
 ## Beta Status
 
-Please note that the Data Product concept is currently in <span class="feature-status-beta" title="This feature is in BETA status and subject to potential changes.">BETA</span>.
+Please note that the Data Product concept is currently in <span className="feature-status-beta" title="This feature is in BETA status and subject to potential changes.">BETA</span>.
 
 This has the following implications
 

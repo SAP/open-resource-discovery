@@ -1,9 +1,7 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const prism = require('prism-react-renderer')
-
-const lightCodeTheme = prism.themes.github
+import { themes as prismThemes } from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -76,6 +74,9 @@ const config = {
         disableSwitch: true,
         respectPrefersColorScheme: false,
       },
+      prism: {
+        theme: prismThemes.oceanicNext,
+      },
       navbar: {
         title: '',
         logo: {
@@ -116,6 +117,10 @@ const config = {
               {
                 label: 'ORD Document API',
                 to: 'spec-v1/interfaces/document-api',
+              },
+              {
+                label: 'Example Files',
+                to: 'spec-v1/examples',
               },
               {
                 label: 'Changelog',
@@ -167,11 +172,7 @@ const config = {
           },
         ],
         copyright: `Copyright © ${new Date().getFullYear()} SAP SE. Made available under Apache License 2.0.\n\n This site is hosted by GitHub Pages. Please see the GitHub Privacy Statement for any information how GitHub processes your personal data.`,
-      },
-      prism: {
-        theme: lightCodeTheme,
-        additionalLanguages: ['json5'],
-      },
+      }
     }),
 }
 

@@ -271,7 +271,7 @@ components:
           type: array
           description: Array of all API Resources that are described in this ORD document.
           items:
-            $ref: '#/components/schemas/APIResource'
+            $ref: '#/components/schemas/ApiResource'
         eventResources:
           type: array
           description: Array of all event resources that are described in this ORD document.
@@ -908,7 +908,7 @@ components:
             MUST be in the list of `entryPoints` of the affected resource.
       required:
         - ordId
-    APIResource:
+    ApiResource:
       type: object
       title: API Resource
       description: >-
@@ -1281,7 +1281,7 @@ components:
             If resource definitions are added or changed, the `version` MUST be incremented.
             An ORD aggregator MAY only (re)fetch the resource definitions again when the `version` was incremented.
           items:
-            $ref: '#/components/schemas/APIResourceDefinition'
+            $ref: '#/components/schemas/ApiResourceDefinition'
         implementationStandard:
           type: string
           description: >-
@@ -3072,7 +3072,7 @@ components:
           example: sap.cic:apiResource:RetailTransactionOData:v1
       required:
         - ordId
-    APIResourceDefinition:
+    ApiResourceDefinition:
       type: object
       title: API Resource Definition
       description: |-

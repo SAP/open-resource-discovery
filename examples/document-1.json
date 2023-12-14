@@ -18,14 +18,23 @@
       "description": "This reference application demonstrates how Open Resource Discovery (ORD) can be implemented, demonstrating different resources and discovery aspects",
       "version": "0.3.0",
       "policyLevel": "sap:core:v1",
-      "partOfProducts": ["sap.foo:product:ord-reference-app:"],
+      "partOfProducts": [
+        "sap.foo:product:ord-reference-app:"
+      ],
       "vendor": "sap:vendor:SAP:",
-      "tags": ["reference application"],
+      "tags": [
+        "reference application"
+      ],
       "labels": {
-        "customLabel": ["labels are more flexible than tags as you can define your own keys"]
+        "customLabel": [
+          "labels are more flexible than tags as you can define your own keys"
+        ]
       },
       "documentationLabels": {
-        "Some Aspect": ["Markdown Documentation [with links](#)", "With multiple values"]
+        "Some Aspect": [
+          "Markdown Documentation [with links](#)",
+          "With multiple values"
+        ]
       }
     }
   ],
@@ -69,10 +78,12 @@
         {
           "type": "openapi-v3",
           "mediaType": "application/json",
-          "url": "/astronomy/v1/openapi/oas3.json"
+          "url": "/ord/metadata/astronomy-v1.oas3.json"
         }
       ],
-      "entryPoints": ["/astronomy/v1"],
+      "entryPoints": [
+        "/astronomy/v1"
+      ],
       "extensible": {
         "supported": "no"
       }

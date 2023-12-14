@@ -105,10 +105,10 @@ A [system type](#def-system-type) can implement multiple roles, e.g. an ORD Cons
 An <dfn id="def-ord-provider">ORD provider</dfn> is a system instance (of an application or service) that provides ORD information.
 The **provider role** applies to business applications/services that want to describe themselves (<dfn id="def-described-system-instance">described system instance</dfn>).
 
-> 🚧 In theory, it is also possible to describe other system instances "on behalf". In this case, the ORD provider system instance not necessarily identical described system instances (see [`describedSystemInstance`](interfaces/document#ord-document_describedsysteminstance) property). For example, an ORD Provider could pre-aggregate information from multiple system instances and then describe them in one place via multiple ORD documents. We anticipated this feature, but as of now it's not yet supported by the spec and would be considered on demand.
-
 An ORD provider MUST implement the [ORD Document API](#ord-document-api), which entails providing an [ORD configuration endpoint](#ord-configuration-endpoint) and [ORD document(s)](#ord-document).
 An ORD provider MUST use one of the standardized [ORD transport modes](#ord-transport-modes) for the ORD documents.
+
+> 📖 See also: [How To Adopt ORD as a Provider](../details/articles/adopt-ord-as-provider.md).
 
 ![ORD Provider Role](/img/ord-role-provider.svg 'ORD Provider Role')
 

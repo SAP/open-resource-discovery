@@ -47,4 +47,3 @@ exports.ordConfigurationSchema = JSON.parse(fs.readFileSync(`${__dirname}/../sta
  * with additional annotations (x-* attributes) like x-recommended
  */
 exports.ordConfigurationSchemaWithAnnotations = JSON.parse(fs.readFileSync(`${__dirname}/../static/spec-v1/interfaces/Configuration.annotated.schema.json`).toString());
-//# sourceMappingURL=index.js.map

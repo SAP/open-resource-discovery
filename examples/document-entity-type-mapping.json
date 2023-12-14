@@ -14,6 +14,11 @@
       "lastUpdate": "2023-08-03T10:14:26.941Z",
       "apiProtocol": "odata-v4",
       "partOfPackage": "sap.s4:package:SAPS4HANACloud:v1",
+      "partOfConsumptionBundles": [
+        {
+          "ordId": "sap.foo:consumptionBundle:someAuth:v1"
+        }
+      ],
       "visibility": "public",
       "extensible": {
         "supported": "no"
@@ -73,6 +78,11 @@
       "version": "1.1.2",
       "apiProtocol": "rest",
       "partOfPackage": "sap.foo:package:SomePackage:v1",
+      "partOfConsumptionBundles": [
+        {
+          "ordId": "sap.foo:consumptionBundle:someAuth:v1"
+        }
+      ],
       "releaseStatus": "active",
       "lastUpdate": "2023-08-03T10:14:26.941Z",
       "visibility": "public",

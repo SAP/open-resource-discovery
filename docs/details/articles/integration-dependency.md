@@ -78,31 +78,31 @@ We think describing such outward requirements fits well into the ORD scope, beca
 
 ### SAP Subscription Billing Events
 
-```json5
+```yaml
 {
-  // ...
+  # ...
   "integrationDependencies": [
-  {
-    "ordId": "sap.s4:integrationDependency:subscriptionReplication:v2",
-    "version": "2.2.3",
-    "title": "Subscription Billing Replication",
-    "description": "Replication of Subscription Billing data into S/4",
-    "mandatory": false,
-    "aspects": [
-      {
-        "eventResources": [
-          {
-            "ordId": "sap.billing.sb:eventResource:SAPSubscriptionBillingBusinessEvents:v2",
-            "subset": [
-              { "eventType": "sap.billing.sb.Subscription.Created.v2" },
-              { "eventType": "sap.billing.sb.Subscription.Deleted.v2" }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-}
+    {
+      "ordId": "sap.s4:integrationDependency:subscriptionReplication:v2",
+      "version": "2.2.3",
+      "title": "Subscription Billing Replication",
+      "description": "Replication of Subscription Billing data into S/4",
+      "mandatory": false,
+      "aspects": [
+        {
+          "eventResources": [
+            {
+              "ordId": "sap.billing.sb:eventResource:SAPSubscriptionBillingBusinessEvents:v2",
+              "subset": [
+                { "eventType": "sap.billing.sb.Subscription.Created.v2" },
+                { "eventType": "sap.billing.sb.Subscription.Deleted.v2" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+  ]
 ```
 
 The above example is a very simple application of the Integration Dependency of S/4HANA creating a subscription for Subscription Billing events (that are available through the SAP Event Broker intermediary). It only lists one requirement which refers to one event resource. But it states that from the event resource only a subset of event types  is needed. This addresses the requirement of SAP Event Broker around "Subscription Content" and helps them to provide a UI and more automation for creating event subscriptions based on the desired integration scenario.

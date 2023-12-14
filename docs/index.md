@@ -29,14 +29,14 @@ By adopting ORD, an application will implement a single-entry point ([Service Pr
 
 Read the 📄 [ORD Introduction](./introduction.mdx) and watch the 🎦[ORD Videos](./details/videos).
 
-<iframe width="800" height="454" src="https://www.youtube.com/embed/7Z818CdoZJg" title="Introducing the Open Resource Discovery protocol" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="800" height="454" src="https://www.youtube.com/embed/7Z818CdoZJg" title="Introducing the Open Resource Discovery protocol" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 
 ## Goals
 
-<div class="container"><div class="row"><div class="col">
-<div class="card"><div class="card__header">
+<div className="container"><div className="row"><div className="col">
+<div className="card"><div className="card__header">
 <h3>Design Goals</h3>
-</div><div class="card__body"><p>
+</div><div className="card__body"><p>
 
 - Systems to **describe themselves** with a single entry-point to crawl all relevant metadata
 - Achieve a combined, machine-readable **system landscape metadata view**
@@ -50,9 +50,9 @@ Read the 📄 [ORD Introduction](./introduction.mdx) and watch the 🎦[ORD Vide
   - The specification is open for extensions via labels, custom types, spec extensions. Those don't need to go through alignment first.
 
 </p></div></div></div>
-<div class="col"><div class="card"><div class="card__header">
+<div className="col"><div className="card"><div className="card__header">
 <h3>Non-Goals</h3>
-</div><div class="card__body"><p>
+</div><div className="card__body"><p>
 
 - Replace industry-standard resource definition formats like OpenAPI
 - Describing resources or capabilities in extensive detail.

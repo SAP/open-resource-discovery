@@ -499,7 +499,7 @@
       ],
       "additionalProperties": false
     },
-    "APIResource": {
+    "ApiResource": {
       "type": "object",
       "title": "API Resource",
       "description": "The API Resource provides a high-level description of an exposed API.\nYou can find more information, such as the API resource definitions, in the links in the table below.\n\nAn API Resource bundles multiple endpoints and resources together.\nThey share the same API namespace and lifecycle (API major version).\nHowever, the exact granularity of this is up to the implementer of the API.\nAs a consequence, an API resource MUST NOT bundle together endpoints from different API versions or namespaces.\n\nA common practice is to bundle endpoints that are based on the same domain or Business Object.\n\nPlease note that APIs can be described, but still be [`disabled`](#api-resource_disabled).\n\nIf the API is not created or owned by the user of the system or by third parties (like partners), it MUST be assigned to dedicated [Packages](#package) that state this the ownership via the `vendor` property.",
@@ -761,7 +761,6 @@
             },
             {
               "const": "delta-sharing",
-              "x-introduced-in-version": "1.8.0",
               "description": "[Delta Sharing](https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md) Protocol.\nAn API Resource corresponds to a share.\nFor each API Resource definition: `type` MUST ONLY be set `custom` or left out in case standard delta-sharing metadata requests needs to be made."
             },
             {
@@ -786,7 +785,6 @@
             },
             {
               "const": "sap-ina-api-v1",
-              "x-introduced-in-version": "1.8.0",
               "description": "SAP InA APIs are used by SAP Analytics Cloud solutions to capture data. It is an SAP proprietary protocol that only\nSAP Analytics Cloud MUST consume. It contains a protocol specific metadata retrieval mechanism so that SAP Analytics Cloud users can\nsee the schema of an InA API in SAP Analytics Cloud. An API Resource definition MUST NOT be provided."
             }
           ],
@@ -798,7 +796,7 @@
           "type": "array",
           "description": "List of available machine-readable resource definitions.\n\nIt is RECOMMENDED to provide the resource definitions as they enable machine-readable use cases.\nIf resource definitions are added or changed, the `version` MUST be incremented.\nAn ORD aggregator MAY only (re)fetch the resource definitions again when the `version` was incremented.",
           "items": {
-            "$ref": "#/definitions/APIResourceDefinition"
+            "$ref": "#/definitions/ApiResourceDefinition"
           }
         },
         "implementationStandard": {
@@ -827,12 +825,10 @@
             },
             {
               "const": "sap:hdlf-delta-sharing:v1",
-              "x-introduced-in-version": "1.8.0",
               "description": "HANA Data Lake File based implementation of `delta-sharing` API protocol. This implementation has some extension wrt. to standard delta-share such as providing key information.\nThe `apiProtocol` MUST be set to `delta-sharing`, as this is a special flavor of Delta Sharing."
             },
             {
               "const": "sap:hana-cloud-sql:v1",
-              "x-introduced-in-version": "1.8.0",
               "description": "Specific additional implementation of the sap-sql-api-v1 API (sub-)protocol that provide replication support when connecting from an Hana Cloud system\nsee [SAP HANA Cloud documentation](https://help.sap.com/docs/hana-cloud-database/sap-hana-cloud-sap-hana-database-data-access-guide/replicating-tables-from-remote-sources).\nThe `apiProtocol` MUST be set to `sap-sql-api-v1`, as this is a sub-protocol / variant of the SAP SQL API."
             },
             {
@@ -2577,7 +2573,7 @@
         "ordId"
       ]
     },
-    "APIResourceDefinition": {
+    "ApiResourceDefinition": {
       "type": "object",
       "title": "API Resource Definition",
       "description": "Link and categorization of a machine-readable API definition.\nFor example, OpenAPI definition, OData Metadata, etc.",
@@ -4439,7 +4435,7 @@
       "type": "array",
       "description": "Array of all API Resources that are described in this ORD document.",
       "items": {
-        "$ref": "#/definitions/APIResource"
+        "$ref": "#/definitions/ApiResource"
       }
     },
     "eventResources": {

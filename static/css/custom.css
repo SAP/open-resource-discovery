@@ -7,6 +7,7 @@
   --doc-sidebar-width: 250px !important;
   --ifm-spacing-horizontal: 8px;
   --ifm-list-left-padding: 1.5rem;
+  --prism-background-color: #1a2534;
 }
 
 @media (min-width: 997px) {
@@ -171,4 +172,13 @@ iframe {
 
 .markdown .card__body {
   padding: 4px 0 0 0;
+}
+
+.footer--dark {
+  --ifm-footer-background-color: #1a2534;
+  border-top: 6px solid #30546f;
+  padding: 16px;
+}
+.footer--dark .footer__copyright {
+  color: #8695a1;
 }

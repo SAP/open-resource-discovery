@@ -10,6 +10,18 @@ For a roadmap including expected timeline, please refer to [ROADMAP.md](./ROADMA
 
 ## [unreleased]
 
+### Added
+
+- Added How To guide for ORD Provider adoption (as new detail article)
+
+## [1.8.5]
+
+### Fixed
+
+- Accidentally exported an `x-` attribute in the ORD JSON Schema interface in `Document.schema.json`
+  - This export is meant to be clean of such extension attributes, as validators as AJV will complain on it by default
+  - The `Document.annotated.schema.json` export keeps the extension attributes intact.
+
 ## [1.8.4]
 
 ### Fixed
