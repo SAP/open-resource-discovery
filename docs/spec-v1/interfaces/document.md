@@ -155,8 +155,6 @@ If the event resource is not created or owned by the user / customer of the syst
 An entity type ideally describes an underlying conceptual model that is then exposed through one or multiple API and events resources.
 It is a well-defined named abstract concept in SAP software representing a data model and behavioral model of a concrete business or technical entity.
 
-The most known example for entity types are the [SAP Object Types (SOTs)](https://ui.gtnc.sap.corp/webapp/index.html#/SAPObjectTypes//OneColumn//TilePress) of VDM and the [ODM Entities](https://ui.gtnc.sap.corp/webapp/index.html#/ODMEntities//OneColumn//TilePress).
-
 | Property | Type | Description |
 | -------- | ---- | ----------- |
 |<div className="interface-property-name anchor" id="entity-type_ordid">ordId<br/><span className="mandatory">MANDATORY</span><a className="hash-link" href="#entity-type_ordid" title="Direct link to property"></a></div>|<div className="interface-property-type">string</div>|<div className="interface-property-description">The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.<br/><br/>It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.<br/><hr/><strong>Regex Pattern</strong>: <code className="regex">^(\[a-z0-9\]+(?:\[.\]\[a-z0-9\]+)\*):(entityType):(\[a-zA-Z0-9.\_\\-\]+):(v0\|v\[1-9\]\[0-9\]\*)$</code><br/><strong>Maximum Length</strong>: `255`<br/><strong>Example Values</strong>: <ul className="examples"><li>`"sap.odm:entityType:BusinessPartner:v1"`</li><li>`"sap.odm:entityType:CostCenter:v1"`</li><li>`"sap.odm:entityType:WorkforcePerson:v1"`</li></ul></div>|

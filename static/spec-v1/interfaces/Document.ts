@@ -1272,8 +1272,6 @@ export interface EventResourceDefinition {
 /**
  * An entity type ideally describes an underlying conceptual model that is then exposed through one or multiple API and events resources.
  * It is a well-defined named abstract concept in SAP software representing a data model and behavioral model of a concrete business or technical entity.
- *
- * The most known example for entity types are the [SAP Object Types (SOTs)](https://ui.gtnc.sap.corp/webapp/index.html#/SAPObjectTypes//OneColumn//TilePress) of VDM and the [ODM Entities](https://ui.gtnc.sap.corp/webapp/index.html#/ODMEntities//OneColumn//TilePress).
  */
 export interface EntityType {
   /**
