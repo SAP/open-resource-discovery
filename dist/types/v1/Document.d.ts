@@ -295,7 +295,7 @@ export interface APIResource {
      *
      * The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
      *
-     * In case that this property is available and the value of it hasn't changed since the last crawling, the resource definitions do not need to be fetched and updated.
+     * If the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and updated to let the ORD aggregator know that they need to be fetched again.
      *
      * Together with `systemInstanceAware`, this property SHOULD be used to optimize the metadata crawling process of the ORD aggregators.
      */
@@ -918,7 +918,7 @@ export interface EventResource {
      *
      * The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
      *
-     * In case that this property is available and the value of it hasn't changed since the last crawling, the resource definitions do not need to be fetched and updated.
+     * If the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and updated to let the ORD aggregator know that they need to be fetched again.
      *
      * Together with `systemInstanceAware`, this property SHOULD be used to optimize the metadata crawling process of the ORD aggregators.
      */
@@ -1211,7 +1211,7 @@ export interface EntityType {
      *
      * The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
      *
-     * In case that this property is available and the value of it hasn't changed since the last crawling, the resource definitions do not need to be fetched and updated.
+     * If the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and updated to let the ORD aggregator know that they need to be fetched again.
      *
      * Together with `systemInstanceAware`, this property SHOULD be used to optimize the metadata crawling process of the ORD aggregators.
      */
@@ -1394,7 +1394,7 @@ export interface Capability {
      *
      * The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
      *
-     * In case that this property is available and the value of it hasn't changed since the last crawling, the resource definitions do not need to be fetched and updated.
+     * If the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and updated to let the ORD aggregator know that they need to be fetched again.
      *
      * Together with `systemInstanceAware`, this property SHOULD be used to optimize the metadata crawling process of the ORD aggregators.
      */
@@ -1555,7 +1555,7 @@ export interface DataProduct {
      *
      * The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
      *
-     * In case that this property is available and the value of it hasn't changed since the last crawling, the resource definitions do not need to be fetched and updated.
+     * If the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and updated to let the ORD aggregator know that they need to be fetched again.
      *
      * Together with `systemInstanceAware`, this property SHOULD be used to optimize the metadata crawling process of the ORD aggregators.
      */
@@ -1854,7 +1854,7 @@ export interface IntegrationDependency {
      *
      * The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
      *
-     * In case that this property is available and the value of it hasn't changed since the last crawling, the resource definitions do not need to be fetched and updated.
+     * If the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and updated to let the ORD aggregator know that they need to be fetched again.
      *
      * Together with `systemInstanceAware`, this property SHOULD be used to optimize the metadata crawling process of the ORD aggregators.
      */
@@ -2375,7 +2375,7 @@ export interface ConsumptionBundle {
      *
      * The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
      *
-     * In case that this property is available and the value of it hasn't changed since the last crawling, the resource definitions do not need to be fetched and updated.
+     * If the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and updated to let the ORD aggregator know that they need to be fetched again.
      *
      * Together with `systemInstanceAware`, this property SHOULD be used to optimize the metadata crawling process of the ORD aggregators.
      */

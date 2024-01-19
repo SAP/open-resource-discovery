@@ -145,6 +145,18 @@ const config = {
             ],
           },
           {
+            type: 'dropdown',
+            position: 'left',
+            label: 'Ecosystem',
+            to: 'ecosystem/',
+            items: [
+              {
+                label: 'ORD Reference Application',
+                href: 'https://ord-reference-application.cfapps.sap.hana.ondemand.com/',
+              },
+            ],
+          },
+          {
             href: 'https://github.com/SAP/open-resource-discovery',
             label: 'GitHub',
             position: 'right',

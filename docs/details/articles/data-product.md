@@ -29,6 +29,7 @@ The following aspects of the definition are essential: (1) [data](#data-aspect),
   * Documents (e.g. raw log entries, events, multi-level-aggregates, hierarchies)
   * Spatial data
 * A data product is exposed by a "producer" to fulfill the needs of "consumers".
+* The data set is optimized toward "intensive reads" and consumed in a read-only fashion.
 
 ### API Aspect
 
