@@ -14,6 +14,12 @@ For a roadmap including expected timeline, please refer to [ROADMAP.md](./ROADMA
 
 - Added How To guide for ORD Provider adoption (as new detail article)
 
+### Changed
+
+- Providing the `sunsetDate` for a deprecated resource is now only recommended instead of mandatory (compatible change)
+  - "If the `releaseStatus` is set to `deprecated`, the `sunsetDate` SHOULD be provided (if already known)."
+  - "Once the sunset date is known and ready to be communicated externally, it MUST be provided here."
+
 ## [1.8.5]
 
 ### Fixed

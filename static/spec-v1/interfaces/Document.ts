@@ -338,7 +338,8 @@ export interface APIResource {
   /**
    * The sunset date defines when the resource is scheduled to be decommissioned/removed.
    *
-   * If the `releaseStatus` is set to `deprecated`, the `sunsetDate` MUST be provided.
+   * If the `releaseStatus` is set to `deprecated`, the `sunsetDate` SHOULD be provided (if already known).
+   * Once the sunset date is known and ready to be communicated externally, it MUST be provided here.
    *
    * The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
    */
@@ -677,6 +678,9 @@ export interface APIResourceDefinition {
   /**
    * List of supported access strategies for retrieving metadata from the ORD provider.
    * An ORD Consumer/ORD Aggregator MAY choose any of the strategies.
+   *
+   * The access strategies only apply to the metadata access and not the actual API access.
+   * The actual access to the APIs for clients is described via Consumption Bundles.
    *
    * If this property is not provided, the definition URL will be available through the same access strategy as this ORD document.
    * We RECOMMEND anyway that the attached metadata definitions are available with the same access strategies, to simplify the aggregator crawling process.
@@ -1047,7 +1051,8 @@ export interface EventResource {
   /**
    * The sunset date defines when the resource is scheduled to be decommissioned/removed.
    *
-   * If the `releaseStatus` is set to `deprecated`, the `sunsetDate` MUST be provided.
+   * If the `releaseStatus` is set to `deprecated`, the `sunsetDate` SHOULD be provided (if already known).
+   * Once the sunset date is known and ready to be communicated externally, it MUST be provided here.
    *
    * The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
    */
@@ -1262,6 +1267,9 @@ export interface EventResourceDefinition {
    * List of supported access strategies for retrieving metadata from the ORD provider.
    * An ORD Consumer/ORD Aggregator MAY choose any of the strategies.
    *
+   * The access strategies only apply to the metadata access and not the actual API access.
+   * The actual access to the APIs for clients is described via Consumption Bundles.
+   *
    * If this property is not provided, the definition URL will be available through the same access strategy as this ORD document.
    * We RECOMMEND anyway that the attached metadata definitions are available with the same access strategies, to simplify the aggregator crawling process.
    *
@@ -1373,7 +1381,8 @@ export interface EntityType {
   /**
    * The sunset date defines when the resource is scheduled to be decommissioned/removed.
    *
-   * If the `releaseStatus` is set to `deprecated`, the `sunsetDate` MUST be provided.
+   * If the `releaseStatus` is set to `deprecated`, the `sunsetDate` SHOULD be provided (if already known).
+   * Once the sunset date is known and ready to be communicated externally, it MUST be provided here.
    *
    * The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
    */
@@ -1615,6 +1624,9 @@ export interface CapabilityDefinition {
    * List of supported access strategies for retrieving metadata from the ORD provider.
    * An ORD Consumer/ORD Aggregator MAY choose any of the strategies.
    *
+   * The access strategies only apply to the metadata access and not the actual API access.
+   * The actual access to the APIs for clients is described via Consumption Bundles.
+   *
    * If this property is not provided, the definition URL will be available through the same access strategy as this ORD document.
    * We RECOMMEND anyway that the attached metadata definitions are available with the same access strategies, to simplify the aggregator crawling process.
    *
@@ -1732,7 +1744,8 @@ export interface DataProduct {
   /**
    * The sunset date defines when the resource is scheduled to be decommissioned/removed.
    *
-   * If the `releaseStatus` is set to `deprecated`, the `sunsetDate` MUST be provided.
+   * If the `releaseStatus` is set to `deprecated`, the `sunsetDate` SHOULD be provided (if already known).
+   * Once the sunset date is known and ready to be communicated externally, it MUST be provided here.
    *
    * The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
    */
@@ -1776,7 +1789,7 @@ export interface DataProduct {
    */
   inputPorts?: DataProductInputPort[];
   /**
-   * Output ports are the interface (APIs and Events) through with the data of the data product can be accessed.
+   * Output ports are the interface (APIs and Events) through which the data of the data product can be accessed.
    *
    * Output ports of the same data product might produce different facets of the data set with different qualities.
    * A data set can also be made available via different protocols, which also results in different ports.
@@ -2054,7 +2067,8 @@ export interface IntegrationDependency {
   /**
    * The sunset date defines when the resource is scheduled to be decommissioned/removed.
    *
-   * If the `releaseStatus` is set to `deprecated`, the `sunsetDate` MUST be provided.
+   * If the `releaseStatus` is set to `deprecated`, the `sunsetDate` SHOULD be provided (if already known).
+   * Once the sunset date is known and ready to be communicated externally, it MUST be provided here.
    *
    * The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
    */
@@ -2300,7 +2314,7 @@ export interface Product {
  * A **Package** organizes a set of related resources together, by considering all of the following concerns:
  *
  * * The resources are created by the same vendor or customer.
- * * The resources are published together. They share the same development and publishing lifecycle and ownership.
+ * * The resources are published together. They share the same publishing ownership.
  * * The resources share certain aspects/taxonomy that is inherited down to them (e.g. `vendor`).
  * * If applicable: The resources are meant to be used by only a particular target platform / software.
  *

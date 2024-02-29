@@ -337,7 +337,7 @@ components:
 
         * The resources are created by the same vendor or customer.
 
-        * The resources are published together. They share the same development and publishing lifecycle and ownership.
+        * The resources are published together. They share the same publishing ownership.
 
         * The resources share certain aspects/taxonomy that is inherited down to them (e.g. `vendor`).
 
@@ -1171,7 +1171,8 @@ components:
           description: |-
             The sunset date defines when the resource is scheduled to be decommissioned/removed.
 
-            If the `releaseStatus` is set to `deprecated`, the `sunsetDate` MUST be provided.
+            If the `releaseStatus` is set to `deprecated`, the `sunsetDate` SHOULD be provided (if already known).
+            Once the sunset date is known and ready to be communicated externally, it MUST be provided here.
 
             The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
           example: '2022-01-08T15:47:04+00:00'
@@ -1880,7 +1881,8 @@ components:
           description: |-
             The sunset date defines when the resource is scheduled to be decommissioned/removed.
 
-            If the `releaseStatus` is set to `deprecated`, the `sunsetDate` MUST be provided.
+            If the `releaseStatus` is set to `deprecated`, the `sunsetDate` SHOULD be provided (if already known).
+            Once the sunset date is known and ready to be communicated externally, it MUST be provided here.
 
             The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
           example: '2022-01-08T15:47:04+00:00'
@@ -2378,7 +2380,8 @@ components:
           description: |-
             The sunset date defines when the resource is scheduled to be decommissioned/removed.
 
-            If the `releaseStatus` is set to `deprecated`, the `sunsetDate` MUST be provided.
+            If the `releaseStatus` is set to `deprecated`, the `sunsetDate` SHOULD be provided (if already known).
+            Once the sunset date is known and ready to be communicated externally, it MUST be provided here.
 
             The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
           example: '2022-01-08T15:47:04+00:00'
@@ -2708,7 +2711,8 @@ components:
           description: |-
             The sunset date defines when the resource is scheduled to be decommissioned/removed.
 
-            If the `releaseStatus` is set to `deprecated`, the `sunsetDate` MUST be provided.
+            If the `releaseStatus` is set to `deprecated`, the `sunsetDate` SHOULD be provided (if already known).
+            Once the sunset date is known and ready to be communicated externally, it MUST be provided here.
 
             The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
           example: '2022-01-08T15:47:04+00:00'
@@ -2786,7 +2790,7 @@ components:
         outputPorts:
           type: array
           description: >-
-            Output ports are the interface (APIs and Events) through with the data of the data product can be accessed.
+            Output ports are the interface (APIs and Events) through which the data of the data product can be accessed.
 
 
             Output ports of the same data product might produce different facets of the data set with different
@@ -3142,6 +3146,11 @@ components:
             An ORD Consumer/ORD Aggregator MAY choose any of the strategies.
 
 
+            The access strategies only apply to the metadata access and not the actual API access.
+
+            The actual access to the APIs for clients is described via Consumption Bundles.
+
+
             If this property is not provided, the definition URL will be available through the same access strategy as
             this ORD document.
 
@@ -3216,6 +3225,11 @@ components:
             List of supported access strategies for retrieving metadata from the ORD provider.
 
             An ORD Consumer/ORD Aggregator MAY choose any of the strategies.
+
+
+            The access strategies only apply to the metadata access and not the actual API access.
+
+            The actual access to the APIs for clients is described via Consumption Bundles.
 
 
             If this property is not provided, the definition URL will be available through the same access strategy as
@@ -3637,6 +3651,11 @@ components:
             An ORD Consumer/ORD Aggregator MAY choose any of the strategies.
 
 
+            The access strategies only apply to the metadata access and not the actual API access.
+
+            The actual access to the APIs for clients is described via Consumption Bundles.
+
+
             If this property is not provided, the definition URL will be available through the same access strategy as
             this ORD document.
 
@@ -3833,7 +3852,8 @@ components:
           description: |-
             The sunset date defines when the resource is scheduled to be decommissioned/removed.
 
-            If the `releaseStatus` is set to `deprecated`, the `sunsetDate` MUST be provided.
+            If the `releaseStatus` is set to `deprecated`, the `sunsetDate` SHOULD be provided (if already known).
+            Once the sunset date is known and ready to be communicated externally, it MUST be provided here.
 
             The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
           example: '2022-01-08T15:47:04+00:00'

@@ -17,13 +17,26 @@ In case that the standardized concepts or attributes are not sufficient, there a
 
 By adopting ORD, an application will implement a single-entry point ([Service Provider Interface](https://en.wikipedia.org/wiki/Service_provider_interface)) that can be used to discover and crawl the relevant information / metadata.
 
+> ℹ ORD is an open standard by SAP, released as [open source](https://github.com/SAP/open-resource-discovery) under the Apache 2 license (see [public announcement](https://blogs.sap.com/2023/11/14/open-resource-discovery-a-protocol-for-decentralized-metadata-discovery-is-now-open-source/)).
+
 <div style={{"text-align": "center", "margin-top": "8px"}}>
 
 ![ORD Provider Overview](/img/ord-provider-overview.svg 'ORD Provider Overview')
 
 </div>
 
-> ℹ ORD is an open standard by SAP, released as [open source](https://github.com/SAP/open-resource-discovery) under the Apache 2 license (see [public announcement](https://blogs.sap.com/2023/11/14/open-resource-discovery-a-protocol-for-decentralized-metadata-discovery-is-now-open-source/)).
+## Use Cases
+
+The information can be used to build a static **metadata catalog** or do detailed **runtime inspection of actual system landscapes**.
+Based on this, many end-user use cases can be realized, e.g.:
+
+* Data product directory/catalog
+* Static API/event catalog
+* Landscape specific API/event discovery for development platforms, platform engineering and low-code/no-code development
+* Support admins in configuring services (automation & discovers)
+* AI grounding & training
+* Generic channel to describe and discover capabilities between providers and consumers
+* and more...
 
 ## Introduction
 
