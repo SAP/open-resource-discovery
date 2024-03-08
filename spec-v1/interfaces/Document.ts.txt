@@ -25,7 +25,7 @@ export interface ORDDocument {
   /**
    * Version of the Open Resource Discovery specification that is used to describe this document.
    */
-  openResourceDiscovery: "1.0" | "1.1" | "1.2" | "1.3" | "1.4" | "1.5" | "1.6" | "1.7" | "1.8";
+  openResourceDiscovery: "1.0" | "1.1" | "1.2" | "1.3" | "1.4" | "1.5" | "1.6" | "1.7" | "1.8" | "1.9";
   /**
    * Optional description of the ORD document itself.
    * Please note that this information is NOT further processed or considered by an ORD aggregator.
@@ -46,11 +46,9 @@ export interface ORDDocument {
   policyLevel?: "none" | "sap:core:v1" | "custom";
   /**
    * If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.
-   *
    * The policy level is inherited from packages to resources they contain, but can be overwritten at resource level.
    *
    * MUST only be provided if `policyLevel` is set to `custom`.
-   *
    * MUST be a valid [Specification ID](../index.md#specification-id).
    */
   customPolicyLevel?: string;
@@ -95,6 +93,14 @@ export interface ORDDocument {
    */
   consumptionBundles?: ConsumptionBundle[];
   /**
+   * Array of all Groups that are described in this ORD document.
+   */
+  groups?: Group[];
+  /**
+   * Array of all Group Types that are described in this ORD document.
+   */
+  groupTypes?: GroupType[];
+  /**
    * List of ORD information (resources or taxonomy) that have been "tombstoned"/removed.
    * This MUST be indicated explicitly, so that ORD aggregators and consumers can learn about the removal.
    *
@@ -125,6 +131,10 @@ export interface SystemInstance {
   localId?: string;
   /**
    * Correlation IDs can be used to create a reference to related data in other repositories (especially to the system of record).
+   *
+   * They express an "identity" / "equals" / "mappable" relationship to the target ID.
+   *
+   * If a "part of" relationship needs to be expressed, use the `partOfGroups` assignment instead.
    *
    * MUST be a valid [Correlation ID](../index.md#correlation-id).
    */
@@ -213,6 +223,10 @@ export interface APIResource {
   /**
    * Correlation IDs can be used to create a reference to related data in other repositories (especially to the system of record).
    *
+   * They express an "identity" / "equals" / "mappable" relationship to the target ID.
+   *
+   * If a "part of" relationship needs to be expressed, use the `partOfGroups` assignment instead.
+   *
    * MUST be a valid [Correlation ID](../index.md#correlation-id).
    */
   correlationIds?: string[];
@@ -232,6 +246,9 @@ export interface APIResource {
   shortDescription: string;
   /**
    * Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+   *
+   * The description SHOULD not be excessive in length and is not meant to provide full documentation.
+   * Detailed documentation SHOULD be attached as (typed) links.
    */
   description: string;
   /**
@@ -242,6 +259,18 @@ export interface APIResource {
    * Every resource MUST be part of one package.
    */
   partOfPackage: string;
+  /**
+   * Defines which groups the resource is assigned to.
+   *
+   * The property is optional, but if given the value MUST be an array of valid Group IDs.
+   *
+   * Groups are a lightweight custom taxonomy concept.
+   * They express a "part of" relationship to the chosen group concept.
+   * If an "identity / equals" relationship needs to be expressed, use the `correlationIds` instead.
+   *
+   * All resources that share the same group ID assignment are effectively grouped together.
+   */
+  partOfGroups?: string[];
   /**
    * List of references to the consumption bundles in this resource belongs to.
    *
@@ -561,11 +590,9 @@ export interface APIResource {
   policyLevel?: "none" | "sap:core:v1" | "custom";
   /**
    * If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.
-   *
    * The policy level is inherited from packages to resources they contain, but can be overwritten at resource level.
    *
    * MUST only be provided if `policyLevel` is set to `custom`.
-   *
    * MUST be a valid [Specification ID](../index.md#specification-id).
    */
   customPolicyLevel?: string;
@@ -623,6 +650,9 @@ export interface ChangelogEntry {
   date: string;
   /**
    * Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+   *
+   * The description SHOULD not be excessive in length and is not meant to provide full documentation.
+   * Detailed documentation SHOULD be attached as (typed) links.
    */
   description?: string;
   /**
@@ -726,7 +756,7 @@ export interface AccessStrategy {
  * For the various resource definition formats the selection of API models may need to be expressed differently.
  * As a consequence, there are different types of selectors that are specialized toward certain resource definition formats.
  *
- * The target of the mapping is a correlation to an entity type via a [Correlation ID](https://sap.github.io/open-resource-discovery/#/v1/README?id=correlation-id)
+ * The target of the mapping is a correlation to an entity type via a [Correlation ID](../../#/v1/README?id=correlation-id)
  * or to an [ORD ID] of an entity type.
  * It is assumed that the entity types are described in more detail or on a different abstraction level via metadata.
  * When the correlation ID is used, an ORD consumer may need to know how to access the entity type metadata through conventions.
@@ -758,7 +788,7 @@ export interface EntityTypeMapping {
    * If multiple entity types are defined as the mapping target,
    * all of them can be at least partially mapped to the source API model(s).
    *
-   * Entity types can be referenced using either using an [ORD ID](https://sap.github.io/open-resource-discovery/spec-v1/#ord-id) or a [Correlation ID](https://sap.github.io/open-resource-discovery/spec-v1/#correlation-id).
+   * Entity types can be referenced using either using an [ORD ID](../../spec-v1/#ord-id) or a [Correlation ID](../../spec-v1/#correlation-id).
    *
    * @minItems 1
    */
@@ -810,7 +840,7 @@ export interface APIModelSelectorJSONPointer {
 /**
  * Define which entity type is the target of an entity type mapping
  *
- * Entity types can be referenced using a [ORD ID](https://sap.github.io/open-resource-discovery/spec-v1/#ord-id) of an entity type.
+ * Entity types can be referenced using a [ORD ID](../../spec-v1/#ord-id) of an entity type.
  */
 export interface EntityTypeTargetORDID {
   /**
@@ -823,7 +853,7 @@ export interface EntityTypeTargetORDID {
 /**
  * Define which entity type is the target of an entity type mapping
  *
- * Entity types can be referenced using a [Correlation ID](https://sap.github.io/open-resource-discovery/spec-v1/#correlation-id).
+ * Entity types can be referenced using a [Correlation ID](../../spec-v1/#correlation-id).
  */
 export interface EntityTypeTargetCorrelationID {
   correlationId: string;
@@ -926,6 +956,10 @@ export interface EventResource {
   /**
    * Correlation IDs can be used to create a reference to related data in other repositories (especially to the system of record).
    *
+   * They express an "identity" / "equals" / "mappable" relationship to the target ID.
+   *
+   * If a "part of" relationship needs to be expressed, use the `partOfGroups` assignment instead.
+   *
    * MUST be a valid [Correlation ID](../index.md#correlation-id).
    */
   correlationIds?: string[];
@@ -945,6 +979,9 @@ export interface EventResource {
   shortDescription: string;
   /**
    * Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+   *
+   * The description SHOULD not be excessive in length and is not meant to provide full documentation.
+   * Detailed documentation SHOULD be attached as (typed) links.
    */
   description: string;
   /**
@@ -955,6 +992,18 @@ export interface EventResource {
    * Every resource MUST be part of one package.
    */
   partOfPackage: string;
+  /**
+   * Defines which groups the resource is assigned to.
+   *
+   * The property is optional, but if given the value MUST be an array of valid Group IDs.
+   *
+   * Groups are a lightweight custom taxonomy concept.
+   * They express a "part of" relationship to the chosen group concept.
+   * If an "identity / equals" relationship needs to be expressed, use the `correlationIds` instead.
+   *
+   * All resources that share the same group ID assignment are effectively grouped together.
+   */
+  partOfGroups?: string[];
   /**
    * List of references to the consumption bundles in this resource belongs to.
    *
@@ -1212,11 +1261,9 @@ export interface EventResource {
   policyLevel?: "none" | "sap:core:v1" | "custom";
   /**
    * If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.
-   *
    * The policy level is inherited from packages to resources they contain, but can be overwritten at resource level.
    *
    * MUST only be provided if `policyLevel` is set to `custom`.
-   *
    * MUST be a valid [Specification ID](../index.md#specification-id).
    */
   customPolicyLevel?: string;
@@ -1295,6 +1342,10 @@ export interface EntityType {
   /**
    * Correlation IDs can be used to create a reference to related data in other repositories (especially to the system of record).
    *
+   * They express an "identity" / "equals" / "mappable" relationship to the target ID.
+   *
+   * If a "part of" relationship needs to be expressed, use the `partOfGroups` assignment instead.
+   *
    * MUST be a valid [Correlation ID](../index.md#correlation-id).
    */
   correlationIds?: string[];
@@ -1314,6 +1365,9 @@ export interface EntityType {
   shortDescription?: string;
   /**
    * Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+   *
+   * The description SHOULD not be excessive in length and is not meant to provide full documentation.
+   * Detailed documentation SHOULD be attached as (typed) links.
    */
   description?: string;
   /**
@@ -1324,6 +1378,18 @@ export interface EntityType {
    * Every resource MUST be part of one package.
    */
   partOfPackage: string;
+  /**
+   * Defines which groups the resource is assigned to.
+   *
+   * The property is optional, but if given the value MUST be an array of valid Group IDs.
+   *
+   * Groups are a lightweight custom taxonomy concept.
+   * They express a "part of" relationship to the chosen group concept.
+   * If an "identity / equals" relationship needs to be expressed, use the `correlationIds` instead.
+   *
+   * All resources that share the same group ID assignment are effectively grouped together.
+   */
+  partOfGroups?: string[];
   /**
    * List of products this resource is a part of.
    *
@@ -1413,6 +1479,12 @@ export interface EntityType {
    */
   level: "aggregate";
   /**
+   * States that this Entity Type is related to another Entity Type.
+   *
+   * Usually this happens if there are similar conceptual entity types across different namespaces.
+   */
+  relatedEntityTypes?: RelatedEntityType[];
+  /**
    * Generic Links with arbitrary meaning and content.
    */
   links?: Link[];
@@ -1438,11 +1510,9 @@ export interface EntityType {
   policyLevel?: "none" | "sap:core:v1" | "custom";
   /**
    * If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.
-   *
    * The policy level is inherited from packages to resources they contain, but can be overwritten at resource level.
    *
    * MUST only be provided if `policyLevel` is set to `custom`.
-   *
    * MUST be a valid [Specification ID](../index.md#specification-id).
    */
   customPolicyLevel?: string;
@@ -1455,6 +1525,18 @@ export interface EntityType {
    * not just once per system type, but once per **system instance**.
    */
   systemInstanceAware?: boolean;
+}
+/**
+ * Defines which Entity Type is related (via its ORD ID).
+ * In the future, this could include stating the relationship type, too.
+ */
+export interface RelatedEntityType {
+  /**
+   * The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.
+   *
+   * It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
+   */
+  ordId: string;
 }
 /**
  * Capabilities can be used to describe use case specific capabilities, most notably supported features or additional information (like configuration) that needs to be understood from outside.
@@ -1476,6 +1558,10 @@ export interface Capability {
   localId?: string;
   /**
    * Correlation IDs can be used to create a reference to related data in other repositories (especially to the system of record).
+   *
+   * They express an "identity" / "equals" / "mappable" relationship to the target ID.
+   *
+   * If a "part of" relationship needs to be expressed, use the `partOfGroups` assignment instead.
    *
    * MUST be a valid [Correlation ID](../index.md#correlation-id).
    */
@@ -1508,6 +1594,9 @@ export interface Capability {
   shortDescription?: string;
   /**
    * Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+   *
+   * The description SHOULD not be excessive in length and is not meant to provide full documentation.
+   * Detailed documentation SHOULD be attached as (typed) links.
    */
   description?: string;
   /**
@@ -1518,6 +1607,18 @@ export interface Capability {
    * Every resource MUST be part of one package.
    */
   partOfPackage: string;
+  /**
+   * Defines which groups the resource is assigned to.
+   *
+   * The property is optional, but if given the value MUST be an array of valid Group IDs.
+   *
+   * Groups are a lightweight custom taxonomy concept.
+   * They express a "part of" relationship to the chosen group concept.
+   * If an "identity / equals" relationship needs to be expressed, use the `correlationIds` instead.
+   *
+   * All resources that share the same group ID assignment are effectively grouped together.
+   */
+  partOfGroups?: string[];
   /**
    * The complete [SemVer](https://semver.org/) version string.
    *
@@ -1653,6 +1754,10 @@ export interface DataProduct {
   /**
    * Correlation IDs can be used to create a reference to related data in other repositories (especially to the system of record).
    *
+   * They express an "identity" / "equals" / "mappable" relationship to the target ID.
+   *
+   * If a "part of" relationship needs to be expressed, use the `partOfGroups` assignment instead.
+   *
    * MUST be a valid [Correlation ID](../index.md#correlation-id).
    */
   correlationIds?: string[];
@@ -1672,6 +1777,9 @@ export interface DataProduct {
   shortDescription?: string;
   /**
    * Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+   *
+   * The description SHOULD not be excessive in length and is not meant to provide full documentation.
+   * Detailed documentation SHOULD be attached as (typed) links.
    */
   description?: string;
   /**
@@ -1682,6 +1790,18 @@ export interface DataProduct {
    * Every resource MUST be part of one package.
    */
   partOfPackage: string;
+  /**
+   * Defines which groups the resource is assigned to.
+   *
+   * The property is optional, but if given the value MUST be an array of valid Group IDs.
+   *
+   * Groups are a lightweight custom taxonomy concept.
+   * They express a "part of" relationship to the chosen group concept.
+   * If an "identity / equals" relationship needs to be expressed, use the `correlationIds` instead.
+   *
+   * All resources that share the same group ID assignment are effectively grouped together.
+   */
+  partOfGroups?: string[];
   /**
    * The complete [SemVer](https://semver.org/) version string.
    *
@@ -1894,11 +2014,9 @@ export interface DataProduct {
   policyLevel?: "none" | "sap:core:v1" | "custom";
   /**
    * If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.
-   *
    * The policy level is inherited from packages to resources they contain, but can be overwritten at resource level.
    *
    * MUST only be provided if `policyLevel` is set to `custom`.
-   *
    * MUST be a valid [Specification ID](../index.md#specification-id).
    */
   customPolicyLevel?: string;
@@ -2000,6 +2118,10 @@ export interface IntegrationDependency {
   /**
    * Correlation IDs can be used to create a reference to related data in other repositories (especially to the system of record).
    *
+   * They express an "identity" / "equals" / "mappable" relationship to the target ID.
+   *
+   * If a "part of" relationship needs to be expressed, use the `partOfGroups` assignment instead.
+   *
    * MUST be a valid [Correlation ID](../index.md#correlation-id).
    */
   correlationIds?: string[];
@@ -2019,6 +2141,9 @@ export interface IntegrationDependency {
   shortDescription?: string;
   /**
    * Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+   *
+   * The description SHOULD not be excessive in length and is not meant to provide full documentation.
+   * Detailed documentation SHOULD be attached as (typed) links.
    */
   description?: string;
   /**
@@ -2029,6 +2154,18 @@ export interface IntegrationDependency {
    * Every resource MUST be part of one package.
    */
   partOfPackage: string;
+  /**
+   * Defines which groups the resource is assigned to.
+   *
+   * The property is optional, but if given the value MUST be an array of valid Group IDs.
+   *
+   * Groups are a lightweight custom taxonomy concept.
+   * They express a "part of" relationship to the chosen group concept.
+   * If an "identity / equals" relationship needs to be expressed, use the `correlationIds` instead.
+   *
+   * All resources that share the same group ID assignment are effectively grouped together.
+   */
+  partOfGroups?: string[];
   /**
    * The complete [SemVer](https://semver.org/) version string.
    *
@@ -2129,6 +2266,9 @@ export interface Aspect {
   title: string;
   /**
    * Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+   *
+   * The description SHOULD not be excessive in length and is not meant to provide full documentation.
+   * Detailed documentation SHOULD be attached as (typed) links.
    */
   description?: string;
   /**
@@ -2267,6 +2407,10 @@ export interface Product {
   /**
    * Correlation IDs can be used to create a reference to related data in other repositories (especially to the system of record).
    *
+   * They express an "identity" / "equals" / "mappable" relationship to the target ID.
+   *
+   * If a "part of" relationship needs to be expressed, use the `partOfGroups` assignment instead.
+   *
    * MUST be a valid [Correlation ID](../index.md#correlation-id).
    */
   correlationIds?: string[];
@@ -2286,6 +2430,9 @@ export interface Product {
   shortDescription: string;
   /**
    * Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+   *
+   * The description SHOULD not be excessive in length and is not meant to provide full documentation.
+   * Detailed documentation SHOULD be attached as (typed) links.
    */
   description?: string;
   /**
@@ -2359,6 +2506,9 @@ export interface Package {
   shortDescription: string;
   /**
    * Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+   *
+   * The description SHOULD not be excessive in length and is not meant to provide full documentation.
+   * Detailed documentation SHOULD be attached as (typed) links.
    */
   description: string;
   /**
@@ -2389,11 +2539,9 @@ export interface Package {
   policyLevel?: "none" | "sap:core:v1" | "custom";
   /**
    * If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.
-   *
    * The policy level is inherited from packages to resources they contain, but can be overwritten at resource level.
    *
    * MUST only be provided if `policyLevel` is set to `custom`.
-   *
    * MUST be a valid [Specification ID](../index.md#specification-id).
    */
   customPolicyLevel?: string;
@@ -2585,6 +2733,10 @@ export interface ConsumptionBundle {
   /**
    * Correlation IDs can be used to create a reference to related data in other repositories (especially to the system of record).
    *
+   * They express an "identity" / "equals" / "mappable" relationship to the target ID.
+   *
+   * If a "part of" relationship needs to be expressed, use the `partOfGroups` assignment instead.
+   *
    * MUST be a valid [Correlation ID](../index.md#correlation-id).
    */
   correlationIds?: string[];
@@ -2604,6 +2756,9 @@ export interface ConsumptionBundle {
   shortDescription?: string;
   /**
    * Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+   *
+   * The description SHOULD not be excessive in length and is not meant to provide full documentation.
+   * Detailed documentation SHOULD be attached as (typed) links.
    */
   description?: string;
   /**
@@ -2696,8 +2851,75 @@ export interface CredentialExchangeStrategy {
   callbackUrl?: string;
 }
 /**
+ * Group (instance) that resources can be assigned to.
+ *
+ * Groups are a lightweight custom taxonomy concept.
+ * They express a "part of" relationship to the chosen group concept.
+ * If an "identity / equals" relationship needs to be expressed, use the `correlationIds` instead.
+ *
+ * A group is actually a choice of both a [Group Type](#group-type) and which "value" / "instance" is used for grouping.
+ *
+ * **Example**:
+ * There is a Group Type "CDS Service" (defined by `sap.cap` authority namespace).
+ * The Group assignment would include the information which CSN Service it is grouped together by, e.g. "incidents.IncidentsService".
+ */
+export interface Group {
+  /**
+   * The Group ID consists of two [Concept IDs](../../spec-v1/#concept-id) separated by a `:`.
+   *
+   * The first two fragments MUST be equal to the used Group Type ID (`groupTypeId`).
+   * The last two fragments MUST be a valid [Concept ID](../../spec-v1/#concept-id), indicating the group instance assignment.
+   *
+   * The ID concept is a bit unusual, but it ensures globally unique and conflict free group assignments.
+   */
+  groupId: string;
+  /**
+   * Group Type ID.
+   *
+   * MUST match with the first two fragments of the own `groupId`.
+   */
+  groupTypeId: string;
+  /**
+   * Human readable title of the group assignment (for UI).
+   */
+  title: string;
+  /**
+   * Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+   *
+   * The description SHOULD not be excessive in length and is not meant to provide full documentation.
+   * Detailed documentation SHOULD be attached as (typed) links.
+   */
+  description?: string;
+  [k: string]: any | undefined;
+}
+/**
+ * A Group Type defines the semantics of [group assignments](#group).
+ *
+ * They can be defined centrally (ownership by authority namespace) or decentrally (defined by application / service itself)
+ */
+export interface GroupType {
+  /**
+   * GroupType ID, which MUST be a valid [Concept ID](../../spec-v1/#concept-id).
+   */
+  groupTypeId: string;
+  /**
+   * Human readable title of the group type.
+   */
+  title: string;
+  /**
+   * Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+   *
+   * The description SHOULD not be excessive in length and is not meant to provide full documentation.
+   * Detailed documentation SHOULD be attached as (typed) links.
+   */
+  description?: string;
+  [k: string]: any | undefined;
+}
+/**
  * A tombstone indicates that a previously published ORD resource or taxonomy has been removed / decommissioned.
  * This MUST be indicated explicitly, so ORD aggregators and consumers can learn about the removal.
+ *
+ * Exactly one of the IDs MUST be provided to state which ORD resource or taxonomy item the Tombstone addresses.
  *
  * It MUST be kept sufficiently long so that all ORD aggregators can learn about the tombstone.
  * After that it MAY be removed.
@@ -2706,7 +2928,15 @@ export interface Tombstone {
   /**
    * [ORD ID](../index.md#ord-id) of the ORD resource/taxonomy that has been removed.
    */
-  ordId: string;
+  ordId?: string;
+  /**
+   * Group ID of the group that has been removed.
+   */
+  groupId?: string;
+  /**
+   * Group Type ID of the group type that has been removed.
+   */
+  groupTypeId?: string;
   /**
    * The date when the ORD resource/taxonomy was removed.
    * This is related to the `sunsetDate` that can be set to announce a resource as deprecated *before* the removal and setting of a tombstone.
@@ -2715,7 +2945,7 @@ export interface Tombstone {
    */
   removalDate: string;
   /**
-   * Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+   * Optional description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
    *
    * The description of a Tombstone MAY be added to the changelog of the removed resource by an ORD aggregator.
    */

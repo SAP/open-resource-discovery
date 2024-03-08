@@ -37,7 +37,7 @@
         "description": {
           "type": "string",
           "minLength": 1,
-          "description": "Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).",
+          "description": "Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).\n\nThe description SHOULD not be excessive in length and is not meant to provide full documentation.\nDetailed documentation SHOULD be attached as (typed) links.",
           "examples": [
             "SAP S/4HANA Cloud, our next generation cloud ERP suite designed for\nin-memory computing, acts as a digital core, connecting your\nenterprise with people, business networks, the Internet of Things,\nBig Data, and more.\n"
           ]
@@ -57,15 +57,15 @@
           "oneOf": [
             {
               "const": "none",
-              "description": "No policy level chosen. Only the base rules on how to create correct ORD documents apply.\n\nThis corresponds to the SAP `sap:base:v1` compliance level."
+              "description": "No policy level chosen. Only the base rules on how to create correct ORD documents apply.\nThis corresponds to the SAP `sap:base:v1` compliance level."
             },
             {
               "const": "sap:core:v1",
-              "description": "SAP core rules and guidelines apply.\n\nIf chosen the [SAP Core V1](../../spec-extensions/policy-levels/sap-core-v1) rules MUST be followed."
+              "description": "SAP core rules and guidelines apply.\nIf chosen the [SAP Core V1](../../spec-extensions/policy-levels/sap-core-v1) rules MUST be followed."
             },
             {
               "const": "custom",
-              "description": "Custom policy level.\n\nFurther validation MAY be defined and implemented by the policy-level owner.\nThis level MAY be chosen by 3rd party or customer solutions.\n\nIf chosen, `customPolicyLevel` MUST be provided."
+              "description": "Custom policy level.\nFurther validation MAY be defined and implemented by the policy-level owner.\nThis level MAY be chosen by 3rd party or customer solutions.\nIf chosen, `customPolicyLevel` MUST be provided."
             }
           ],
           "examples": [
@@ -74,7 +74,7 @@
         },
         "customPolicyLevel": {
           "type": "string",
-          "description": "If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.\n\nThe policy level is inherited from packages to resources they contain, but can be overwritten at resource level.\n\nMUST only be provided if `policyLevel` is set to `custom`.\n\nMUST be a valid [Specification ID](../index.md#specification-id).",
+          "description": "If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.\nThe policy level is inherited from packages to resources they contain, but can be overwritten at resource level.\n\nMUST only be provided if `policyLevel` is set to `custom`.\nMUST be a valid [Specification ID](../index.md#specification-id).",
           "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
           "maxLength": 255,
           "examples": [
@@ -377,7 +377,7 @@
         },
         "correlationIds": {
           "type": "array",
-          "description": "Correlation IDs can be used to create a reference to related data in other repositories (especially to the system of record).\n\nMUST be a valid [Correlation ID](../index.md#correlation-id).",
+          "description": "Correlation IDs can be used to create a reference to related data in other repositories (especially to the system of record).\n\nThey express an \"identity\" / \"equals\" / \"mappable\" relationship to the target ID.\n\nIf a \"part of\" relationship needs to be expressed, use the `partOfGroups` assignment instead.\n\nMUST be a valid [Correlation ID](../index.md#correlation-id).",
           "items": {
             "type": "string",
             "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-\\/]+):([a-zA-Z0-9._\\-\\/]+)$",
@@ -410,7 +410,7 @@
         "description": {
           "type": "string",
           "minLength": 1,
-          "description": "Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).",
+          "description": "Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).\n\nThe description SHOULD not be excessive in length and is not meant to provide full documentation.\nDetailed documentation SHOULD be attached as (typed) links.",
           "examples": [
             "This consumption bundle includes all SAP LoB System 3 Cloud APIs and Events\nthat can be consumed with the same credentials.\n"
           ]
@@ -523,7 +523,7 @@
         },
         "correlationIds": {
           "type": "array",
-          "description": "Correlation IDs can be used to create a reference to related data in other repositories (especially to the system of record).\n\nMUST be a valid [Correlation ID](../index.md#correlation-id).",
+          "description": "Correlation IDs can be used to create a reference to related data in other repositories (especially to the system of record).\n\nThey express an \"identity\" / \"equals\" / \"mappable\" relationship to the target ID.\n\nIf a \"part of\" relationship needs to be expressed, use the `partOfGroups` assignment instead.\n\nMUST be a valid [Correlation ID](../index.md#correlation-id).",
           "items": {
             "type": "string",
             "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-\\/]+):([a-zA-Z0-9._\\-\\/]+)$",
@@ -556,7 +556,7 @@
         "description": {
           "type": "string",
           "minLength": 1,
-          "description": "Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).",
+          "description": "Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).\n\nThe description SHOULD not be excessive in length and is not meant to provide full documentation.\nDetailed documentation SHOULD be attached as (typed) links.",
           "examples": [
             "This service enables you to create Request for Quotation (RFQ)\nthrough an API call from a source system outside SAP S/4HANA Cloud\nor SAP S/4HANA on-Premise. Furthermore, the service enables you to\nread existing Request for Quotation data from the SAP S/4HANA Cloud\nor SAP S/4HANA on-Premise.\n"
           ]
@@ -569,6 +569,14 @@
           "examples": [
             "sap.xref:package:SomePackage:v1"
           ]
+        },
+        "partOfGroups": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\\-\\/]+):([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\\-\\/]+)$"
+          },
+          "description": "Defines which groups the resource is assigned to.\n\nThe property is optional, but if given the value MUST be an array of valid Group IDs.\n\nGroups are a lightweight custom taxonomy concept.\nThey express a \"part of\" relationship to the chosen group concept.\nIf an \"identity / equals\" relationship needs to be expressed, use the `correlationIds` instead.\n\nAll resources that share the same group ID assignment are effectively grouped together."
         },
         "partOfConsumptionBundles": {
           "type": "array",
@@ -653,11 +661,11 @@
             },
             {
               "const": "beta",
-              "description": "The contract for the resource is beta and MAY not be meant for productive use.\n\nIn the SAP context, `beta` APIs may be changed or deleted at SAPs discretion."
+              "description": "The contract for the resource is beta and MAY not be meant for productive use.\nIn the SAP context, `beta` APIs may be changed or deleted at SAPs discretion."
             },
             {
               "const": "deprecated",
-              "description": "Resource has been deprecated and is destined to be decommissioned (removed) in the future.\n\nOnce the resource is decommissioned:\n * It MUST be removed from ORD.\n * Its removal MUST be explicitly indicated through a `Tombstone`.\n * If successor resources exists, they MUST be referenced through `successors`.\n\nIn cases where an `active` version of the API exists, it is advisable to migrate to the `active` version,\nhowever, an `active` version may not exist in all cases."
+              "description": "Resource has been deprecated and is destined to be decommissioned (removed) in the future.\n\nOnce the resource is decommissioned, it MUST be removed from ORD.\nIts removal MUST be explicitly indicated through a `Tombstone`.\nIf successor resources exists, they MUST be referenced through `successors`.\n\nIn cases where an `active` version of the API exists, it is advisable to migrate to the `active` version,\nhowever, an `active` version may not exist in all cases."
             }
           ],
           "examples": [
@@ -1142,15 +1150,15 @@
           "oneOf": [
             {
               "const": "none",
-              "description": "No policy level chosen. Only the base rules on how to create correct ORD documents apply.\n\nThis corresponds to the SAP `sap:base:v1` compliance level."
+              "description": "No policy level chosen. Only the base rules on how to create correct ORD documents apply.\nThis corresponds to the SAP `sap:base:v1` compliance level."
             },
             {
               "const": "sap:core:v1",
-              "description": "SAP core rules and guidelines apply.\n\nIf chosen the [SAP Core V1](../../spec-extensions/policy-levels/sap-core-v1) rules MUST be followed."
+              "description": "SAP core rules and guidelines apply.\nIf chosen the [SAP Core V1](../../spec-extensions/policy-levels/sap-core-v1) rules MUST be followed."
             },
             {
               "const": "custom",
-              "description": "Custom policy level.\n\nFurther validation MAY be defined and implemented by the policy-level owner.\nThis level MAY be chosen by 3rd party or customer solutions.\n\nIf chosen, `customPolicyLevel` MUST be provided."
+              "description": "Custom policy level.\nFurther validation MAY be defined and implemented by the policy-level owner.\nThis level MAY be chosen by 3rd party or customer solutions.\nIf chosen, `customPolicyLevel` MUST be provided."
             }
           ],
           "examples": [
@@ -1159,7 +1167,7 @@
         },
         "customPolicyLevel": {
           "type": "string",
-          "description": "If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.\n\nThe policy level is inherited from packages to resources they contain, but can be overwritten at resource level.\n\nMUST only be provided if `policyLevel` is set to `custom`.\n\nMUST be a valid [Specification ID](../index.md#specification-id).",
+          "description": "If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.\nThe policy level is inherited from packages to resources they contain, but can be overwritten at resource level.\n\nMUST only be provided if `policyLevel` is set to `custom`.\nMUST be a valid [Specification ID](../index.md#specification-id).",
           "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
           "maxLength": 255,
           "examples": [
@@ -1213,7 +1221,7 @@
         },
         "correlationIds": {
           "type": "array",
-          "description": "Correlation IDs can be used to create a reference to related data in other repositories (especially to the system of record).\n\nMUST be a valid [Correlation ID](../index.md#correlation-id).",
+          "description": "Correlation IDs can be used to create a reference to related data in other repositories (especially to the system of record).\n\nThey express an \"identity\" / \"equals\" / \"mappable\" relationship to the target ID.\n\nIf a \"part of\" relationship needs to be expressed, use the `partOfGroups` assignment instead.\n\nMUST be a valid [Correlation ID](../index.md#correlation-id).",
           "items": {
             "type": "string",
             "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-\\/]+):([a-zA-Z0-9._\\-\\/]+)$",
@@ -1247,7 +1255,7 @@
         "description": {
           "type": "string",
           "minLength": 1,
-          "description": "Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).",
+          "description": "Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).\n\nThe description SHOULD not be excessive in length and is not meant to provide full documentation.\nDetailed documentation SHOULD be attached as (typed) links.",
           "examples": [
             "This event is raised by the SAP S/4HANA Cloud system when an invoice document is cancelled.\n"
           ]
@@ -1260,6 +1268,14 @@
           "examples": [
             "sap.xref:package:SomePackage:v1"
           ]
+        },
+        "partOfGroups": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\\-\\/]+):([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\\-\\/]+)$"
+          },
+          "description": "Defines which groups the resource is assigned to.\n\nThe property is optional, but if given the value MUST be an array of valid Group IDs.\n\nGroups are a lightweight custom taxonomy concept.\nThey express a \"part of\" relationship to the chosen group concept.\nIf an \"identity / equals\" relationship needs to be expressed, use the `correlationIds` instead.\n\nAll resources that share the same group ID assignment are effectively grouped together."
         },
         "partOfConsumptionBundles": {
           "type": "array",
@@ -1344,11 +1360,11 @@
             },
             {
               "const": "beta",
-              "description": "The contract for the resource is beta and MAY not be meant for productive use.\n\nIn the SAP context, `beta` APIs may be changed or deleted at SAPs discretion."
+              "description": "The contract for the resource is beta and MAY not be meant for productive use.\nIn the SAP context, `beta` APIs may be changed or deleted at SAPs discretion."
             },
             {
               "const": "deprecated",
-              "description": "Resource has been deprecated and is destined to be decommissioned (removed) in the future.\n\nOnce the resource is decommissioned:\n * It MUST be removed from ORD.\n * Its removal MUST be explicitly indicated through a `Tombstone`.\n * If successor resources exists, they MUST be referenced through `successors`.\n\nIn cases where an `active` version of the API exists, it is advisable to migrate to the `active` version,\nhowever, an `active` version may not exist in all cases."
+              "description": "Resource has been deprecated and is destined to be decommissioned (removed) in the future.\n\nOnce the resource is decommissioned, it MUST be removed from ORD.\nIts removal MUST be explicitly indicated through a `Tombstone`.\nIf successor resources exists, they MUST be referenced through `successors`.\n\nIn cases where an `active` version of the API exists, it is advisable to migrate to the `active` version,\nhowever, an `active` version may not exist in all cases."
             }
           ],
           "examples": [
@@ -1673,15 +1689,15 @@
           "oneOf": [
             {
               "const": "none",
-              "description": "No policy level chosen. Only the base rules on how to create correct ORD documents apply.\n\nThis corresponds to the SAP `sap:base:v1` compliance level."
+              "description": "No policy level chosen. Only the base rules on how to create correct ORD documents apply.\nThis corresponds to the SAP `sap:base:v1` compliance level."
             },
             {
               "const": "sap:core:v1",
-              "description": "SAP core rules and guidelines apply.\n\nIf chosen the [SAP Core V1](../../spec-extensions/policy-levels/sap-core-v1) rules MUST be followed."
+              "description": "SAP core rules and guidelines apply.\nIf chosen the [SAP Core V1](../../spec-extensions/policy-levels/sap-core-v1) rules MUST be followed."
             },
             {
               "const": "custom",
-              "description": "Custom policy level.\n\nFurther validation MAY be defined and implemented by the policy-level owner.\nThis level MAY be chosen by 3rd party or customer solutions.\n\nIf chosen, `customPolicyLevel` MUST be provided."
+              "description": "Custom policy level.\nFurther validation MAY be defined and implemented by the policy-level owner.\nThis level MAY be chosen by 3rd party or customer solutions.\nIf chosen, `customPolicyLevel` MUST be provided."
             }
           ],
           "examples": [
@@ -1690,7 +1706,7 @@
         },
         "customPolicyLevel": {
           "type": "string",
-          "description": "If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.\n\nThe policy level is inherited from packages to resources they contain, but can be overwritten at resource level.\n\nMUST only be provided if `policyLevel` is set to `custom`.\n\nMUST be a valid [Specification ID](../index.md#specification-id).",
+          "description": "If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.\nThe policy level is inherited from packages to resources they contain, but can be overwritten at resource level.\n\nMUST only be provided if `policyLevel` is set to `custom`.\nMUST be a valid [Specification ID](../index.md#specification-id).",
           "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
           "maxLength": 255,
           "examples": [
@@ -1746,7 +1762,7 @@
         },
         "correlationIds": {
           "type": "array",
-          "description": "Correlation IDs can be used to create a reference to related data in other repositories (especially to the system of record).\n\nMUST be a valid [Correlation ID](../index.md#correlation-id).",
+          "description": "Correlation IDs can be used to create a reference to related data in other repositories (especially to the system of record).\n\nThey express an \"identity\" / \"equals\" / \"mappable\" relationship to the target ID.\n\nIf a \"part of\" relationship needs to be expressed, use the `partOfGroups` assignment instead.\n\nMUST be a valid [Correlation ID](../index.md#correlation-id).",
           "items": {
             "type": "string",
             "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-\\/]+):([a-zA-Z0-9._\\-\\/]+)$",
@@ -1789,7 +1805,7 @@
         "description": {
           "type": "string",
           "minLength": 1,
-          "description": "Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).",
+          "description": "Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).\n\nThe description SHOULD not be excessive in length and is not meant to provide full documentation.\nDetailed documentation SHOULD be attached as (typed) links.",
           "examples": [
             "A business partner is a person, an organization, or a group of persons or organizations in which a company has a business interest.\n",
             "A cost center is an organizational center where costs are incurred and for which costs are recorded separately.\n",
@@ -1804,6 +1820,14 @@
           "examples": [
             "sap.xref:package:SomePackage:v1"
           ]
+        },
+        "partOfGroups": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\\-\\/]+):([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\\-\\/]+)$"
+          },
+          "description": "Defines which groups the resource is assigned to.\n\nThe property is optional, but if given the value MUST be an array of valid Group IDs.\n\nGroups are a lightweight custom taxonomy concept.\nThey express a \"part of\" relationship to the chosen group concept.\nIf an \"identity / equals\" relationship needs to be expressed, use the `correlationIds` instead.\n\nAll resources that share the same group ID assignment are effectively grouped together."
         },
         "partOfProducts": {
           "type": "array",
@@ -1865,11 +1889,11 @@
             },
             {
               "const": "beta",
-              "description": "The contract for the resource is beta and MAY not be meant for productive use.\n\nIn the SAP context, `beta` APIs may be changed or deleted at SAPs discretion."
+              "description": "The contract for the resource is beta and MAY not be meant for productive use.\nIn the SAP context, `beta` APIs may be changed or deleted at SAPs discretion."
             },
             {
               "const": "deprecated",
-              "description": "Resource has been deprecated and is destined to be decommissioned (removed) in the future.\n\nOnce the resource is decommissioned:\n * It MUST be removed from ORD.\n * Its removal MUST be explicitly indicated through a `Tombstone`.\n * If successor resources exists, they MUST be referenced through `successors`.\n\nIn cases where an `active` version of the API exists, it is advisable to migrate to the `active` version,\nhowever, an `active` version may not exist in all cases."
+              "description": "Resource has been deprecated and is destined to be decommissioned (removed) in the future.\n\nOnce the resource is decommissioned, it MUST be removed from ORD.\nIts removal MUST be explicitly indicated through a `Tombstone`.\nIf successor resources exists, they MUST be referenced through `successors`.\n\nIn cases where an `active` version of the API exists, it is advisable to migrate to the `active` version,\nhowever, an `active` version may not exist in all cases."
             }
           ],
           "examples": [
@@ -1932,6 +1956,13 @@
             "aggregate"
           ]
         },
+        "relatedEntityTypes": {
+          "type": "array",
+          "description": "States that this Entity Type is related to another Entity Type.\n\nUsually this happens if there are similar conceptual entity types across different namespaces.",
+          "items": {
+            "$ref": "#/definitions/RelatedEntityType"
+          }
+        },
         "links": {
           "type": "array",
           "description": "Generic Links with arbitrary meaning and content.",
@@ -1969,15 +2000,15 @@
           "oneOf": [
             {
               "const": "none",
-              "description": "No policy level chosen. Only the base rules on how to create correct ORD documents apply.\n\nThis corresponds to the SAP `sap:base:v1` compliance level."
+              "description": "No policy level chosen. Only the base rules on how to create correct ORD documents apply.\nThis corresponds to the SAP `sap:base:v1` compliance level."
             },
             {
               "const": "sap:core:v1",
-              "description": "SAP core rules and guidelines apply.\n\nIf chosen the [SAP Core V1](../../spec-extensions/policy-levels/sap-core-v1) rules MUST be followed."
+              "description": "SAP core rules and guidelines apply.\nIf chosen the [SAP Core V1](../../spec-extensions/policy-levels/sap-core-v1) rules MUST be followed."
             },
             {
               "const": "custom",
-              "description": "Custom policy level.\n\nFurther validation MAY be defined and implemented by the policy-level owner.\nThis level MAY be chosen by 3rd party or customer solutions.\n\nIf chosen, `customPolicyLevel` MUST be provided."
+              "description": "Custom policy level.\nFurther validation MAY be defined and implemented by the policy-level owner.\nThis level MAY be chosen by 3rd party or customer solutions.\nIf chosen, `customPolicyLevel` MUST be provided."
             }
           ],
           "examples": [
@@ -1986,7 +2017,7 @@
         },
         "customPolicyLevel": {
           "type": "string",
-          "description": "If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.\n\nThe policy level is inherited from packages to resources they contain, but can be overwritten at resource level.\n\nMUST only be provided if `policyLevel` is set to `custom`.\n\nMUST be a valid [Specification ID](../index.md#specification-id).",
+          "description": "If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.\nThe policy level is inherited from packages to resources they contain, but can be overwritten at resource level.\n\nMUST only be provided if `policyLevel` is set to `custom`.\nMUST be a valid [Specification ID](../index.md#specification-id).",
           "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
           "maxLength": 255,
           "examples": [
@@ -2038,7 +2069,7 @@
         },
         "correlationIds": {
           "type": "array",
-          "description": "Correlation IDs can be used to create a reference to related data in other repositories (especially to the system of record).\n\nMUST be a valid [Correlation ID](../index.md#correlation-id).",
+          "description": "Correlation IDs can be used to create a reference to related data in other repositories (especially to the system of record).\n\nThey express an \"identity\" / \"equals\" / \"mappable\" relationship to the target ID.\n\nIf a \"part of\" relationship needs to be expressed, use the `partOfGroups` assignment instead.\n\nMUST be a valid [Correlation ID](../index.md#correlation-id).",
           "items": {
             "type": "string",
             "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-\\/]+):([a-zA-Z0-9._\\-\\/]+)$",
@@ -2071,7 +2102,7 @@
         "description": {
           "type": "string",
           "minLength": 1,
-          "description": "Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).",
+          "description": "Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).\n\nThe description SHOULD not be excessive in length and is not meant to provide full documentation.\nDetailed documentation SHOULD be attached as (typed) links.",
           "examples": [
             "The data product Customer Order offers access to all online and offline orders submitted by customers. It provides a customer view on the orders. For fulfillment-specific aspects please refer to the data product Fulfillment Order."
           ]
@@ -2084,6 +2115,14 @@
           "examples": [
             "sap.xref:package:SomePackage:v1"
           ]
+        },
+        "partOfGroups": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\\-\\/]+):([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\\-\\/]+)$"
+          },
+          "description": "Defines which groups the resource is assigned to.\n\nThe property is optional, but if given the value MUST be an array of valid Group IDs.\n\nGroups are a lightweight custom taxonomy concept.\nThey express a \"part of\" relationship to the chosen group concept.\nIf an \"identity / equals\" relationship needs to be expressed, use the `correlationIds` instead.\n\nAll resources that share the same group ID assignment are effectively grouped together."
         },
         "version": {
           "type": "string",
@@ -2130,11 +2169,11 @@
             },
             {
               "const": "beta",
-              "description": "The contract for the resource is beta and MAY not be meant for productive use.\n\nIn the SAP context, `beta` APIs may be changed or deleted at SAPs discretion."
+              "description": "The contract for the resource is beta and MAY not be meant for productive use.\nIn the SAP context, `beta` APIs may be changed or deleted at SAPs discretion."
             },
             {
               "const": "deprecated",
-              "description": "Resource has been deprecated and is destined to be decommissioned (removed) in the future.\n\nOnce the resource is decommissioned:\n * It MUST be removed from ORD.\n * Its removal MUST be explicitly indicated through a `Tombstone`.\n * If successor resources exists, they MUST be referenced through `successors`.\n\nIn cases where an `active` version of the API exists, it is advisable to migrate to the `active` version,\nhowever, an `active` version may not exist in all cases."
+              "description": "Resource has been deprecated and is destined to be decommissioned (removed) in the future.\n\nOnce the resource is decommissioned, it MUST be removed from ORD.\nIts removal MUST be explicitly indicated through a `Tombstone`.\nIf successor resources exists, they MUST be referenced through `successors`.\n\nIn cases where an `active` version of the API exists, it is advisable to migrate to the `active` version,\nhowever, an `active` version may not exist in all cases."
             }
           ],
           "examples": [
@@ -2485,15 +2524,15 @@
           "oneOf": [
             {
               "const": "none",
-              "description": "No policy level chosen. Only the base rules on how to create correct ORD documents apply.\n\nThis corresponds to the SAP `sap:base:v1` compliance level."
+              "description": "No policy level chosen. Only the base rules on how to create correct ORD documents apply.\nThis corresponds to the SAP `sap:base:v1` compliance level."
             },
             {
               "const": "sap:core:v1",
-              "description": "SAP core rules and guidelines apply.\n\nIf chosen the [SAP Core V1](../../spec-extensions/policy-levels/sap-core-v1) rules MUST be followed."
+              "description": "SAP core rules and guidelines apply.\nIf chosen the [SAP Core V1](../../spec-extensions/policy-levels/sap-core-v1) rules MUST be followed."
             },
             {
               "const": "custom",
-              "description": "Custom policy level.\n\nFurther validation MAY be defined and implemented by the policy-level owner.\nThis level MAY be chosen by 3rd party or customer solutions.\n\nIf chosen, `customPolicyLevel` MUST be provided."
+              "description": "Custom policy level.\nFurther validation MAY be defined and implemented by the policy-level owner.\nThis level MAY be chosen by 3rd party or customer solutions.\nIf chosen, `customPolicyLevel` MUST be provided."
             }
           ],
           "examples": [
@@ -2502,7 +2541,7 @@
         },
         "customPolicyLevel": {
           "type": "string",
-          "description": "If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.\n\nThe policy level is inherited from packages to resources they contain, but can be overwritten at resource level.\n\nMUST only be provided if `policyLevel` is set to `custom`.\n\nMUST be a valid [Specification ID](../index.md#specification-id).",
+          "description": "If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.\nThe policy level is inherited from packages to resources they contain, but can be overwritten at resource level.\n\nMUST only be provided if `policyLevel` is set to `custom`.\nMUST be a valid [Specification ID](../index.md#specification-id).",
           "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
           "maxLength": 255,
           "examples": [
@@ -2788,7 +2827,7 @@
         },
         "correlationIds": {
           "type": "array",
-          "description": "Correlation IDs can be used to create a reference to related data in other repositories (especially to the system of record).\n\nMUST be a valid [Correlation ID](../index.md#correlation-id).",
+          "description": "Correlation IDs can be used to create a reference to related data in other repositories (especially to the system of record).\n\nThey express an \"identity\" / \"equals\" / \"mappable\" relationship to the target ID.\n\nIf a \"part of\" relationship needs to be expressed, use the `partOfGroups` assignment instead.\n\nMUST be a valid [Correlation ID](../index.md#correlation-id).",
           "items": {
             "type": "string",
             "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-\\/]+):([a-zA-Z0-9._\\-\\/]+)$",
@@ -2821,7 +2860,7 @@
         "description": {
           "type": "string",
           "minLength": 1,
-          "description": "Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).",
+          "description": "Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).\n\nThe description SHOULD not be excessive in length and is not meant to provide full documentation.\nDetailed documentation SHOULD be attached as (typed) links.",
           "examples": []
         },
         "vendor": {
@@ -2897,7 +2936,7 @@
         },
         "correlationIds": {
           "type": "array",
-          "description": "Correlation IDs can be used to create a reference to related data in other repositories (especially to the system of record).\n\nMUST be a valid [Correlation ID](../index.md#correlation-id).",
+          "description": "Correlation IDs can be used to create a reference to related data in other repositories (especially to the system of record).\n\nThey express an \"identity\" / \"equals\" / \"mappable\" relationship to the target ID.\n\nIf a \"part of\" relationship needs to be expressed, use the `partOfGroups` assignment instead.\n\nMUST be a valid [Correlation ID](../index.md#correlation-id).",
           "items": {
             "type": "string",
             "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-\\/]+):([a-zA-Z0-9._\\-\\/]+)$",
@@ -2956,7 +2995,7 @@
         "description": {
           "type": "string",
           "minLength": 1,
-          "description": "Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).",
+          "description": "Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).\n\nThe description SHOULD not be excessive in length and is not meant to provide full documentation.\nDetailed documentation SHOULD be attached as (typed) links.",
           "examples": [
             "SAP S/4HANA Cloud, our next generation cloud ERP suite designed for\nin-memory computing, acts as a digital core, connecting your\nenterprise with people, business networks, the Internet of Things,\nBig Data, and more.\n"
           ]
@@ -2969,6 +3008,14 @@
           "examples": [
             "sap.xref:package:SomePackage:v1"
           ]
+        },
+        "partOfGroups": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\\-\\/]+):([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\\-\\/]+)$"
+          },
+          "description": "Defines which groups the resource is assigned to.\n\nThe property is optional, but if given the value MUST be an array of valid Group IDs.\n\nGroups are a lightweight custom taxonomy concept.\nThey express a \"part of\" relationship to the chosen group concept.\nIf an \"identity / equals\" relationship needs to be expressed, use the `correlationIds` instead.\n\nAll resources that share the same group ID assignment are effectively grouped together."
         },
         "version": {
           "type": "string",
@@ -3015,11 +3062,11 @@
             },
             {
               "const": "beta",
-              "description": "The contract for the resource is beta and MAY not be meant for productive use.\n\nIn the SAP context, `beta` APIs may be changed or deleted at SAPs discretion."
+              "description": "The contract for the resource is beta and MAY not be meant for productive use.\nIn the SAP context, `beta` APIs may be changed or deleted at SAPs discretion."
             },
             {
               "const": "deprecated",
-              "description": "Resource has been deprecated and is destined to be decommissioned (removed) in the future.\n\nOnce the resource is decommissioned:\n * It MUST be removed from ORD.\n * Its removal MUST be explicitly indicated through a `Tombstone`.\n * If successor resources exists, they MUST be referenced through `successors`.\n\nIn cases where an `active` version of the API exists, it is advisable to migrate to the `active` version,\nhowever, an `active` version may not exist in all cases."
+              "description": "Resource has been deprecated and is destined to be decommissioned (removed) in the future.\n\nOnce the resource is decommissioned, it MUST be removed from ORD.\nIts removal MUST be explicitly indicated through a `Tombstone`.\nIf successor resources exists, they MUST be referenced through `successors`.\n\nIn cases where an `active` version of the API exists, it is advisable to migrate to the `active` version,\nhowever, an `active` version may not exist in all cases."
             }
           ],
           "examples": [
@@ -3199,7 +3246,7 @@
         },
         "correlationIds": {
           "type": "array",
-          "description": "Correlation IDs can be used to create a reference to related data in other repositories (especially to the system of record).\n\nMUST be a valid [Correlation ID](../index.md#correlation-id).",
+          "description": "Correlation IDs can be used to create a reference to related data in other repositories (especially to the system of record).\n\nThey express an \"identity\" / \"equals\" / \"mappable\" relationship to the target ID.\n\nIf a \"part of\" relationship needs to be expressed, use the `partOfGroups` assignment instead.\n\nMUST be a valid [Correlation ID](../index.md#correlation-id).",
           "items": {
             "type": "string",
             "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-\\/]+):([a-zA-Z0-9._\\-\\/]+)$",
@@ -3232,7 +3279,7 @@
         "description": {
           "type": "string",
           "minLength": 1,
-          "description": "Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).",
+          "description": "Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).\n\nThe description SHOULD not be excessive in length and is not meant to provide full documentation.\nDetailed documentation SHOULD be attached as (typed) links.",
           "examples": [
             "SAP S/4HANA Cloud, our next generation cloud ERP suite designed for\nin-memory computing, acts as a digital core, connecting your\nenterprise with people, business networks, the Internet of Things,\nBig Data, and more.\n"
           ]
@@ -3245,6 +3292,14 @@
           "examples": [
             "sap.xref:package:SomePackage:v1"
           ]
+        },
+        "partOfGroups": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\\-\\/]+):([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\\-\\/]+)$"
+          },
+          "description": "Defines which groups the resource is assigned to.\n\nThe property is optional, but if given the value MUST be an array of valid Group IDs.\n\nGroups are a lightweight custom taxonomy concept.\nThey express a \"part of\" relationship to the chosen group concept.\nIf an \"identity / equals\" relationship needs to be expressed, use the `correlationIds` instead.\n\nAll resources that share the same group ID assignment are effectively grouped together."
         },
         "version": {
           "type": "string",
@@ -3291,11 +3346,11 @@
             },
             {
               "const": "beta",
-              "description": "The contract for the resource is beta and MAY not be meant for productive use.\n\nIn the SAP context, `beta` APIs may be changed or deleted at SAPs discretion."
+              "description": "The contract for the resource is beta and MAY not be meant for productive use.\nIn the SAP context, `beta` APIs may be changed or deleted at SAPs discretion."
             },
             {
               "const": "deprecated",
-              "description": "Resource has been deprecated and is destined to be decommissioned (removed) in the future.\n\nOnce the resource is decommissioned:\n * It MUST be removed from ORD.\n * Its removal MUST be explicitly indicated through a `Tombstone`.\n * If successor resources exists, they MUST be referenced through `successors`.\n\nIn cases where an `active` version of the API exists, it is advisable to migrate to the `active` version,\nhowever, an `active` version may not exist in all cases."
+              "description": "Resource has been deprecated and is destined to be decommissioned (removed) in the future.\n\nOnce the resource is decommissioned, it MUST be removed from ORD.\nIts removal MUST be explicitly indicated through a `Tombstone`.\nIf successor resources exists, they MUST be referenced through `successors`.\n\nIn cases where an `active` version of the API exists, it is advisable to migrate to the `active` version,\nhowever, an `active` version may not exist in all cases."
             }
           ],
           "examples": [
@@ -3405,7 +3460,7 @@
         "description": {
           "type": "string",
           "minLength": 1,
-          "description": "Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).",
+          "description": "Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).\n\nThe description SHOULD not be excessive in length and is not meant to provide full documentation.\nDetailed documentation SHOULD be attached as (typed) links.",
           "examples": [
             "SAP S/4HANA Cloud, our next generation cloud ERP suite designed for\nin-memory computing, acts as a digital core, connecting your\nenterprise with people, business networks, the Internet of Things,\nBig Data, and more.\n"
           ]
@@ -3611,11 +3666,11 @@
             },
             {
               "const": "beta",
-              "description": "The contract for the resource is beta and MAY not be meant for productive use.\n\nIn the SAP context, `beta` APIs may be changed or deleted at SAPs discretion."
+              "description": "The contract for the resource is beta and MAY not be meant for productive use.\nIn the SAP context, `beta` APIs may be changed or deleted at SAPs discretion."
             },
             {
               "const": "deprecated",
-              "description": "Resource has been deprecated and is destined to be decommissioned (removed) in the future.\n\nOnce the resource is decommissioned:\n * It MUST be removed from ORD.\n * Its removal MUST be explicitly indicated through a `Tombstone`.\n * If successor resources exists, they MUST be referenced through `successors`.\n\nIn cases where an `active` version of the API exists, it is advisable to migrate to the `active` version,\nhowever, an `active` version may not exist in all cases."
+              "description": "Resource has been deprecated and is destined to be decommissioned (removed) in the future.\n\nOnce the resource is decommissioned, it MUST be removed from ORD.\nIts removal MUST be explicitly indicated through a `Tombstone`.\nIf successor resources exists, they MUST be referenced through `successors`.\n\nIn cases where an `active` version of the API exists, it is advisable to migrate to the `active` version,\nhowever, an `active` version may not exist in all cases."
             }
           ],
           "examples": [
@@ -3633,7 +3688,7 @@
         "description": {
           "type": "string",
           "minLength": 1,
-          "description": "Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).",
+          "description": "Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).\n\nThe description SHOULD not be excessive in length and is not meant to provide full documentation.\nDetailed documentation SHOULD be attached as (typed) links.",
           "examples": [
             "## Changelog\n..."
           ]
@@ -3906,48 +3961,6 @@
         }
       ]
     },
-    "Tombstone": {
-      "type": "object",
-      "title": "Tombstone",
-      "description": "A tombstone indicates that a previously published ORD resource or taxonomy has been removed / decommissioned.\nThis MUST be indicated explicitly, so ORD aggregators and consumers can learn about the removal.\n\nIt MUST be kept sufficiently long so that all ORD aggregators can learn about the tombstone.\nAfter that it MAY be removed.",
-      "properties": {
-        "ordId": {
-          "type": "string",
-          "description": "[ORD ID](../index.md#ord-id) of the ORD resource/taxonomy that has been removed.",
-          "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):(package|consumptionBundle|product|vendor|apiResource|eventResource|capability|entityType|integrationDependency|dataProduct):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*|)?$",
-          "maxLength": 255,
-          "examples": [
-            "sap.xref:package:SomePackage:v1"
-          ]
-        },
-        "removalDate": {
-          "type": "string",
-          "format": "date-time",
-          "description": "The date when the ORD resource/taxonomy was removed.\nThis is related to the `sunsetDate` that can be set to announce a resource as deprecated *before* the removal and setting of a tombstone.\n\nThe date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).",
-          "examples": [
-            "2020-12-02T14:12:59Z"
-          ]
-        },
-        "description": {
-          "type": "string",
-          "minLength": 1,
-          "description": "Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).\n\nThe description of a Tombstone MAY be added to the changelog of the removed resource by an ORD aggregator.",
-          "examples": [
-            "SAP S/4HANA Cloud, our next generation cloud ERP suite designed for\nin-memory computing, acts as a digital core, connecting your\nenterprise with people, business networks, the Internet of Things,\nBig Data, and more.\n"
-          ]
-        }
-      },
-      "required": [
-        "ordId",
-        "removalDate"
-      ],
-      "examples": [
-        {
-          "ordId": "sap.s4:apiResource:API_RFQ_PROCESS_SRV:v2",
-          "removalDate": "2020-12-02T14:12:59Z"
-        }
-      ]
-    },
     "SystemInstance": {
       "type": "object",
       "title": "System Instance",
@@ -3974,7 +3987,7 @@
         },
         "correlationIds": {
           "type": "array",
-          "description": "Correlation IDs can be used to create a reference to related data in other repositories (especially to the system of record).\n\nMUST be a valid [Correlation ID](../index.md#correlation-id).",
+          "description": "Correlation IDs can be used to create a reference to related data in other repositories (especially to the system of record).\n\nThey express an \"identity\" / \"equals\" / \"mappable\" relationship to the target ID.\n\nIf a \"part of\" relationship needs to be expressed, use the `partOfGroups` assignment instead.\n\nMUST be a valid [Correlation ID](../index.md#correlation-id).",
           "items": {
             "type": "string",
             "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-\\/]+):([a-zA-Z0-9._\\-\\/]+)$",
@@ -4021,7 +4034,7 @@
           "oneOf": [
             {
               "const": "open",
-              "description": "The resource definitions are openly accessible and not protected via authentication or authorization.\n\nPlease note that this most likely means that it is not possible to transport **system instance aware** information\nas this access strategy does not specify how to transport tenant information."
+              "description": "The resource definitions are openly accessible and not protected via authentication or authorization.\n\nPlease find a more detailed documentation [here](../../spec-extensions/access-strategies/open)."
             },
             {
               "const": "sap:cmp-mtls:v1",
@@ -4129,6 +4142,102 @@
         }
       ]
     },
+    "GroupType": {
+      "title": "Group Type",
+      "type": "object",
+      "description": "A Group Type defines the semantics of [group assignments](#group).\n\nThey can be defined centrally (ownership by authority namespace) or decentrally (defined by application / service itself)",
+      "properties": {
+        "groupTypeId": {
+          "type": "string",
+          "pattern": "^([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\\-\\/]+)$",
+          "description": "GroupType ID, which MUST be a valid [Concept ID](../../spec-v1/#concept-id).",
+          "examples": [
+            "sap.foo:domain",
+            "sap.cap:service"
+          ]
+        },
+        "title": {
+          "type": "string",
+          "description": "Human readable title of the group type.",
+          "minLength": 1,
+          "maxLength": 255,
+          "examples": [
+            "SAP S/4HANA Cloud"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).\n\nThe description SHOULD not be excessive in length and is not meant to provide full documentation.\nDetailed documentation SHOULD be attached as (typed) links.",
+          "examples": [
+            "SAP S/4HANA Cloud, our next generation cloud ERP suite designed for\nin-memory computing, acts as a digital core, connecting your\nenterprise with people, business networks, the Internet of Things,\nBig Data, and more.\n"
+          ]
+        }
+      },
+      "required": [
+        "groupTypeId",
+        "title"
+      ],
+      "examples": [
+        {
+          "groupTypeId": "sap.cap:service",
+          "title": "CAP Service"
+        }
+      ]
+    },
+    "Group": {
+      "title": "Group",
+      "type": "object",
+      "description": "Group (instance) that resources can be assigned to.\n\nGroups are a lightweight custom taxonomy concept.\nThey express a \"part of\" relationship to the chosen group concept.\nIf an \"identity / equals\" relationship needs to be expressed, use the `correlationIds` instead.\n\nA group is actually a choice of both a [Group Type](#group-type) and which \"value\" / \"instance\" is used for grouping.\n\n**Example**:\nThere is a Group Type \"CDS Service\" (defined by `sap.cap` authority namespace).\nThe Group assignment would include the information which CSN Service it is grouped together by, e.g. \"incidents.IncidentsService\".",
+      "properties": {
+        "groupId": {
+          "type": "string",
+          "pattern": "^([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\\-\\/]+):([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\\-\\/]+)$",
+          "description": "The Group ID consists of two [Concept IDs](../../spec-v1/#concept-id) separated by a `:`.\n\nThe first two fragments MUST be equal to the used Group Type ID (`groupTypeId`).\nThe last two fragments MUST be a valid [Concept ID](../../spec-v1/#concept-id), indicating the group instance assignment.\n\nThe ID concept is a bit unusual, but it ensures globally unique and conflict free group assignments.",
+          "examples": [
+            "sap.foo:domain:sap.foo:DomainName"
+          ]
+        },
+        "groupTypeId": {
+          "type": "string",
+          "pattern": "^([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\\-\\/]+)$",
+          "description": "Group Type ID.\n\nMUST match with the first two fragments of the own `groupId`.",
+          "examples": [
+            "sap.foo:domain",
+            "sap.cap:service"
+          ]
+        },
+        "title": {
+          "type": "string",
+          "description": "Human readable title of the group assignment (for UI).",
+          "minLength": 1,
+          "maxLength": 255,
+          "examples": [
+            "SAP S/4HANA Cloud"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).\n\nThe description SHOULD not be excessive in length and is not meant to provide full documentation.\nDetailed documentation SHOULD be attached as (typed) links.",
+          "examples": [
+            "SAP S/4HANA Cloud, our next generation cloud ERP suite designed for\nin-memory computing, acts as a digital core, connecting your\nenterprise with people, business networks, the Internet of Things,\nBig Data, and more.\n"
+          ]
+        }
+      },
+      "required": [
+        "groupId",
+        "groupTypeId",
+        "title"
+      ],
+      "examples": [
+        {
+          "groupId": "sap.cap:service:customer.incidents:incidents.IncidentsService",
+          "groupTypeId": "sap.cap:service",
+          "title": "Incidents Service"
+        }
+      ]
+    },
     "DocumentationLabels": {
       "title": "Documentation Labels",
       "type": "object",
@@ -4187,7 +4296,7 @@
     "EntityTypeMapping": {
       "title": "Entity Type Mapping",
       "type": "object",
-      "description": "An API or Event resource may optionally define its `entityTypeMappings`.\nThis is used to map and correlate the API models to the underlying, conceptual **entity types**.\n\nIf the mapping from API resource to entity types is not defined,\ncertain use-cases that rely on this explicit connection will not be possible.\n\nThis mapping is meant to be rather fine granular.\nTherefore, the mapping needs to be done on basis of one of the referenced resource definitions,\nas only there we know the details and the actual contents of the API Model of the API resource.\n\nFor the various resource definition formats the selection of API models may need to be expressed differently.\nAs a consequence, there are different types of selectors that are specialized toward certain resource definition formats.\n\nThe target of the mapping is a correlation to an entity type via a [Correlation ID](https://sap.github.io/open-resource-discovery/#/v1/README?id=correlation-id)\nor to an [ORD ID] of an entity type.\nIt is assumed that the entity types are described in more detail or on a different abstraction level via metadata.\nWhen the correlation ID is used, an ORD consumer may need to know how to access the entity type metadata through conventions.\nThis can be determined either by the namespace of the correlation ID,\nor through a defined and known `implementationStandard` that can resolve the `localId` fragment of the correlation ID .\n\nAt SAP, the metadata about entity types could be retrieved via the CSN_EXPOSURE service.\nTo indicate this, the service needs to be implemented and described in ORD with `implementationStandard` set to `sap:csn-exposure:v1`).\n\nODM 2.0 relies on the entity type mappings and uses the the mapping to express the relationship of an API to the\ncorresponding ODM entity. ORD consumers like SAP Business Accelerator Hub consume the mapping to make the relationships navigatable for customers.",
+      "description": "An API or Event resource may optionally define its `entityTypeMappings`.\nThis is used to map and correlate the API models to the underlying, conceptual **entity types**.\n\nIf the mapping from API resource to entity types is not defined,\ncertain use-cases that rely on this explicit connection will not be possible.\n\nThis mapping is meant to be rather fine granular.\nTherefore, the mapping needs to be done on basis of one of the referenced resource definitions,\nas only there we know the details and the actual contents of the API Model of the API resource.\n\nFor the various resource definition formats the selection of API models may need to be expressed differently.\nAs a consequence, there are different types of selectors that are specialized toward certain resource definition formats.\n\nThe target of the mapping is a correlation to an entity type via a [Correlation ID](../../#/v1/README?id=correlation-id)\nor to an [ORD ID] of an entity type.\nIt is assumed that the entity types are described in more detail or on a different abstraction level via metadata.\nWhen the correlation ID is used, an ORD consumer may need to know how to access the entity type metadata through conventions.\nThis can be determined either by the namespace of the correlation ID,\nor through a defined and known `implementationStandard` that can resolve the `localId` fragment of the correlation ID .\n\nAt SAP, the metadata about entity types could be retrieved via the CSN_EXPOSURE service.\nTo indicate this, the service needs to be implemented and described in ORD with `implementationStandard` set to `sap:csn-exposure:v1`).\n\nODM 2.0 relies on the entity type mappings and uses the the mapping to express the relationship of an API to the\ncorresponding ODM entity. ORD consumers like SAP Business Accelerator Hub consume the mapping to make the relationships navigatable for customers.",
       "properties": {
         "apiModelSelectors": {
           "type": "array",
@@ -4205,7 +4314,7 @@
         },
         "entityTypeTargets": {
           "type": "array",
-          "description": "List of entity types the ORD resource maps to.\nIf `apiModelSelectors` are given, the mapping is more precise by also pointing to the specific model in the API.\n\nIf multiple entity types are defined as the mapping target,\nall of them can be at least partially mapped to the source API model(s).\n\nEntity types can be referenced using either using an [ORD ID](https://sap.github.io/open-resource-discovery/spec-v1/#ord-id) or a [Correlation ID](https://sap.github.io/open-resource-discovery/spec-v1/#correlation-id).",
+          "description": "List of entity types the ORD resource maps to.\nIf `apiModelSelectors` are given, the mapping is more precise by also pointing to the specific model in the API.\n\nIf multiple entity types are defined as the mapping target,\nall of them can be at least partially mapped to the source API model(s).\n\nEntity types can be referenced using either using an [ORD ID](../../spec-v1/#ord-id) or a [Correlation ID](../../spec-v1/#correlation-id).",
           "items": {
             "anyOf": [
               {
@@ -4292,10 +4401,30 @@
         }
       ]
     },
+    "RelatedEntityType": {
+      "title": "Related Entity Type",
+      "type": "object",
+      "description": "Defines which Entity Type is related (via its ORD ID).\nIn the future, this could include stating the relationship type, too.",
+      "properties": {
+        "ordId": {
+          "type": "string",
+          "description": "The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.\n\nIt MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.",
+          "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):(entityType):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
+          "maxLength": 255,
+          "examples": [
+            "sap.odm:entityType:BusinessPartner:v1"
+          ]
+        }
+      },
+      "required": [
+        "ordId"
+      ],
+      "additionalProperties": false
+    },
     "EntityTypeOrdIdTarget": {
       "title": "Entity Type Target (ORD ID)",
       "type": "object",
-      "description": "Define which entity type is the target of an entity type mapping\n\nEntity types can be referenced using a [ORD ID](https://sap.github.io/open-resource-discovery/spec-v1/#ord-id) of an entity type.",
+      "description": "Define which entity type is the target of an entity type mapping\n\nEntity types can be referenced using a [ORD ID](../../spec-v1/#ord-id) of an entity type.",
       "properties": {
         "ordId": {
           "type": "string",
@@ -4315,7 +4444,7 @@
     "EntityTypeCorrelationIdTarget": {
       "title": "Entity Type Target (Correlation ID)",
       "type": "object",
-      "description": "Define which entity type is the target of an entity type mapping\n\nEntity types can be referenced using a [Correlation ID](https://sap.github.io/open-resource-discovery/spec-v1/#correlation-id).",
+      "description": "Define which entity type is the target of an entity type mapping\n\nEntity types can be referenced using a [Correlation ID](../../spec-v1/#correlation-id).",
       "properties": {
         "correlationId": {
           "type": "string",
@@ -4330,6 +4459,68 @@
         "correlationId"
       ],
       "additionalProperties": false
+    },
+    "Tombstone": {
+      "type": "object",
+      "title": "Tombstone",
+      "description": "A tombstone indicates that a previously published ORD resource or taxonomy has been removed / decommissioned.\nThis MUST be indicated explicitly, so ORD aggregators and consumers can learn about the removal.\n\nExactly one of the IDs MUST be provided to state which ORD resource or taxonomy item the Tombstone addresses.\n\nIt MUST be kept sufficiently long so that all ORD aggregators can learn about the tombstone.\nAfter that it MAY be removed.",
+      "properties": {
+        "ordId": {
+          "type": "string",
+          "description": "[ORD ID](../index.md#ord-id) of the ORD resource/taxonomy that has been removed.",
+          "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):(package|consumptionBundle|product|vendor|apiResource|eventResource|capability|entityType|integrationDependency|dataProduct):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*|)?$",
+          "maxLength": 255,
+          "examples": [
+            "sap.xref:package:SomePackage:v1"
+          ]
+        },
+        "groupId": {
+          "type": "string",
+          "pattern": "^([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\\-\\/]+):([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\\-\\/]+)$",
+          "description": "Group ID of the group that has been removed.",
+          "examples": [
+            "sap.foo:domain:sap.foo:DomainName"
+          ]
+        },
+        "groupTypeId": {
+          "type": "string",
+          "pattern": "^([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\\-\\/]+)$",
+          "description": "Group Type ID of the group type that has been removed.",
+          "examples": [
+            "sap.foo:domain",
+            "sap.cap:service"
+          ]
+        },
+        "removalDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date when the ORD resource/taxonomy was removed.\nThis is related to the `sunsetDate` that can be set to announce a resource as deprecated *before* the removal and setting of a tombstone.\n\nThe date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).",
+          "examples": [
+            "2020-12-02T14:12:59Z"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Optional description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).\n\nThe description of a Tombstone MAY be added to the changelog of the removed resource by an ORD aggregator.",
+          "examples": [
+            "SAP S/4HANA Cloud, our next generation cloud ERP suite designed for\nin-memory computing, acts as a digital core, connecting your\nenterprise with people, business networks, the Internet of Things,\nBig Data, and more.\n"
+          ]
+        }
+      },
+      "required": [
+        "removalDate"
+      ],
+      "examples": [
+        {
+          "ordId": "sap.s4:apiResource:API_RFQ_PROCESS_SRV:v2",
+          "removalDate": "2020-12-02T14:12:59Z"
+        },
+        {
+          "groupId": "sap.foo:domain:sap.foo:DomainName",
+          "removalDate": "2020-12-02T14:12:59Z"
+        }
+      ]
     }
   },
   "title": "ORD Document",
@@ -4383,10 +4574,14 @@
         {
           "const": "1.8",
           "description": "ORD Version 1.8"
+        },
+        {
+          "const": "1.9",
+          "description": "ORD Version 1.9"
         }
       ],
       "examples": [
-        "1.8"
+        "1.9"
       ]
     },
     "description": {
@@ -4407,15 +4602,15 @@
       "oneOf": [
         {
           "const": "none",
-          "description": "No policy level chosen. Only the base rules on how to create correct ORD documents apply.\n\nThis corresponds to the SAP `sap:base:v1` compliance level."
+          "description": "No policy level chosen. Only the base rules on how to create correct ORD documents apply.\nThis corresponds to the SAP `sap:base:v1` compliance level."
         },
         {
           "const": "sap:core:v1",
-          "description": "SAP core rules and guidelines apply.\n\nIf chosen the [SAP Core V1](../../spec-extensions/policy-levels/sap-core-v1) rules MUST be followed."
+          "description": "SAP core rules and guidelines apply.\nIf chosen the [SAP Core V1](../../spec-extensions/policy-levels/sap-core-v1) rules MUST be followed."
         },
         {
           "const": "custom",
-          "description": "Custom policy level.\n\nFurther validation MAY be defined and implemented by the policy-level owner.\nThis level MAY be chosen by 3rd party or customer solutions.\n\nIf chosen, `customPolicyLevel` MUST be provided."
+          "description": "Custom policy level.\nFurther validation MAY be defined and implemented by the policy-level owner.\nThis level MAY be chosen by 3rd party or customer solutions.\nIf chosen, `customPolicyLevel` MUST be provided."
         }
       ],
       "examples": [
@@ -4424,7 +4619,7 @@
     },
     "customPolicyLevel": {
       "type": "string",
-      "description": "If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.\n\nThe policy level is inherited from packages to resources they contain, but can be overwritten at resource level.\n\nMUST only be provided if `policyLevel` is set to `custom`.\n\nMUST be a valid [Specification ID](../index.md#specification-id).",
+      "description": "If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.\nThe policy level is inherited from packages to resources they contain, but can be overwritten at resource level.\n\nMUST only be provided if `policyLevel` is set to `custom`.\nMUST be a valid [Specification ID](../index.md#specification-id).",
       "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
       "maxLength": 255,
       "examples": [
@@ -4499,6 +4694,20 @@
       "description": "Array of all Consumption Bundles that are described in this ORD document.",
       "items": {
         "$ref": "#/definitions/ConsumptionBundle"
+      }
+    },
+    "groups": {
+      "type": "array",
+      "description": "Array of all Groups that are described in this ORD document.",
+      "items": {
+        "$ref": "#/definitions/Group"
+      }
+    },
+    "groupTypes": {
+      "type": "array",
+      "description": "Array of all Group Types that are described in this ORD document.",
+      "items": {
+        "$ref": "#/definitions/GroupType"
       }
     },
     "tombstones": {
