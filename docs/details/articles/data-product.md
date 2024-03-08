@@ -1,5 +1,5 @@
 ---
-sidebar_position: 3
+sidebar_position: 4
 description: A Data Product is a data set exposed for consumption outside the boundaries of the producing application or service via APIs. They are described through high quality metadata that can be accessed through the Data Product Directory.
 title: Data Product
 ---

@@ -83,6 +83,8 @@ The following constraints apply in addition to the constraints defined in the [O
 
 - All `description` values MUST NOT contain the short description.
   They are complementary to the short description and should not just be a longer replacement.
+- The `description` MUST NOT exceed 4000 characters.
+  In general, more extensive documentation SHOULD NOT be put into the `description` but instead be added as (typed) links.
 
 ### Short Description Constraints
 

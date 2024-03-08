@@ -1,5 +1,5 @@
 {
-  "openResourceDiscovery": "1.8",
+  "openResourceDiscovery": "1.9",
   "description": "Example for entity types as they will be exposed by ODM",
   "policyLevel": "sap:core:v1",
   "packages": [
@@ -17,9 +17,6 @@
     {
       "ordId": "sap.odm:entityType:BusinessPartner:v1",
       "localId": "BusinessPartner",
-      "correlationIds": [
-        "sap.gtnc:sot:BusinessPartner"
-      ],
       "level": "aggregate",
       "title": "Business Partner",
       "shortDescription": "Person, an organization, or a group of persons or organizations.",
@@ -29,7 +26,12 @@
       "partOfPackage": "sap.odm:package:OdmEntities:v1",
       "visibility": "public",
       "links": [],
-      "releaseStatus": "active"
+      "releaseStatus": "active",
+      "relatedEntityTypes": [
+        {
+          "ordId": "sap.vdm.sot:entityType:BusinessPartner:v1"
+        }
+      ]
     }
   ]
 }

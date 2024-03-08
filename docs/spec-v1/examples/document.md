@@ -6,7 +6,7 @@
 
 ```yaml
 {
-  "openResourceDiscovery": "1.8",
+  "openResourceDiscovery": "1.9",
   "description": "Example based on ORD Reference App",
   "policyLevel": "sap:core:v1",
   "products": [
@@ -73,6 +73,9 @@
         {
           "ordId": "sap.foo:consumptionBundle:noAuth:v1"
         }
+      ],
+      "partOfGroups": [
+        "sap.foo:groupTypeAbc:sap.foo:groupAssignmentValue"
       ],
       "apiProtocol": "rest",
       "apiResourceLinks": [
@@ -161,6 +164,19 @@
       ]
     }
   ],
+  "groups": [
+    {
+      "groupId": "sap.foo:groupTypeAbc:sap.foo:groupAssignmentValue",
+      "groupTypeId": "sap.foo:groupTypeAbc",
+      "title": "Title of group assignment / instance"
+    }
+  ],
+  "groupTypes": [
+    {
+      "groupTypeId": "sap.foo:groupTypeAbc",
+      "title": "Title of group type"
+    }
+  ],
   "tombstones": [
     {
       "ordId": "sap.foo:apiResource:astronomy:v0",
@@ -176,7 +192,7 @@
 
 ```yaml
 {
-  "openResourceDiscovery": "1.8",
+  "openResourceDiscovery": "1.9",
   "policyLevel": "sap:core:v1",
   "products": [
     {
@@ -1048,7 +1064,7 @@
 
 ```yaml
 {
-  "openResourceDiscovery": "1.8",
+  "openResourceDiscovery": "1.9",
   "description": "This Example demonstrates the Entity Type Mapping feature",
   "policyLevel": "sap:core:v1",
   "apiResources": [
@@ -1226,7 +1242,8 @@
         }
       ]
     }
-  ]
+  ],
+  "entityTypes": []
 }
 ```
 
@@ -1236,7 +1253,7 @@
 
 ```yaml
 {
-  "openResourceDiscovery": "1.8",
+  "openResourceDiscovery": "1.9",
   "description": "Example for entity types as they will be exposed by ODM",
   "policyLevel": "sap:core:v1",
   "packages": [
@@ -1254,9 +1271,6 @@
     {
       "ordId": "sap.odm:entityType:BusinessPartner:v1",
       "localId": "BusinessPartner",
-      "correlationIds": [
-        "sap.gtnc:sot:BusinessPartner"
-      ],
       "level": "aggregate",
       "title": "Business Partner",
       "shortDescription": "Person, an organization, or a group of persons or organizations.",
@@ -1266,7 +1280,12 @@
       "partOfPackage": "sap.odm:package:OdmEntities:v1",
       "visibility": "public",
       "links": [],
-      "releaseStatus": "active"
+      "releaseStatus": "active",
+      "relatedEntityTypes": [
+        {
+          "ordId": "sap.vdm.sot:entityType:BusinessPartner:v1"
+        }
+      ]
     }
   ]
 }
@@ -1278,10 +1297,9 @@
 
 ```yaml
 {
-  "openResourceDiscovery": "1.8",
+  "openResourceDiscovery": "1.9",
   "description": "This ORD Document example contains more special examples, like custom SAP protocols",
   "policyLevel": "sap:core:v1",
-
   "consumptionBundles": [
     {
       "ordId": "sap.foo:consumptionBundle:basicAuth:v1",
@@ -1317,7 +1335,9 @@
           "ordId": "sap.foo:consumptionBundle:basicAuth:v1"
         }
       ],
-      "entryPoints": ["/some/rfc/api/url/v1"],
+      "entryPoints": [
+        "/some/rfc/api/url/v1"
+      ],
       "resourceDefinitions": [
         {
           "type": "sap-rfc-metadata-v1",
@@ -1375,7 +1395,9 @@
       ],
       "apiProtocol": "odata-v4",
       "direction": "inbound",
-      "entryPoints": ["/some/ape/api/url/v1"],
+      "entryPoints": [
+        "/some/ape/api/url/v1"
+      ],
       "implementationStandard": "sap:cdi-api:v1",
       "resourceDefinitions": [
         {
@@ -1405,7 +1427,6 @@
     }
   ]
 }
-
 ```
 
 

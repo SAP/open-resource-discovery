@@ -1,5 +1,5 @@
 {
-  "openResourceDiscovery": "1.8",
+  "openResourceDiscovery": "1.9",
   "description": "Example based on ORD Reference App",
   "policyLevel": "sap:core:v1",
   "products": [
@@ -66,6 +66,9 @@
         {
           "ordId": "sap.foo:consumptionBundle:noAuth:v1"
         }
+      ],
+      "partOfGroups": [
+        "sap.foo:groupTypeAbc:sap.foo:groupAssignmentValue"
       ],
       "apiProtocol": "rest",
       "apiResourceLinks": [
@@ -152,6 +155,19 @@
           "url": "/capabilities/foo.bar.json"
         }
       ]
+    }
+  ],
+  "groups": [
+    {
+      "groupId": "sap.foo:groupTypeAbc:sap.foo:groupAssignmentValue",
+      "groupTypeId": "sap.foo:groupTypeAbc",
+      "title": "Title of group assignment / instance"
+    }
+  ],
+  "groupTypes": [
+    {
+      "groupTypeId": "sap.foo:groupTypeAbc",
+      "title": "Title of group type"
     }
   ],
   "tombstones": [

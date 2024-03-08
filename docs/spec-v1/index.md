@@ -3,7 +3,7 @@ sidebar_position: 0
 title: ORD Specification
 ---
 
-# Open Resource Discovery Specification 1.8
+# Open Resource Discovery Specification 1.9
 
 ## Notational Conventions
 
@@ -480,6 +480,9 @@ This makes it easier for ORD Consumers, as they don't need to understand and app
 
 The following rules need to be implemented by ORD aggregators:
 
+- If the aggregator detects a change in a resource (compared to previous state), but the `lastUpdate` isn't provided or hasn't changed since, the aggregator MUST update the `lastUpdate` timestamp on aggregator side.
+  - This ensures that consumers can rely on `lastUpdate` to be always available and to understand if a change happened, even if the ORD Provider did not update it at the source
+  - Ideally this situation doesn't happen and the ORD Providers update `lastUpdate`. Then the date can also reflect better the time when the change happened, not when it was detected.
 - The aggregator MUST apply all defined inheritances from root document properties to all the ORD information that it contains.
   - `policyLevel` (and the corresponding `customPolicyLevel`) MUST be inherited to the resource / package level, with the latter taking precedence.
 - The aggregator MUST apply all defined inheritances from `Package` properties to all the ORD resources that it contains.
@@ -706,11 +709,11 @@ This can be achieved by either combining it with a system instance ID or a full 
 
 #### ORD ID Construction
 
-The ORD ID consists of multiple fragments that can be parsed.
+The ORD ID consists of four fragments, separated by `:`.
 
 It MUST be constructed as defined here:
 
-**`<ordId>`** := `<namespace>:<ordType>:<resourceId>:[v<majorVersion>]`
+**`<ordId>`** := `<namespace>:<conceptName>:<resourceName>:[v<majorVersion>]`
 
 - **`<namespace>`** := an [ORD namespace](#namespaces).
 
@@ -721,7 +724,7 @@ It MUST be constructed as defined here:
   - For `Vendor` and `Product`:
     - MUST be a valid [vendor namespace](#def-ord-vendor-namespace) for `Vendor` and `Product`
 
-- **`<ordType>`** := The ORD type of the described resource / taxonomy.
+- **`<conceptName>`** := The ORD concept name of the described resource / taxonomy.
 
   - Use `product` for `Product`
   - Use `vendor` for `Vendor`
@@ -734,12 +737,12 @@ It MUST be constructed as defined here:
   - Use `integrationDependency` for `IntegrationDependency`
   - Use `dataProduct` for `DataProduct`
 
-- **`<resourceId>`** := the technical resource name.
+- **`<resourceName>`** := the technical resource name.
 
   - MUST only contain ASCII letters (`a-z`, `A-Z`), digits (`0-9`) and the special characters `-`, `_` and `.`.
   - MUST be unique within the `<namespace>`.
   - SHOULD be a (somewhat) human readable and SEO/URL friendly string (avoid UUIDs).
-  - SHOULD be kept stable, when a new `<majorVersion>` is introduced, so multiple major versions of the same resource share the same `<namespace>:<ordType>:<resourceId>:` part of the ORD ID.
+  - SHOULD be kept stable when a new `<majorVersion>` is introduced, so multiple major versions of the same resource share the same `<namespace>:<conceptName>:<resourceName>:` part of the ORD ID.
     - This can help an aggregator to group the semantically same APIs multiple major versions together
     - If this cannot be followed, the relationship to the successor APIs can still be indicated via the `successors` property.
 
@@ -786,22 +789,24 @@ It is assumed that the `<localIdentifier>` already considers the problem of vers
 
 #### Correlation ID Construction
 
-A Correlation ID consists of multiple fragments that can be parsed.
+A Correlation ID consists of three fragments, separated by `:`.
+Its first two fragments `<namespace>:<conceptName>` are a [Concept ID](#concept-id).
 
 It MUST be constructed as defined here:
 
-**`<correlationId>`** := `<namespace>:<type>:<localIdentifier>`
+**`<correlationId>`** := `<namespace>:<conceptName>:<localIdentifier>`
 
 - **`<namespace>`** := an [ORD namespace](#namespaces).
 
   - MUST be a valid [namespace](#namespaces).
 
-- **`<type>`**: the type of the correlation target (similar as `<ordType>`)
+- **`<conceptName>`**: the name of the target concept
 
   - MUST only contain alphanumeric characters and the special characters `-`, `_`, `/` and `.`.
   - MUST be unique within the chosen `<namespace>`.
   - MUST be a concept that is understood by the application of the `<namespace>`.
   - SHOULD be (sufficiently) human readable and SEO/URL friendly (avoid UUIDs).
+  - SHOULD be registered as a known concept on the level of its `<namespace>`.
 
 - **`<localIdentifier>`** := the local resource ID.
 
@@ -809,7 +814,7 @@ It MUST be constructed as defined here:
   - MUST be unique within the chosen `<namespace>`.
   - SHOULD be (sufficiently) human readable and SEO/URL friendly (avoid UUIDs).
 
-The system of record application / service or responsible org unit is indicated through the [`<namespace>`](#namespaces) and MUST be able to resolve / correlate when given the `<type>` and the `<localIdentifier>`.
+The system of record application / service or responsible org unit is indicated through the [`<namespace>`](#namespaces) and MUST be able to resolve / correlate when given the `<conceptName>` and the `<localIdentifier>`.
 
 A Correlation ID MUST not exceed 255 characters in total.
 
@@ -824,6 +829,42 @@ Examples (contrived):
 * `sap.s4:communicationScenario:SAP_COM_0008`
 * `sap.cld:system:500064231`
 * `sap.cld:tenant:741234567`
+
+### Concept ID
+
+A Concept ID consists of two fragments, separated by `:`.
+
+It MUST be constructed as defined here:
+
+**`<conceptId>`** := `<namespace>:<conceptName>`
+
+- **`<namespace>`** := an [ORD namespace](#namespaces).
+
+  - MUST be a valid [namespace](#namespaces).
+
+- **`<conceptName>`**: the name of the target concept
+
+  - MUST only contain alphanumeric characters and the special characters `-`, `_`, `/` and `.`.
+  - MUST be unique within the chosen `<namespace>`.
+  - MUST be a concept that is understood by the application owning the `<namespace>`.
+  - SHOULD be (sufficiently) human readable and SEO/URL friendly (avoid UUIDs).
+  - SHOULD be registered as a known concept on the level of its `<namespace>`.
+
+The system of record application / service or responsible org unit is indicated through the [`<namespace>`](#namespaces) and MUST be able to resolve / correlate when given the `<conceptName>` and the `<localIdentifier>`.
+
+A Concept ID MUST not exceed 255 characters in total.
+
+A Concept ID MUST match the following [regular expression](https://en.wikipedia.org/wiki/Regular_expression):
+
+```regex
+^([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\-\/]+)$
+```
+
+Examples (contrived):
+
+* `sap.cap:service`
+* `sap.s4:communicationScenario`
+* `sap.cld:system`
 
 ### Specification ID
 
@@ -840,7 +881,7 @@ In some situations it is also used to refer to certain implementation standards 
 
   - MUST be a valid [namespace](#namespaces).
 
-  - If the strategy is specific only to a single application, an [applicatoin namespace](#application-namespace) SHOULD be chosen.
+  - If the specification is specific only to a single application, an [application namespace](#application-namespace) SHOULD be chosen.
 
 - **`<specificationIdentifier>`** a technical Specification Identifier that is unique within `<namespace>`
 
@@ -848,12 +889,12 @@ In some situations it is also used to refer to certain implementation standards 
   - MUST be unique within `<namespace>`.
   - SHOULD be (sufficiently) human readable (avoid UUIDs).
 
-- **`<majorVersion>`** the major version for the chosen strategy
+- **`<majorVersion>`** the major version for the chosen specification
 
   - MUST be an integer.
-  - MUST be incremented if the strategy introduced an incompatible change for the implementers of the strategy.
+  - MUST be incremented if the specification introduced an incompatible change for the implementers of the specification.
     This correlates with a major version change in [Semantic Versioning](https://semver.org/).
-  - MUST NOT be incremented if non-breaking changes have been made; the updated strategy should replace the current one.
+  - MUST NOT be incremented if non-breaking changes have been made; the updated specification should replace the current one.
 
 A Specification ID MUST not exceed 255 characters in total.
 

@@ -10,9 +10,23 @@ For a roadmap including expected timeline, please refer to [ROADMAP.md](./ROADMA
 
 ## [unreleased]
 
+## [1.9.0]
+
 ### Added
 
-- Added How To guide for ORD Provider adoption (as new detail article)
+- Added new (lightweight) Group and Group Type concept
+  - Adds a new `partOfGroups` attribute on ORD resources
+  - Adds two new top level concepts to the ORD document: [Group](https://sap.github.io/open-resource-discovery/spec-v1/interfaces/document#group) and [Group Type](https://sap.github.io/open-resource-discovery/spec-v1/interfaces/document#group-type)
+  - This can be used to define custom group types and assign ORD resources to them
+  - With this, custom taxonomies can be built that are either centrally or decentrally defined.
+- Added [`relatedEntityTypes`](https://sap.github.io/open-resource-discovery/spec-v1/interfaces/document#entity-type_relatedentitytypes) to Entity Types
+  - This allows to define that Entity Types are related to other Entity Types (e.g. from a different namespace)
+- Added clarification that an ORD Aggregator MUST bump `lastUpdated` if the provider didn't do it, but it detected a change.
+- Added explicit [Access Strategy](https://sap.github.io/open-resource-discovery/spec-extensions/access-strategies/) description for `open`, defining how local and global tenant headers can be optionally passed on.
+- Added new Detail Articles:
+  - [How To Adopt ORD as a Provider](https://sap.github.io/open-resource-discovery/details/articles/adopt-ord-as-provider) detail page
+  - [System Landscape Model](https://sap.github.io/open-resource-discovery/details/articles/system-landscape-model) detail page
+  - [Grouping and Bundling](https://sap.github.io/open-resource-discovery/details/articles/grouping-and-bundling) detail page
 
 ### Changed
 

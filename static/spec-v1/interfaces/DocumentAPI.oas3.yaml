@@ -7,7 +7,7 @@ info:
 
 
     This API is an implementation of the [ORD Document API](../index.md#ord-document-api).
-  version: 1.2.0
+  version: 1.9.0
   title: Open Resource Discovery Document API
   license:
     name: Apache 2.0
@@ -217,7 +217,8 @@ components:
             - '1.6'
             - '1.7'
             - '1.8'
-          example: '1.8'
+            - '1.9'
+          example: '1.9'
         description:
           type: string
           minLength: 1
@@ -255,13 +256,11 @@ components:
           description: >-
             If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.
 
-
             The policy level is inherited from packages to resources they contain, but can be overwritten at resource
             level.
 
 
             MUST only be provided if `policyLevel` is set to `custom`.
-
 
             MUST be a valid [Specification ID](../index.md#specification-id).
           pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
@@ -317,6 +316,16 @@ components:
           description: Array of all Consumption Bundles that are described in this ORD document.
           items:
             $ref: '#/components/schemas/ConsumptionBundle'
+        groups:
+          type: array
+          description: Array of all Groups that are described in this ORD document.
+          items:
+            $ref: '#/components/schemas/Group'
+        groupTypes:
+          type: array
+          description: Array of all Group Types that are described in this ORD document.
+          items:
+            $ref: '#/components/schemas/GroupType'
         tombstones:
           type: array
           description: |-
@@ -402,7 +411,11 @@ components:
         description:
           type: string
           minLength: 1
-          description: Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+          description: |-
+            Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+
+            The description SHOULD not be excessive in length and is not meant to provide full documentation.
+            Detailed documentation SHOULD be attached as (typed) links.
           example: |
             SAP S/4HANA Cloud, our next generation cloud ERP suite designed for
             in-memory computing, acts as a digital core, connecting your
@@ -464,13 +477,11 @@ components:
           description: >-
             If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.
 
-
             The policy level is inherited from packages to resources they contain, but can be overwritten at resource
             level.
 
 
             MUST only be provided if `policyLevel` is set to `custom`.
-
 
             MUST be a valid [Specification ID](../index.md#specification-id).
           pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
@@ -759,6 +770,12 @@ components:
             system of record).
 
 
+            They express an "identity" / "equals" / "mappable" relationship to the target ID.
+
+
+            If a "part of" relationship needs to be expressed, use the `partOfGroups` assignment instead.
+
+
             MUST be a valid [Correlation ID](../index.md#correlation-id).
           items:
             type: string
@@ -789,7 +806,11 @@ components:
         description:
           type: string
           minLength: 1
-          description: Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+          description: |-
+            Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+
+            The description SHOULD not be excessive in length and is not meant to provide full documentation.
+            Detailed documentation SHOULD be attached as (typed) links.
           example: |
             This consumption bundle includes all SAP LoB System 3 Cloud APIs and Events
             that can be consumed with the same credentials.
@@ -956,6 +977,12 @@ components:
             system of record).
 
 
+            They express an "identity" / "equals" / "mappable" relationship to the target ID.
+
+
+            If a "part of" relationship needs to be expressed, use the `partOfGroups` assignment instead.
+
+
             MUST be a valid [Correlation ID](../index.md#correlation-id).
           items:
             type: string
@@ -986,7 +1013,11 @@ components:
         description:
           type: string
           minLength: 1
-          description: Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+          description: |-
+            Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+
+            The description SHOULD not be excessive in length and is not meant to provide full documentation.
+            Detailed documentation SHOULD be attached as (typed) links.
           example: |
             This service enables you to create Request for Quotation (RFQ)
             through an API call from a source system outside SAP S/4HANA Cloud
@@ -1004,6 +1035,21 @@ components:
 
             Every resource MUST be part of one package.
           example: sap.xref:package:SomePackage:v1
+        partOfGroups:
+          type: array
+          items:
+            type: string
+            pattern: ^([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\-\/]+):([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\-\/]+)$
+          description: |-
+            Defines which groups the resource is assigned to.
+
+            The property is optional, but if given the value MUST be an array of valid Group IDs.
+
+            Groups are a lightweight custom taxonomy concept.
+            They express a "part of" relationship to the chosen group concept.
+            If an "identity / equals" relationship needs to be expressed, use the `correlationIds` instead.
+
+            All resources that share the same group ID assignment are effectively grouped together.
         partOfConsumptionBundles:
           type: array
           description: >-
@@ -1593,13 +1639,11 @@ components:
           description: >-
             If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.
 
-
             The policy level is inherited from packages to resources they contain, but can be overwritten at resource
             level.
 
 
             MUST only be provided if `policyLevel` is set to `custom`.
-
 
             MUST be a valid [Specification ID](../index.md#specification-id).
           pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
@@ -1670,6 +1714,12 @@ components:
             system of record).
 
 
+            They express an "identity" / "equals" / "mappable" relationship to the target ID.
+
+
+            If a "part of" relationship needs to be expressed, use the `partOfGroups` assignment instead.
+
+
             MUST be a valid [Correlation ID](../index.md#correlation-id).
           items:
             type: string
@@ -1700,7 +1750,11 @@ components:
         description:
           type: string
           minLength: 1
-          description: Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+          description: |-
+            Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+
+            The description SHOULD not be excessive in length and is not meant to provide full documentation.
+            Detailed documentation SHOULD be attached as (typed) links.
           example: |
             This event is raised by the SAP S/4HANA Cloud system when an invoice document is cancelled.
         partOfPackage:
@@ -1714,6 +1768,21 @@ components:
 
             Every resource MUST be part of one package.
           example: sap.xref:package:SomePackage:v1
+        partOfGroups:
+          type: array
+          items:
+            type: string
+            pattern: ^([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\-\/]+):([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\-\/]+)$
+          description: |-
+            Defines which groups the resource is assigned to.
+
+            The property is optional, but if given the value MUST be an array of valid Group IDs.
+
+            Groups are a lightweight custom taxonomy concept.
+            They express a "part of" relationship to the chosen group concept.
+            If an "identity / equals" relationship needs to be expressed, use the `correlationIds` instead.
+
+            All resources that share the same group ID assignment are effectively grouped together.
         partOfConsumptionBundles:
           type: array
           description: >-
@@ -2161,13 +2230,11 @@ components:
           description: >-
             If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.
 
-
             The policy level is inherited from packages to resources they contain, but can be overwritten at resource
             level.
 
 
             MUST only be provided if `policyLevel` is set to `custom`.
-
 
             MUST be a valid [Specification ID](../index.md#specification-id).
           pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
@@ -2230,6 +2297,12 @@ components:
             system of record).
 
 
+            They express an "identity" / "equals" / "mappable" relationship to the target ID.
+
+
+            If a "part of" relationship needs to be expressed, use the `partOfGroups` assignment instead.
+
+
             MUST be a valid [Correlation ID](../index.md#correlation-id).
           items:
             type: string
@@ -2262,7 +2335,11 @@ components:
         description:
           type: string
           minLength: 1
-          description: Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+          description: |-
+            Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+
+            The description SHOULD not be excessive in length and is not meant to provide full documentation.
+            Detailed documentation SHOULD be attached as (typed) links.
           example: >
             A business partner is a person, an organization, or a group of persons or organizations in which a company
             has a business interest.
@@ -2277,6 +2354,21 @@ components:
 
             Every resource MUST be part of one package.
           example: sap.xref:package:SomePackage:v1
+        partOfGroups:
+          type: array
+          items:
+            type: string
+            pattern: ^([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\-\/]+):([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\-\/]+)$
+          description: |-
+            Defines which groups the resource is assigned to.
+
+            The property is optional, but if given the value MUST be an array of valid Group IDs.
+
+            Groups are a lightweight custom taxonomy concept.
+            They express a "part of" relationship to the chosen group concept.
+            If an "identity / equals" relationship needs to be expressed, use the `correlationIds` instead.
+
+            All resources that share the same group ID assignment are effectively grouped together.
         partOfProducts:
           type: array
           description: |-
@@ -2432,6 +2524,14 @@ components:
           enum:
             - aggregate
           example: aggregate
+        relatedEntityTypes:
+          type: array
+          description: |-
+            States that this Entity Type is related to another Entity Type.
+
+            Usually this happens if there are similar conceptual entity types across different namespaces.
+          items:
+            $ref: '#/components/schemas/RelatedEntityType'
         links:
           type: array
           description: Generic Links with arbitrary meaning and content.
@@ -2481,13 +2581,11 @@ components:
           description: >-
             If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.
 
-
             The policy level is inherited from packages to resources they contain, but can be overwritten at resource
             level.
 
 
             MUST only be provided if `policyLevel` is set to `custom`.
-
 
             MUST be a valid [Specification ID](../index.md#specification-id).
           pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
@@ -2552,6 +2650,12 @@ components:
             system of record).
 
 
+            They express an "identity" / "equals" / "mappable" relationship to the target ID.
+
+
+            If a "part of" relationship needs to be expressed, use the `partOfGroups` assignment instead.
+
+
             MUST be a valid [Correlation ID](../index.md#correlation-id).
           items:
             type: string
@@ -2582,7 +2686,11 @@ components:
         description:
           type: string
           minLength: 1
-          description: Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+          description: |-
+            Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+
+            The description SHOULD not be excessive in length and is not meant to provide full documentation.
+            Detailed documentation SHOULD be attached as (typed) links.
           example: >-
             The data product Customer Order offers access to all online and offline orders submitted by customers. It
             provides a customer view on the orders. For fulfillment-specific aspects please refer to the data product
@@ -2598,6 +2706,21 @@ components:
 
             Every resource MUST be part of one package.
           example: sap.xref:package:SomePackage:v1
+        partOfGroups:
+          type: array
+          items:
+            type: string
+            pattern: ^([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\-\/]+):([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\-\/]+)$
+          description: |-
+            Defines which groups the resource is assigned to.
+
+            The property is optional, but if given the value MUST be an array of valid Group IDs.
+
+            Groups are a lightweight custom taxonomy concept.
+            They express a "part of" relationship to the chosen group concept.
+            If an "identity / equals" relationship needs to be expressed, use the `correlationIds` instead.
+
+            All resources that share the same group ID assignment are effectively grouped together.
         version:
           type: string
           description: >-
@@ -2983,13 +3106,11 @@ components:
           description: >-
             If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.
 
-
             The policy level is inherited from packages to resources they contain, but can be overwritten at resource
             level.
 
 
             MUST only be provided if `policyLevel` is set to `custom`.
-
 
             MUST be a valid [Specification ID](../index.md#specification-id).
           pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
@@ -3280,6 +3401,12 @@ components:
             system of record).
 
 
+            They express an "identity" / "equals" / "mappable" relationship to the target ID.
+
+
+            If a "part of" relationship needs to be expressed, use the `partOfGroups` assignment instead.
+
+
             MUST be a valid [Correlation ID](../index.md#correlation-id).
           items:
             type: string
@@ -3310,7 +3437,11 @@ components:
         description:
           type: string
           minLength: 1
-          description: Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+          description: |-
+            Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+
+            The description SHOULD not be excessive in length and is not meant to provide full documentation.
+            Detailed documentation SHOULD be attached as (typed) links.
         vendor:
           type: string
           description: |-
@@ -3388,6 +3519,12 @@ components:
             system of record).
 
 
+            They express an "identity" / "equals" / "mappable" relationship to the target ID.
+
+
+            If a "part of" relationship needs to be expressed, use the `partOfGroups` assignment instead.
+
+
             MUST be a valid [Correlation ID](../index.md#correlation-id).
           items:
             type: string
@@ -3436,7 +3573,11 @@ components:
         description:
           type: string
           minLength: 1
-          description: Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+          description: |-
+            Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+
+            The description SHOULD not be excessive in length and is not meant to provide full documentation.
+            Detailed documentation SHOULD be attached as (typed) links.
           example: |
             SAP S/4HANA Cloud, our next generation cloud ERP suite designed for
             in-memory computing, acts as a digital core, connecting your
@@ -3453,6 +3594,21 @@ components:
 
             Every resource MUST be part of one package.
           example: sap.xref:package:SomePackage:v1
+        partOfGroups:
+          type: array
+          items:
+            type: string
+            pattern: ^([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\-\/]+):([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\-\/]+)$
+          description: |-
+            Defines which groups the resource is assigned to.
+
+            The property is optional, but if given the value MUST be an array of valid Group IDs.
+
+            Groups are a lightweight custom taxonomy concept.
+            They express a "part of" relationship to the chosen group concept.
+            If an "identity / equals" relationship needs to be expressed, use the `correlationIds` instead.
+
+            All resources that share the same group ID assignment are effectively grouped together.
         version:
           type: string
           description: >-
@@ -3732,6 +3888,12 @@ components:
             system of record).
 
 
+            They express an "identity" / "equals" / "mappable" relationship to the target ID.
+
+
+            If a "part of" relationship needs to be expressed, use the `partOfGroups` assignment instead.
+
+
             MUST be a valid [Correlation ID](../index.md#correlation-id).
           items:
             type: string
@@ -3762,7 +3924,11 @@ components:
         description:
           type: string
           minLength: 1
-          description: Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+          description: |-
+            Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+
+            The description SHOULD not be excessive in length and is not meant to provide full documentation.
+            Detailed documentation SHOULD be attached as (typed) links.
           example: |
             SAP S/4HANA Cloud, our next generation cloud ERP suite designed for
             in-memory computing, acts as a digital core, connecting your
@@ -3779,6 +3945,21 @@ components:
 
             Every resource MUST be part of one package.
           example: sap.xref:package:SomePackage:v1
+        partOfGroups:
+          type: array
+          items:
+            type: string
+            pattern: ^([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\-\/]+):([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\-\/]+)$
+          description: |-
+            Defines which groups the resource is assigned to.
+
+            The property is optional, but if given the value MUST be an array of valid Group IDs.
+
+            Groups are a lightweight custom taxonomy concept.
+            They express a "part of" relationship to the chosen group concept.
+            If an "identity / equals" relationship needs to be expressed, use the `correlationIds` instead.
+
+            All resources that share the same group ID assignment are effectively grouped together.
         version:
           type: string
           description: >-
@@ -3957,7 +4138,11 @@ components:
         description:
           type: string
           minLength: 1
-          description: Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+          description: |-
+            Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+
+            The description SHOULD not be excessive in length and is not meant to provide full documentation.
+            Detailed documentation SHOULD be attached as (typed) links.
           example: |
             SAP S/4HANA Cloud, our next generation cloud ERP suite designed for
             in-memory computing, acts as a digital core, connecting your
@@ -4173,7 +4358,11 @@ components:
         description:
           type: string
           minLength: 1
-          description: Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+          description: |-
+            Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+
+            The description SHOULD not be excessive in length and is not meant to provide full documentation.
+            Detailed documentation SHOULD be attached as (typed) links.
           example: |-
             ## Changelog
             ...
@@ -4357,53 +4546,6 @@ components:
       example:
         type: support
         url: https://support.sap.com/CIC_DP_RT/issue/
-    Tombstone:
-      type: object
-      title: Tombstone
-      description: |-
-        A tombstone indicates that a previously published ORD resource or taxonomy has been removed / decommissioned.
-        This MUST be indicated explicitly, so ORD aggregators and consumers can learn about the removal.
-
-        It MUST be kept sufficiently long so that all ORD aggregators can learn about the tombstone.
-        After that it MAY be removed.
-      properties:
-        ordId:
-          type: string
-          description: '[ORD ID](../index.md#ord-id) of the ORD resource/taxonomy that has been removed.'
-          pattern: >-
-            ^([a-z0-9]+(?:[.][a-z0-9]+)*):(package|consumptionBundle|product|vendor|apiResource|eventResource|capability|entityType|integrationDependency|dataProduct):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*|)?$
-          maxLength: 255
-          example: sap.xref:package:SomePackage:v1
-        removalDate:
-          type: string
-          format: date-time
-          description: >-
-            The date when the ORD resource/taxonomy was removed.
-
-            This is related to the `sunsetDate` that can be set to announce a resource as deprecated *before* the
-            removal and setting of a tombstone.
-
-
-            The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
-          example: '2020-12-02T14:12:59Z'
-        description:
-          type: string
-          minLength: 1
-          description: |-
-            Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
-
-            The description of a Tombstone MAY be added to the changelog of the removed resource by an ORD aggregator.
-          example: |
-            SAP S/4HANA Cloud, our next generation cloud ERP suite designed for
-            in-memory computing, acts as a digital core, connecting your
-            enterprise with people, business networks, the Internet of Things,
-            Big Data, and more.
-      required:
-        - ordId
-        - removalDate
-      example:
-        ordId: sap.s4:apiResource:API_RFQ_PROCESS_SRV:v2
-        removalDate: '2020-12-02T14:12:59Z'
     SystemInstance:
       type: object
       title: System Instance
@@ -4437,6 +4579,12 @@ components:
           description: >-
             Correlation IDs can be used to create a reference to related data in other repositories (especially to the
             system of record).
+
+
+            They express an "identity" / "equals" / "mappable" relationship to the target ID.
+
+
+            If a "part of" relationship needs to be expressed, use the `partOfGroups` assignment instead.
 
 
             MUST be a valid [Correlation ID](../index.md#correlation-id).
@@ -4598,6 +4746,121 @@ components:
           items:
             type: string
             minLength: 1
+    GroupType:
+      title: Group Type
+      type: object
+      description: >-
+        A Group Type defines the semantics of [group assignments](#group).
+
+
+        They can be defined centrally (ownership by authority namespace) or decentrally (defined by application /
+        service itself)
+      properties:
+        groupTypeId:
+          type: string
+          pattern: ^([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\-\/]+)$
+          description: GroupType ID, which MUST be a valid [Concept ID](../../spec-v1/#concept-id).
+          example: sap.foo:domain
+        title:
+          type: string
+          description: Human readable title of the group type.
+          minLength: 1
+          maxLength: 255
+          example: SAP S/4HANA Cloud
+        description:
+          type: string
+          minLength: 1
+          description: |-
+            Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+
+            The description SHOULD not be excessive in length and is not meant to provide full documentation.
+            Detailed documentation SHOULD be attached as (typed) links.
+          example: |
+            SAP S/4HANA Cloud, our next generation cloud ERP suite designed for
+            in-memory computing, acts as a digital core, connecting your
+            enterprise with people, business networks, the Internet of Things,
+            Big Data, and more.
+      required:
+        - groupTypeId
+        - title
+      example:
+        groupTypeId: sap.cap:service
+        title: CAP Service
+    Group:
+      title: Group
+      type: object
+      description: >-
+        Group (instance) that resources can be assigned to.
+
+
+        Groups are a lightweight custom taxonomy concept.
+
+        They express a "part of" relationship to the chosen group concept.
+
+        If an "identity / equals" relationship needs to be expressed, use the `correlationIds` instead.
+
+
+        A group is actually a choice of both a [Group Type](#group-type) and which "value" / "instance" is used for
+        grouping.
+
+
+        **Example**:
+
+        There is a Group Type "CDS Service" (defined by `sap.cap` authority namespace).
+
+        The Group assignment would include the information which CSN Service it is grouped together by, e.g.
+        "incidents.IncidentsService".
+      properties:
+        groupId:
+          type: string
+          pattern: ^([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\-\/]+):([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\-\/]+)$
+          description: >-
+            The Group ID consists of two [Concept IDs](../../spec-v1/#concept-id) separated by a `:`.
+
+
+            The first two fragments MUST be equal to the used Group Type ID (`groupTypeId`).
+
+            The last two fragments MUST be a valid [Concept ID](../../spec-v1/#concept-id), indicating the group
+            instance assignment.
+
+
+            The ID concept is a bit unusual, but it ensures globally unique and conflict free group assignments.
+          example: sap.foo:domain:sap.foo:DomainName
+        groupTypeId:
+          type: string
+          pattern: ^([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\-\/]+)$
+          description: |-
+            Group Type ID.
+
+            MUST match with the first two fragments of the own `groupId`.
+          example: sap.foo:domain
+        title:
+          type: string
+          description: Human readable title of the group assignment (for UI).
+          minLength: 1
+          maxLength: 255
+          example: SAP S/4HANA Cloud
+        description:
+          type: string
+          minLength: 1
+          description: |-
+            Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+
+            The description SHOULD not be excessive in length and is not meant to provide full documentation.
+            Detailed documentation SHOULD be attached as (typed) links.
+          example: |
+            SAP S/4HANA Cloud, our next generation cloud ERP suite designed for
+            in-memory computing, acts as a digital core, connecting your
+            enterprise with people, business networks, the Internet of Things,
+            Big Data, and more.
+      required:
+        - groupId
+        - groupTypeId
+        - title
+      example:
+        groupId: sap.cap:service:customer.incidents:incidents.IncidentsService
+        groupTypeId: sap.cap:service
+        title: Incidents Service
     DocumentationLabels:
       title: Documentation Labels
       type: object
@@ -4712,7 +4975,7 @@ components:
 
 
         The target of the mapping is a correlation to an entity type via a [Correlation
-        ID](https://sap.github.io/open-resource-discovery/#/v1/README?id=correlation-id)
+        ID](../../#/v1/README?id=correlation-id)
 
         or to an [ORD ID] of an entity type.
 
@@ -4768,10 +5031,8 @@ components:
             all of them can be at least partially mapped to the source API model(s).
 
 
-            Entity types can be referenced using either using an [ORD
-            ID](https://sap.github.io/open-resource-discovery/spec-v1/#ord-id)
-            or a [Correlation
-            ID](https://sap.github.io/open-resource-discovery/spec-v1/#correlation-id).
+            Entity types can be referenced using either using an [ORD ID](../../spec-v1/#ord-id) or a [Correlation
+            ID](../../spec-v1/#correlation-id).
           items:
             anyOf:
               - $ref: '#/components/schemas/EntityTypeOrdIdTarget'
@@ -4848,16 +5109,31 @@ components:
       example:
         type: json-pointer
         jsonPointer: '#/objects/schemas/AttachmentContent'
+    RelatedEntityType:
+      title: Related Entity Type
+      type: object
+      description: |-
+        Defines which Entity Type is related (via its ORD ID).
+        In the future, this could include stating the relationship type, too.
+      properties:
+        ordId:
+          type: string
+          description: |-
+            The [ORD ID](../index.md#ord-id) is a stable, globally unique ID for ORD resources or taxonomy.
+
+            It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
+          pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):(entityType):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
+          maxLength: 255
+          example: sap.odm:entityType:BusinessPartner:v1
+      required:
+        - ordId
     EntityTypeOrdIdTarget:
       title: Entity Type Target (ORD ID)
       type: object
-      description: >-
+      description: |-
         Define which entity type is the target of an entity type mapping
 
-
-        Entity types can be referenced using a [ORD
-        ID](https://sap.github.io/open-resource-discovery/spec-v1/#ord-id) of
-        an entity type.
+        Entity types can be referenced using a [ORD ID](../../spec-v1/#ord-id) of an entity type.
       properties:
         ordId:
           type: string
@@ -4873,12 +5149,10 @@ components:
     EntityTypeCorrelationIdTarget:
       title: Entity Type Target (Correlation ID)
       type: object
-      description: >-
+      description: |-
         Define which entity type is the target of an entity type mapping
 
-
-        Entity types can be referenced using a [Correlation
-        ID](https://sap.github.io/open-resource-discovery/spec-v1/#correlation-id).
+        Entity types can be referenced using a [Correlation ID](../../spec-v1/#correlation-id).
       properties:
         correlationId:
           type: string
@@ -4887,6 +5161,64 @@ components:
           example: sap.csnexposure:entity:Attachment
       required:
         - correlationId
+    Tombstone:
+      type: object
+      title: Tombstone
+      description: |-
+        A tombstone indicates that a previously published ORD resource or taxonomy has been removed / decommissioned.
+        This MUST be indicated explicitly, so ORD aggregators and consumers can learn about the removal.
+
+        Exactly one of the IDs MUST be provided to state which ORD resource or taxonomy item the Tombstone addresses.
+
+        It MUST be kept sufficiently long so that all ORD aggregators can learn about the tombstone.
+        After that it MAY be removed.
+      properties:
+        ordId:
+          type: string
+          description: '[ORD ID](../index.md#ord-id) of the ORD resource/taxonomy that has been removed.'
+          pattern: >-
+            ^([a-z0-9]+(?:[.][a-z0-9]+)*):(package|consumptionBundle|product|vendor|apiResource|eventResource|capability|entityType|integrationDependency|dataProduct):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*|)?$
+          maxLength: 255
+          example: sap.xref:package:SomePackage:v1
+        groupId:
+          type: string
+          pattern: ^([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\-\/]+):([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\-\/]+)$
+          description: Group ID of the group that has been removed.
+          example: sap.foo:domain:sap.foo:DomainName
+        groupTypeId:
+          type: string
+          pattern: ^([a-z0-9-]+(?:[.][a-z0-9-]+)*):([a-zA-Z0-9._\-\/]+)$
+          description: Group Type ID of the group type that has been removed.
+          example: sap.foo:domain
+        removalDate:
+          type: string
+          format: date-time
+          description: >-
+            The date when the ORD resource/taxonomy was removed.
+
+            This is related to the `sunsetDate` that can be set to announce a resource as deprecated *before* the
+            removal and setting of a tombstone.
+
+
+            The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
+          example: '2020-12-02T14:12:59Z'
+        description:
+          type: string
+          minLength: 1
+          description: |-
+            Optional description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
+
+            The description of a Tombstone MAY be added to the changelog of the removed resource by an ORD aggregator.
+          example: |
+            SAP S/4HANA Cloud, our next generation cloud ERP suite designed for
+            in-memory computing, acts as a digital core, connecting your
+            enterprise with people, business networks, the Internet of Things,
+            Big Data, and more.
+      required:
+        - removalDate
+      example:
+        ordId: sap.s4:apiResource:API_RFQ_PROCESS_SRV:v2
+        removalDate: '2020-12-02T14:12:59Z'
     Configuration:
       title: ORD Configuration
       description: >-

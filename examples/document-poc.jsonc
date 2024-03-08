@@ -1,5 +1,5 @@
 {
-  "openResourceDiscovery": "1.8"
+  "openResourceDiscovery": "1.9"
   // This document demonstrates that we can also write .jsonc (JSON with Comments) examples.
   // JSONC can be helpful for PoCs where we start with writing example ORD documents with additional explanations.
   // Please note that this is not supported for a real productive implementation, where only plain JSON is allowed.

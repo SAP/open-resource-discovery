@@ -16,6 +16,7 @@ With [Integration Dependencies](./spec-v1/interfaces/document#integration-depend
 In case that the standardized concepts or attributes are not sufficient, there are extensibility attributes and [Capabilities](./spec-v1/interfaces/document#capability).
 
 By adopting ORD, an application will implement a single-entry point ([Service Provider Interface](https://en.wikipedia.org/wiki/Service_provider_interface)) that can be used to discover and crawl the relevant information / metadata.
+The information can be used to build a static metadata catalog or do runtime inspection of actual system landscapes.
 
 > ℹ ORD is an open standard by SAP, released as [open source](https://github.com/SAP/open-resource-discovery) under the Apache 2 license (see [public announcement](https://blogs.sap.com/2023/11/14/open-resource-discovery-a-protocol-for-decentralized-metadata-discovery-is-now-open-source/)).
 
