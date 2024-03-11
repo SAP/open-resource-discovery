@@ -49,6 +49,7 @@ This specification defines the following terms (for the ORD context):
     - Some taxonomies are implemented as dedicated Entities (e.g. `Package`, `Product`) that can express additional information.
       They are defined by the <a href="#def-ord-provider">ORD providers</a> in a decentralized manner.
     - Other taxonomies are provided via fixed enums (code lists) and are defined as part of ORD itself, e.g. tags.
+    - Taxonomies are not a consumer contract and therefore do not offer the same stability guarantees and lifecycle management as ORD resources.
 
 - <dfn id="def-ord-behavior">ORD behavior</dfn> standardizes how <a href="#def-ord-information">ORD information</a> is discovered, transported, and aggregated.
 

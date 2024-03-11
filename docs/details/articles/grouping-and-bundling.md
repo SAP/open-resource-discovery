@@ -11,24 +11,24 @@ title: Grouping and Bundling
 ORD offers multiple ways how resources are grouped or bundled together.
 Some of them have a very specific indented usage and some offer the applications complete freedom.
 
-### Predefined Meaning
+### Predefined Grouping Concepts
 
-* The [**Package**](../../spec-v1/interfaces/document#package) is the only mandatory bundling concept.
+* The [**Package**](#package) is the only mandatory bundling concept.
   * Every ORD Resource MUST be assigned to exactly one Package.
   * The concerns of a Package are about
     * What is published together
     * How the published information are presented on a catalog, e.g. in SAPs case the [Business Accelerator Hub](https://api.sap.com/)
-* The [**Consumption Bundle**](../../spec-v1/interfaces/document#consumption-bundle)
+* The [**Consumption Bundle**](#consumption-bundle)
   * API or Event Resources MAY be assigned to 0..n Consumption Bundles
   * The concern is technical: What resources can be consumed together with the same set of credentials and auth mechanism
-* The [**Entity Type**](../../spec-v1/interfaces/document#entity-type) may not be perceived as a grouping mechanism, but in practice it is very useful to group APIs, Events and other resources by a shared Business Object / Business Term.
+* The [**Entity Type**](#entity-type) may not be perceived as a grouping mechanism, but in practice it is very useful to group APIs, Events and other resources by a shared Business Object / Business Term.
   * API Resources, Event Resources, Capabilities, Data Products and other Entity Types can be assigned to 0..n Entity Types.
 
 ### Generic Grouping Concepts
 
-* **Tags** (via the `tags` array property) can be used to freely add tags to all kinds of ORD resources ([Folksonomy](https://en.wikipedia.org/wiki/Folksonomy) style).
-* [**Labels**](../../spec-v1/interfaces/document#labels) are similar to tags, but they allow to also define the "key" and are mostly useful for simplifying querying / selecting resources on an API level.
-* [**Groups**](../../spec-v1/interfaces/document#group) allow to define custom [Group Types](../../spec-v1/interfaces/document#group-type) that can be published via ORD as well.
+* [**Tags**](#tags) (via the `tags` array property) can be used to freely add tags to all kinds of ORD resources.
+* [**Labels**](#labels) are similar to tags, but they allow to also define the "key" and are mostly useful for simplifying querying / selecting resources on an API level.
+* [**Groups**](#groups) allow to define custom **Group Types** that can be published via ORD as well.
   * This concept is very flexible, but still well governed and machine-readable.
   * It works similar to Packages or Consumption Bundles, but allows the ORD Provider to define their own group categories and their semantics.
 
@@ -41,24 +41,128 @@ However, there are still some [Considerations on the granularity of ORD Document
 
 ### Package
 
-> 🚧 TODO
+Every ORD Resource MUST be assigned to exactly one [**Package**](../../spec-v1/interfaces/document#package).
+The Package is primarily motivated by publishing and API catalog presentation concerns.
+
+Another responsibility of a package is human-readable documentation and presentation.
+It can also express information about the resource providers, terms of use of the APIs,
+pricing for the usage of the packages, APIs, Events, etc.
+
+The granularity of Packages is driven by all of the following concerns:
+
+* The resources are created by the same vendor or customer, exposed by the same described system.
+* The resources are published together. They share the same publishing ownership.
+* The resources share certain aspects/taxonomy that is inherited down to them (e.g. `vendor`).
+* If applicable: The resources are meant to be used by only a particular target platform / software.
+
+All resources that are not created by the described systems vendor MUST be put into separate packages.
+This is the case, when:
+
+* The resources are created by the customer (user) of the system.
+  All such resources MUST be assigned to a dedicated Package, where `vendor` is set to `customer:vendor:Customer:`.
+* The resources are created by partners or third parties.
+  All such resources MUST be assigned to a dedicated Package for each partner / third party.
+  The `vendor` MUST be set to a registered, matching Vendor ID (implies also a registered namespace).
+
+> ℹ At SAP, the [Business Accelerator Hub](https://api.sap.com/) defines how the Package concept is to be used to fit its publishing flow and Catalog UI/UX.
+> See [sap:core:v1 policy level](../../spec-extensions/policy-levels/sap-core-v1.md) for additional SAP specific constraints.
 
 ### Consumption Bundle
 
-> 🚧 TODO
+The [**Consumption Bundle**](../../spec-v1/interfaces/document#consumption-bundle) groups APIs and Events together that can be consumed with the credentials and auth mechanism.
+Ideally it also includes instructions and details how to request access and credentials for resources.
+
+API and Event resources MAY be assigned to 0..n Consumption Bundles
+All resources that are part of the same consumption bundle MUST theoretically be accessible through the same set of credentials.
+Consumption Bundles are only applicable to APIs and Events where the described application itself manages the access and credentials.
+
+In practice however, there are usually more fine-grained access control permissions like RBAC that further restrict access based on user / client identity.
+Those are currently not described in ORD and the Consumption Bundle should therefore describe the "maximum possible scope" that is theoretically possible.
+
+Within consumption bundle, we anticipate to provide more machine-readable information that help to understand and automate the necessary steps to get access.
+E.g. how credentials can be programmatically obtained could be described by attached `credentialExchangeStrategies`.
+
+> 🚧 Please note that the Consumption Bundle concept is still in a rather basic form and may be extended in the future.
 
 ### Entity Type
 
-> 🚧 TODO
+An [**Entity Type**](../../spec-v1/interfaces/document#entity-type) describes either a business concept / term or an underlying conceptual model.
+The same entity type can be exposed through one or multiple API and events resources.
+The entity type does NOT represent a consumer contract, but describes an internal artifact / concept within the described application.
+However, it's an important concept for the domain language and structure of the application and can be very useful to put other ORD concepts into relation with it.
+
+> ⚠ Entity Types are not meant to provide a consumer contract!
+> To get a clearly defined contract for working with entity types (getting data, triggering behavior), APIs and Events should be used.
 
 ### Tags
 
-> 🚧 TODO
->
+**Tags (via the `tags` array property) can be used to freely add tags to all kinds of ORD resources in a [Folksonomy](https://en.wikipedia.org/wiki/Folksonomy) style.
+
+Please be aware that there is no global governance of tags and they also do not have namespaces.
+This will lead to inconsistent usage of tags.
+Since they are usually used for enhancing search or navigation, the simplicity of tags is often still a good trade off.
+
 ### Labels
 
-> 🚧 TODO
+[**Labels**](../../spec-v1/interfaces/document#labels) are very similar to [tags](#tags), but allow to define key value pairs.
+They are optimized towards machine-readability and can be used to query, select and filter resources (similar to [kubernetes labels](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/)).
 
 ### Groups
 
-> 🚧 TODO
+[**Groups**](../../spec-v1/interfaces/document#group) and the corresponding [Group Types](../../spec-v1/interfaces/document#group-type) can be used to define and apply your own taxonomy in a generic, extensible way.
+
+<div style={{"text-align": "left", "margin-top": "8px"}}>
+<br/>
+![Group Concept Overview](/img/group-concept-overview.drawio.svg)
+</div>
+
+The concept has three parts: The **Group Type** defines the semantics / meaning of a particular type of group assignments.
+An example would be to have a Group Type for a "part of an CSN Service" or "part of a Process".
+
+Second, the **Group** itself defines the actual group things can be assigned to.
+In the examples before, this would be the "Employee Service" or the "Hire to Retire" Process.
+
+Lastly, we need to state the **partOfGroup** assignment of a particular ORD Resource.
+E.g. a particular OData API for Employee Management can be part of both the "Employee Service" group (of type CSN Service) and the "Hire to Retire" group of type "Process".
+
+The Group Type could even be defined globally. If the Group Type is shared across different applications, it should have an [authority namespace](../../spec-v1/index.md#authority-namespace).
+The Group Instances can potentially be globally defined, too. In this case it works like a global taxonomy with a predefined list of values.It's also possible for the application itself to define and assign its own Group Types and Instances.
+
+> The Group concept is correct choice when ORD resources need to be grouped by additional concerns, beyond the predefined concepts from ORD (like Package).
+
+### Examples
+
+### Bundling CAP APIs by CSN Service:
+
+```js
+{
+  // Defines that there is a concept for grouping "CDS Service", owned by the sap.cds authority namespace
+  "groupTypes": [{
+    "groupTypeId": "sap.cds:service",
+    "title": "CAP CDS Service",
+    "description": "Description of the CDS Service concept and how its correctly used for grouping..."
+   }]
+}
+```
+
+```js
+{
+  // Describes the actual CDS Service, as it was created in an application (of namespace "customer.bookshop")
+  "groups": [{
+     "groupId": "sap.cds:service:customer.bookshop:incidents.IncidentsService",
+     "groupTypeId": "sap.cds:service",
+     "title": "Incidents Service"
+   }]
+}
+```
+
+```js
+{
+  "apiResources": [{
+      // Assignment of one API to the CSN Service it is derived from
+      "partOfGroups": [
+        "sap.cds:service:customer.incidents:incidents.IncidentsService"
+      ]
+  }]
+}
+```
