@@ -5,7 +5,7 @@
     "Package": {
       "type": "object",
       "title": "Package",
-      "description": "A **Package** organizes a set of related resources together, by considering all of the following concerns:\n\n* The resources are created by the same vendor or customer.\n* The resources are published together. They share the same publishing ownership.\n* The resources share certain aspects/taxonomy that is inherited down to them (e.g. `vendor`).\n* If applicable: The resources are meant to be used by only a particular target platform / software.\n\nAll resources that are not created by the described systems vendor MUST be put into separate packages.\nThis is the case, when:\n\n* The resources are created by the customer (user) of the system.\n  All such resources MUST be assigned to a dedicated Package, where `vendor` is set to `customer:vendor:Customer:`.\n* The resources are created by partners or third parties.\n  All such resources MUST be assigned to a dedicated Package for each partner / third party.\n  The `vendor` MUST be set to a registered, matching Vendor ID (implies also a registered namespace).\n\nAnother responsibility of a package is human-readable documentation and presentation.\nIt can also express information about the resource providers, terms of use of the APIs,\npricing for the usage of the packages, APIs, Events, etc.\n\nA package SHOULD contain at least one resource. Avoid empty packages.\n\nA package does not have a `visibility` property.\nWhether it is displayed is decided by the fact, whether it contains any visible resources according to the visibility role of the aggregator.",
+      "description": "A [**Package**](../../details/articles/grouping-and-bundling#package) organizes a set of related resources together, by publishing and catalog presentation concerns.\n\nFor more documentation and guidance how to correctly apply this, see [Package details](../../details/articles/grouping-and-bundling#package).\n\nA package SHOULD contain at least one resource. Avoid empty packages.\n\nA package does not have a `visibility` property.\nWhether it is displayed is decided by the fact, whether it contains any visible resources according to the visibility role of the aggregator.",
       "properties": {
         "ordId": {
           "type": "string",
@@ -356,7 +356,7 @@
     "ConsumptionBundle": {
       "type": "object",
       "title": "Consumption Bundle",
-      "description": "A **Consumption Bundle** organizes a set of related resources into a single group for consumption purposes.\n\nThe main use case is to enable developers to easily discover and access APIs and Events from the system instances they are extending.\n\nThe consumption bundle expresses information about how the APIs and Events that it contains can be accessed.\nThis potentially also includes instructions and details how to request access and credentials for resources.\n\nAll resources that are part of the same consumption bundle MUST be accessible through the same set of credentials.\nSuch credentials can be programmatically obtained via one of the provided `credentialExchangeStrategies`.\n\nA consumption bundle SHOULD have at least one association with a resource (0..n). Avoid empty consumption bundles.\nA consumption bundle MUST NOT contain APIs and Events that are NOT defined in the ORD document(s) returned\nby the system instance that defines the consumption bundle.\n\nPlease note that some ORD consumer use cases MAY depend on consumption bundle assignments to work with the resources.",
+      "description": "A [**Consumption Bundle**](../../details/articles/grouping-and-bundling#consumption-bundle) groups APIs and Events together that can be consumed with the credentials and auth mechanism.\nIdeally it also includes instructions and details how to request access and credentials for resources.\n\nFor more documentation and guidance how to correctly this correctly, see [Consumption Bundle details](../../details/articles/grouping-and-bundling#consumption-bundle).\n\nA consumption bundle SHOULD have at least one association with a resource (0..n). Avoid empty consumption bundles.\nA consumption bundle MUST NOT contain APIs and Events that are NOT defined in the ORD document(s) returned\nby the system instance that defines the consumption bundle.\n\nPlease note that some ORD consumer use cases MAY depend on consumption bundle assignments to work with the resources.",
       "properties": {
         "ordId": {
           "type": "string",
@@ -1737,7 +1737,7 @@
     "EntityType": {
       "type": "object",
       "title": "Entity Type",
-      "description": "An entity type ideally describes an underlying conceptual model that is then exposed through one or multiple API and events resources.\nIt is a well-defined named abstract concept in SAP software representing a data model and behavioral model of a concrete business or technical entity.",
+      "description": "An [**Entity Type**](../../details/articles/grouping-and-bundling#entity-type) describes either a business concept / term or an underlying conceptual model.\nThe same entity type can be exposed through one or multiple API and events resources.",
       "properties": {
         "ordId": {
           "type": "string",
@@ -4145,7 +4145,7 @@
     "GroupType": {
       "title": "Group Type",
       "type": "object",
-      "description": "A Group Type defines the semantics of [group assignments](#group).\n\nThey can be defined centrally (ownership by authority namespace) or decentrally (defined by application / service itself)",
+      "description": "A Group Type defines the semantics of [group assignments](#group).\nWhat the Group Type means and how it is to be used correctly SHOULD be described in the `description` (which may include markdown links).\n\nGroup Types can be defined centrally (ownership by authority namespace) or decentrally (defined by application / service itself).\n\nTo learn more about the concept, please refer to the [Group Concept Documentation](../../details/articles/grouping-and-bundling#Groups).",
       "properties": {
         "groupTypeId": {
           "type": "string",
@@ -4180,15 +4180,16 @@
       ],
       "examples": [
         {
-          "groupTypeId": "sap.cap:service",
-          "title": "CAP Service"
+          "groupTypeId": "sap.cds:service",
+          "title": "CAP Service",
+          "description": "Description of the CDS Service concept and how its correctly used for grouping..."
         }
       ]
     },
     "Group": {
       "title": "Group",
       "type": "object",
-      "description": "Group (instance) that resources can be assigned to.\n\nGroups are a lightweight custom taxonomy concept.\nThey express a \"part of\" relationship to the chosen group concept.\nIf an \"identity / equals\" relationship needs to be expressed, use the `correlationIds` instead.\n\nA group is actually a choice of both a [Group Type](#group-type) and which \"value\" / \"instance\" is used for grouping.\n\n**Example**:\nThere is a Group Type \"CDS Service\" (defined by `sap.cap` authority namespace).\nThe Group assignment would include the information which CSN Service it is grouped together by, e.g. \"incidents.IncidentsService\".",
+      "description": "Group (instance) that resources can be assigned to.\n\nGroups are a lightweight custom taxonomy concept.\nThey express a \"part of\" relationship to the chosen group concept.\nIf an \"identity / equals\" relationship needs to be expressed, use the `correlationIds` instead.\n\nTo learn more about the concept, please refer to the [Group Concept Documentation](../../details/articles/grouping-and-bundling#Groups).",
       "properties": {
         "groupId": {
           "type": "string",

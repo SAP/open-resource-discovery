@@ -1325,8 +1325,8 @@ export interface EventResourceDefinition {
   accessStrategies?: [AccessStrategy, ...AccessStrategy[]];
 }
 /**
- * An entity type ideally describes an underlying conceptual model that is then exposed through one or multiple API and events resources.
- * It is a well-defined named abstract concept in SAP software representing a data model and behavioral model of a concrete business or technical entity.
+ * An [**Entity Type**](../../details/articles/grouping-and-bundling#entity-type) describes either a business concept / term or an underlying conceptual model.
+ * The same entity type can be exposed through one or multiple API and events resources.
  */
 export interface EntityType {
   /**
@@ -2458,25 +2458,9 @@ export interface Product {
   documentationLabels?: DocumentationLabels;
 }
 /**
- * A **Package** organizes a set of related resources together, by considering all of the following concerns:
+ * A [**Package**](../../details/articles/grouping-and-bundling#package) organizes a set of related resources together, by publishing and catalog presentation concerns.
  *
- * * The resources are created by the same vendor or customer.
- * * The resources are published together. They share the same publishing ownership.
- * * The resources share certain aspects/taxonomy that is inherited down to them (e.g. `vendor`).
- * * If applicable: The resources are meant to be used by only a particular target platform / software.
- *
- * All resources that are not created by the described systems vendor MUST be put into separate packages.
- * This is the case, when:
- *
- * * The resources are created by the customer (user) of the system.
- *   All such resources MUST be assigned to a dedicated Package, where `vendor` is set to `customer:vendor:Customer:`.
- * * The resources are created by partners or third parties.
- *   All such resources MUST be assigned to a dedicated Package for each partner / third party.
- *   The `vendor` MUST be set to a registered, matching Vendor ID (implies also a registered namespace).
- *
- * Another responsibility of a package is human-readable documentation and presentation.
- * It can also express information about the resource providers, terms of use of the APIs,
- * pricing for the usage of the packages, APIs, Events, etc.
+ * For more documentation and guidance how to correctly apply this, see [Package details](../../details/articles/grouping-and-bundling#package).
  *
  * A package SHOULD contain at least one resource. Avoid empty packages.
  *
@@ -2703,15 +2687,10 @@ export interface PackageLink {
   [k: string]: any | undefined;
 }
 /**
- * A **Consumption Bundle** organizes a set of related resources into a single group for consumption purposes.
+ * A [**Consumption Bundle**](../../details/articles/grouping-and-bundling#consumption-bundle) groups APIs and Events together that can be consumed with the credentials and auth mechanism.
+ * Ideally it also includes instructions and details how to request access and credentials for resources.
  *
- * The main use case is to enable developers to easily discover and access APIs and Events from the system instances they are extending.
- *
- * The consumption bundle expresses information about how the APIs and Events that it contains can be accessed.
- * This potentially also includes instructions and details how to request access and credentials for resources.
- *
- * All resources that are part of the same consumption bundle MUST be accessible through the same set of credentials.
- * Such credentials can be programmatically obtained via one of the provided `credentialExchangeStrategies`.
+ * For more documentation and guidance how to correctly this correctly, see [Consumption Bundle details](../../details/articles/grouping-and-bundling#consumption-bundle).
  *
  * A consumption bundle SHOULD have at least one association with a resource (0..n). Avoid empty consumption bundles.
  * A consumption bundle MUST NOT contain APIs and Events that are NOT defined in the ORD document(s) returned
@@ -2857,11 +2836,7 @@ export interface CredentialExchangeStrategy {
  * They express a "part of" relationship to the chosen group concept.
  * If an "identity / equals" relationship needs to be expressed, use the `correlationIds` instead.
  *
- * A group is actually a choice of both a [Group Type](#group-type) and which "value" / "instance" is used for grouping.
- *
- * **Example**:
- * There is a Group Type "CDS Service" (defined by `sap.cap` authority namespace).
- * The Group assignment would include the information which CSN Service it is grouped together by, e.g. "incidents.IncidentsService".
+ * To learn more about the concept, please refer to the [Group Concept Documentation](../../details/articles/grouping-and-bundling#Groups).
  */
 export interface Group {
   /**
@@ -2894,8 +2869,11 @@ export interface Group {
 }
 /**
  * A Group Type defines the semantics of [group assignments](#group).
+ * What the Group Type means and how it is to be used correctly SHOULD be described in the `description` (which may include markdown links).
  *
- * They can be defined centrally (ownership by authority namespace) or decentrally (defined by application / service itself)
+ * Group Types can be defined centrally (ownership by authority namespace) or decentrally (defined by application / service itself).
+ *
+ * To learn more about the concept, please refer to the [Group Concept Documentation](../../details/articles/grouping-and-bundling#Groups).
  */
 export interface GroupType {
   /**
