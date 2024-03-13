@@ -7,7 +7,7 @@ description: Detailed explanation of the System Landscape and the ORD Data model
 
 ## Systems
 
-ORD already relies on a high-level system landscape model to be existing.
+ORD relies on a high-level system landscape model to be already existing.
 Before you can discover ORD information from system instances (tenants), you need to know of their existence and nature in the first place.
 From there ORD is used to fill in the details.
 
@@ -73,10 +73,11 @@ Here is an overview which ORD concepts can be dynamic (different per System Inst
 
 ### Static Catalog
 
-In the static catalog, Products are described on a System Type Level.
-Optionally, a static catalog can also reflect the System Version to also provide a history of the metadata, e.g. how it changed over time with releases.
+In the static catalog, products and their resources are described on a system type Level.
+Optionally, a static catalog can also reflect the system version to also provide a history of the metadata, e.g. how it changed over time with releases.
 
 ### Dynamic Catalog
 
 The dynamic catalog can show a real (customer) system landscape at run-time.
-This focuses on the System Instance level.
+It is usually connected or part of a runtime control plane, which needs to know the system topology anyway.
+Here the focus is clearly on the System Instance level, although in many cases the metadata may still be static (defined on System Type level).

@@ -9,13 +9,13 @@ title: Grouping and Bundling
 ## Quick Summary
 
 ORD offers multiple ways how resources are grouped or bundled together.
-Some of them have a very specific indented usage and some offer the applications complete freedom.
+Some of them have a specific indented usage, while others offer the application providers complete freedom.
 
 ### Predefined Grouping Concepts
 
 * The [**Package**](#package) is the only mandatory bundling concept.
   * Every ORD Resource MUST be assigned to exactly one Package.
-  * The concerns of a Package are about
+  * The concerns of a Package are:
     * What is published together
     * How the published information are presented on a catalog, e.g. in SAPs case the [Business Accelerator Hub](https://api.sap.com/)
 * The [**Consumption Bundle**](#consumption-bundle)
@@ -26,7 +26,7 @@ Some of them have a very specific indented usage and some offer the applications
 
 ### Generic Grouping Concepts
 
-* [**Tags**](#tags) (via the `tags` array property) can be used to freely add tags to all kinds of ORD resources.
+* [**Tags**](#tags) (via the `tags` array property) can be used to freely tag all kinds of ORD resources in [Folksonomy](https://en.wikipedia.org/wiki/Folksonomy) style.
 * [**Labels**](#labels) are similar to tags, but they allow to also define the "key" and are mostly useful for simplifying querying / selecting resources on an API level.
 * [**Groups**](#groups) allow to define custom **Group Types** that can be published via ORD as well.
   * This concept is very flexible, but still well governed and machine-readable.
@@ -42,11 +42,8 @@ However, there are still some [Considerations on the granularity of ORD Document
 ### Package
 
 Every ORD Resource MUST be assigned to exactly one [**Package**](../../spec-v1/interfaces/document#package).
-The Package is primarily motivated by publishing and API catalog presentation concerns.
-
-Another responsibility of a package is human-readable documentation and presentation.
-It can also express information about the resource providers, terms of use of the APIs,
-pricing for the usage of the packages, APIs, Events, etc.
+The Package is primarily motivated by publishing and API catalog presentation concerns, including human-readable documentation and presentation.
+It can also express information about the resource providers, terms of use of the APIs, pricing for the usage of the packages, APIs, Events, etc.
 
 The granularity of Packages is driven by all of the following concerns:
 
@@ -72,10 +69,10 @@ This is the case, when:
 The [**Consumption Bundle**](../../spec-v1/interfaces/document#consumption-bundle) groups APIs and Events together that can be consumed with the credentials and auth mechanism.
 Ideally it also includes instructions and details how to request access and credentials for resources.
 
-API and Event resources MAY be assigned to 0..n Consumption Bundles
-All resources that are part of the same consumption bundle MUST theoretically be accessible through the same set of credentials.
+API and Event resources MAY be assigned to 0..n Consumption Bundles.
 Consumption Bundles are only applicable to APIs and Events where the described application itself manages the access and credentials.
 
+All resources that are part of the same consumption bundle MUST theoretically be accessible through the same set of credentials.
 In practice however, there are usually more fine-grained access control permissions like RBAC that further restrict access based on user / client identity.
 Those are currently not described in ORD and the Consumption Bundle should therefore describe the "maximum possible scope" that is theoretically possible.
 
@@ -86,7 +83,15 @@ E.g. how credentials can be programmatically obtained could be described by atta
 
 ### Entity Type
 
-An [**Entity Type**](../../spec-v1/interfaces/document#entity-type) describes either a business concept / term or an underlying conceptual model.
+An [**Entity Type**](../../spec-v1/interfaces/document#entity-type) describes a business object as a term or an underlying conceptual model.
+
+In the first case, the entity types can be used to describe the domain objects like a glossary of nouns that are consistently used.
+Such entity types usually have no lifecycle, and the ORD ID will have to set `v1` as major version.
+
+The second case, "underlying conceptual models" relate to internal application models that usually have structure (properties, behavior).
+Ideally (see DDD), the underlying conceptual models are also the internal and external domain language and have consistent semantics within the domain / bounded context. In other contexts, they might be called conceptual or logical (data) models.
+Such models can have a lifecycle, so the ORD ID major version may be of relevance.
+
 The same entity type can be exposed through one or multiple API and events resources.
 The entity type does NOT represent a consumer contract, but describes an internal artifact / concept within the described application.
 However, it's an important concept for the domain language and structure of the application and can be very useful to put other ORD concepts into relation with it.
@@ -96,10 +101,10 @@ However, it's an important concept for the domain language and structure of the 
 
 ### Tags
 
-**Tags (via the `tags` array property) can be used to freely add tags to all kinds of ORD resources in a [Folksonomy](https://en.wikipedia.org/wiki/Folksonomy) style.
+**Tags** (via the `tags` array property) can be used to freely tag all kinds of ORD resources in [Folksonomy](https://en.wikipedia.org/wiki/Folksonomy) style.
 
 Please be aware that there is no global governance of tags and they also do not have namespaces.
-This will lead to inconsistent usage of tags.
+This will inevitably lead to inconsistent usage of tags.
 Since they are usually used for enhancing search or navigation, the simplicity of tags is often still a good trade off.
 
 ### Labels
