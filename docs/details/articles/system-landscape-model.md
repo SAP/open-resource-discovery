@@ -5,6 +5,15 @@ description: Detailed explanation of the System Landscape and the ORD Data model
 
 # System Landscape Model
 
+## Summary
+
+We assume a high-level system landscape model, which already knows which applications and services (tenants) are running in a given context (e.g. a customer account).
+ORD is used to describe the tenants in detail, most notably their exposed resources and capabilities.
+With Integration Dependencies it is also possible to describe how resources of other tenants can be used, connecting the dots.
+But also some taxonomy like entity types help to connect, by expressing shared use of aligned concepts or models across different types of systems.
+
+The metadata discovery can happen at run-time, describing the tenant at its current state - or we can describe all tenants of the same system type and version statically.
+
 ## Systems
 
 ORD relies on a high-level system landscape model to be already existing.
@@ -45,11 +54,11 @@ The ORD Resources and Capabilities describe either a System Type (in static pers
 
 Taxonomy is independent of Systems, but can be defined either locally or globally.
 
-<div style={{"text-align": "center"}}>
-
+<div style={{"text-align": "left"}}>
 ![ORD Data Model Overview](/img/ord-high-level-data-model.drawio.svg 'ORD Data Model Overview')
-
 </div>
+
+## Taxonomy
 
 Some taxonomy concepts can even be "global", in this case they can always be viewed and navigated in the dynamic system landscape, even if it has no system instances in it.
 

@@ -85,10 +85,14 @@ E.g. how credentials can be programmatically obtained could be described by atta
 
 An [**Entity Type**](../../spec-v1/interfaces/document#entity-type) describes a business object as a term or an underlying conceptual model.
 
-In the first case, the entity types can be used to describe the domain objects like a glossary of nouns that are consistently used.
+Relationships to entity types can be assigned to API & Event resources, data products and other entity types:
+
+![Entity Type Relations](/img/entity-type-relations.drawio.svg)
+
+In case it represents a business object / term, the entity types can be used to describe the domain objects like a glossary of nouns that are consistently used.
 Such entity types usually have no lifecycle, and the ORD ID will have to set `v1` as major version.
 
-The second case, "underlying conceptual models" relate to internal application models that usually have structure (properties, behavior).
+The case of "underlying conceptual models", they relate to internal application models that usually have structure (properties, behavior).
 Ideally (see DDD), the underlying conceptual models are also the internal and external domain language and have consistent semantics within the domain / bounded context. In other contexts, they might be called conceptual or logical (data) models.
 Such models can have a lifecycle, so the ORD ID major version may be of relevance.
 
@@ -116,8 +120,7 @@ They are optimized towards machine-readability and can be used to query, select 
 
 [**Groups**](../../spec-v1/interfaces/document#group) and the corresponding [Group Types](../../spec-v1/interfaces/document#group-type) can be used to define and apply your own taxonomy in a generic, extensible way.
 
-<div style={{"text-align": "left", "margin-top": "8px"}}>
-<br/>
+<div style={{"text-align": "left", "margin-top": "12px"}}>
 ![Group Concept Overview](/img/group-concept-overview.drawio.svg)
 </div>
 

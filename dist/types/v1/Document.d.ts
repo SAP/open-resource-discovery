@@ -376,6 +376,7 @@ export interface APIResource {
      * MUST be a valid reference to an ORD ID.
      *
      * If the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.
+     * If `successors` is given, the described resource SHOULD set its `releaseStatus` to `deprecated`.
      */
     successors?: string[];
     /**
@@ -1023,6 +1024,7 @@ export interface EventResource {
      * MUST be a valid reference to an ORD ID.
      *
      * If the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.
+     * If `successors` is given, the described resource SHOULD set its `releaseStatus` to `deprecated`.
      */
     successors?: string[];
     /**
@@ -1323,6 +1325,7 @@ export interface EntityType {
      * MUST be a valid reference to an ORD ID.
      *
      * If the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.
+     * If `successors` is given, the described resource SHOULD set its `releaseStatus` to `deprecated`.
      */
     successors?: string[];
     /**
@@ -1740,6 +1743,7 @@ export interface DataProduct {
      * MUST be a valid reference to an ORD ID.
      *
      * If the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.
+     * If `successors` is given, the described resource SHOULD set its `releaseStatus` to `deprecated`.
      */
     successors?: string[];
     /**
@@ -2033,6 +2037,7 @@ export interface IntegrationDependency {
      * MUST be a valid reference to an ORD ID.
      *
      * If the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.
+     * If `successors` is given, the described resource SHOULD set its `releaseStatus` to `deprecated`.
      */
     successors?: string[];
     /**

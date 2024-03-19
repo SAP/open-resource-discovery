@@ -10,6 +10,12 @@ For a roadmap including expected timeline, please refer to [ROADMAP.md](./ROADMA
 
 ## [unreleased]
 
+### Added
+
+- Added two new (optional) SHOULD statements regarding deprecation and sunset lifecycle. We think they represent common sense / practice and help with validating a good usage of the related attributes.
+  - If `successors` is given, the described resource SHOULD set its `releaseStatus` to `deprecated`.
+  - If a resource is deprecated without defining its `successors`, a `sunsetDate` SHOULD be provided.
+
 ## [1.9.0]
 
 ### Added
