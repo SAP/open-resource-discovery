@@ -721,7 +721,7 @@
             },
             {
               "const": "deprecated",
-              "description": "Resource has been deprecated and is destined to be decommissioned (removed) in the future.\n\nOnce the resource is decommissioned, it MUST be removed from ORD.\nIts removal MUST be explicitly indicated through a `Tombstone`.\nIf successor resources exists, they MUST be referenced through `successors`.\n\nIn cases where an `active` version of the API exists, it is advisable to migrate to the `active` version,\nhowever, an `active` version may not exist in all cases."
+              "description": "Resource has been deprecated.\n\nIf successor resources exist, they MUST be referenced through `successors`.\nIf it is deprecated without defining its `successors`, a `sunsetDate` SHOULD be provided.\n\nA deprecated resource MAY be decommissioned (removed) in the future.\nThis removal MUST be explicitly indicated through a `Tombstone`.\nOnce the resource is decommissioned, it MUST be removed from ORD."
             }
           ],
           "examples": [
@@ -751,7 +751,7 @@
         },
         "successors": {
           "type": "array",
-          "description": "The successor resource(s).\n\nMUST be a valid reference to an ORD ID.\n\nIf the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.",
+          "description": "The successor resource(s).\n\nMUST be a valid reference to an ORD ID.\n\nIf the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.\nIf `successors` is given, the described resource SHOULD set its `releaseStatus` to `deprecated`.",
           "items": {
             "type": "string",
             "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):(apiResource):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
@@ -1451,7 +1451,7 @@
             },
             {
               "const": "deprecated",
-              "description": "Resource has been deprecated and is destined to be decommissioned (removed) in the future.\n\nOnce the resource is decommissioned, it MUST be removed from ORD.\nIts removal MUST be explicitly indicated through a `Tombstone`.\nIf successor resources exists, they MUST be referenced through `successors`.\n\nIn cases where an `active` version of the API exists, it is advisable to migrate to the `active` version,\nhowever, an `active` version may not exist in all cases."
+              "description": "Resource has been deprecated.\n\nIf successor resources exist, they MUST be referenced through `successors`.\nIf it is deprecated without defining its `successors`, a `sunsetDate` SHOULD be provided.\n\nA deprecated resource MAY be decommissioned (removed) in the future.\nThis removal MUST be explicitly indicated through a `Tombstone`.\nOnce the resource is decommissioned, it MUST be removed from ORD."
             }
           ],
           "examples": [
@@ -1481,7 +1481,7 @@
         },
         "successors": {
           "type": "array",
-          "description": "The successor resource(s).\n\nMUST be a valid reference to an ORD ID.\n\nIf the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.",
+          "description": "The successor resource(s).\n\nMUST be a valid reference to an ORD ID.\n\nIf the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.\nIf `successors` is given, the described resource SHOULD set its `releaseStatus` to `deprecated`.",
           "items": {
             "type": "string",
             "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):(eventResource):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
@@ -1838,6 +1838,7 @@
       "type": "object",
       "title": "Entity Type",
       "description": "An [**Entity Type**](../../details/articles/grouping-and-bundling#entity-type) describes either a business concept / term or an underlying conceptual model.\nThe same entity type can be exposed through one or multiple API and events resources.",
+      "x-introduced-in-version": "1.8.0",
       "properties": {
         "ordId": {
           "type": "string",
@@ -2004,7 +2005,7 @@
             },
             {
               "const": "deprecated",
-              "description": "Resource has been deprecated and is destined to be decommissioned (removed) in the future.\n\nOnce the resource is decommissioned, it MUST be removed from ORD.\nIts removal MUST be explicitly indicated through a `Tombstone`.\nIf successor resources exists, they MUST be referenced through `successors`.\n\nIn cases where an `active` version of the API exists, it is advisable to migrate to the `active` version,\nhowever, an `active` version may not exist in all cases."
+              "description": "Resource has been deprecated.\n\nIf successor resources exist, they MUST be referenced through `successors`.\nIf it is deprecated without defining its `successors`, a `sunsetDate` SHOULD be provided.\n\nA deprecated resource MAY be decommissioned (removed) in the future.\nThis removal MUST be explicitly indicated through a `Tombstone`.\nOnce the resource is decommissioned, it MUST be removed from ORD."
             }
           ],
           "examples": [
@@ -2029,7 +2030,7 @@
         },
         "successors": {
           "type": "array",
-          "description": "The successor resource(s).\n\nMUST be a valid reference to an ORD ID.\n\nIf the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.",
+          "description": "The successor resource(s).\n\nMUST be a valid reference to an ORD ID.\n\nIf the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.\nIf `successors` is given, the described resource SHOULD set its `releaseStatus` to `deprecated`.",
           "items": {
             "type": "string",
             "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):(entityType):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
@@ -2305,7 +2306,7 @@
             },
             {
               "const": "deprecated",
-              "description": "Resource has been deprecated and is destined to be decommissioned (removed) in the future.\n\nOnce the resource is decommissioned, it MUST be removed from ORD.\nIts removal MUST be explicitly indicated through a `Tombstone`.\nIf successor resources exists, they MUST be referenced through `successors`.\n\nIn cases where an `active` version of the API exists, it is advisable to migrate to the `active` version,\nhowever, an `active` version may not exist in all cases."
+              "description": "Resource has been deprecated.\n\nIf successor resources exist, they MUST be referenced through `successors`.\nIf it is deprecated without defining its `successors`, a `sunsetDate` SHOULD be provided.\n\nA deprecated resource MAY be decommissioned (removed) in the future.\nThis removal MUST be explicitly indicated through a `Tombstone`.\nOnce the resource is decommissioned, it MUST be removed from ORD."
             }
           ],
           "examples": [
@@ -2335,7 +2336,7 @@
         },
         "successors": {
           "type": "array",
-          "description": "The successor resource(s).\n\nMUST be a valid reference to an ORD ID.\n\nIf the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.",
+          "description": "The successor resource(s).\n\nMUST be a valid reference to an ORD ID.\n\nIf the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.\nIf `successors` is given, the described resource SHOULD set its `releaseStatus` to `deprecated`.",
           "items": {
             "type": "string",
             "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):(dataProduct):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
@@ -3235,7 +3236,7 @@
             },
             {
               "const": "deprecated",
-              "description": "Resource has been deprecated and is destined to be decommissioned (removed) in the future.\n\nOnce the resource is decommissioned, it MUST be removed from ORD.\nIts removal MUST be explicitly indicated through a `Tombstone`.\nIf successor resources exists, they MUST be referenced through `successors`.\n\nIn cases where an `active` version of the API exists, it is advisable to migrate to the `active` version,\nhowever, an `active` version may not exist in all cases."
+              "description": "Resource has been deprecated.\n\nIf successor resources exist, they MUST be referenced through `successors`.\nIf it is deprecated without defining its `successors`, a `sunsetDate` SHOULD be provided.\n\nA deprecated resource MAY be decommissioned (removed) in the future.\nThis removal MUST be explicitly indicated through a `Tombstone`.\nOnce the resource is decommissioned, it MUST be removed from ORD."
             }
           ],
           "examples": [
@@ -3537,7 +3538,7 @@
             },
             {
               "const": "deprecated",
-              "description": "Resource has been deprecated and is destined to be decommissioned (removed) in the future.\n\nOnce the resource is decommissioned, it MUST be removed from ORD.\nIts removal MUST be explicitly indicated through a `Tombstone`.\nIf successor resources exists, they MUST be referenced through `successors`.\n\nIn cases where an `active` version of the API exists, it is advisable to migrate to the `active` version,\nhowever, an `active` version may not exist in all cases."
+              "description": "Resource has been deprecated.\n\nIf successor resources exist, they MUST be referenced through `successors`.\nIf it is deprecated without defining its `successors`, a `sunsetDate` SHOULD be provided.\n\nA deprecated resource MAY be decommissioned (removed) in the future.\nThis removal MUST be explicitly indicated through a `Tombstone`.\nOnce the resource is decommissioned, it MUST be removed from ORD."
             }
           ],
           "examples": [
@@ -3554,7 +3555,7 @@
         },
         "successors": {
           "type": "array",
-          "description": "The successor resource(s).\n\nMUST be a valid reference to an ORD ID.\n\nIf the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.",
+          "description": "The successor resource(s).\n\nMUST be a valid reference to an ORD ID.\n\nIf the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.\nIf `successors` is given, the described resource SHOULD set its `releaseStatus` to `deprecated`.",
           "items": {
             "type": "string",
             "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):(integrationDependency):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
@@ -3874,7 +3875,7 @@
             },
             {
               "const": "deprecated",
-              "description": "Resource has been deprecated and is destined to be decommissioned (removed) in the future.\n\nOnce the resource is decommissioned, it MUST be removed from ORD.\nIts removal MUST be explicitly indicated through a `Tombstone`.\nIf successor resources exists, they MUST be referenced through `successors`.\n\nIn cases where an `active` version of the API exists, it is advisable to migrate to the `active` version,\nhowever, an `active` version may not exist in all cases."
+              "description": "Resource has been deprecated.\n\nIf successor resources exist, they MUST be referenced through `successors`.\nIf it is deprecated without defining its `successors`, a `sunsetDate` SHOULD be provided.\n\nA deprecated resource MAY be decommissioned (removed) in the future.\nThis removal MUST be explicitly indicated through a `Tombstone`.\nOnce the resource is decommissioned, it MUST be removed from ORD."
             }
           ],
           "examples": [
@@ -4888,6 +4889,7 @@
     "entityTypes": {
       "type": "array",
       "description": "Array of all entity types that are described in this ORD document.",
+      "x-introduced-in-version": "1.6.0",
       "items": {
         "$ref": "#/definitions/EntityType"
       }

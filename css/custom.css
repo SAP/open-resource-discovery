@@ -182,3 +182,7 @@ iframe {
 .footer--dark .footer__copyright {
   color: #8695a1;
 }
+
+svg {
+  display: block;
+}
