@@ -3,6 +3,7 @@
   --ifm-hr-margin-vertical: 0.5rem;
   --ifm-list-margin: 0.5rem;
   --ifm-navbar-padding-vertical: 0;
+  --ifm-navbar-height: 3rem;
   --ifm-blockquote-border-left-width: 6px;
   --doc-sidebar-width: 250px !important;
   --ifm-spacing-horizontal: 8px;
@@ -23,8 +24,8 @@
 
 .navbar__logo img {
   margin-left: -4px;
-  margin-top: -14px;
-  height: 60px;
+  margin-top: -8px;
+  height: 48px;
 }
 
 .navbar__search {
@@ -181,8 +182,41 @@ iframe {
 }
 .footer--dark .footer__copyright {
   color: #8695a1;
+  font-size: 0.85em;
 }
 
-svg {
-  display: block;
+.footer--dark svg {
+  display: none;
+}
+
+@media (max-width: 1190px) {
+  .navbar__item {
+    padding-left: 6px;
+    padding-right: 10px;
+  }
+  .navbar__items .dropdown--hoverable {
+    padding-top: 1px;
+  }
+  .navbar__items a {
+    font-size: 0.85em;
+  }
+  .navbar__items--right a {
+    padding-right: 0px;
+  }
+}
+
+.videoContainer {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: min(56.25%, 454px);
+}
+
+.videoIframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  max-width: 800px;
 }
