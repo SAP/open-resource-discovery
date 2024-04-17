@@ -1,6 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Document.schema.json",
+  "description": "The [ORD Document](../index.md#ord-document) object serves as a wrapper for the **ORD resources** and **ORD taxonomy** and adds further top-level information\nthat are specific to the document/the service it describes.\n\nThe constraints and considerations on [ORD Documents](../index.md#ord-document) MUST be followed.",
   "definitions": {
     "Package": {
       "type": "object",
@@ -802,7 +803,7 @@
         },
         "resourceDefinitions": {
           "type": "array",
-          "description": "List of available machine-readable resource definitions.\n\nIt is RECOMMENDED to provide the resource definitions as they enable machine-readable use cases.\nIf resource definitions are added or changed, the `version` MUST be incremented.\nAn ORD aggregator MAY only (re)fetch the resource definitions again when the `version` was incremented.",
+          "description": "List of available machine-readable definitions, which describe the resource or capability in detail.\n\nEach definition is to be understood as an alternative description format, describing the same resource / capability.\nAs a consequence the same definition type MUST NOT be provided more than once.\n\nIt is RECOMMENDED to provide the definitions as they enable machine-readable use cases.\nIf the definitions are added or changed, the `version` MUST be incremented.\nAn ORD aggregator MAY only (re)fetch the definitions again when the `version` was incremented.",
           "items": {
             "$ref": "#/definitions/ApiResourceDefinition"
           }
@@ -1415,7 +1416,7 @@
         },
         "resourceDefinitions": {
           "type": "array",
-          "description": "List of available machine-readable resource definitions.\n\nIt is RECOMMENDED to provide resource definitions (if applicable) as they enable machine-readable use cases.\nIf resource definitions are added or changed, the `version` MUST be incremented.\nAn ORD aggregator MAY only (re)fetch the resource definitions again when the `version` was incremented.",
+          "description": "List of available machine-readable definitions, which describe the resource or capability in detail.\n\nEach definition is to be understood as an alternative description format, describing the same resource / capability.\nAs a consequence the same definition type MUST NOT be provided more than once.\n\nIt is RECOMMENDED to provide the definitions as they enable machine-readable use cases.\nIf the definitions are added or changed, the `version` MUST be incremented.\nAn ORD aggregator MAY only (re)fetch the definitions again when the `version` was incremented.",
           "items": {
             "$ref": "#/definitions/EventResourceDefinition"
           }
@@ -3088,7 +3089,7 @@
         },
         "definitions": {
           "type": "array",
-          "description": "List of available machine-readable capability definitions.\n\nIf capability definitions are added or changed, the `version` SHOULD be incremented and `lastUpdate` be updated.",
+          "description": "List of available machine-readable definitions, which describe the resource or capability in detail.\n\nEach definition is to be understood as an alternative description format, describing the same resource / capability.\nAs a consequence the same definition type MUST NOT be provided more than once.\n\nIt is RECOMMENDED to provide the definitions as they enable machine-readable use cases.\nIf the definitions are added or changed, the `version` MUST be incremented.\nAn ORD aggregator MAY only (re)fetch the definitions again when the `version` was incremented.",
           "items": {
             "$ref": "#/definitions/CapabilityDefinition"
           }
@@ -4526,14 +4527,19 @@
   },
   "title": "ORD Document",
   "type": "object",
-  "description": "The [ORD Document](../index.md#ord-document) object serves as a wrapper for the **ORD resources** and **ORD taxonomy** and adds further top-level information\nthat are specific to the document/the service it describes.\n\nThe constraints and considerations on [ORD Documents](../index.md#ord-document) MUST be followed.",
   "properties": {
     "$schema": {
       "type": "string",
       "format": "uri-reference",
-      "description": "An optional [URL](https://tools.ietf.org/html/rfc3986) to the Open Resource Discovery document schema (Defined as a JSON Schema).\n\nIf provided, this enables code intelligence and validation in supported editors (like VSCode) and tools.",
-      "examples": [
-        "https://raw.githubusercontent.com/SAP/open-resource-discovery/main/static/spec-v1/interfaces/Document.schema.json"
+      "description": "Optional [URL](https://tools.ietf.org/html/rfc3986) to the Open Resource Discovery document schema (defined as a JSON Schema).\nIf provided, this enables code intelligence and validation in supported editors (like VSCode) and tools.",
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uri-reference"
+        },
+        {
+          "const": "https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Document.schema.json"
+        }
       ]
     },
     "openResourceDiscovery": {

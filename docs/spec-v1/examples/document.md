@@ -6,6 +6,7 @@
 
 ```yaml
 {
+  "$schema": "https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Document.schema.json",
   "openResourceDiscovery": "1.9",
   "description": "Example based on ORD Reference App",
   "policyLevel": "sap:core:v1",
@@ -192,6 +193,7 @@
 
 ```yaml
 {
+  "$schema": "https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Document.schema.json",
   "openResourceDiscovery": "1.9",
   "policyLevel": "sap:core:v1",
   "products": [
@@ -1064,6 +1066,7 @@
 
 ```yaml
 {
+  "$schema": "https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Document.schema.json",
   "openResourceDiscovery": "1.9",
   "description": "This Example demonstrates the Entity Type Mapping feature",
   "policyLevel": "sap:core:v1",
@@ -1253,6 +1256,7 @@
 
 ```yaml
 {
+  "$schema": "https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Document.schema.json",
   "openResourceDiscovery": "1.9",
   "description": "Example for entity types as they will be exposed by ODM",
   "policyLevel": "sap:core:v1",
@@ -1261,7 +1265,7 @@
       "ordId": "sap.odm:package:OdmEntities:v1",
       "title": "ODM Entities",
       "shortDescription": "This package includes all aligned ODM Entities",
-      "description": "The ODM Entities are governed by the OMD Governance Board. They are semantically cross-LoB aligned and provide an unambiguous taxonomy",
+      "description": "The ODM Entities are governed by the ODM Governance Board. They are semantically cross-LoB aligned and provide an unambiguous taxonomy",
       "version": "1.0.0",
       "policyLevel": "sap:core:v1",
       "vendor": "sap:vendor:SAP:"
@@ -1297,6 +1301,7 @@
 
 ```yaml
 {
+  "$schema": "https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Document.schema.json",
   "openResourceDiscovery": "1.9",
   "description": "This ORD Document example contains more special examples, like custom SAP protocols",
   "policyLevel": "sap:core:v1",

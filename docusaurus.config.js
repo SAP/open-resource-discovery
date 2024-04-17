@@ -9,6 +9,7 @@ const config = {
   tagline: 'An aligned protocol for publishing and discovering metadata about systems.',
   url: 'https://sap.github.io',
   baseUrl: '/open-resource-discovery',
+  trailingSlash: false,
   onBrokenLinks: 'throw',
   onDuplicateRoutes: 'throw',
   onBrokenMarkdownLinks: 'throw',

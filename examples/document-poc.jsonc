@@ -1,4 +1,5 @@
 {
+  "$schema": "https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Document.schema.json",
   "openResourceDiscovery": "1.9"
   // This document demonstrates that we can also write .jsonc (JSON with Comments) examples.
   // JSONC can be helpful for PoCs where we start with writing example ORD documents with additional explanations.

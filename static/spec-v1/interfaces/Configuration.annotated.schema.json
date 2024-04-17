@@ -115,9 +115,15 @@
     "$schema": {
       "type": "string",
       "format": "uri-reference",
-      "description": "An optional URL to the ORD document schema (defined as JSON Schema).\nIf given, this enables code intelligence and validation in supported editors (like VSCode) and tools.",
-      "examples": [
-        "https://raw.githubusercontent.com/SAP/open-resource-discovery/main/static/spec-v1/interfaces/Configuration.schema.json"
+      "description": "Optional URL to the ORD document schema (defined as JSON Schema).\nIf given, this enables code intelligence and validation in supported editors (like VSCode) and tools.",
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uri-reference"
+        },
+        {
+          "const": "https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Configuration.schema.json"
+        }
       ]
     },
     "baseUrl": {

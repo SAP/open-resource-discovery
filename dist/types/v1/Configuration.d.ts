@@ -7,10 +7,10 @@
  */
 export interface ORDConfiguration {
     /**
-     * An optional URL to the ORD document schema (defined as JSON Schema).
+     * Optional URL to the ORD document schema (defined as JSON Schema).
      * If given, this enables code intelligence and validation in supported editors (like VSCode) and tools.
      */
-    $schema?: string;
+    $schema?: (string | "https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Configuration.schema.json") & string;
     /**
      * Optional [base URL](../index.md#def-base-url) that can be used to resolve the relative URLs to the ORD Documents.
      *

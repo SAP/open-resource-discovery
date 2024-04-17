@@ -12,9 +12,17 @@ For a roadmap including expected timeline, please refer to [ROADMAP.md](./ROADMA
 
 ### Added
 
+- Added explicit statement that the same resource definition type MUST NOT be provided more than once.
+  - This was already implied, but not stated explicitly.
 - Added two new (optional) SHOULD statements regarding deprecation and sunset lifecycle. We think they represent common sense / practice and help with validating a good usage of the related attributes.
   - If `successors` is given, the described resource SHOULD set its `releaseStatus` to `deprecated`.
   - If a resource is deprecated without defining its `successors`, a `sunsetDate` SHOULD be provided.
+
+### Changed
+
+- Renamed the term application namespace to system namespace
+  - This is more consistent with the existing ORD terminology around system type
+  - As it's only used as a term and not in the interface, this is not a breaking change
 
 ## [1.9.0]
 

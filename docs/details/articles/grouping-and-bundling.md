@@ -79,24 +79,29 @@ Those are currently not described in ORD and the Consumption Bundle should there
 Within consumption bundle, we anticipate to provide more machine-readable information that help to understand and automate the necessary steps to get access.
 E.g. how credentials can be programmatically obtained could be described by attached `credentialExchangeStrategies`.
 
+> It is important to understand that the Consumption Bundle is conceptually like a Template or HowTo guide. It only provides information how access / credentials / clients can be obtained for API usage, not what is already available. The latter would be the result of an "instantiation" of a Consumption Bundle, or something that is already setup and managed by the application itself.
+
 > 🚧 Please note that the Consumption Bundle concept is still in a rather basic form and may be extended in the future.
 
 ### Entity Type
 
-An [**Entity Type**](../../spec-v1/interfaces/document#entity-type) describes a business object as a term or an underlying conceptual model.
+An [**Entity Type**](../../spec-v1/interfaces/document#entity-type) describes a underlying conceptual model (e.g. a business object / domain model).
+In special cases, the entity type could just be a term, describing the semantics but without an actual model behind it.
+
+They represent an "internal" concept and are part of the ORD taxonomy. They should not leak internal implementation details, but can be used to create relations to and between external resources and capabilities and relate them to "business semantics".
 
 Relationships to entity types can be assigned to API & Event resources, data products and other entity types:
 
 ![Entity Type Relations](/img/entity-type-relations.drawio.svg)
 
-In case it represents a business object / term, the entity types can be used to describe the domain objects like a glossary of nouns that are consistently used.
+The case of "underlying conceptual models", they relate to internal application models that usually have structure (properties, behavior).
+Ideally (see DDD), the underlying conceptual models represent the [ubiquitous language](https://martinfowler.com/bliki/UbiquitousLanguage.html) and have consistent semantics within the domain / bounded context. In other contexts, they might be called conceptual or logical (data) models or just internal models.
+Such models may have a lifecycle, so the ORD ID major version may be of relevance.
+
+In case the entity type represents a term, they can be used to describe the domain objects like a glossary of nouns that are consistently used.
 Such entity types usually have no lifecycle, and the ORD ID will have to set `v1` as major version.
 
-The case of "underlying conceptual models", they relate to internal application models that usually have structure (properties, behavior).
-Ideally (see DDD), the underlying conceptual models are also the internal and external domain language and have consistent semantics within the domain / bounded context. In other contexts, they might be called conceptual or logical (data) models.
-Such models can have a lifecycle, so the ORD ID major version may be of relevance.
-
-The same entity type can be exposed through one or multiple API and events resources.
+The same entity type can be related to one or multiple API and events resources, data products or other entity types.
 The entity type does NOT represent a consumer contract, but describes an internal artifact / concept within the described application.
 However, it's an important concept for the domain language and structure of the application and can be very useful to put other ORD concepts into relation with it.
 

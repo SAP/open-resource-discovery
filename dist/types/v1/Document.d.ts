@@ -14,11 +14,10 @@ export type RuntimeRestriction = "sap.datasphere";
  */
 export interface ORDDocument {
     /**
-     * An optional [URL](https://tools.ietf.org/html/rfc3986) to the Open Resource Discovery document schema (Defined as a JSON Schema).
-     *
+     * Optional [URL](https://tools.ietf.org/html/rfc3986) to the Open Resource Discovery document schema (defined as a JSON Schema).
      * If provided, this enables code intelligence and validation in supported editors (like VSCode) and tools.
      */
-    $schema?: string;
+    $schema?: (string | "https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Document.schema.json") & string;
     /**
      * Version of the Open Resource Discovery specification that is used to describe this document.
      */
@@ -418,11 +417,14 @@ export interface APIResource {
      */
     apiProtocol: "odata-v2" | "odata-v4" | "rest" | "graphql" | "delta-sharing" | "soap-inbound" | "soap-outbound" | "websocket" | "sap-rfc" | "sap-sql-api-v1" | "sap-ina-api-v1";
     /**
-     * List of available machine-readable resource definitions.
+     * List of available machine-readable definitions, which describe the resource or capability in detail.
      *
-     * It is RECOMMENDED to provide the resource definitions as they enable machine-readable use cases.
-     * If resource definitions are added or changed, the `version` MUST be incremented.
-     * An ORD aggregator MAY only (re)fetch the resource definitions again when the `version` was incremented.
+     * Each definition is to be understood as an alternative description format, describing the same resource / capability.
+     * As a consequence the same definition type MUST NOT be provided more than once.
+     *
+     * It is RECOMMENDED to provide the definitions as they enable machine-readable use cases.
+     * If the definitions are added or changed, the `version` MUST be incremented.
+     * An ORD aggregator MAY only (re)fetch the definitions again when the `version` was incremented.
      */
     resourceDefinitions?: APIResourceDefinition[];
     /**
@@ -1032,11 +1034,14 @@ export interface EventResource {
      */
     changelogEntries?: ChangelogEntry[];
     /**
-     * List of available machine-readable resource definitions.
+     * List of available machine-readable definitions, which describe the resource or capability in detail.
      *
-     * It is RECOMMENDED to provide resource definitions (if applicable) as they enable machine-readable use cases.
-     * If resource definitions are added or changed, the `version` MUST be incremented.
-     * An ORD aggregator MAY only (re)fetch the resource definitions again when the `version` was incremented.
+     * Each definition is to be understood as an alternative description format, describing the same resource / capability.
+     * As a consequence the same definition type MUST NOT be provided more than once.
+     *
+     * It is RECOMMENDED to provide the definitions as they enable machine-readable use cases.
+     * If the definitions are added or changed, the `version` MUST be incremented.
+     * An ORD aggregator MAY only (re)fetch the definitions again when the `version` was incremented.
      */
     resourceDefinitions?: EventResourceDefinition[];
     /**
@@ -1528,9 +1533,14 @@ export interface Capability {
      */
     relatedEntityTypes?: string[];
     /**
-     * List of available machine-readable capability definitions.
+     * List of available machine-readable definitions, which describe the resource or capability in detail.
      *
-     * If capability definitions are added or changed, the `version` SHOULD be incremented and `lastUpdate` be updated.
+     * Each definition is to be understood as an alternative description format, describing the same resource / capability.
+     * As a consequence the same definition type MUST NOT be provided more than once.
+     *
+     * It is RECOMMENDED to provide the definitions as they enable machine-readable use cases.
+     * If the definitions are added or changed, the `version` MUST be incremented.
+     * An ORD aggregator MAY only (re)fetch the definitions again when the `version` was incremented.
      */
     definitions?: CapabilityDefinition[];
     /**

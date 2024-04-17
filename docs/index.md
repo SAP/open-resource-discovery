@@ -42,7 +42,9 @@ Based on this, many end-user use cases can be realized, e.g.:
 
 Read the 📄 [ORD Introduction](./introduction.mdx) and watch the 🎦[ORD Videos](./details/videos).
 
-<iframe width="800" height="454" src="https://www.youtube.com/embed/7Z818CdoZJg" title="Introducing the Open Resource Discovery protocol" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<div className="videoContainer">
+  <iframe className="videoIframe" src="https://www.youtube.com/embed/7Z818CdoZJg" title="Introducing the Open Resource Discovery protocol" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+</div>
 
 ## Goals
 
@@ -59,7 +61,7 @@ Read the 📄 [ORD Introduction](./introduction.mdx) and watch the 🎦[ORD Vide
   - Description of both the static / generic perspective and the actual runtime perspective
   - Support of many different metadata-driven use-cases and consumer requirements
 - ORD is an **open standard**
-  - It is open-source an can be used by SAP partners and customers if they see a value in adopting it, like better integration in the SAP ecosystem
+  - It is [open source](https://github.com/SAP/open-resource-discovery) an can be used by SAP partners and customers if they see a value in adopting it, like better integration in the SAP ecosystem
   - The specification is open for extensions via labels, custom types, spec extensions. Those don't need to go through alignment first.
 
 </p></div></div></div>

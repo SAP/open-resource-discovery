@@ -197,13 +197,15 @@ components:
           type: string
           format: uri-reference
           description: >-
-            An optional [URL](https://tools.ietf.org/html/rfc3986) to the Open Resource Discovery document schema
-            (Defined as a JSON Schema).
-
+            Optional [URL](https://tools.ietf.org/html/rfc3986) to the Open Resource Discovery document schema (defined
+            as a JSON Schema).
 
             If provided, this enables code intelligence and validation in supported editors (like VSCode) and tools.
-          example: >-
-            https://raw.githubusercontent.com/SAP/open-resource-discovery/main/static/spec-v1/interfaces/Document.schema.json
+          anyOf:
+            - type: string
+              format: uri-reference
+            - enum:
+                - https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Document.schema.json
         openResourceDiscovery:
           type: string
           description: Version of the Open Resource Discovery specification that is used to describe this document.
@@ -1292,12 +1294,21 @@ components:
           example: rest
         resourceDefinitions:
           type: array
-          description: |-
-            List of available machine-readable resource definitions.
+          description: >-
+            List of available machine-readable definitions, which describe the resource or capability in detail.
 
-            It is RECOMMENDED to provide the resource definitions as they enable machine-readable use cases.
-            If resource definitions are added or changed, the `version` MUST be incremented.
-            An ORD aggregator MAY only (re)fetch the resource definitions again when the `version` was incremented.
+
+            Each definition is to be understood as an alternative description format, describing the same resource /
+            capability.
+
+            As a consequence the same definition type MUST NOT be provided more than once.
+
+
+            It is RECOMMENDED to provide the definitions as they enable machine-readable use cases.
+
+            If the definitions are added or changed, the `version` MUST be incremented.
+
+            An ORD aggregator MAY only (re)fetch the definitions again when the `version` was incremented.
           items:
             $ref: '#/components/schemas/ApiResourceDefinition'
         implementationStandard:
@@ -1948,12 +1959,21 @@ components:
             $ref: '#/components/schemas/ChangelogEntry'
         resourceDefinitions:
           type: array
-          description: |-
-            List of available machine-readable resource definitions.
+          description: >-
+            List of available machine-readable definitions, which describe the resource or capability in detail.
 
-            It is RECOMMENDED to provide resource definitions (if applicable) as they enable machine-readable use cases.
-            If resource definitions are added or changed, the `version` MUST be incremented.
-            An ORD aggregator MAY only (re)fetch the resource definitions again when the `version` was incremented.
+
+            Each definition is to be understood as an alternative description format, describing the same resource /
+            capability.
+
+            As a consequence the same definition type MUST NOT be provided more than once.
+
+
+            It is RECOMMENDED to provide the definitions as they enable machine-readable use cases.
+
+            If the definitions are added or changed, the `version` MUST be incremented.
+
+            An ORD aggregator MAY only (re)fetch the definitions again when the `version` was incremented.
           items:
             $ref: '#/components/schemas/EventResourceDefinition'
         implementationStandard:
@@ -3663,11 +3683,20 @@ components:
         definitions:
           type: array
           description: >-
-            List of available machine-readable capability definitions.
+            List of available machine-readable definitions, which describe the resource or capability in detail.
 
 
-            If capability definitions are added or changed, the `version` SHOULD be incremented and `lastUpdate` be
-            updated.
+            Each definition is to be understood as an alternative description format, describing the same resource /
+            capability.
+
+            As a consequence the same definition type MUST NOT be provided more than once.
+
+
+            It is RECOMMENDED to provide the definitions as they enable machine-readable use cases.
+
+            If the definitions are added or changed, the `version` MUST be incremented.
+
+            An ORD aggregator MAY only (re)fetch the definitions again when the `version` was incremented.
           items:
             $ref: '#/components/schemas/CapabilityDefinition'
         links:
@@ -5212,10 +5241,13 @@ components:
           type: string
           format: uri-reference
           description: |-
-            An optional URL to the ORD document schema (defined as JSON Schema).
+            Optional URL to the ORD document schema (defined as JSON Schema).
             If given, this enables code intelligence and validation in supported editors (like VSCode) and tools.
-          example: >-
-            https://raw.githubusercontent.com/SAP/open-resource-discovery/main/static/spec-v1/interfaces/Configuration.schema.json
+          anyOf:
+            - type: string
+              format: uri-reference
+            - enum:
+                - https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Configuration.schema.json
         baseUrl:
           type: string
           format: uri

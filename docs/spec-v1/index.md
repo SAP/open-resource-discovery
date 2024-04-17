@@ -53,7 +53,7 @@ This specification defines the following terms (for the ORD context):
 
 - <dfn id="def-ord-behavior">ORD behavior</dfn> standardizes how <a href="#def-ord-information">ORD information</a> is discovered, transported, and aggregated.
 
-- A <dfn id="def-system-type">system type</dfn> is the abstract type of an application or service. It is also known as system role ([SAP CLD](https://support.sap.com/en/tools/software-logistics-tools/landscape-management-process/system-landscape-directory.html)). Within the specification it is also referred to as _application and service_ for better readability.
+- A <dfn id="def-system-type">system type</dfn> is the abstract type of an application or service. It is also known as system role ([SAP CLD](https://support.sap.com/en/tools/software-logistics-tools/landscape-management-process/system-landscape-directory.html)). Within the specification it is sometimes referred to as _application and service_ for better readability.
   Since system type is an abstract concept, it is not concretely addressable.
   A [system installation](#def-system-installation) and potentially a [system instance](#def-system-instance) needs to be created and used in this case.
 
@@ -103,11 +103,10 @@ A [system type](#def-system-type) can implement multiple roles, e.g. an ORD Cons
 
 ### ORD Provider
 
-An <dfn id="def-ord-provider">ORD provider</dfn> is a system instance (of an application or service) that provides ORD information.
-The **provider role** applies to business applications/services that want to describe themselves (<dfn id="def-described-system-instance">described system instance</dfn>).
+An <dfn id="def-ord-provider">ORD provider</dfn> is a system instance (of an application or service) that exposes ORD information for self-description.
 
 An ORD provider MUST implement the [ORD Document API](#ord-document-api), which entails providing an [ORD configuration endpoint](#ord-configuration-endpoint) and [ORD document(s)](#ord-document).
-An ORD provider MUST use one of the standardized [ORD transport modes](#ord-transport-modes) for the ORD documents.
+An ORD provider MUST use one of the standardized [ORD transport modes](#ord-transport-modes) for the ORD documents. Depending on the overall architecture, it MUST integrate with specific [ORD aggregators](#ord-aggregator).
 
 > 📖 See also: [How To Adopt ORD as a Provider](../details/articles/adopt-ord-as-provider.md).
 
@@ -230,7 +229,7 @@ The ORD document MUST be a valid [JSON](https://www.json.org/json-en.html) docum
 It MUST NOT exceed 2MB in size.
 If the size gets too big, consider splitting the information into multiple ORD documents instead.
 
-The interfaces are described in [ORD document interface](./interfaces/document), including [examples](./interfaces/document#examples).
+The interfaces are described in [ORD document interface](./interfaces/document.md), including [examples](./interfaces/document.md#examples).
 
 An ORD document MUST be compliant with the following [JSON Schema](https://json-schema.org/) definition: [Document.schema.json](https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Document.schema.json).
 
@@ -326,7 +325,7 @@ The motivation behind the ORD configuration endpoint is to:
 - Define which version(s) and capabilities of the ORD standard are currently supported by the [system instance](#def-system-instance).
 - Define where and how the ORD information can be accessed
   - Which transport mode is available (URLs to ORD document(s) indicate the [pull transport mode](#pull-transport))
-  - Which [access strategies](../spec-extensions/access-strategies) are available
+  - Which [access strategies](../spec-extensions/access-strategies/index.mdx) are available
 
 The idea behind the configuration endpoint is inspired by the [well-known URI](https://datatracker.ietf.org/doc/html/rfc8615) discovery mechanism.
 
@@ -586,28 +585,28 @@ Namespaces MUST follow the below structure:
 
 ```xml
 <vendorNamespace> := <vendorId>
-    <vendorId> := identifier of the vendor / organization.
+    <vendorId> := identifier for the vendor / organization.
 
-<applicationNamespace> := <vendorNamespace>.<applicationId>
-    <applicationId> := identifier of the service / application.
+<systemNamespace> := <vendorNamespace>.<systemTypeId>
+    <systemTypeId> := identifier for the system type (service / application).
 
 <authorityNamespace> := <vendorNamespace>.<authorityId>
-    <authorityId> := identifier of the authority.
+    <authorityId> := identifier for the authority.
 ```
 
-Optionally, Sub-Contexts can be defined as sub namespaces for application and authority namespaces:
+Optionally, Sub-Contexts can be defined as sub namespaces for system and authority namespaces:
 
 ```xml
-<namespace> := <applicationNamespace/authorityNamespace>[.<subContext>]
-    <subContext> := sub context below application or authority namespace. May consist of multiple fragments.
+<namespace> := <systemNamespace/authorityNamespace>[.<subContext>]
+    <subContext> := sub context below system or authority namespace. May consist of multiple fragments.
 ```
 
 **Constraints**:
 
 * A namespace MUST be ensured to be conflict free. This falls into the responsibility of the registered namespace owner. This registry can be used to ensure this for registered namespaces and sub-namespaces, but within them there needs to be some local governance.
-* All SAP applications MUST use the `sap` vendor namespace.
-* An application / service namespace and an authority namespace MUST always be a sub-namespace of a vendor namespace.
-* A sub-context namespace MUST always be a sub-namespace of either a an application / service namespace or an authority namespace.
+* All SAP applications and services MUST use the `sap` vendor namespace.
+* System namespaces and authority namespaces MUST always be a sub-namespace of a vendor namespace.
+* A sub-context namespace MUST always be a sub-namespace of either a system namespace or an authority namespace.
 * If sub-context namespaces are described in this registry, the list MUST be complete.
 
 #### Vendor Namespace
@@ -620,36 +619,38 @@ A vendor namespace MUST be constructed according to the following rules:
 `<vendorNamespace>` := `<vendorId>`
 
 - `<vendorId>` is a registered ID of a vendor.
-  - MUST only consist of lower case ASCII letters (`a-z`) and digits (`0-9`) (`^[a-z0-9]+$`).
+  - MUST only consist of lower case ASCII letters (`a-z`) and digits (`0-9`).
   - The organization using ORD MUST ensure that `<vendorId>` is uniquely registered, e.g. in a namespace registry.
   - There is a special reserved vendor namespace `customer`:
     - It can be used in extension scenarios, where the customer of an applications creates their own ORD resources.
     - This avoids that customers need to register their own namespaces (which could still be done as an alternative).
+- MUST match Regexp: `^[a-z0-9]+$`
 
 **Examples**: For SAP, we chose and registered `sap`.
 
 > 🚧 There is currently no global namespace registry where we can ensure that there are no conflicts across different vendors.
 
-#### Application Namespace
+#### System Namespace
 
-An <dfn id="def-ord-application-namespace">application namespace</dfn> is a stable and globally unique identifier namespace that corresponds to an application or service (ORD <a href="#def-system-type">system type</a>).
+An <dfn id="def-ord-system-namespace">system namespace</dfn> is a stable and globally unique identifier namespace that corresponds to an ORD <a href="#def-system-type">system type</a> (application or service type).
 
-The application / service is the technical, simplified view on an application or service.
+The system type is the top-level technical, simplified view on an application or service.
 We are aware that there can be hierarchical groupings of them to higher, logical concepts and also to divide them into multiple sub-components.
-Here we simplify on purpose and **treat the identity of an application / service flatly, without hierarchy**.
+Here we simplify on purpose and **treat the identity of an application / service type flatly, without hierarchy**.
 How this boundary is drawn depends on the technical decisions of the application / service.
 
 To model a more complex application or organizational structure, for instance containing multiple modules / components, further sub-fragments MAY be indicated via [subcontext namespaces](#subcontext-namespace).
 
-Application namespaces are sub-namespaces of exactly one vendor namespace.
+System namespaces are sub-namespaces of exactly one vendor namespace.
 
-An application namespace MUST be constructed according to the following rules:
+An system namespace MUST be constructed according to the following rules:
 
-`<applicationNamespace>` := `<vendorNamespace>.<unitIdentifier>`
+`<systemNamespace> := <vendorNamespace>.<systemTypeId>`
 
-- `<applicationNamespace>` MUST be a valid [vendor namespace](#vendor-namespace)
-- `<unitIdentifier>` is the identifier of the technical application or service.
-  - MUST only consist of lower case ASCII letters (`a-z`) and digits (`0-9`) (`^[a-z0-9]+$`).
+- `<systemNamespace>` MUST be a valid [vendor namespace](#vendor-namespace)
+- `<systemTypeId>` is the identifier of the technical system type (of the application or service).
+  - MUST only consist of lower case ASCII letters (`a-z`) and digits (`0-9`).
+- MUST match Regexp: `^[a-z0-9]+(?:[.][a-z0-9]+){1}$`
 
 **Examples**: `sap.s4`, `sap.dsc`.
 
@@ -666,13 +667,14 @@ An authority namespace MUST be constructed according to the following rules:
 
 - `<vendorNamespace>` MUST be a valid [vendor namespace](#vendor-namespace)
 - `<authorityIdentifier>` is the identifier of the organizational unit.
-  - MUST only consist of lower case ASCII letters (`a-z`) and digits (`0-9`) (`^[a-z0-9]+$`).
+  - MUST only consist of lower case ASCII letters (`a-z`) and digits (`0-9`).
+- MUST match Regexp: `^[a-z0-9]+(?:[.][a-z0-9]+){1}$`
 
 **Examples**: `sap.odm`.
 
 #### Subcontext Namespace
 
-A <dfn id="def-ord-subcontext-namespace">subcontext namespace</dfn> is a stable and globally unique identifier namespace that allows for further sub-grouping within an [application namespace](#application-namespace) or [authority namespace](#application-namespace).
+A <dfn id="def-ord-subcontext-namespace">subcontext namespace</dfn> is a stable and globally unique identifier namespace that allows for further sub-grouping within an [system namespace](#system-namespace) or [authority namespace](#system-namespace).
 
 A subcontext can be motivated by ownership, domain or technical modularity concerns.
   * A Sub-Context MUST be directly below an application / service namespace or an authority namespace.
@@ -682,14 +684,15 @@ A subcontext can be motivated by ownership, domain or technical modularity conce
 
 An subcontext namespace MUST be constructed according to the following rules:
 
-`<subcontextNamespace>` := `<applicationNamespace|authorityNamespace>.<subContextName>`
+`<subcontextNamespace>` := `<systemNamespace|authorityNamespace>.<subContextName>`
 
-- `<applicationNamespace|authorityNamespace>` MUST be a valid [application namespace](#application-namespace) or [authority namespace](#application-namespace).
+- `<systemNamespace|authorityNamespace>` MUST be a valid [system namespace](#system-namespace) or [authority namespace](#system-namespace).
 - `<subContextName>` is the identifier of the application / service.
   - MUST only consist of lower case ASCII letters (`a-z`) and digits (`0-9`) (`^[a-z0-9]+$`).
   - MAY include further subcontext namespaces, separated by `.`.
+- MUST match Regexp: `^[a-z0-9]+(?:[.][a-z0-9]+){2,}$`
 
-**Examples**: `sap.billing.sb`, `sap.s4.beh`, `sap.xref.sub`.
+**Examples**: `sap.billing.sb`, `sap.s4.beh`, `sap.odm.finance.bank`.
 
 ### ORD ID
 
@@ -719,9 +722,9 @@ It MUST be constructed as defined here:
 - **`<namespace>`** := an [ORD namespace](#namespaces).
 
   - For `Package`, `ConsumptionBundle`, `APIResource` and `EventResource`, `Capability` and `IntegrationDependency`:
-    - MUST be a valid [application namespace](#application-namespace) or an [subcontext namespace](#subcontext-namespace) thereof
+    - MUST be a valid [system namespace](#system-namespace) or an [subcontext namespace](#subcontext-namespace) thereof
   - For `EntityType`
-    - MUST be a valid [application namespace](#application-namespace), [authority namespace](#authority-namespace) or [subcontext namespace](#subcontext-namespace)
+    - MUST be a valid [system namespace](#system-namespace), [authority namespace](#authority-namespace) or [subcontext namespace](#subcontext-namespace)
   - For `Vendor` and `Product`:
     - MUST be a valid [vendor namespace](#def-ord-vendor-namespace) for `Vendor` and `Product`
 
@@ -871,7 +874,7 @@ Examples (contrived):
 
 A <dfn id="def-specification-id">Specification ID</dfn> is a stable and globally unique reference to a specification of a standard, procedure or guideline.
 
-It can be used to indicate which strategy to use for certain ORD behaviors ([access strategies](../spec-extensions/access-strategies), credential exchange strategies, [policy levels](../spec-extensions/policy-levels) and can be implemented in multiple ways (see [strategy pattern](https://en.wikipedia.org/wiki/Strategy_pattern)).
+It can be used to indicate which strategy to use for certain ORD behaviors ([access strategies](../spec-extensions/access-strategies/index.mdx), credential exchange strategies, [policy levels](../spec-extensions/policy-levels/index.mdx) and can be implemented in multiple ways (see [strategy pattern](https://en.wikipedia.org/wiki/Strategy_pattern)).
 In some situations it is also used to refer to certain implementation standards (for example resource definition standards).
 
 #### Specification ID Construction
@@ -882,7 +885,7 @@ In some situations it is also used to refer to certain implementation standards 
 
   - MUST be a valid [namespace](#namespaces).
 
-  - If the specification is specific only to a single application, an [application namespace](#application-namespace) SHOULD be chosen.
+  - If the specification is specific only to a single application / service, an [system namespace](#system-namespace) SHOULD be chosen.
 
 - **`<specificationIdentifier>`** a technical Specification Identifier that is unique within `<namespace>`
 
@@ -924,7 +927,7 @@ The `releaseStatus` MUST be used to indicate `deprecated` or `decommissioned`.
 When an ORD resource has been removed (decommissioned) or an ORD taxonomy is no longer used, it:
 
 - MUST be removed from ORD
-- Its removal MUST be indicated by explicitly setting a [`Tombstone`](interfaces/document#document.tombstones).
+- Its removal MUST be indicated by explicitly setting a [`Tombstone`](interfaces/document.md#document.tombstones).
 
 ![IDs, Version and Lifecycle](/img/versioning-and-lifecycle.svg 'IDs, Version and Lifecycle')
 

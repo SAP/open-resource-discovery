@@ -6,6 +6,7 @@
 
 ```yaml
 {
+  "$schema": "https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Configuration.schema.json",
   "openResourceDiscoveryV1": {
     "documents": [
       {
