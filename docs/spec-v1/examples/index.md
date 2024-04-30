@@ -3,7 +3,7 @@ sidebar_position: 5
 hide_table_of_contents: true
 ---
 
-# ORD Example Files
+# Example Files
 
 This section contains example ORD Document and ORD Configuration files.
 

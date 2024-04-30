@@ -53,6 +53,7 @@ const config = {
   scripts: ['/open-resource-discovery/js/custom.js'],
 
   themes: [
+    '@docusaurus/theme-mermaid',
     [
       require.resolve('@easyops-cn/docusaurus-search-local'),
       {
@@ -77,6 +78,9 @@ const config = {
       },
       prism: {
         theme: prismThemes.oceanicNext,
+      },
+      mermaid: {
+        theme: { light: 'neutral', dark: 'forest' },
       },
       navbar: {
         title: '',

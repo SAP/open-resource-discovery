@@ -10,11 +10,16 @@ function locationHashChanged() {
   const highlightedElement = document.getElementById(highlightedElementId)
   if (highlightedElement) {
     highlightedElement.classList.add('highlight')
-    addAnchorTitle(highlightedElement.textContent)
+    if (highlightedElement.getElementsByTagName('a')[0]) {
+      addAnchorTitle(highlightedElement.getElementsByTagName('a')[0].title)
+    } else {
+      addAnchorTitle(highlightedElement.textContent)
+    }
   }
 }
 
 function addAnchorTitle(anchorTitle) {
   const split = document.title.split(' | ')
+  anchorTitle = anchorTitle.replace('Direct link to ', '')
   document.title = `${anchorTitle} | ${split[split.length - 1]} | ${split[split.length - 2]}`
 }
