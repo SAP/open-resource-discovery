@@ -93,6 +93,7 @@ We think describing such outward requirements fits well into the ORD scope, beca
           "eventResources": [
             {
               "ordId": "sap.billing.sb:eventResource:SAPSubscriptionBillingBusinessEvents:v2",
+              "systemTypeRestriction": ["sap.billing"],
               "subset": [
                 { "eventType": "sap.billing.sb.Subscription.Created.v2" },
                 { "eventType": "sap.billing.sb.Subscription.Deleted.v2" }
@@ -106,6 +107,10 @@ We think describing such outward requirements fits well into the ORD scope, beca
 ```
 
 The above example is a very simple application of the Integration Dependency of S/4HANA creating a subscription for Subscription Billing events (that are available through the SAP Event Broker intermediary). It only lists one requirement which refers to one event resource. But it states that from the event resource only a subset of event types  is needed. This addresses the requirement of SAP Event Broker around "Subscription Content" and helps them to provide a UI and more automation for creating event subscriptions based on the desired integration scenario.
+
+If we want to add more event subscriptions that are defined across more than one Event Resource, it needs to be added as another Aspect (as they are combined with AND condition).
+
+The `systemTypeRestriction` indicates that only events published by that system type (application or service) are meant to be subscribed, further narrowing down the subscription.
 
 In the future, we may need to extend the Integration Dependency with knowledge about whether it has been instantiated (or "enabled"). This becomes necessary when outside parties need to learn about whether the Integration Dependency has already been enabled for them or not. Whether this should be done via ORD protocol is not clear and needs further clarification.
 

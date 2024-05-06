@@ -29,6 +29,9 @@
           "eventResources": [
             {
               "ordId": "sap.billing.sb:eventResource:SAPSubscriptionBillingBusinessEvents:v2",
+              "systemTypeRestriction": [
+                "sap.billing"
+              ],
               "subset": [
                 {
                   "eventType": "sap.billing.sb.Subscription.Created.v2"
@@ -38,6 +41,24 @@
                 },
                 {
                   "eventType": "sap.billing.sb.Subscription.Deleted.v2"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Billing Forecast Events",
+          "description": "The second aspect is interpreted as AND condition and used in case events from multiple event resources / catalog need to be subscribed",
+          "mandatory": true,
+          "eventResources": [
+            {
+              "ordId": "sap.billing.sb:eventResource:SAPSubscriptionBillingBusinessEvents_BillingForecastEvents:v1",
+              "systemTypeRestriction": [
+                "sap.billing"
+              ],
+              "subset": [
+                {
+                  "eventType": "sap.billing.sb.billingForecast.created.v1"
                 }
               ]
             }
@@ -70,6 +91,9 @@
             // Please note that here
             {
               "ordId": "sap.cic:eventResource:RawCustomerOrder:v1",
+              "systemTypeRestriction": [
+                "sap.cic"
+              ],
               "subset": [
                 {
                   "eventType": "sap.cic.Order.OrderTransferred.v1"

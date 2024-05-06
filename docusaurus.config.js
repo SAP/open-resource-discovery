@@ -98,8 +98,24 @@ const config = {
             to: 'introduction',
           },
           {
+            type: 'dropdown',
+            position: 'left',
             label: 'Details',
             to: 'details/',
+            items: [
+              {
+                label: 'Articles',
+                to: '/details/articles/',
+              },
+              {
+                label: 'Videos',
+                to: '/details/videos',
+              },
+              {
+                label: 'FAQ',
+                to: '/details/faq',
+              },
+            ],
           },
           {
             type: 'dropdown',

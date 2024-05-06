@@ -22,7 +22,7 @@
     "Package": {
       "type": "object",
       "title": "Package",
-      "description": "A [**Package**](../../details/articles/grouping-and-bundling#package) organizes a set of related resources together, by publishing and catalog presentation concerns.\n\nFor more documentation and guidance how to correctly apply this, see [Package details](../../details/articles/grouping-and-bundling#package).\n\nA package SHOULD contain at least one resource. Avoid empty packages.\n\nA package does not have a `visibility` property.\nWhether it is displayed is decided by the fact, whether it contains any visible resources according to the visibility role of the aggregator.",
+      "description": "A [**Package**](../../details/articles/grouping-and-bundling#package) organizes a set of related resources together, by publishing and catalog presentation concerns.\n\nFor more documentation and guidance how to correctly apply this, see [Package details](../../details/articles/grouping-and-bundling#package).\n\nA package SHOULD contain at least one resource. Avoid empty packages.\n\nA package does not have a `visibility` property.\nWhether it is displayed is decided by the fact, whether it contains any visible resources according to the visibility role of the aggregator.\n\nTo learn more about the concept, see [Package](../../details/articles/grouping-and-bundling#package).",
       "properties": {
         "ordId": {
           "type": "string",
@@ -385,7 +385,7 @@
     "ConsumptionBundle": {
       "type": "object",
       "title": "Consumption Bundle",
-      "description": "A [**Consumption Bundle**](../../details/articles/grouping-and-bundling#consumption-bundle) groups APIs and Events together that can be consumed with the credentials and auth mechanism.\nIdeally it also includes instructions and details how to request access and credentials for resources.\n\nFor more documentation and guidance how to correctly this correctly, see [Consumption Bundle details](../../details/articles/grouping-and-bundling#consumption-bundle).\n\nA consumption bundle SHOULD have at least one association with a resource (0..n). Avoid empty consumption bundles.\nA consumption bundle MUST NOT contain APIs and Events that are NOT defined in the ORD document(s) returned\nby the system instance that defines the consumption bundle.\n\nPlease note that some ORD consumer use cases MAY depend on consumption bundle assignments to work with the resources.",
+      "description": "A [**Consumption Bundle**](../../details/articles/grouping-and-bundling#consumption-bundle) groups APIs and Events together that can be consumed with the credentials and auth mechanism.\nIdeally it also includes instructions and details how to request access and credentials for resources.\n\nFor more documentation and guidance how to correctly this correctly, see [Consumption Bundle details](../../details/articles/grouping-and-bundling#consumption-bundle).\n\nA consumption bundle SHOULD have at least one association with a resource (0..n). Avoid empty consumption bundles.\nA consumption bundle MUST NOT contain APIs and Events that are NOT defined in the ORD document(s) returned\nby the system instance that defines the consumption bundle.\n\nPlease note that some ORD consumer use cases MAY depend on consumption bundle assignments to work with the resources.\n\nTo learn more about the concept, see [Consumption Bundle](../../details/articles/grouping-and-bundling#consumption-bundle).",
       "properties": {
         "ordId": {
           "type": "string",
@@ -459,7 +459,7 @@
           "type": "string",
           "format": "date-time",
           "x-introduced-in-version": "1.4.0",
-          "description": "Optional, but RECOMMENDED indicator when (date-time) the last change to the resource (including its definitions) happened.\n\nThe date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).\n\nIf the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and updated to let the ORD aggregator know that they need to be fetched again.\n\nTogether with `systemInstanceAware`, this property SHOULD be used to optimize the metadata crawling process of the ORD aggregators.",
+          "description": "Optional, but RECOMMENDED indicator when (date-time) the last change to the resource (including its definitions) happened.\n\nThe date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).\n\nWhen retrieved from an ORD aggregator, `lastUpdate` will be reliable there and reflect either the provider based update time or the aggregator processing time.\nTherefore consumers MAY rely on it to detect changes to the metadata and the attached resource definition files.\n\nIf the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and updated to let the ORD aggregator know that they need to be fetched again.\n\nTogether with `systemInstanceAware`, this property SHOULD be used to optimize the metadata crawling process of the ORD aggregators.",
           "examples": [
             "2022-12-19T15:47:04+00:00"
           ]
@@ -684,7 +684,7 @@
           "type": "string",
           "format": "date-time",
           "x-introduced-in-version": "1.4.0",
-          "description": "Optional, but RECOMMENDED indicator when (date-time) the last change to the resource (including its definitions) happened.\n\nThe date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).\n\nIf the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and updated to let the ORD aggregator know that they need to be fetched again.\n\nTogether with `systemInstanceAware`, this property SHOULD be used to optimize the metadata crawling process of the ORD aggregators.",
+          "description": "Optional, but RECOMMENDED indicator when (date-time) the last change to the resource (including its definitions) happened.\n\nThe date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).\n\nWhen retrieved from an ORD aggregator, `lastUpdate` will be reliable there and reflect either the provider based update time or the aggregator processing time.\nTherefore consumers MAY rely on it to detect changes to the metadata and the attached resource definition files.\n\nIf the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and updated to let the ORD aggregator know that they need to be fetched again.\n\nTogether with `systemInstanceAware`, this property SHOULD be used to optimize the metadata crawling process of the ORD aggregators.",
           "examples": [
             "2022-12-19T15:47:04+00:00"
           ]
@@ -1414,7 +1414,7 @@
           "type": "string",
           "format": "date-time",
           "x-introduced-in-version": "1.4.0",
-          "description": "Optional, but RECOMMENDED indicator when (date-time) the last change to the resource (including its definitions) happened.\n\nThe date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).\n\nIf the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and updated to let the ORD aggregator know that they need to be fetched again.\n\nTogether with `systemInstanceAware`, this property SHOULD be used to optimize the metadata crawling process of the ORD aggregators.",
+          "description": "Optional, but RECOMMENDED indicator when (date-time) the last change to the resource (including its definitions) happened.\n\nThe date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).\n\nWhen retrieved from an ORD aggregator, `lastUpdate` will be reliable there and reflect either the provider based update time or the aggregator processing time.\nTherefore consumers MAY rely on it to detect changes to the metadata and the attached resource definition files.\n\nIf the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and updated to let the ORD aggregator know that they need to be fetched again.\n\nTogether with `systemInstanceAware`, this property SHOULD be used to optimize the metadata crawling process of the ORD aggregators.",
           "examples": [
             "2022-12-19T15:47:04+00:00"
           ]
@@ -1837,7 +1837,7 @@
     "EntityType": {
       "type": "object",
       "title": "Entity Type",
-      "description": "An [**Entity Type**](../../details/articles/grouping-and-bundling#entity-type) describes either a business concept / term or an underlying conceptual model.\nThe same entity type can be exposed through one or multiple API and events resources.",
+      "description": "An [**Entity Type**](../../details/articles/grouping-and-bundling#entity-type) describes either a business concept / term or an underlying conceptual model.\nThe same entity type can be exposed through one or multiple API and events resources.\n\nTo learn more about the concept, see [Entity Type](../../details/articles/grouping-and-bundling#entity-type).",
       "x-introduced-in-version": "1.8.0",
       "properties": {
         "ordId": {
@@ -1968,7 +1968,7 @@
           "type": "string",
           "format": "date-time",
           "x-introduced-in-version": "1.4.0",
-          "description": "Optional, but RECOMMENDED indicator when (date-time) the last change to the resource (including its definitions) happened.\n\nThe date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).\n\nIf the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and updated to let the ORD aggregator know that they need to be fetched again.\n\nTogether with `systemInstanceAware`, this property SHOULD be used to optimize the metadata crawling process of the ORD aggregators.",
+          "description": "Optional, but RECOMMENDED indicator when (date-time) the last change to the resource (including its definitions) happened.\n\nThe date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).\n\nWhen retrieved from an ORD aggregator, `lastUpdate` will be reliable there and reflect either the provider based update time or the aggregator processing time.\nTherefore consumers MAY rely on it to detect changes to the metadata and the attached resource definition files.\n\nIf the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and updated to let the ORD aggregator know that they need to be fetched again.\n\nTogether with `systemInstanceAware`, this property SHOULD be used to optimize the metadata crawling process of the ORD aggregators.",
           "examples": [
             "2022-12-19T15:47:04+00:00"
           ]
@@ -2269,7 +2269,7 @@
           "type": "string",
           "format": "date-time",
           "x-introduced-in-version": "1.4.0",
-          "description": "Optional, but RECOMMENDED indicator when (date-time) the last change to the resource (including its definitions) happened.\n\nThe date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).\n\nIf the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and updated to let the ORD aggregator know that they need to be fetched again.\n\nTogether with `systemInstanceAware`, this property SHOULD be used to optimize the metadata crawling process of the ORD aggregators.",
+          "description": "Optional, but RECOMMENDED indicator when (date-time) the last change to the resource (including its definitions) happened.\n\nThe date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).\n\nWhen retrieved from an ORD aggregator, `lastUpdate` will be reliable there and reflect either the provider based update time or the aggregator processing time.\nTherefore consumers MAY rely on it to detect changes to the metadata and the attached resource definition files.\n\nIf the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and updated to let the ORD aggregator know that they need to be fetched again.\n\nTogether with `systemInstanceAware`, this property SHOULD be used to optimize the metadata crawling process of the ORD aggregators.",
           "examples": [
             "2022-12-19T15:47:04+00:00"
           ]
@@ -3199,7 +3199,7 @@
           "type": "string",
           "format": "date-time",
           "x-introduced-in-version": "1.4.0",
-          "description": "Optional, but RECOMMENDED indicator when (date-time) the last change to the resource (including its definitions) happened.\n\nThe date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).\n\nIf the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and updated to let the ORD aggregator know that they need to be fetched again.\n\nTogether with `systemInstanceAware`, this property SHOULD be used to optimize the metadata crawling process of the ORD aggregators.",
+          "description": "Optional, but RECOMMENDED indicator when (date-time) the last change to the resource (including its definitions) happened.\n\nThe date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).\n\nWhen retrieved from an ORD aggregator, `lastUpdate` will be reliable there and reflect either the provider based update time or the aggregator processing time.\nTherefore consumers MAY rely on it to detect changes to the metadata and the attached resource definition files.\n\nIf the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and updated to let the ORD aggregator know that they need to be fetched again.\n\nTogether with `systemInstanceAware`, this property SHOULD be used to optimize the metadata crawling process of the ORD aggregators.",
           "examples": [
             "2022-12-19T15:47:04+00:00"
           ]
@@ -3405,7 +3405,7 @@
       "type": "object",
       "title": "Integration Dependency",
       "x-introduced-in-version": "1.7.0",
-      "description": "An [Integration Dependency](../../details/articles/integration-dependency) states that the described system (self) can integrate with external systems (integration target) to achieve an integration purpose.\nThe purpose could be to enable a certain feature or integration scenario, but it could also be a mandatory prerequisite for the described system to work.\n\nThe integration dependency includes a list of individual **aspects** that the integration consists of.\nAspects are an \"ingredient\" for the integration scenario (and are logically combined with AND condition).\nEach aspect can express alternatives (OR condition) on what API and event resources can be used to achieve the same outcome.\n\nThe direction of connection establishment, data flow is not directly implied and needs to be inferred from the referenced resources.\n\nIt is not in scope for the Integration Dependency to describe scenarios that external consumers have with the own exposed resources.\nThis would overstep the boundary of self-description.\n\nIf an integration scenario consists of two sides integration with each other, each need to describe its own part in it as an Integration Dependency.\nTherefore, if an integration with multiple types of systems need to be setup, this SHOULD be separated into distinct Integration Dependencies.\n\nAn integration dependency is also not meant to describe a bigger process.\nInstead it focuses on the technical necessaries to create an integration for one particular purpose.\n\nFor more details, see [Integration Dependency](../../details/articles/integration-dependency).",
+      "description": "An [Integration Dependency](../../details/articles/integration-dependency) states that the described system (self) can integrate with external systems (integration target) to achieve an integration purpose.\nThe purpose could be to enable a certain feature or integration scenario, but it could also be a mandatory prerequisite for the described system to work.\n\nThe integration dependency includes a list of individual **aspects** that the integration consists of.\nAspects are an \"ingredient\" for the integration scenario (and are logically combined with AND condition).\nEach aspect can express alternatives (OR condition) on what API and event resources can be used to achieve the same outcome.\n\nThe direction of connection establishment, data flow is not directly implied and needs to be inferred from the referenced resources.\n\nIt is not in scope for the Integration Dependency to describe scenarios that external consumers have with the own exposed resources.\nThis would overstep the boundary of self-description.\n\nIf an integration scenario consists of two sides integration with each other, each need to describe its own part in it as an Integration Dependency.\nTherefore, if an integration with multiple types of systems need to be setup, this SHOULD be separated into distinct Integration Dependencies.\n\nAn integration dependency is also not meant to describe a bigger process.\nInstead it focuses on the technical necessaries to create an integration for one particular purpose.\n\nTo learn more about the concept, see [Integration Dependency](../../details/articles/integration-dependency).",
       "properties": {
         "ordId": {
           "type": "string",
@@ -3501,7 +3501,7 @@
           "type": "string",
           "format": "date-time",
           "x-introduced-in-version": "1.4.0",
-          "description": "Optional, but RECOMMENDED indicator when (date-time) the last change to the resource (including its definitions) happened.\n\nThe date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).\n\nIf the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and updated to let the ORD aggregator know that they need to be fetched again.\n\nTogether with `systemInstanceAware`, this property SHOULD be used to optimize the metadata crawling process of the ORD aggregators.",
+          "description": "Optional, but RECOMMENDED indicator when (date-time) the last change to the resource (including its definitions) happened.\n\nThe date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).\n\nWhen retrieved from an ORD aggregator, `lastUpdate` will be reliable there and reflect either the provider based update time or the aggregator processing time.\nTherefore consumers MAY rely on it to detect changes to the metadata and the attached resource definition files.\n\nIf the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and updated to let the ORD aggregator know that they need to be fetched again.\n\nTogether with `systemInstanceAware`, this property SHOULD be used to optimize the metadata crawling process of the ORD aggregators.",
           "examples": [
             "2022-12-19T15:47:04+00:00"
           ]
@@ -3751,6 +3751,21 @@
           "items": {
             "$ref": "#/definitions/EventResourceIntegrationAspectSubset"
           }
+        },
+        "systemTypeRestriction": {
+          "type": "array",
+          "description": "In case that the event subscriptions are limited to known [system types](../index.md#def-system-type), they can be listed here as [system namespaces](../index.md#system-namespace).\n\nIf given, only system types of the defined namespaces are supported as integration partners.\nIf not given, there is no restriction which system type provides the events.",
+          "items": {
+            "type": "string",
+            "description": "Valid [system namespace](../index.md#system-namespace).\n",
+            "pattern": "^[a-z0-9]+(?:[.][a-z0-9]+){1}$"
+          },
+          "minItems": 1,
+          "examples": [
+            [
+              "sap.s4"
+            ]
+          ]
         }
       },
       "additionalProperties": false,
@@ -4354,7 +4369,7 @@
     "GroupType": {
       "title": "Group Type",
       "type": "object",
-      "description": "A Group Type defines the semantics of [group assignments](#group).\nWhat the Group Type means and how it is to be used correctly SHOULD be described in the `description` (which may include markdown links).\n\nGroup Types can be defined centrally (ownership by authority namespace) or decentrally (defined by application / service itself).\n\nTo learn more about the concept, please refer to the [Group Concept Documentation](../../details/articles/grouping-and-bundling#Groups).",
+      "description": "A Group Type defines the semantics of [group assignments](#group).\nWhat the Group Type means and how it is to be used correctly SHOULD be described in the `description` (which may include markdown links).\n\nGroup Types can be defined centrally (ownership by authority namespace) or decentrally (defined by application / service itself).\n\nTo learn more about the concept, see [Group Concept Documentation](../../details/articles/grouping-and-bundling#Groups).",
       "x-introduced-in-version": "1.9.0",
       "properties": {
         "groupTypeId": {
@@ -4399,7 +4414,7 @@
     "Group": {
       "title": "Group",
       "type": "object",
-      "description": "Group (instance) that resources can be assigned to.\n\nGroups are a lightweight custom taxonomy concept.\nThey express a \"part of\" relationship to the chosen group concept.\nIf an \"identity / equals\" relationship needs to be expressed, use the `correlationIds` instead.\n\nTo learn more about the concept, please refer to the [Group Concept Documentation](../../details/articles/grouping-and-bundling#Groups).",
+      "description": "Group (instance) that resources can be assigned to.\n\nGroups are a lightweight custom taxonomy concept.\nThey express a \"part of\" relationship to the chosen group concept.\nIf an \"identity / equals\" relationship needs to be expressed, use the `correlationIds` instead.\n\nTo learn more about the concept, see [Group Concept Documentation](../../details/articles/grouping-and-bundling#Groups).",
       "x-introduced-in-version": "1.9.0",
       "properties": {
         "groupId": {

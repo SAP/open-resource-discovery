@@ -326,6 +326,9 @@ export interface APIResource {
    *
    * The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
    *
+   * When retrieved from an ORD aggregator, `lastUpdate` will be reliable there and reflect either the provider based update time or the aggregator processing time.
+   * Therefore consumers MAY rely on it to detect changes to the metadata and the attached resource definition files.
+   *
    * If the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and updated to let the ORD aggregator know that they need to be fetched again.
    *
    * Together with `systemInstanceAware`, this property SHOULD be used to optimize the metadata crawling process of the ORD aggregators.
@@ -485,8 +488,7 @@ export interface APIResource {
    *
    * If no array is defined, it is assumed that this information is not provided.
    */
-  supportedUseCases?: (("data-federation" | "snapshot" | "incremental" | "streaming") &
-    ("data-federation" | "snapshot" | "incremental" | "streaming"))[];
+  supportedUseCases?: ("data-federation" | "snapshot" | "incremental" | "streaming")[];
   usage?: Usage;
   /**
    * Describes mappings between the API Models of the described resource to the underlying, conceptual entity types.
@@ -1063,6 +1065,9 @@ export interface EventResource {
    *
    * The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
    *
+   * When retrieved from an ORD aggregator, `lastUpdate` will be reliable there and reflect either the provider based update time or the aggregator processing time.
+   * Therefore consumers MAY rely on it to detect changes to the metadata and the attached resource definition files.
+   *
    * If the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and updated to let the ORD aggregator know that they need to be fetched again.
    *
    * Together with `systemInstanceAware`, this property SHOULD be used to optimize the metadata crawling process of the ORD aggregators.
@@ -1334,6 +1339,8 @@ export interface EventResourceDefinition {
 /**
  * An [**Entity Type**](../../details/articles/grouping-and-bundling#entity-type) describes either a business concept / term or an underlying conceptual model.
  * The same entity type can be exposed through one or multiple API and events resources.
+ *
+ * To learn more about the concept, see [Entity Type](../../details/articles/grouping-and-bundling#entity-type).
  */
 export interface EntityType {
   /**
@@ -1427,6 +1434,9 @@ export interface EntityType {
    * Optional, but RECOMMENDED indicator when (date-time) the last change to the resource (including its definitions) happened.
    *
    * The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
+   *
+   * When retrieved from an ORD aggregator, `lastUpdate` will be reliable there and reflect either the provider based update time or the aggregator processing time.
+   * Therefore consumers MAY rely on it to detect changes to the metadata and the attached resource definition files.
    *
    * If the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and updated to let the ORD aggregator know that they need to be fetched again.
    *
@@ -1648,6 +1658,9 @@ export interface Capability {
    *
    * The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
    *
+   * When retrieved from an ORD aggregator, `lastUpdate` will be reliable there and reflect either the provider based update time or the aggregator processing time.
+   * Therefore consumers MAY rely on it to detect changes to the metadata and the attached resource definition files.
+   *
    * If the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and updated to let the ORD aggregator know that they need to be fetched again.
    *
    * Together with `systemInstanceAware`, this property SHOULD be used to optimize the metadata crawling process of the ORD aggregators.
@@ -1835,6 +1848,9 @@ export interface DataProduct {
    * Optional, but RECOMMENDED indicator when (date-time) the last change to the resource (including its definitions) happened.
    *
    * The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
+   *
+   * When retrieved from an ORD aggregator, `lastUpdate` will be reliable there and reflect either the provider based update time or the aggregator processing time.
+   * Therefore consumers MAY rely on it to detect changes to the metadata and the attached resource definition files.
    *
    * If the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and updated to let the ORD aggregator know that they need to be fetched again.
    *
@@ -2116,7 +2132,7 @@ export interface DataProductLink {
  * An integration dependency is also not meant to describe a bigger process.
  * Instead it focuses on the technical necessaries to create an integration for one particular purpose.
  *
- * For more details, see [Integration Dependency](../../details/articles/integration-dependency).
+ * To learn more about the concept, see [Integration Dependency](../../details/articles/integration-dependency).
  */
 export interface IntegrationDependency {
   /**
@@ -2200,6 +2216,9 @@ export interface IntegrationDependency {
    * Optional, but RECOMMENDED indicator when (date-time) the last change to the resource (including its definitions) happened.
    *
    * The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
+   *
+   * When retrieved from an ORD aggregator, `lastUpdate` will be reliable there and reflect either the provider based update time or the aggregator processing time.
+   * Therefore consumers MAY rely on it to detect changes to the metadata and the attached resource definition files.
    *
    * If the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and updated to let the ORD aggregator know that they need to be fetched again.
    *
@@ -2339,6 +2358,15 @@ export interface EventResourceIntegrationAspect {
    * List of individual events or messages that are sufficient to achieve the aspect.
    */
   subset?: EventResourceIntegrationAspectSubset[];
+  /**
+   * In case that the event subscriptions are limited to known [system types](../index.md#def-system-type), they can be listed here as [system namespaces](../index.md#system-namespace).
+   *
+   * If given, only system types of the defined namespaces are supported as integration partners.
+   * If not given, there is no restriction which system type provides the events.
+   *
+   * @minItems 1
+   */
+  systemTypeRestriction?: [string, ...string[]];
 }
 /**
  * Defines that Event Resource Integration Aspect only requires a subset of the referenced contract.
@@ -2481,6 +2509,8 @@ export interface Product {
  *
  * A package does not have a `visibility` property.
  * Whether it is displayed is decided by the fact, whether it contains any visible resources according to the visibility role of the aggregator.
+ *
+ * To learn more about the concept, see [Package](../../details/articles/grouping-and-bundling#package).
  */
 export interface Package {
   /**
@@ -2712,6 +2742,8 @@ export interface PackageLink {
  * by the system instance that defines the consumption bundle.
  *
  * Please note that some ORD consumer use cases MAY depend on consumption bundle assignments to work with the resources.
+ *
+ * To learn more about the concept, see [Consumption Bundle](../../details/articles/grouping-and-bundling#consumption-bundle).
  */
 export interface ConsumptionBundle {
   /**
@@ -2775,6 +2807,9 @@ export interface ConsumptionBundle {
    * Optional, but RECOMMENDED indicator when (date-time) the last change to the resource (including its definitions) happened.
    *
    * The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
+   *
+   * When retrieved from an ORD aggregator, `lastUpdate` will be reliable there and reflect either the provider based update time or the aggregator processing time.
+   * Therefore consumers MAY rely on it to detect changes to the metadata and the attached resource definition files.
    *
    * If the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and updated to let the ORD aggregator know that they need to be fetched again.
    *
@@ -2851,7 +2886,7 @@ export interface CredentialExchangeStrategy {
  * They express a "part of" relationship to the chosen group concept.
  * If an "identity / equals" relationship needs to be expressed, use the `correlationIds` instead.
  *
- * To learn more about the concept, please refer to the [Group Concept Documentation](../../details/articles/grouping-and-bundling#Groups).
+ * To learn more about the concept, see [Group Concept Documentation](../../details/articles/grouping-and-bundling#Groups).
  */
 export interface Group {
   /**
@@ -2888,7 +2923,7 @@ export interface Group {
  *
  * Group Types can be defined centrally (ownership by authority namespace) or decentrally (defined by application / service itself).
  *
- * To learn more about the concept, please refer to the [Group Concept Documentation](../../details/articles/grouping-and-bundling#Groups).
+ * To learn more about the concept, see [Group Concept Documentation](../../details/articles/grouping-and-bundling#Groups).
  */
 export interface GroupType {
   /**

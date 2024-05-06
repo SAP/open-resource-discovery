@@ -255,6 +255,7 @@ API Resource Integration Aspect,minVersion,false,string
 Event Resource Integration Aspect,ordId,true,string
 Event Resource Integration Aspect,minVersion,false,string
 Event Resource Integration Aspect,subset,false,array<EventResourceIntegrationAspectSubset>
+Event Resource Integration Aspect,systemTypeRestriction,false,array<string>
 Event Resource Integration Aspect Subset,eventType,true,string
 Vendor,ordId,true,string
 Vendor,title,true,string
