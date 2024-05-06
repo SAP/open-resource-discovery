@@ -358,6 +358,9 @@ components:
 
         Whether it is displayed is decided by the fact, whether it contains any visible resources according to the
         visibility role of the aggregator.
+
+
+        To learn more about the concept, see [Package](../../details/articles/grouping-and-bundling#package).
       properties:
         ordId:
           type: string
@@ -720,6 +723,10 @@ components:
 
         Please note that some ORD consumer use cases MAY depend on consumption bundle assignments to work with the
         resources.
+
+
+        To learn more about the concept, see [Consumption
+        Bundle](../../details/articles/grouping-and-bundling#consumption-bundle).
       properties:
         ordId:
           type: string
@@ -827,6 +834,13 @@ components:
 
 
             The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
+
+
+            When retrieved from an ORD aggregator, `lastUpdate` will be reliable there and reflect either the provider
+            based update time or the aggregator processing time.
+
+            Therefore consumers MAY rely on it to detect changes to the metadata and the attached resource definition
+            files.
 
 
             If the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and
@@ -1120,6 +1134,13 @@ components:
 
 
             The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
+
+
+            When retrieved from an ORD aggregator, `lastUpdate` will be reliable there and reflect either the provider
+            based update time or the aggregator processing time.
+
+            Therefore consumers MAY rely on it to detect changes to the metadata and the attached resource definition
+            files.
 
 
             If the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and
@@ -1865,6 +1886,13 @@ components:
             The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
 
 
+            When retrieved from an ORD aggregator, `lastUpdate` will be reliable there and reflect either the provider
+            based update time or the aggregator processing time.
+
+            Therefore consumers MAY rely on it to detect changes to the metadata and the attached resource definition
+            files.
+
+
             If the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and
             updated to let the ORD aggregator know that they need to be fetched again.
 
@@ -2266,6 +2294,9 @@ components:
         concept / term or an underlying conceptual model.
 
         The same entity type can be exposed through one or multiple API and events resources.
+
+
+        To learn more about the concept, see [Entity Type](../../details/articles/grouping-and-bundling#entity-type).
       properties:
         ordId:
           type: string
@@ -2416,6 +2447,13 @@ components:
 
 
             The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
+
+
+            When retrieved from an ORD aggregator, `lastUpdate` will be reliable there and reflect either the provider
+            based update time or the aggregator processing time.
+
+            Therefore consumers MAY rely on it to detect changes to the metadata and the attached resource definition
+            files.
 
 
             If the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and
@@ -2754,6 +2792,13 @@ components:
 
 
             The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
+
+
+            When retrieved from an ORD aggregator, `lastUpdate` will be reliable there and reflect either the provider
+            based update time or the aggregator processing time.
+
+            Therefore consumers MAY rely on it to detect changes to the metadata and the attached resource definition
+            files.
 
 
             If the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and
@@ -3645,6 +3690,13 @@ components:
             The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
 
 
+            When retrieved from an ORD aggregator, `lastUpdate` will be reliable there and reflect either the provider
+            based update time or the aggregator processing time.
+
+            Therefore consumers MAY rely on it to detect changes to the metadata and the attached resource definition
+            files.
+
+
             If the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and
             updated to let the ORD aggregator know that they need to be fetched again.
 
@@ -3867,7 +3919,7 @@ components:
         Instead it focuses on the technical necessaries to create an integration for one particular purpose.
 
 
-        For more details, see [Integration Dependency](../../details/articles/integration-dependency).
+        To learn more about the concept, see [Integration Dependency](../../details/articles/integration-dependency).
       properties:
         ordId:
           type: string
@@ -4003,6 +4055,13 @@ components:
 
 
             The date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).
+
+
+            When retrieved from an ORD aggregator, `lastUpdate` will be reliable there and reflect either the provider
+            based update time or the aggregator processing time.
+
+            Therefore consumers MAY rely on it to detect changes to the metadata and the attached resource definition
+            files.
 
 
             If the resource has attached definitions, either the `version` or `lastUpdate` property MUST be defined and
@@ -4221,6 +4280,24 @@ components:
           description: List of individual events or messages that are sufficient to achieve the aspect.
           items:
             $ref: '#/components/schemas/EventResourceIntegrationAspectSubset'
+        systemTypeRestriction:
+          type: array
+          description: >-
+            In case that the event subscriptions are limited to known [system types](../index.md#def-system-type), they
+            can be listed here as [system namespaces](../index.md#system-namespace).
+
+
+            If given, only system types of the defined namespaces are supported as integration partners.
+
+            If not given, there is no restriction which system type provides the events.
+          items:
+            type: string
+            description: |
+              Valid [system namespace](../index.md#system-namespace).
+            pattern: ^[a-z0-9]+(?:[.][a-z0-9]+){1}$
+          minItems: 1
+          example:
+            - sap.s4
       required:
         - ordId
     EventResourceIntegrationAspectSubset:
@@ -4763,7 +4840,7 @@ components:
         service itself).
 
 
-        To learn more about the concept, please refer to the [Group Concept
+        To learn more about the concept, see [Group Concept
         Documentation](../../details/articles/grouping-and-bundling#Groups).
       properties:
         groupTypeId:
@@ -4811,7 +4888,7 @@ components:
         If an "identity / equals" relationship needs to be expressed, use the `correlationIds` instead.
 
 
-        To learn more about the concept, please refer to the [Group Concept
+        To learn more about the concept, see [Group Concept
         Documentation](../../details/articles/grouping-and-bundling#Groups).
       properties:
         groupId:
