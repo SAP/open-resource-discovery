@@ -29,6 +29,10 @@ const config = {
     locales: ['en'],
   },
 
+  markdown: {
+    mermaid: true,
+  },
+
   presets: [
     [
       'classic',
@@ -162,6 +166,10 @@ const config = {
               {
                 label: 'Policy Levels',
                 to: 'spec-extensions/policy-levels/',
+              },
+              {
+                label: 'Global Group Types',
+                to: 'spec-extensions/group-types/',
               },
             ],
           },
