@@ -1,5 +1,6 @@
 ---
 title: Open Access Strategy
+description: Access without mandatory authentication and authorization.
 ---
 
 # Open Access Strategy (v1.0)

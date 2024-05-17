@@ -1,6 +1,7 @@
 ---
 sidebar_position: 3
 hide_table_of_contents: false
+description: SAP pre-defined global group types.
 ---
 
 # SAP Global Group Types

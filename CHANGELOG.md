@@ -10,6 +10,18 @@ For a roadmap including expected timeline, please refer to [ROADMAP.md](./ROADMA
 
 ## [unreleased]
 
+## [1.9.2]
+
+### Added
+
+- Added `localId` to Packages, for consistency with other ORD resources
+- Added public link to the [SQL interface specification for SAP ecosystem](https://github.com/SAP/sql-interface-specification).
+
+### Changed
+
+- Data Product `shortDescription` and `description` are now mandatory
+  - This is a breaking change, but as the Data Product concept as a whole is beta, we'll introduce it as a patch change.
+
 ## [1.9.1]
 
 ### Added
@@ -21,7 +33,7 @@ For a roadmap including expected timeline, please refer to [ROADMAP.md](./ROADMA
 - Added explicit statement that the same resource definition type MUST NOT be provided more than once.
   - This was already implied, but not stated explicitly.
 - Added two new (optional) SHOULD statements regarding deprecation and sunset lifecycle.
-  - We think they represent common sense / practice and help with validating a good usage of the related attributes.
+  - They represent common sense / practice and help with validating a good usage of the related attributes.
   - If `successors` is given, the described resource SHOULD set its `releaseStatus` to `deprecated`.
   - If a resource is deprecated without defining its `successors`, a `sunsetDate` SHOULD be provided.
 - Clarification on consumer expectations toward `lastUpdate` property.
@@ -99,7 +111,7 @@ For a roadmap including expected timeline, please refer to [ROADMAP.md](./ROADMA
 
 - Made `accessStrategies` optional within the ORD document.
   - If this property is not provided, the definition URL will be available through the same access strategy as this ORD document.
-  - We RECOMMEND anyway that the attached metadata definitions are available with the same access strategies, to simplify the aggregator crawling process.
+  - It is RECOMMENDED anyway that the attached metadata definitions are available with the same access strategies, to simplify the aggregator crawling process.
 - Minor clarification on visibility of Packages (since they don't have an explicit property for it)
 
 ### Fixed
@@ -129,7 +141,7 @@ For a roadmap including expected timeline, please refer to [ROADMAP.md](./ROADMA
 ### Changed
 
 - Changed values of `supportedUseCases` on APIs
-  - Technically a breaking change, but no consumer used it, therefore we introduce it as minor change
+  - Technically a breaking change, but no consumer used it, therefore it is introduced as minor change
 - Introduced a clear distinction between application namespace and authority namespace instead of "unit namespace"
   - At SAP we already made that distinction.
   - Having a unit-namespace as a simplification didn't work out in all cases and introduced an unnecessary new term

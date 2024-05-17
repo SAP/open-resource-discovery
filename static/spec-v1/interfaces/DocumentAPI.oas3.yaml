@@ -21,6 +21,8 @@ externalDocs:
   url: https://sap.github.io/open-resource-discovery
 tags:
   - name: OpenResourceDiscovery
+servers:
+  - url: https://ord-reference-application.cfapps.sap.hana.ondemand.com/
 x-sap-api-type: REST
 x-sap-shortText: Implementation of the Open Resource Discovery 1.x Service Provider Interface
 x-sap-stateInfo:
@@ -371,6 +373,11 @@ components:
           pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):(package):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
           maxLength: 255
           example: sap.xref:package:SomePackage:v1
+        localId:
+          type: string
+          description: Local ID, as known by the described system.
+          maxLength: 255
+          example: SuccessFactorsRecruiting
         title:
           type: string
           description: |-
@@ -741,7 +748,7 @@ components:
           type: string
           description: Local ID, as known by the described system.
           maxLength: 255
-          example: bundleXYZ
+          example: SuccessFactorsRecruiting
         correlationIds:
           type: array
           description: >-
@@ -3176,6 +3183,8 @@ components:
         - type
         - category
         - title
+        - shortDescription
+        - description
         - version
         - releaseStatus
         - visibility
@@ -3313,11 +3322,13 @@ components:
             If this property is not provided, the definition URL will be available through the same access strategy as
             this ORD document.
 
-            We RECOMMEND anyway that the attached metadata definitions are available with the same access strategies, to
-            simplify the aggregator crawling process.
+            It is RECOMMENDED anyway that the attached metadata definitions are available with the same access
+            strategies, to simplify the aggregator crawling process.
           items:
             $ref: '#/components/schemas/AccessStrategy'
           minItems: 1
+          example:
+            - type: open
       required:
         - type
         - mediaType
@@ -3394,11 +3405,13 @@ components:
             If this property is not provided, the definition URL will be available through the same access strategy as
             this ORD document.
 
-            We RECOMMEND anyway that the attached metadata definitions are available with the same access strategies, to
-            simplify the aggregator crawling process.
+            It is RECOMMENDED anyway that the attached metadata definitions are available with the same access
+            strategies, to simplify the aggregator crawling process.
           items:
             $ref: '#/components/schemas/AccessStrategy'
           minItems: 1
+          example:
+            - type: open
       required:
         - type
         - mediaType
@@ -3549,7 +3562,7 @@ components:
           type: string
           description: Local ID, as known by the described system.
           maxLength: 255
-          example: bundleXYZ
+          example: SuccessFactorsRecruiting
         correlationIds:
           type: array
           description: >-
@@ -3869,11 +3882,13 @@ components:
             If this property is not provided, the definition URL will be available through the same access strategy as
             this ORD document.
 
-            We RECOMMEND anyway that the attached metadata definitions are available with the same access strategies, to
-            simplify the aggregator crawling process.
+            It is RECOMMENDED anyway that the attached metadata definitions are available with the same access
+            strategies, to simplify the aggregator crawling process.
           items:
             $ref: '#/components/schemas/AccessStrategy'
           minItems: 1
+          example:
+            - type: open
       required:
         - type
         - mediaType
@@ -3934,7 +3949,7 @@ components:
           type: string
           description: Local ID, as known by the described system.
           maxLength: 255
-          example: bundleXYZ
+          example: SuccessFactorsRecruiting
         correlationIds:
           type: array
           description: >-

@@ -89,7 +89,12 @@
         {
           "type": "openapi-v3",
           "mediaType": "application/json",
-          "url": "/ord/metadata/astronomy-v1.oas3.json"
+          "url": "/ord/metadata/astronomy-v1.oas3.json",
+          "accessStrategies": [
+            {
+              "type": "open"
+            }
+          ]
         }
       ],
       "entryPoints": [
@@ -115,7 +120,12 @@
         {
           "type": "asyncapi-v2",
           "mediaType": "application/json",
-          "url": "/some/path/asyncApi2.json"
+          "url": "/some/path/asyncApi2.json",
+          "accessStrategies": [
+            {
+              "type": "open"
+            }
+          ]
         }
       ],
       "extensible": {
@@ -136,7 +146,12 @@
         {
           "type": "asyncapi-v2",
           "mediaType": "application/json",
-          "url": "/api/eventCatalog.json"
+          "url": "/api/eventCatalog.json",
+          "accessStrategies": [
+            {
+              "type": "open"
+            }
+          ]
         }
       ],
       "extensible": {
@@ -160,7 +175,12 @@
         {
           "type": "sap.mdo:mdi-capability-definition:v1",
           "mediaType": "application/json",
-          "url": "/capabilities/foo.bar.json"
+          "url": "/capabilities/foo.bar.json",
+          "accessStrategies": [
+            {
+              "type": "open"
+            }
+          ]
         }
       ]
     }

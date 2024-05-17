@@ -1,5 +1,6 @@
 ---
 title: SAP Core v1
+description: "sap:core:v1 compliance level."
 ---
 
 # SAP Core Policy Level (v1.0)
@@ -17,10 +18,12 @@ It defines the core rules and guidelines that are shared across SAP, although mo
 
 ### Access Strategies
 
-- SAP applications and services MUST use SAP specific access strategies:
+- SAP applications and services MUST support SAP specific access strategies:
   - [`sap.businesshub:basic-auth:v1`](../access-strategies/sap-businesshub-basic-v1.md) for the [SAP Business Accelerator Hub](https://api.sap.com/).
     - The use of "mixed" access strategies is not supported, so both the ORD documents AND the attached resource definitions MUST be available through the same access strategy.
   - [`sap:cmp-mtls:v1`](../access-strategies/sap-cmp-mtls-v1.md) for the Unified Customer Landscape.
+- The `accessStrategy` [`open`](../access-strategies/open.md) MUST NOT be used without explicit consent by the responsible security experts, especially when the metadata could expose tenant (customer) specific information.
+- If the access strategy for retrieving the document differs from the retrieval of the resource definitions: At least one access strategy MUST also be provided for the resource definitions.
 
 ### Namespaces
 
@@ -120,7 +123,6 @@ The following constraints apply in addition to the constraints defined in the [O
 - If an API or event resource has been deprecated, the `deprecationDate` MUST be provided.
 - For all `releaseStatus` changes, a changelog entry SHOULD be created.
 - For the taxonomy properties `lineOfBusiness` and `industry`: Only the recommended values MUST be chosen.
-- The `accessStrategy` `open` MUST NOT be used without explicit consent by the responsible security experts, especially when the metadata could expose tenant (customer) specific information.
 - Although `Vendor` is technically not validated by a policy level, we need to ensure that within SAP we don't define the SAP vendor multiple times or reference it differently.
   - The SAP `Vendor` MUST NOT be defined by any SAP application or service, as this is done centrally.
   - The correct value for a SAP vendor reference is `sap:vendor:SAP:`.

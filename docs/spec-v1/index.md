@@ -186,8 +186,6 @@ They are are only listed here to outline potential modes that we anticipate.
 
 #### Import Transport
 
-> 🚧 We have already considered the import transport, but it has not been verified yet. We need to clarify what information is needed to make an ORD document truly self-contained for this use case.
-
 Manual import of the [ORD document](#ord-document) as a JSON file into an interested system or tool (offline mode):
 
 - The system instances do not need to know each other or be integrated in any way
@@ -635,7 +633,7 @@ A vendor namespace MUST be constructed according to the following rules:
 An <dfn id="def-ord-system-namespace">system namespace</dfn> is a stable and globally unique identifier namespace that corresponds to an ORD <a href="#def-system-type">system type</a> (application or service type).
 
 The system type is the top-level technical, simplified view on an application or service.
-We are aware that there can be hierarchical groupings of them to higher, logical concepts and also to divide them into multiple sub-components.
+There there can be hierarchical groupings of them to higher, logical concepts and also to divide them into multiple sub-components.
 Here we simplify on purpose and **treat the identity of an application / service type flatly, without hierarchy**.
 How this boundary is drawn depends on the technical decisions of the application / service.
 

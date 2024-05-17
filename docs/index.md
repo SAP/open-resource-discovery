@@ -73,9 +73,9 @@ Read the 📄 [ORD Introduction](./introduction.mdx) and watch the 🎦[ORD Vide
 - Describing resources or capabilities in extensive detail.
 - Currently: Describe resources other than those that are owned and exposed by the systems directly
   (only self-description of systems).
-  - We could change this scope in the future if necessary.
-- We don't put fast changing information into ORD, as the current pull-based transport mechanism would be to slow and expensive to support time-critical updates.
-  - We could change this in the future by introducing more efficient, asynchronous transport modes.
+  - This can be changed in the future if necessary.
+- Currently it is not recommended to put fast changing information into ORD, as the current pull-based transport mechanism would be to slow and expensive to support time-critical updates.
+  - This could change in the future by introducing more efficient, asynchronous transport modes.
 
 </p></div></div></div></div></div>
 

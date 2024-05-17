@@ -1,5 +1,6 @@
 Entity Name,Property Name,Mandatory,Property Type
 Package,ordId,true,string
+Package,localId,false,string
 Package,title,true,string
 Package,shortDescription,true,string
 Package,description,true,string
@@ -146,8 +147,8 @@ Data Product,ordId,true,string
 Data Product,localId,false,string
 Data Product,correlationIds,false,array<string>
 Data Product,title,true,string
-Data Product,shortDescription,false,string
-Data Product,description,false,string
+Data Product,shortDescription,true,string
+Data Product,description,true,string
 Data Product,partOfPackage,true,string
 Data Product,partOfGroups,false,array<string>
 Data Product,version,true,string

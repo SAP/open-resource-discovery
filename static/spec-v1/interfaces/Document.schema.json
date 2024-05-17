@@ -17,6 +17,14 @@
             "sap.xref:package:SomePackage:v1"
           ]
         },
+        "localId": {
+          "type": "string",
+          "description": "Local ID, as known by the described system.",
+          "maxLength": 255,
+          "examples": [
+            "SuccessFactorsRecruiting"
+          ]
+        },
         "title": {
           "type": "string",
           "description": "Human-readable title.\n\nMUST NOT exceed 255 chars.\nMUST NOT contain line breaks.",
@@ -373,7 +381,7 @@
           "description": "Local ID, as known by the described system.",
           "maxLength": 255,
           "examples": [
-            "bundleXYZ"
+            "SuccessFactorsRecruiting"
           ]
         },
         "correlationIds": {
@@ -790,7 +798,7 @@
             },
             {
               "const": "sap-sql-api-v1",
-              "description": "SAP SQL API.\nAn API Resource definition of type `sap-sql-api-definition-v1` MUST be provided.\nFor each API Resource definition: `type` MUST ONLY be set to `sap-sql-api-definition-v1` or `custom`."
+              "description": "SAP SQL API that follows the [SQL interface specification for SAP ecosystem](https://github.com/SAP/sql-interface-specification).\nAn API Resource definition of type `sap-sql-api-definition-v1` MUST be provided.\nFor each API Resource definition: `type` MUST ONLY be set to `sap-sql-api-definition-v1` or `custom`."
             },
             {
               "const": "sap-ina-api-v1",
@@ -2564,6 +2572,8 @@
         "type",
         "category",
         "title",
+        "shortDescription",
+        "description",
         "version",
         "releaseStatus",
         "visibility",
@@ -2660,7 +2670,7 @@
             },
             {
               "const": "sap-sql-api-definition-v1",
-              "description": "Proprietary metadata description format for SAP SQL API.\nThe `mediaType` MUST be be set to `application/json`.\nThe `apiProtocol` MUST be set to `sap-sql-api-v1`."
+              "description": "Metadata description format for SAP SQL API, following the [SQL interface specification for SAP ecosystem](https://github.com/SAP/sql-interface-specification).\nThe `mediaType` MUST be be set to `application/json`.\nThe `apiProtocol` MUST be set to `sap-sql-api-v1`."
             },
             {
               "const": "custom",
@@ -2717,11 +2727,18 @@
         },
         "accessStrategies": {
           "type": "array",
-          "description": "List of supported access strategies for retrieving metadata from the ORD provider.\nAn ORD Consumer/ORD Aggregator MAY choose any of the strategies.\n\nThe access strategies only apply to the metadata access and not the actual API access.\nThe actual access to the APIs for clients is described via Consumption Bundles.\n\nIf this property is not provided, the definition URL will be available through the same access strategy as this ORD document.\nWe RECOMMEND anyway that the attached metadata definitions are available with the same access strategies, to simplify the aggregator crawling process.",
+          "description": "List of supported access strategies for retrieving metadata from the ORD provider.\nAn ORD Consumer/ORD Aggregator MAY choose any of the strategies.\n\nThe access strategies only apply to the metadata access and not the actual API access.\nThe actual access to the APIs for clients is described via Consumption Bundles.\n\nIf this property is not provided, the definition URL will be available through the same access strategy as this ORD document.\nIt is RECOMMENDED anyway that the attached metadata definitions are available with the same access strategies, to simplify the aggregator crawling process.",
           "items": {
             "$ref": "#/definitions/AccessStrategy"
           },
-          "minItems": 1
+          "minItems": 1,
+          "examples": [
+            [
+              {
+                "type": "open"
+              }
+            ]
+          ]
         }
       },
       "additionalProperties": false,
@@ -2798,11 +2815,18 @@
         },
         "accessStrategies": {
           "type": "array",
-          "description": "List of supported access strategies for retrieving metadata from the ORD provider.\nAn ORD Consumer/ORD Aggregator MAY choose any of the strategies.\n\nThe access strategies only apply to the metadata access and not the actual API access.\nThe actual access to the APIs for clients is described via Consumption Bundles.\n\nIf this property is not provided, the definition URL will be available through the same access strategy as this ORD document.\nWe RECOMMEND anyway that the attached metadata definitions are available with the same access strategies, to simplify the aggregator crawling process.",
+          "description": "List of supported access strategies for retrieving metadata from the ORD provider.\nAn ORD Consumer/ORD Aggregator MAY choose any of the strategies.\n\nThe access strategies only apply to the metadata access and not the actual API access.\nThe actual access to the APIs for clients is described via Consumption Bundles.\n\nIf this property is not provided, the definition URL will be available through the same access strategy as this ORD document.\nIt is RECOMMENDED anyway that the attached metadata definitions are available with the same access strategies, to simplify the aggregator crawling process.",
           "items": {
             "$ref": "#/definitions/AccessStrategy"
           },
-          "minItems": 1
+          "minItems": 1,
+          "examples": [
+            [
+              {
+                "type": "open"
+              }
+            ]
+          ]
         }
       },
       "additionalProperties": false,
@@ -2932,7 +2956,7 @@
           "description": "Local ID, as known by the described system.",
           "maxLength": 255,
           "examples": [
-            "bundleXYZ"
+            "SuccessFactorsRecruiting"
           ]
         },
         "correlationIds": {
@@ -3209,11 +3233,18 @@
         },
         "accessStrategies": {
           "type": "array",
-          "description": "List of supported access strategies for retrieving metadata from the ORD provider.\nAn ORD Consumer/ORD Aggregator MAY choose any of the strategies.\n\nThe access strategies only apply to the metadata access and not the actual API access.\nThe actual access to the APIs for clients is described via Consumption Bundles.\n\nIf this property is not provided, the definition URL will be available through the same access strategy as this ORD document.\nWe RECOMMEND anyway that the attached metadata definitions are available with the same access strategies, to simplify the aggregator crawling process.",
+          "description": "List of supported access strategies for retrieving metadata from the ORD provider.\nAn ORD Consumer/ORD Aggregator MAY choose any of the strategies.\n\nThe access strategies only apply to the metadata access and not the actual API access.\nThe actual access to the APIs for clients is described via Consumption Bundles.\n\nIf this property is not provided, the definition URL will be available through the same access strategy as this ORD document.\nIt is RECOMMENDED anyway that the attached metadata definitions are available with the same access strategies, to simplify the aggregator crawling process.",
           "items": {
             "$ref": "#/definitions/AccessStrategy"
           },
-          "minItems": 1
+          "minItems": 1,
+          "examples": [
+            [
+              {
+                "type": "open"
+              }
+            ]
+          ]
         }
       },
       "additionalProperties": false,
@@ -3242,7 +3273,7 @@
           "description": "Local ID, as known by the described system.",
           "maxLength": 255,
           "examples": [
-            "bundleXYZ"
+            "SuccessFactorsRecruiting"
           ]
         },
         "correlationIds": {
@@ -4090,6 +4121,16 @@
       "additionalProperties": false,
       "required": [
         "type"
+      ],
+      "examples": [
+        {
+          "type": "open"
+        },
+        {
+          "type": "custom",
+          "customType": "sap.xref:open-local-tenant-id:v1",
+          "customDescription": "Custom description how to use custom access strategy"
+        }
       ]
     },
     "CredentialExchangeStrategy": {

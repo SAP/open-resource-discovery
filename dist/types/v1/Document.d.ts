@@ -638,7 +638,7 @@ export interface APIResourceDefinition {
      * The actual access to the APIs for clients is described via Consumption Bundles.
      *
      * If this property is not provided, the definition URL will be available through the same access strategy as this ORD document.
-     * We RECOMMEND anyway that the attached metadata definitions are available with the same access strategies, to simplify the aggregator crawling process.
+     * It is RECOMMENDED anyway that the attached metadata definitions are available with the same access strategies, to simplify the aggregator crawling process.
      *
      * @minItems 1
      */
@@ -1195,7 +1195,7 @@ export interface EventResourceDefinition {
      * The actual access to the APIs for clients is described via Consumption Bundles.
      *
      * If this property is not provided, the definition URL will be available through the same access strategy as this ORD document.
-     * We RECOMMEND anyway that the attached metadata definitions are available with the same access strategies, to simplify the aggregator crawling process.
+     * It is RECOMMENDED anyway that the attached metadata definitions are available with the same access strategies, to simplify the aggregator crawling process.
      *
      * @minItems 1
      */
@@ -1620,7 +1620,7 @@ export interface CapabilityDefinition {
      * The actual access to the APIs for clients is described via Consumption Bundles.
      *
      * If this property is not provided, the definition URL will be available through the same access strategy as this ORD document.
-     * We RECOMMEND anyway that the attached metadata definitions are available with the same access strategies, to simplify the aggregator crawling process.
+     * It is RECOMMENDED anyway that the attached metadata definitions are available with the same access strategies, to simplify the aggregator crawling process.
      *
      * @minItems 1
      */
@@ -1665,14 +1665,14 @@ export interface DataProduct {
      * MUST NOT exceed 255 chars.
      * MUST NOT contain line breaks.
      */
-    shortDescription?: string;
+    shortDescription: string;
     /**
      * Full description, notated in [CommonMark](https://spec.commonmark.org/) (Markdown).
      *
      * The description SHOULD not be excessive in length and is not meant to provide full documentation.
      * Detailed documentation SHOULD be attached as (typed) links.
      */
-    description?: string;
+    description: string;
     /**
      * Defines which Package the resource is part of.
      *
@@ -2337,6 +2337,10 @@ export interface Package {
      * It MUST be a valid [ORD ID](../index.md#ord-id) of the appropriate ORD type.
      */
     ordId: string;
+    /**
+     * Local ID, as known by the described system.
+     */
+    localId?: string;
     /**
      * Human-readable title.
      *
