@@ -8,23 +8,21 @@ sidebar_position: 0
 
 ## Summary
 
-Open Resource Discovery (ORD) is a protocol that **allows applications and services to self-describe their exposed resources and capabilities**.
-It can be used to describe static documentation, but can also reflect tenant specific configuration and extensions (at run-time).​
+Open Resource Discovery (ORD) is a protocol that **allows applications and services to self-describe their resources and capabilities** (e.g. ports and adapters).
+It can be used for static documentation, but also reflect tenant specific configuration and extensions at run-time.​
 
-Typically, ORD is used to describe [APIs](./spec-v1/interfaces/document#api-resource) and [Events](./spec-v1/interfaces/document#event-resource), but it also supports higher-level concepts like [Entity Types](./spec-v1/interfaces/document#entity-type) (Business Objects) and [Data Products](./spec-v1/interfaces/document#data-products) (beta).
-With [Integration Dependencies](./spec-v1/interfaces/document#integration-dependency) the (potential) use of external resources can be stated, too.
-In case that the standardized concepts or attributes are not sufficient, there are extensibility attributes and [Capabilities](./spec-v1/interfaces/document#capability).
-
-By adopting ORD, an application will implement a single-entry point ([Service Provider Interface](https://en.wikipedia.org/wiki/Service_provider_interface)) that can be used to discover and crawl the relevant information / metadata.
-The information can be used to build a static metadata catalog or do runtime inspection of actual system landscapes.
-
-> ℹ ORD is an open standard by SAP, released as [open source](https://github.com/SAP/open-resource-discovery) under the Apache 2 license (see [public announcement](https://blogs.sap.com/2023/11/14/open-resource-discovery-a-protocol-for-decentralized-metadata-discovery-is-now-open-source/)).
+Typically, ORD is used to describe [APIs](./spec-v1/interfaces/document#api-resource) and [Events](./spec-v1/interfaces/document#event-resource), but it also supports higher-level concepts like [Entity Types](./spec-v1/interfaces/document#entity-type) (Business Objects) and [Data Products](./details/articles/data-product.md) (beta).
+With [Integration Dependencies](./spec-v1/interfaces/document#integration-dependency) the potential use of external resources can be stated, too.
+In case that the standardized concepts or attributes are not sufficient, there are extensibility attributes and [Capabilities](./spec-v1/interfaces/document#capability). All of the described artifacts share a high-level taxonomy, [grouping](./details/articles/grouping-and-bundling.md) concepts, and have many types of relationships, so we get a **well connected metadata graph**.
 
 <div style={{"text-align": "center", "margin-top": "8px"}}>
-
 ![ORD Provider Overview](/img/ord-provider-overview.svg 'ORD Provider Overview')
-
 </div>
+
+By adopting ORD, an application will implement a single-entry point ([Service Provider Interface](https://en.wikipedia.org/wiki/Service_provider_interface)) that can be used to discover and crawl the relevant information / metadata.
+The information can be used to build metadata registries / catalogs and do runtime inspection of actual system landscapes.
+
+> ℹ ORD is an [open source](https://github.com/SAP/open-resource-discovery) standard by SAP, released under the Apache 2 license (see [public announcement](https://blogs.sap.com/2023/11/14/open-resource-discovery-a-protocol-for-decentralized-metadata-discovery-is-now-open-source/)).
 
 ## Use Cases
 

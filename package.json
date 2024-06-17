@@ -1,7 +1,7 @@
 {
   "$schema": "http://json.schemastore.org/package",
   "name": "@sap/open-resource-discovery",
-  "version": "1.9.2",
+  "version": "1.9.3",
   "description": "Open Resource Discovery (ORD) Specification",
   "author": "SAP SE",
   "license": "Apache-2.0",
@@ -21,10 +21,10 @@
     "deploy": "npm run build && gh-pages -d ./build"
   },
   "devDependencies": {
-    "@docusaurus/core": "3.3.2",
-    "@docusaurus/preset-classic": "3.3.2",
-    "@docusaurus/theme-mermaid": "3.3.2",
-    "@easyops-cn/docusaurus-search-local": "0.40.1",
+    "@docusaurus/core": "3.4.0",
+    "@docusaurus/preset-classic": "3.4.0",
+    "@docusaurus/theme-mermaid": "3.4.0",
+    "@easyops-cn/docusaurus-search-local": "0.44.0",
     "@mdx-js/react": "^3.0.1",
     "clsx": "^2.1.1",
     "prism-react-renderer": "^2.3.1",

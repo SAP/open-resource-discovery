@@ -10,6 +10,14 @@ For a roadmap including expected timeline, please refer to [ROADMAP.md](./ROADMA
 
 ## [unreleased]
 
+## [1.9.3]
+
+### Added
+
+- added optional `visibility` to Consumption Bundle
+  - Some consumption bundle access types are only meant for internal or private purposes. Especially when we have internal APIs, their assigned Consumption Bundles are likely internal, too.
+  - If `visibility` is not given, default is `public` (to ensure backward compatibility)
+
 ## [1.9.2]
 
 ### Added

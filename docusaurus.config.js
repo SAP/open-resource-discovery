@@ -180,6 +180,10 @@ const config = {
             to: 'ecosystem/',
             items: [
               {
+                label: 'Overview',
+                to: 'ecosystem/',
+              },
+              {
                 label: 'ORD Reference Application',
                 href: 'https://ord-reference-application.cfapps.sap.hana.ondemand.com/',
               },

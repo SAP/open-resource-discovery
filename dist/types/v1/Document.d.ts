@@ -332,8 +332,8 @@ export interface APIResource {
      */
     lastUpdate?: string;
     /**
-     * The visibility/exposure of the described resource.
-     * This indicates who is allowed to see (and implicitly also access) the described resource.
+     * The visibility/exposure of the described resource or capability.
+     * This indicates who is allowed to see (and implicitly also access) this.
      */
     visibility: "public" | "internal" | "private";
     /**
@@ -986,8 +986,8 @@ export interface EventResource {
      */
     lastUpdate?: string;
     /**
-     * The visibility/exposure of the described resource.
-     * This indicates who is allowed to see (and implicitly also access) the described resource.
+     * The visibility/exposure of the described resource or capability.
+     * This indicates who is allowed to see (and implicitly also access) this.
      */
     visibility: "public" | "internal" | "private";
     /**
@@ -1309,8 +1309,8 @@ export interface EntityType {
      */
     lastUpdate?: string;
     /**
-     * The visibility/exposure of the described resource.
-     * This indicates who is allowed to see (and implicitly also access) the described resource.
+     * The visibility/exposure of the described resource or capability.
+     * This indicates who is allowed to see (and implicitly also access) this.
      */
     visibility: "public" | "internal" | "private";
     /**
@@ -1532,8 +1532,8 @@ export interface Capability {
      */
     lastUpdate?: string;
     /**
-     * The visibility/exposure of the described resource.
-     * This indicates who is allowed to see (and implicitly also access) the described resource.
+     * The visibility/exposure of the described resource or capability.
+     * This indicates who is allowed to see (and implicitly also access) this.
      */
     visibility: "public" | "internal" | "private";
     /**
@@ -2044,8 +2044,8 @@ export interface IntegrationDependency {
      */
     lastUpdate?: string;
     /**
-     * The visibility/exposure of the described resource.
-     * This indicates who is allowed to see (and implicitly also access) the described resource.
+     * The visibility/exposure of the described resource or capability.
+     * This indicates who is allowed to see (and implicitly also access) this.
      */
     visibility: "public" | "internal" | "private";
     /**
@@ -2583,6 +2583,11 @@ export interface ConsumptionBundle {
      * Together with `systemInstanceAware`, this property SHOULD be used to optimize the metadata crawling process of the ORD aggregators.
      */
     lastUpdate?: string;
+    /**
+     * The visibility/exposure of the described resource or capability.
+     * This indicates who is allowed to see (and implicitly also access) this.
+     */
+    visibility?: "public" | "internal" | "private";
     /**
      * Defines the supported strategies for how the consumption credentials can be exchanged.
      *

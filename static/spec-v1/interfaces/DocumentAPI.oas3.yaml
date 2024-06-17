@@ -857,6 +857,15 @@ components:
             Together with `systemInstanceAware`, this property SHOULD be used to optimize the metadata crawling process
             of the ORD aggregators.
           example: '2022-12-19T15:47:04+00:00'
+        visibility:
+          type: string
+          description: |-
+            The visibility/exposure of the described resource or capability.
+            This indicates who is allowed to see (and implicitly also access) this.
+          enum:
+            - public
+            - internal
+            - private
         credentialExchangeStrategies:
           type: array
           description: |-
@@ -1160,8 +1169,8 @@ components:
         visibility:
           type: string
           description: |-
-            The visibility/exposure of the described resource.
-            This indicates who is allowed to see (and implicitly also access) the described resource.
+            The visibility/exposure of the described resource or capability.
+            This indicates who is allowed to see (and implicitly also access) this.
           enum:
             - public
             - internal
@@ -1910,8 +1919,8 @@ components:
         visibility:
           type: string
           description: |-
-            The visibility/exposure of the described resource.
-            This indicates who is allowed to see (and implicitly also access) the described resource.
+            The visibility/exposure of the described resource or capability.
+            This indicates who is allowed to see (and implicitly also access) this.
           enum:
             - public
             - internal
@@ -2473,8 +2482,8 @@ components:
         visibility:
           type: string
           description: |-
-            The visibility/exposure of the described resource.
-            This indicates who is allowed to see (and implicitly also access) the described resource.
+            The visibility/exposure of the described resource or capability.
+            This indicates who is allowed to see (and implicitly also access) this.
           enum:
             - public
             - internal
@@ -3720,8 +3729,8 @@ components:
         visibility:
           type: string
           description: |-
-            The visibility/exposure of the described resource.
-            This indicates who is allowed to see (and implicitly also access) the described resource.
+            The visibility/exposure of the described resource or capability.
+            This indicates who is allowed to see (and implicitly also access) this.
           enum:
             - public
             - internal
@@ -4089,8 +4098,8 @@ components:
         visibility:
           type: string
           description: |-
-            The visibility/exposure of the described resource.
-            This indicates who is allowed to see (and implicitly also access) the described resource.
+            The visibility/exposure of the described resource or capability.
+            This indicates who is allowed to see (and implicitly also access) this.
           enum:
             - public
             - internal

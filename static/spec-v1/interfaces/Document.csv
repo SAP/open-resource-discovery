@@ -28,6 +28,7 @@ Consumption Bundle,shortDescription,false,string
 Consumption Bundle,description,false,string
 Consumption Bundle,version,false,string
 Consumption Bundle,lastUpdate,false,string
+Consumption Bundle,visibility,false,string
 Consumption Bundle,credentialExchangeStrategies,false,array<CredentialExchangeStrategy>
 Consumption Bundle,links,false,array<Link>
 Consumption Bundle,tags,false,array<string>
