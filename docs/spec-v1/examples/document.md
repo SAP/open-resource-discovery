@@ -829,7 +829,7 @@
         "sap://my.lob.data.platform.endpoint:30015"
       ],
       "apiProtocol": "delta-sharing",
-      "implementationStandard": "sap:hdlf-delta-sharing:v1",
+      "implementationStandard": "sap:delta-sharing:v1",
       "supportedUseCases": [
         "streaming"
       ],

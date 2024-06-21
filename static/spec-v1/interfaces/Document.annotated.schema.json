@@ -22,7 +22,7 @@
     "Package": {
       "type": "object",
       "title": "Package",
-      "description": "A [**Package**](../../details/articles/grouping-and-bundling#package) organizes a set of related resources together, by publishing and catalog presentation concerns.\n\nFor more documentation and guidance how to correctly apply this, see [Package details](../../details/articles/grouping-and-bundling#package).\n\nA package SHOULD contain at least one resource. Avoid empty packages.\n\nA package does not have a `visibility` property.\nWhether it is displayed is decided by the fact, whether it contains any visible resources according to the visibility role of the aggregator.\n\nTo learn more about the concept, see [Package](../../details/articles/grouping-and-bundling#package).",
+      "description": "A [**Package**](../../details/articles/grouping-and-bundling#package) organizes a set of related resources together, by publishing and catalog presentation concerns.\n\nThe Package can also be used to indicate which products or vendors provided the packaged resources.\nFor partner or customer content, the package can indicate this via the `vendor` and `partOfProducts` assignments.\nIn any case, the Package `ordID` namespace MUST reflect the namespace of the providing application (which hosts the resource), not the resource definition owner, which could be a customer or partner.\n\nA package SHOULD contain at least one resource. Avoid empty packages.\n\nA package does not have a `visibility` property.\nWhether it is displayed is decided by the fact, whether it contains any visible resources according to the visibility role of the aggregator.\n\nTo learn more about the concept and further guidance, see [Package](../../details/articles/grouping-and-bundling#package).",
       "properties": {
         "ordId": {
           "type": "string",
@@ -839,24 +839,24 @@
           "oneOf": [
             {
               "const": "odata-v2",
-              "description": "[OData Version 2.0](https://www.odata.org/documentation/odata-version-2-0/) API.\nAn API Resource definition of type `edmx` MUST be provided.\nFor each API Resource definition: `type` MUST ONLY be set to `edmx`, `csdl-json`, `openapi-v2`, `openapi-v3` or `custom`."
+              "description": "[OData Version 2.0](https://www.odata.org/documentation/odata-version-2-0/) API.\nAn API Resource definition of type `edmx` MUST be provided.\nFor each API Resource definition: `type` MUST ONLY be set to `edmx`, `csdl-json`, `openapi-v2`, `openapi-v3`, `sap-csn-interop-effective-v1` or `custom`."
             },
             {
               "const": "odata-v4",
-              "description": "[OData Version 4](https://www.odata.org/documentation/) API.\nAn OData V4 API MUST be described via a Common Schema Definition Language (CSDL).\nAn API Resource definition of type `edmx` MUST be provided.\nAn API Resource definition of type `csdl-json` MAY be provided.\nFor each API Resource definition: `type` MUST ONLY be set to `edmx`, `csdl-json`, `openapi-v2`, `openapi-v3` or `custom`."
+              "description": "[OData Version 4](https://www.odata.org/documentation/) API.\nAn OData V4 API MUST be described via a Common Schema Definition Language (CSDL).\nAn API Resource definition of type `edmx` MUST be provided.\nFor each API Resource definition: `type` MUST ONLY be set to `edmx`, `csdl-json`, `openapi-v2`, `openapi-v3`, `sap-csn-interop-effective-v1` or `custom`."
             },
             {
               "const": "rest",
-              "description": "Generic [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) API.\nPlease not that while OData is also a REST API, the most precise/opinionated `apiProtocol` MUST be chosen.\nAn API Resource definition of type `openapi-v3` (RECOMMENDED) or another appropriate option SHOULD be provided.\nFor each API Resource definition: `type` MUST ONLY be set to `openapi-v2`, `openapi-v3`, `raml-v1` or `custom`."
+              "description": "Generic [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) API.\nPlease not that while OData is also a REST API, the most precise/opinionated `apiProtocol` MUST be chosen.\nAn API Resource definition of type `openapi-v3` (RECOMMENDED) or another appropriate option SHOULD be provided.\nFor each API Resource definition: `type` MUST ONLY be set to `openapi-v2`, `openapi-v3`, `raml-v1`, `sap-csn-interop-effective-v1` or `custom`."
             },
             {
               "const": "graphql",
-              "description": "[GraphQL](https://graphql.org/) API.\nAn API Resource definition of type `graphql-sdl` SHOULD be provided.\nFor each API Resource definition: `type` MUST ONLY be set to `graphql-sdl` or `custom`."
+              "description": "[GraphQL](https://graphql.org/) API.\nAn API Resource definition of type `graphql-sdl` SHOULD be provided.\nFor each API Resource definition: `type` MUST ONLY be set to `graphql-sdl`, `sap-csn-interop-effective-v1` or `custom`."
             },
             {
               "const": "delta-sharing",
               "x-introduced-in-version": "1.8.0",
-              "description": "[Delta Sharing](https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md) Protocol.\nAn API Resource corresponds to a share.\nFor each API Resource definition: `type` MUST ONLY be set `custom` or left out in case standard delta-sharing metadata requests needs to be made."
+              "description": "[Delta Sharing](https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md) Protocol, where one API Resource corresponds to a share.\nFor each API Resource definition: `type` MUST ONLY be set to `sap-csn-interop-v1` or to `custom`.\nFor delta-sharing APIs the resource definition MAY be omitted, as the protocol itself allows for metadata discovery at runtime."
             },
             {
               "const": "soap-inbound",
@@ -876,7 +876,7 @@
             },
             {
               "const": "sap-sql-api-v1",
-              "description": "SAP SQL API that follows the [SQL interface specification for SAP ecosystem](https://github.com/SAP/sql-interface-specification).\nAn API Resource definition of type `sap-sql-api-definition-v1` MUST be provided.\nFor each API Resource definition: `type` MUST ONLY be set to `sap-sql-api-definition-v1` or `custom`."
+              "description": "SAP SQL API that follows the [SQL interface specification for SAP ecosystem](https://github.com/SAP/sql-interface-specification).\nAn API Resource definition of type `sap-sql-api-definition-v1` MUST be provided.\nFor each API Resource definition: `type` MUST ONLY be set to `sap-sql-api-definition-v1`, `sap-csn-interop-v1` or `custom`."
             },
             {
               "const": "sap-ina-api-v1",
@@ -920,9 +920,9 @@
               "description": "Implementation of the SAP Cloud Data Integration (CDI) interface for delta-enabled data extraction.\nThe `apiProtocol` MUST be set to `odata-v4`, as this is a sub-protocol of OData."
             },
             {
-              "const": "sap:hdlf-delta-sharing:v1",
-              "x-introduced-in-version": "1.8.0",
-              "description": "HANA Data Lake File based implementation of `delta-sharing` API protocol. This implementation has some extension wrt. to standard delta-share such as providing key information.\nThe `apiProtocol` MUST be set to `delta-sharing`, as this is a special flavor of Delta Sharing."
+              "const": "sap:delta-sharing:v1",
+              "x-introduced-in-version": "1.9.0",
+              "description": "SAP opinionated implementation of `delta-sharing` API protocol. This implementation has some compatible extension wrt. to standard delta-share such as providing key information.\nThe `apiProtocol` MUST be set to `delta-sharing`, as this is a special flavor of Delta Sharing."
             },
             {
               "const": "sap:hana-cloud-sql:v1",
@@ -2844,6 +2844,10 @@
               "description": "Metadata description format for SAP SQL API, following the [SQL interface specification for SAP ecosystem](https://github.com/SAP/sql-interface-specification).\nThe `mediaType` MUST be be set to `application/json`.\nThe `apiProtocol` MUST be set to `sap-sql-api-v1`."
             },
             {
+              "const": "sap-csn-interop-effective-v1",
+              "description": "CSN Interop Effective is a standardized and interoperable flavor of [CSN](https://cap.cloud.sap/docs/cds/csn)and a notation for compact representations of [CDS](https://cap.cloud.sap/docs/cds/) models.\nThe `mediaType` MUST be be set to `application/json`."
+            },
+            {
               "const": "custom",
               "description": "If chosen, `customType` MUST be provided."
             }
@@ -2931,6 +2935,10 @@
             {
               "const": "asyncapi-v2",
               "description": "[AsyncAPI 2](https://www.asyncapi.com/docs/specifications/2.0.0) API definition for events.\nThe SAP Event Catalog Specification also falls under this category, as it is a valid AsyncAPI definition."
+            },
+            {
+              "const": "sap-csn-interop-effective-v1",
+              "description": "CSN Interop Effective is a standardized and interoperable flavor of [CSN](https://cap.cloud.sap/docs/cds/csn).\nCSN is a notation for compact representations of [CDS](https://cap.cloud.sap/docs/cds/) models.\n\nIn CDS based frameworks (like ABAP, CAP), APIs and Events are derived from a CDS Service definition and its constituent entities.\nIn this case the original CDS service definition MAY be attached, as it usually contains more metadata insight than other formats.\n\nWARNING: Only expose the CDS Service definition that effectively is governed by the API contract and stability. Do not expose internal models!\n\nThe `mediaType` MUST be be set to `application/json`."
             },
             {
               "const": "custom",

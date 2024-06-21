@@ -10,6 +10,17 @@ For a roadmap including expected timeline, please refer to [ROADMAP.md](./ROADMA
 
 ## [unreleased]
 
+## [1.9.4]
+
+### Changed
+
+- Renamed `sap:hdlf-delta-sharing:v1` implementation standard to `sap:delta-sharing:v1` to be more generic and not technology specific.
+  - Incompatible change, but part of the "beta" Data Products, so we'll introduce it as a bugfix
+
+### Added
+
+- added `sap-csn-interop-effective-v1` as a standardized resource definition format for API and event resources
+
 ## [1.9.3]
 
 ### Added

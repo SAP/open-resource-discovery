@@ -62,6 +62,8 @@ Please note that the fact that ORD is an open protocol, does not imply
 that the resources and information that are described through it are "open".
 They can be categorized explicitly, e.g. through `visibility`.
 
+> 🎧 Checkout the openSAP podcast [The Open Source Way - Open Resource Discovery](https://podcast.opensap.info/open-source-way/2024/06/14/open-resource-discovery-ord/).
+
 <!-- internal -->
 
 ### ORD at SAP

@@ -718,6 +718,7 @@ It MUST be constructed as defined here:
 **`<ordId>`** := `<namespace>:<conceptName>:<resourceName>:[v<majorVersion>]`
 
 - **`<namespace>`** := an [ORD namespace](#namespaces).
+  The namespace MUST reflect the provider of the described resource.
 
   - For `Package`, `ConsumptionBundle`, `APIResource` and `EventResource`, `Capability` and `IntegrationDependency`:
     - MUST be a valid [system namespace](#system-namespace) or an [subcontext namespace](#subcontext-namespace) thereof
