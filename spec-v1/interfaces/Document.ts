@@ -455,7 +455,7 @@ export interface APIResource {
     | "sap:csn-exposure:v1"
     | "sap:ape-api:v1"
     | "sap:cdi-api:v1"
-    | "sap:hdlf-delta-sharing:v1"
+    | "sap:delta-sharing:v1"
     | "sap:hana-cloud-sql:v1"
     | "custom";
   /**
@@ -685,6 +685,7 @@ export interface APIResourceDefinition {
     | "wsdl-v2"
     | "sap-rfc-metadata-v1"
     | "sap-sql-api-definition-v1"
+    | "sap-csn-interop-effective-v1"
     | "custom";
   /**
    * If the fixed `type` enum values need to be extended, an arbitrary `customType` can be provided.
@@ -1297,7 +1298,7 @@ export interface EventResourceDefinition {
   /**
    * Type of the event resource definition
    */
-  type: "asyncapi-v2" | "custom";
+  type: "asyncapi-v2" | "sap-csn-interop-effective-v1" | "custom";
   /**
    * If the fixed `type` enum values need to be extended, an arbitrary `customType` can be provided.
    *
@@ -2503,14 +2504,16 @@ export interface Product {
 /**
  * A [**Package**](../../details/articles/grouping-and-bundling#package) organizes a set of related resources together, by publishing and catalog presentation concerns.
  *
- * For more documentation and guidance how to correctly apply this, see [Package details](../../details/articles/grouping-and-bundling#package).
+ * The Package can also be used to indicate which products or vendors provided the packaged resources.
+ * For partner or customer content, the package can indicate this via the `vendor` and `partOfProducts` assignments.
+ * In any case, the Package `ordID` namespace MUST reflect the namespace of the providing application (which hosts the resource), not the resource definition owner, which could be a customer or partner.
  *
  * A package SHOULD contain at least one resource. Avoid empty packages.
  *
  * A package does not have a `visibility` property.
  * Whether it is displayed is decided by the fact, whether it contains any visible resources according to the visibility role of the aggregator.
  *
- * To learn more about the concept, see [Package](../../details/articles/grouping-and-bundling#package).
+ * To learn more about the concept and further guidance, see [Package](../../details/articles/grouping-and-bundling#package).
  */
 export interface Package {
   /**

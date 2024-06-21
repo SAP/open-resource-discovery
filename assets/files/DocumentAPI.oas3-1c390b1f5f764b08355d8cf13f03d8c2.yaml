@@ -349,8 +349,13 @@ components:
         together, by publishing and catalog presentation concerns.
 
 
-        For more documentation and guidance how to correctly apply this, see [Package
-        details](../../details/articles/grouping-and-bundling#package).
+        The Package can also be used to indicate which products or vendors provided the packaged resources.
+
+        For partner or customer content, the package can indicate this via the `vendor` and `partOfProducts`
+        assignments.
+
+        In any case, the Package `ordID` namespace MUST reflect the namespace of the providing application (which hosts
+        the resource), not the resource definition owner, which could be a customer or partner.
 
 
         A package SHOULD contain at least one resource. Avoid empty packages.
@@ -362,7 +367,8 @@ components:
         visibility role of the aggregator.
 
 
-        To learn more about the concept, see [Package](../../details/articles/grouping-and-bundling#package).
+        To learn more about the concept and further guidance, see
+        [Package](../../details/articles/grouping-and-bundling#package).
       properties:
         ordId:
           type: string
@@ -1363,7 +1369,7 @@ components:
             - sap:csn-exposure:v1
             - sap:ape-api:v1
             - sap:cdi-api:v1
-            - sap:hdlf-delta-sharing:v1
+            - sap:delta-sharing:v1
             - sap:hana-cloud-sql:v1
             - custom
           example: sap:ord-document-api:v1
@@ -3271,6 +3277,7 @@ components:
             - wsdl-v2
             - sap-rfc-metadata-v1
             - sap-sql-api-definition-v1
+            - sap-csn-interop-effective-v1
             - custom
           example: openapi-v3
         customType:
@@ -3354,6 +3361,7 @@ components:
           type: string
           enum:
             - asyncapi-v2
+            - sap-csn-interop-effective-v1
             - custom
           example: asyncapi-v2
         customType:
