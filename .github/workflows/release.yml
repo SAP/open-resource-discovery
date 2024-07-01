@@ -16,7 +16,8 @@ jobs:
           node-version: '20.x'
           # registry-url is required for releasing packages
           registry-url: 'https://registry.npmjs.org'
-      - run: npm ci
+      # Skipping install since all assets are pre-built already
+      # - run: npm install
 
       - name: Publish package
         # --provenance enables the automatic generation of provenance statements
