@@ -1916,7 +1916,7 @@ export interface DataProduct {
   /**
    * Type of the data product. Based on the type some properties of a data product may become optional/mandatory.
    */
-  type: "base" | "derived";
+  type: "primary" | "derived";
   /**
    * Category of the data-set within data product. Based on its definition, a data product is a “data set” - which can include on the values below.
    * Based on the type some properties of a data product may become optional/mandatory.
