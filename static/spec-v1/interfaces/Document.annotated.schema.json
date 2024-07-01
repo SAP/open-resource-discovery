@@ -2390,8 +2390,8 @@
           "type": "string",
           "oneOf": [
             {
-              "const": "base",
-              "description": "A producer aligned data product, aka base data product. Such a data product will be typically served directly from an application and might not have input ports."
+              "const": "primary",
+              "description": "A producer aligned data product, aka primary data product.\nSuch a data product will be typically served directly from an application and might not have input ports."
             },
             {
               "const": "derived",
@@ -2399,7 +2399,7 @@
             }
           ],
           "examples": [
-            "base"
+            "primary"
           ]
         },
         "category": {

@@ -10,6 +10,11 @@ For a roadmap including expected timeline, please refer to [ROADMAP.md](./ROADMA
 
 ## [unreleased]
 
+### Changed
+
+- Renamed one Data Product `type` enum value from `base` to `primary`.
+  - BREAKING change, but introduced as a patch, as the Data Product interface is still in beta phase.
+
 ## [1.9.4]
 
 ### Changed

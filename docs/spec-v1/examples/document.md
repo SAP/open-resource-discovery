@@ -300,7 +300,7 @@
       "successors": [
         "sap.xref:dataProduct:Customer:v2"
       ],
-      "type": "base",
+      "type": "primary",
       "category": "business-object",
       "outputPorts": [
         {
@@ -323,7 +323,7 @@
       "releaseStatus": "active",
       "version": "2.1.0",
       "lastUpdate": "2022-12-19T15:47:04+00:00",
-      "type": "base",
+      "type": "primary",
       "category": "business-object",
       "outputPorts": [
         {
