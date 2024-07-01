@@ -8,12 +8,16 @@ but omits the **patch** level in the spec version number.
 
 For a roadmap including expected timeline, please refer to [ROADMAP.md](./ROADMAP.md)
 
-## [unreleased]
+## [1.9.5]
 
 ### Changed
 
 - Renamed one Data Product `type` enum value from `base` to `primary`.
   - BREAKING change, but introduced as a patch, as the Data Product interface is still in beta phase.
+
+### Infrastructure
+
+- Schemas published on NPMJS.org under [@sap/open-resource-discovery](https://www.npmjs.com/package/@sap/open-resource-discovery) package name.
 
 ## [1.9.4]
 
