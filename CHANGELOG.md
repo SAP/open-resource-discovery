@@ -8,6 +8,23 @@ but omits the **patch** level in the spec version number.
 
 For a roadmap including expected timeline, please refer to [ROADMAP.md](./ROADMAP.md)
 
+## [unreleased]
+
+## [1.9.6]
+
+### Added
+
+- Added `lifecycleStatus` to data products, which replaces the boolean `disabled` property.
+
+### Fixed
+
+- Renamed some instances of `sap-csn-interop-v1` to `sap-csn-interop-effective-v1` (inconsistency)
+  - Bugfix release. So far, this was not used yet, as CSN Interop Effective is still in development.
+
+### Removed
+
+- Removed optional `disabled` property on data products, as the new `lifecycleStatus` supersedes it.
+
 ## [1.9.5]
 
 ### Changed

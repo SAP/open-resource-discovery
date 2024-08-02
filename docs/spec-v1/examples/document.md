@@ -346,7 +346,6 @@
       "visibility": "public",
       "version": "1.4.0",
       "releaseStatus": "active",
-      "disabled": false,
       "changelogEntries": [
         {
           "date": "2020-04-29",

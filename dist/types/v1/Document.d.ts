@@ -31,12 +31,10 @@ export interface ORDDocument {
     description?: string;
     describedSystemInstance?: SystemInstance;
     /**
-     * The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that this ORD Document or part of it needs to be compliant with.
-     * Depending on the chosen policy level, certain expectations and validations rules will be applied.
+     * The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that the described resources need to be compliant with.
+     * Depending on the chosen policy level, additional expectations and validations rules will be applied.
      *
      * The policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.
-     *
-     * If not provided, no additional policy level expectations and validations apply.
      *
      */
     policyLevel?: "none" | "sap:core:v1" | "custom";
@@ -346,9 +344,8 @@ export interface APIResource {
      *
      * If the resource is not available in principle for a particular system instance, e.g. due to lack of entitlement, it MUST not be described in the system-instance aware perspective.
      *
-     * This only needs to reflect the knowledge of the described system instance itself,
-     * meaning that outside factors don't need to be considered (e.g. network connectivity, middlewares).
-     * This information may be of relevance for some ORD consumers that need to filter for active or disabled APIs.
+     * This property can only reflect the knowledge of the described system instance itself.
+     * Outside factors for availability can't need to be considered (e.g. network connectivity, middlewares).
      *
      * A disabled resource MAY skip describing its resource definitions.
      *
@@ -515,12 +512,10 @@ export interface APIResource {
     labels?: Labels;
     documentationLabels?: DocumentationLabels;
     /**
-     * The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that this ORD Document or part of it needs to be compliant with.
-     * Depending on the chosen policy level, certain expectations and validations rules will be applied.
+     * The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that the described resources need to be compliant with.
+     * Depending on the chosen policy level, additional expectations and validations rules will be applied.
      *
      * The policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.
-     *
-     * If not provided, no additional policy level expectations and validations apply.
      *
      */
     policyLevel?: "none" | "sap:core:v1" | "custom";
@@ -1000,9 +995,8 @@ export interface EventResource {
      *
      * If the resource is not available in principle for a particular system instance, e.g. due to lack of entitlement, it MUST not be described in the system-instance aware perspective.
      *
-     * This only needs to reflect the knowledge of the described system instance itself,
-     * meaning that outside factors don't need to be considered (e.g. network connectivity, middlewares).
-     * This information may be of relevance for some ORD consumers that need to filter for active or disabled APIs.
+     * This property can only reflect the knowledge of the described system instance itself.
+     * Outside factors for availability can't need to be considered (e.g. network connectivity, middlewares).
      *
      * A disabled resource MAY skip describing its resource definitions.
      *
@@ -1127,12 +1121,10 @@ export interface EventResource {
     labels?: Labels;
     documentationLabels?: DocumentationLabels;
     /**
-     * The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that this ORD Document or part of it needs to be compliant with.
-     * Depending on the chosen policy level, certain expectations and validations rules will be applied.
+     * The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that the described resources need to be compliant with.
+     * Depending on the chosen policy level, additional expectations and validations rules will be applied.
      *
      * The policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.
-     *
-     * If not provided, no additional policy level expectations and validations apply.
      *
      */
     policyLevel?: "none" | "sap:core:v1" | "custom";
@@ -1382,12 +1374,10 @@ export interface EntityType {
     labels?: Labels;
     documentationLabels?: DocumentationLabels;
     /**
-     * The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that this ORD Document or part of it needs to be compliant with.
-     * Depending on the chosen policy level, certain expectations and validations rules will be applied.
+     * The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that the described resources need to be compliant with.
+     * Depending on the chosen policy level, additional expectations and validations rules will be applied.
      *
      * The policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.
-     *
-     * If not provided, no additional policy level expectations and validations apply.
      *
      */
     policyLevel?: "none" | "sap:core:v1" | "custom";
@@ -1733,19 +1723,12 @@ export interface DataProduct {
      */
     releaseStatus: "active" | "beta" | "deprecated";
     /**
-     * Indicates that this resource is currently not available for consumption at runtime, but could be configured to be so.
-     * This can happen either because it has not been setup for use or disabled by an admin / user.
+     * Lifecycle status of the Data Product as a whole.
      *
-     * If the resource is not available in principle for a particular system instance, e.g. due to lack of entitlement, it MUST not be described in the system-instance aware perspective.
-     *
-     * This only needs to reflect the knowledge of the described system instance itself,
-     * meaning that outside factors don't need to be considered (e.g. network connectivity, middlewares).
-     * This information may be of relevance for some ORD consumers that need to filter for active or disabled APIs.
-     *
-     * A disabled resource MAY skip describing its resource definitions.
-     *
+     * MUST be provided when describing the system-instance aware (run-time) perspective.
+     * SHOULD NOT be provided in static (design-time) perspective. Static aggregators MUST ignore this property.
      */
-    disabled?: boolean;
+    lifecycleStatus?: "inactive" | "provisioning" | "active" | "deprovisioning" | "active-with-errors" | "provisioning-error" | "deprovisioning-error";
     /**
      * The deprecation date defines when the resource has been set as deprecated.
      * This is not to be confused with the `sunsetDate` which defines when the resource will be actually decommissioned / removed.
@@ -1851,12 +1834,10 @@ export interface DataProduct {
     labels?: Labels;
     documentationLabels?: DocumentationLabels;
     /**
-     * The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that this ORD Document or part of it needs to be compliant with.
-     * Depending on the chosen policy level, certain expectations and validations rules will be applied.
+     * The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that the described resources need to be compliant with.
+     * Depending on the chosen policy level, additional expectations and validations rules will be applied.
      *
      * The policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.
-     *
-     * If not provided, no additional policy level expectations and validations apply.
      *
      */
     policyLevel?: "none" | "sap:core:v1" | "custom";
@@ -2381,12 +2362,10 @@ export interface Package {
      */
     version: string;
     /**
-     * The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that this ORD Document or part of it needs to be compliant with.
-     * Depending on the chosen policy level, certain expectations and validations rules will be applied.
+     * The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that the described resources need to be compliant with.
+     * Depending on the chosen policy level, additional expectations and validations rules will be applied.
      *
      * The policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.
-     *
-     * If not provided, no additional policy level expectations and validations apply.
      *
      */
     policyLevel?: "none" | "sap:core:v1" | "custom";

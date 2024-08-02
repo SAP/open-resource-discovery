@@ -62,7 +62,7 @@
         },
         "policyLevel": {
           "type": "string",
-          "description": "The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that this ORD Document or part of it needs to be compliant with.\nDepending on the chosen policy level, certain expectations and validations rules will be applied.\n\nThe policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.\n\nIf not provided, no additional policy level expectations and validations apply.\n",
+          "description": "The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that the described resources need to be compliant with.\nDepending on the chosen policy level, additional expectations and validations rules will be applied.\n\nThe policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.\n",
           "oneOf": [
             {
               "const": "none",
@@ -77,6 +77,7 @@
               "description": "Custom policy level.\nFurther validation MAY be defined and implemented by the policy-level owner.\nThis level MAY be chosen by 3rd party or customer solutions.\nIf chosen, `customPolicyLevel` MUST be provided."
             }
           ],
+          "default": "none",
           "examples": [
             "sap:core:v1"
           ]
@@ -702,7 +703,7 @@
         "disabled": {
           "type": "boolean",
           "default": false,
-          "description": "Indicates that this resource is currently not available for consumption at runtime, but could be configured to be so.\nThis can happen either because it has not been setup for use or disabled by an admin / user.\n\nIf the resource is not available in principle for a particular system instance, e.g. due to lack of entitlement, it MUST not be described in the system-instance aware perspective.\n\nThis only needs to reflect the knowledge of the described system instance itself,\nmeaning that outside factors don't need to be considered (e.g. network connectivity, middlewares).\nThis information may be of relevance for some ORD consumers that need to filter for active or disabled APIs.\n\nA disabled resource MAY skip describing its resource definitions.\n"
+          "description": "Indicates that this resource is currently not available for consumption at runtime, but could be configured to be so.\nThis can happen either because it has not been setup for use or disabled by an admin / user.\n\nIf the resource is not available in principle for a particular system instance, e.g. due to lack of entitlement, it MUST not be described in the system-instance aware perspective.\n\nThis property can only reflect the knowledge of the described system instance itself.\nOutside factors for availability can't need to be considered (e.g. network connectivity, middlewares).\n\nA disabled resource MAY skip describing its resource definitions.\n"
         },
         "deprecationDate": {
           "type": "string",
@@ -796,7 +797,7 @@
             },
             {
               "const": "delta-sharing",
-              "description": "[Delta Sharing](https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md) Protocol, where one API Resource corresponds to a share.\nFor each API Resource definition: `type` MUST ONLY be set to `sap-csn-interop-v1` or to `custom`.\nFor delta-sharing APIs the resource definition MAY be omitted, as the protocol itself allows for metadata discovery at runtime."
+              "description": "[Delta Sharing](https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md) Protocol, where one API Resource corresponds to a share.\nFor each API Resource definition: `type` MUST ONLY be set to `sap-csn-interop-effective-v1` or to `custom`.\nFor delta-sharing APIs the resource definition MAY be omitted, as the protocol itself allows for metadata discovery at runtime."
             },
             {
               "const": "soap-inbound",
@@ -816,7 +817,7 @@
             },
             {
               "const": "sap-sql-api-v1",
-              "description": "SAP SQL API that follows the [SQL interface specification for SAP ecosystem](https://github.com/SAP/sql-interface-specification).\nAn API Resource definition of type `sap-sql-api-definition-v1` MUST be provided.\nFor each API Resource definition: `type` MUST ONLY be set to `sap-sql-api-definition-v1`, `sap-csn-interop-v1` or `custom`."
+              "description": "SAP SQL API that follows the [SQL interface specification for SAP ecosystem](https://github.com/SAP/sql-interface-specification).\nAn API Resource definition of type `sap-sql-api-definition-v1` MUST be provided.\nFor each API Resource definition: `type` MUST ONLY be set to `sap-sql-api-definition-v1`, `sap-csn-interop-effective-v1` or `custom`."
             },
             {
               "const": "sap-ina-api-v1",
@@ -1173,7 +1174,7 @@
         },
         "policyLevel": {
           "type": "string",
-          "description": "The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that this ORD Document or part of it needs to be compliant with.\nDepending on the chosen policy level, certain expectations and validations rules will be applied.\n\nThe policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.\n\nIf not provided, no additional policy level expectations and validations apply.\n",
+          "description": "The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that the described resources need to be compliant with.\nDepending on the chosen policy level, additional expectations and validations rules will be applied.\n\nThe policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.\n",
           "oneOf": [
             {
               "const": "none",
@@ -1188,6 +1189,7 @@
               "description": "Custom policy level.\nFurther validation MAY be defined and implemented by the policy-level owner.\nThis level MAY be chosen by 3rd party or customer solutions.\nIf chosen, `customPolicyLevel` MUST be provided."
             }
           ],
+          "default": "none",
           "examples": [
             "sap:core:v1"
           ]
@@ -1401,7 +1403,7 @@
         "disabled": {
           "type": "boolean",
           "default": false,
-          "description": "Indicates that this resource is currently not available for consumption at runtime, but could be configured to be so.\nThis can happen either because it has not been setup for use or disabled by an admin / user.\n\nIf the resource is not available in principle for a particular system instance, e.g. due to lack of entitlement, it MUST not be described in the system-instance aware perspective.\n\nThis only needs to reflect the knowledge of the described system instance itself,\nmeaning that outside factors don't need to be considered (e.g. network connectivity, middlewares).\nThis information may be of relevance for some ORD consumers that need to filter for active or disabled APIs.\n\nA disabled resource MAY skip describing its resource definitions.\n"
+          "description": "Indicates that this resource is currently not available for consumption at runtime, but could be configured to be so.\nThis can happen either because it has not been setup for use or disabled by an admin / user.\n\nIf the resource is not available in principle for a particular system instance, e.g. due to lack of entitlement, it MUST not be described in the system-instance aware perspective.\n\nThis property can only reflect the knowledge of the described system instance itself.\nOutside factors for availability can't need to be considered (e.g. network connectivity, middlewares).\n\nA disabled resource MAY skip describing its resource definitions.\n"
         },
         "deprecationDate": {
           "type": "string",
@@ -1712,7 +1714,7 @@
         },
         "policyLevel": {
           "type": "string",
-          "description": "The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that this ORD Document or part of it needs to be compliant with.\nDepending on the chosen policy level, certain expectations and validations rules will be applied.\n\nThe policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.\n\nIf not provided, no additional policy level expectations and validations apply.\n",
+          "description": "The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that the described resources need to be compliant with.\nDepending on the chosen policy level, additional expectations and validations rules will be applied.\n\nThe policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.\n",
           "oneOf": [
             {
               "const": "none",
@@ -1727,6 +1729,7 @@
               "description": "Custom policy level.\nFurther validation MAY be defined and implemented by the policy-level owner.\nThis level MAY be chosen by 3rd party or customer solutions.\nIf chosen, `customPolicyLevel` MUST be provided."
             }
           ],
+          "default": "none",
           "examples": [
             "sap:core:v1"
           ]
@@ -2023,7 +2026,7 @@
         },
         "policyLevel": {
           "type": "string",
-          "description": "The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that this ORD Document or part of it needs to be compliant with.\nDepending on the chosen policy level, certain expectations and validations rules will be applied.\n\nThe policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.\n\nIf not provided, no additional policy level expectations and validations apply.\n",
+          "description": "The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that the described resources need to be compliant with.\nDepending on the chosen policy level, additional expectations and validations rules will be applied.\n\nThe policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.\n",
           "oneOf": [
             {
               "const": "none",
@@ -2038,6 +2041,7 @@
               "description": "Custom policy level.\nFurther validation MAY be defined and implemented by the policy-level owner.\nThis level MAY be chosen by 3rd party or customer solutions.\nIf chosen, `customPolicyLevel` MUST be provided."
             }
           ],
+          "default": "none",
           "examples": [
             "sap:core:v1"
           ]
@@ -2207,10 +2211,42 @@
             "active"
           ]
         },
-        "disabled": {
-          "type": "boolean",
-          "default": false,
-          "description": "Indicates that this resource is currently not available for consumption at runtime, but could be configured to be so.\nThis can happen either because it has not been setup for use or disabled by an admin / user.\n\nIf the resource is not available in principle for a particular system instance, e.g. due to lack of entitlement, it MUST not be described in the system-instance aware perspective.\n\nThis only needs to reflect the knowledge of the described system instance itself,\nmeaning that outside factors don't need to be considered (e.g. network connectivity, middlewares).\nThis information may be of relevance for some ORD consumers that need to filter for active or disabled APIs.\n\nA disabled resource MAY skip describing its resource definitions.\n"
+        "lifecycleStatus": {
+          "type": "string",
+          "description": "Lifecycle status of the Data Product as a whole.\n\nMUST be provided when describing the system-instance aware (run-time) perspective.\nSHOULD NOT be provided in static (design-time) perspective. Static aggregators MUST ignore this property.",
+          "oneOf": [
+            {
+              "const": "inactive",
+              "description": "The data product is currently inactive, but can be provisioned."
+            },
+            {
+              "const": "provisioning",
+              "description": "The data product is currently being provisioned / installed and is not yet ready to be used.\nThis includes acquiring data from input ports, potentially necessary transformation and making the data available in the output ports."
+            },
+            {
+              "const": "active",
+              "description": "The data product is active / live and can be used by consumers.\nThere MAY be warnings but there MUST not be reported errors in the data product."
+            },
+            {
+              "const": "deprovisioning",
+              "description": "The data product is being deprovisioned / uninstalled and not available for use anymore.\nDeprovisioning includes un-sharing the data from connected consumers and removing the replicated data which is no longer used.\nAfter successful deprovisioning the data product will either be `disabled: true` (preferred) or not described by the tenant at run-time."
+            },
+            {
+              "const": "active-with-errors",
+              "description": "The data product has been successfully provisioned and has gone `active`, but errors prevent proper consumption.\nConsistent usage of the data product is not guaranteed until all errors are resolved."
+            },
+            {
+              "const": "provisioning-error",
+              "description": "The provisioning of the data product failed with error(s)."
+            },
+            {
+              "const": "deprovisioning-error",
+              "description": "The deprovisioning of the data product failed with error(s).\nConsistent usage of the data product is not guaranteed until all errors are resolved."
+            }
+          ],
+          "examples": [
+            "active"
+          ]
         },
         "deprecationDate": {
           "type": "string",
@@ -2547,7 +2583,7 @@
         },
         "policyLevel": {
           "type": "string",
-          "description": "The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that this ORD Document or part of it needs to be compliant with.\nDepending on the chosen policy level, certain expectations and validations rules will be applied.\n\nThe policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.\n\nIf not provided, no additional policy level expectations and validations apply.\n",
+          "description": "The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that the described resources need to be compliant with.\nDepending on the chosen policy level, additional expectations and validations rules will be applied.\n\nThe policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.\n",
           "oneOf": [
             {
               "const": "none",
@@ -2562,6 +2598,7 @@
               "description": "Custom policy level.\nFurther validation MAY be defined and implemented by the policy-level owner.\nThis level MAY be chosen by 3rd party or customer solutions.\nIf chosen, `customPolicyLevel` MUST be provided."
             }
           ],
+          "default": "none",
           "examples": [
             "sap:core:v1"
           ]
@@ -4687,7 +4724,7 @@
     },
     "policyLevel": {
       "type": "string",
-      "description": "The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that this ORD Document or part of it needs to be compliant with.\nDepending on the chosen policy level, certain expectations and validations rules will be applied.\n\nThe policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.\n\nIf not provided, no additional policy level expectations and validations apply.\n",
+      "description": "The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that the described resources need to be compliant with.\nDepending on the chosen policy level, additional expectations and validations rules will be applied.\n\nThe policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.\n",
       "oneOf": [
         {
           "const": "none",
@@ -4702,6 +4739,7 @@
           "description": "Custom policy level.\nFurther validation MAY be defined and implemented by the policy-level owner.\nThis level MAY be chosen by 3rd party or customer solutions.\nIf chosen, `customPolicyLevel` MUST be provided."
         }
       ],
+      "default": "none",
       "examples": [
         "sap:core:v1"
       ]
