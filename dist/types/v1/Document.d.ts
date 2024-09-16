@@ -310,6 +310,9 @@ export interface APIResource {
      * When the `version` major version changes, the [ORD ID](#ord-id) `<majorVersion>` fragment MUST be updated to be identical.
      * In case that a resource definition file also contains a version number (e.g. [OpenAPI `info`.`version`](https://swagger.io/specification/#info-object)), it MUST be equal with the resource `version` to avoid inconsistencies.
      *
+     * If the resource has been extended by the user, the change MUST be indicated via `lastUpdate`.
+     * The `version` MUST not be bumped for changes in extensions.
+     *
      * The general [Version and Lifecycle](../index.md#version-and-lifecycle) flow MUST be followed.
      *
      * Note: A change is only relevant for a version increment, if it affects the ORD resource or ORD taxonomy directly.
@@ -622,7 +625,7 @@ export interface APIResourceDefinition {
     /**
      * [URL reference](https://tools.ietf.org/html/rfc3986#section-4.1) (URL or relative reference) to the resource definition file.
      *
-     * It is RECOMMENDED to provide a relative URL (to base URL), starting with `/`.
+     * It is RECOMMENDED to provide a relative URL (to base URL).
      */
     url: string;
     /**
@@ -799,7 +802,7 @@ export interface APIAndEventResourceLink {
     /**
      * [URL reference](https://tools.ietf.org/html/rfc3986#section-4.1) (URL or relative reference) to the endpoint or UI for the action.
      *
-     * If the link is relative to base URL, it is RECOMMENDED to provide a relative URL to it, starting with `/`.
+     * If the link is relative to base URL, it is RECOMMENDED to provide a relative URL.
      */
     url: string;
 }
@@ -960,6 +963,9 @@ export interface EventResource {
      *
      * When the `version` major version changes, the [ORD ID](#ord-id) `<majorVersion>` fragment MUST be updated to be identical.
      * In case that a resource definition file also contains a version number (e.g. [OpenAPI `info`.`version`](https://swagger.io/specification/#info-object)), it MUST be equal with the resource `version` to avoid inconsistencies.
+     *
+     * If the resource has been extended by the user, the change MUST be indicated via `lastUpdate`.
+     * The `version` MUST not be bumped for changes in extensions.
      *
      * The general [Version and Lifecycle](../index.md#version-and-lifecycle) flow MUST be followed.
      *
@@ -1176,7 +1182,7 @@ export interface EventResourceDefinition {
     /**
      * [URL reference](https://tools.ietf.org/html/rfc3986#section-4.1) (URL or relative reference) to the resource definition file.
      *
-     * It is RECOMMENDED to provide a relative URL (to base URL), starting with `/`.
+     * It is RECOMMENDED to provide a relative URL (to base URL).
      */
     url: string;
     /**
@@ -1280,6 +1286,9 @@ export interface EntityType {
      *
      * When the `version` major version changes, the [ORD ID](#ord-id) `<majorVersion>` fragment MUST be updated to be identical.
      * In case that a resource definition file also contains a version number (e.g. [OpenAPI `info`.`version`](https://swagger.io/specification/#info-object)), it MUST be equal with the resource `version` to avoid inconsistencies.
+     *
+     * If the resource has been extended by the user, the change MUST be indicated via `lastUpdate`.
+     * The `version` MUST not be bumped for changes in extensions.
      *
      * The general [Version and Lifecycle](../index.md#version-and-lifecycle) flow MUST be followed.
      *
@@ -1502,6 +1511,9 @@ export interface Capability {
      * When the `version` major version changes, the [ORD ID](#ord-id) `<majorVersion>` fragment MUST be updated to be identical.
      * In case that a resource definition file also contains a version number (e.g. [OpenAPI `info`.`version`](https://swagger.io/specification/#info-object)), it MUST be equal with the resource `version` to avoid inconsistencies.
      *
+     * If the resource has been extended by the user, the change MUST be indicated via `lastUpdate`.
+     * The `version` MUST not be bumped for changes in extensions.
+     *
      * The general [Version and Lifecycle](../index.md#version-and-lifecycle) flow MUST be followed.
      *
      * Note: A change is only relevant for a version increment, if it affects the ORD resource or ORD taxonomy directly.
@@ -1599,7 +1611,7 @@ export interface CapabilityDefinition {
     /**
      * [URL reference](https://tools.ietf.org/html/rfc3986#section-4.1) (URL or relative reference) to the resource definition file.
      *
-     * It is RECOMMENDED to provide a relative URL (to base URL), starting with `/`.
+     * It is RECOMMENDED to provide a relative URL (to base URL).
      */
     url: string;
     /**
@@ -1692,6 +1704,9 @@ export interface DataProduct {
      *
      * When the `version` major version changes, the [ORD ID](#ord-id) `<majorVersion>` fragment MUST be updated to be identical.
      * In case that a resource definition file also contains a version number (e.g. [OpenAPI `info`.`version`](https://swagger.io/specification/#info-object)), it MUST be equal with the resource `version` to avoid inconsistencies.
+     *
+     * If the resource has been extended by the user, the change MUST be indicated via `lastUpdate`.
+     * The `version` MUST not be bumped for changes in extensions.
      *
      * The general [Version and Lifecycle](../index.md#version-and-lifecycle) flow MUST be followed.
      *
@@ -1908,7 +1923,7 @@ export interface DataProductLink {
     customType?: string;
     /**
      * [URL reference](https://tools.ietf.org/html/rfc3986#section-4.1) (URL or relative reference) to the endpoint or UI for the action.
-     * If the link is relative to base URL, it is RECOMMENDED to provide a relative URL to it, starting with `/`.
+     * If the link is relative to base URL, it is RECOMMENDED to provide a relative URL.
      */
     url: string;
 }
@@ -2004,6 +2019,9 @@ export interface IntegrationDependency {
      *
      * When the `version` major version changes, the [ORD ID](#ord-id) `<majorVersion>` fragment MUST be updated to be identical.
      * In case that a resource definition file also contains a version number (e.g. [OpenAPI `info`.`version`](https://swagger.io/specification/#info-object)), it MUST be equal with the resource `version` to avoid inconsistencies.
+     *
+     * If the resource has been extended by the user, the change MUST be indicated via `lastUpdate`.
+     * The `version` MUST not be bumped for changes in extensions.
      *
      * The general [Version and Lifecycle](../index.md#version-and-lifecycle) flow MUST be followed.
      *
@@ -2355,6 +2373,9 @@ export interface Package {
      * When the `version` major version changes, the [ORD ID](#ord-id) `<majorVersion>` fragment MUST be updated to be identical.
      * In case that a resource definition file also contains a version number (e.g. [OpenAPI `info`.`version`](https://swagger.io/specification/#info-object)), it MUST be equal with the resource `version` to avoid inconsistencies.
      *
+     * If the resource has been extended by the user, the change MUST be indicated via `lastUpdate`.
+     * The `version` MUST not be bumped for changes in extensions.
+     *
      * The general [Version and Lifecycle](../index.md#version-and-lifecycle) flow MUST be followed.
      *
      * Note: A change is only relevant for a version increment, if it affects the ORD resource or ORD taxonomy directly.
@@ -2544,6 +2565,9 @@ export interface ConsumptionBundle {
      *
      * When the `version` major version changes, the [ORD ID](#ord-id) `<majorVersion>` fragment MUST be updated to be identical.
      * In case that a resource definition file also contains a version number (e.g. [OpenAPI `info`.`version`](https://swagger.io/specification/#info-object)), it MUST be equal with the resource `version` to avoid inconsistencies.
+     *
+     * If the resource has been extended by the user, the change MUST be indicated via `lastUpdate`.
+     * The `version` MUST not be bumped for changes in extensions.
      *
      * The general [Version and Lifecycle](../index.md#version-and-lifecycle) flow MUST be followed.
      *

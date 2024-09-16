@@ -24,6 +24,8 @@ The information can be used to build metadata registries / catalogs and do runti
 
 > ℹ ORD is an [open source](https://github.com/SAP/open-resource-discovery) standard by SAP, released under the Apache 2 license (see [public announcement](https://blogs.sap.com/2023/11/14/open-resource-discovery-a-protocol-for-decentralized-metadata-discovery-is-now-open-source/)).
 
+> The ORD interface (JSON Schema) and TypeScript types are available via npm [`@sap/open-resource-discovery`](https://www.npmjs.com/package/@sap/open-resource-discovery) dependency.
+
 ## Use Cases
 
 The information can be used to build a static **metadata catalog** or do detailed **runtime inspection of actual system landscapes**.

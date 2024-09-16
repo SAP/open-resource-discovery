@@ -436,6 +436,11 @@ components:
             `version` to avoid inconsistencies.
 
 
+            If the resource has been extended by the user, the change MUST be indicated via `lastUpdate`.
+
+            The `version` MUST not be bumped for changes in extensions.
+
+
             The general [Version and Lifecycle](../index.md#version-and-lifecycle) flow MUST be followed.
 
 
@@ -823,6 +828,11 @@ components:
             `version` to avoid inconsistencies.
 
 
+            If the resource has been extended by the user, the change MUST be indicated via `lastUpdate`.
+
+            The `version` MUST not be bumped for changes in extensions.
+
+
             The general [Version and Lifecycle](../index.md#version-and-lifecycle) flow MUST be followed.
 
 
@@ -1130,6 +1140,11 @@ components:
             In case that a resource definition file also contains a version number (e.g. [OpenAPI
             `info`.`version`](https://swagger.io/specification/#info-object)), it MUST be equal with the resource
             `version` to avoid inconsistencies.
+
+
+            If the resource has been extended by the user, the change MUST be indicated via `lastUpdate`.
+
+            The `version` MUST not be bumped for changes in extensions.
 
 
             The general [Version and Lifecycle](../index.md#version-and-lifecycle) flow MUST be followed.
@@ -1878,6 +1893,11 @@ components:
             `version` to avoid inconsistencies.
 
 
+            If the resource has been extended by the user, the change MUST be indicated via `lastUpdate`.
+
+            The `version` MUST not be bumped for changes in extensions.
+
+
             The general [Version and Lifecycle](../index.md#version-and-lifecycle) flow MUST be followed.
 
 
@@ -2437,6 +2457,11 @@ components:
             `version` to avoid inconsistencies.
 
 
+            If the resource has been extended by the user, the change MUST be indicated via `lastUpdate`.
+
+            The `version` MUST not be bumped for changes in extensions.
+
+
             The general [Version and Lifecycle](../index.md#version-and-lifecycle) flow MUST be followed.
 
 
@@ -2778,6 +2803,11 @@ components:
             In case that a resource definition file also contains a version number (e.g. [OpenAPI
             `info`.`version`](https://swagger.io/specification/#info-object)), it MUST be equal with the resource
             `version` to avoid inconsistencies.
+
+
+            If the resource has been extended by the user, the change MUST be indicated via `lastUpdate`.
+
+            The `version` MUST not be bumped for changes in extensions.
 
 
             The general [Version and Lifecycle](../index.md#version-and-lifecycle) flow MUST be followed.
@@ -3298,7 +3328,7 @@ components:
             definition file.
 
 
-            It is RECOMMENDED to provide a relative URL (to base URL), starting with `/`.
+            It is RECOMMENDED to provide a relative URL (to base URL).
           example: /api/openApi.yaml
         accessStrategies:
           type: array
@@ -3382,7 +3412,7 @@ components:
             definition file.
 
 
-            It is RECOMMENDED to provide a relative URL (to base URL), starting with `/`.
+            It is RECOMMENDED to provide a relative URL (to base URL).
           example: /some/url/events/eventCatalog.json
         accessStrategies:
           type: array
@@ -3676,6 +3706,11 @@ components:
             `version` to avoid inconsistencies.
 
 
+            If the resource has been extended by the user, the change MUST be indicated via `lastUpdate`.
+
+            The `version` MUST not be bumped for changes in extensions.
+
+
             The general [Version and Lifecycle](../index.md#version-and-lifecycle) flow MUST be followed.
 
 
@@ -3859,7 +3894,7 @@ components:
             definition file.
 
 
-            It is RECOMMENDED to provide a relative URL (to base URL), starting with `/`.
+            It is RECOMMENDED to provide a relative URL (to base URL).
           example: /capabilities/someCapability/someDocument.json
         accessStrategies:
           type: array
@@ -4043,6 +4078,11 @@ components:
             In case that a resource definition file also contains a version number (e.g. [OpenAPI
             `info`.`version`](https://swagger.io/specification/#info-object)), it MUST be equal with the resource
             `version` to avoid inconsistencies.
+
+
+            If the resource has been extended by the user, the change MUST be indicated via `lastUpdate`.
+
+            The `version` MUST not be bumped for changes in extensions.
 
 
             The general [Version and Lifecycle](../index.md#version-and-lifecycle) flow MUST be followed.
@@ -4582,7 +4622,7 @@ components:
             or UI for the action.
 
 
-            If the link is relative to base URL, it is RECOMMENDED to provide a relative URL to it, starting with `/`.
+            If the link is relative to base URL, it is RECOMMENDED to provide a relative URL.
           example: /some/relative/url
       required:
         - url
@@ -4628,7 +4668,7 @@ components:
             [URL reference](https://tools.ietf.org/html/rfc3986#section-4.1) (URL or relative reference) to the endpoint
             or UI for the action.
 
-            If the link is relative to base URL, it is RECOMMENDED to provide a relative URL to it, starting with `/`.
+            If the link is relative to base URL, it is RECOMMENDED to provide a relative URL.
           example: /some/relative/url
       required:
         - url
@@ -5390,7 +5430,7 @@ components:
           description: |-
             URL or relative URL to the ORD document (provided by an ORD document endpoint).
 
-            It is RECOMMENDED to provide a relative URL (to base URL), starting with `/`.
+            It is RECOMMENDED to provide a relative URL (to `baseUrl`).
             If a `baseUrl` is given, the relative URLs will be resolved with it.
 
             If the URL is not relative to the system providing this information or no well-known URI is used,

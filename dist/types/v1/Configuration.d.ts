@@ -43,7 +43,7 @@ export interface ORDV1DocumentDescription {
     /**
      * URL or relative URL to the ORD document (provided by an ORD document endpoint).
      *
-     * It is RECOMMENDED to provide a relative URL (to base URL), starting with `/`.
+     * It is RECOMMENDED to provide a relative URL (to `baseUrl`).
      * If a `baseUrl` is given, the relative URLs will be resolved with it.
      *
      * If the URL is not relative to the system providing this information or no well-known URI is used,

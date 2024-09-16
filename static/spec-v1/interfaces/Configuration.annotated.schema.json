@@ -26,9 +26,10 @@
         "url": {
           "type": "string",
           "format": "uri-reference",
-          "description": "URL or relative URL to the ORD document (provided by an ORD document endpoint).\n\nIt is RECOMMENDED to provide a relative URL (to base URL), starting with `/`.\nIf a `baseUrl` is given, the relative URLs will be resolved with it.\n\nIf the URL is not relative to the system providing this information or no well-known URI is used,\neither the baseUrl or a full URL to the document MUST be provided.",
+          "description": "URL or relative URL to the ORD document (provided by an ORD document endpoint).\n\nIt is RECOMMENDED to provide a relative URL (to `baseUrl`).\nIf a `baseUrl` is given, the relative URLs will be resolved with it.\n\nIf the URL is not relative to the system providing this information or no well-known URI is used,\neither the baseUrl or a full URL to the document MUST be provided.",
           "examples": [
             "/open-resource-discovery/v1/documents/example1",
+            "../../documents/example1",
             "https://example.com/open-resource-discovery/v1/documents/example1"
           ]
         },
