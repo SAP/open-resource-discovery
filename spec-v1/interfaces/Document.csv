@@ -156,6 +156,7 @@ Data Product,version,true,string
 Data Product,lastUpdate,false,string
 Data Product,visibility,true,string
 Data Product,releaseStatus,true,string
+Data Product,disabled,false,boolean
 Data Product,lifecycleStatus,false,string
 Data Product,deprecationDate,false,string
 Data Product,sunsetDate,false,string
