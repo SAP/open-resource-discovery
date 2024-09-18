@@ -10,6 +10,14 @@ For a roadmap including expected timeline, please refer to [ROADMAP.md](./ROADMA
 
 ## [unreleased]
 
+## [1.9.7]
+
+### Changed
+
+- Allowing `disabled` as "hidden property" in Data Products for backward compatibility
+  - The property was removed in favor of `lifecycleStatus`
+  - This may be cleaned up / removed again in the future
+
 ## [1.9.6]
 
 ### Added

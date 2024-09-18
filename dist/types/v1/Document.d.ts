@@ -1738,6 +1738,19 @@ export interface DataProduct {
      */
     releaseStatus: "active" | "beta" | "deprecated";
     /**
+     * Indicates that this resource is currently not available for consumption at runtime, but could be configured to be so.
+     * This can happen either because it has not been setup for use or disabled by an admin / user.
+     *
+     * If the resource is not available in principle for a particular system instance, e.g. due to lack of entitlement, it MUST not be described in the system-instance aware perspective.
+     *
+     * This property can only reflect the knowledge of the described system instance itself.
+     * Outside factors for availability can't need to be considered (e.g. network connectivity, middlewares).
+     *
+     * A disabled resource MAY skip describing its resource definitions.
+     *
+     */
+    disabled?: boolean;
+    /**
      * Lifecycle status of the Data Product as a whole.
      *
      * MUST be provided when describing the system-instance aware (run-time) perspective.

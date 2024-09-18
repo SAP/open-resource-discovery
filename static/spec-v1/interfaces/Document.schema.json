@@ -2211,6 +2211,11 @@
             "active"
           ]
         },
+        "disabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Indicates that this resource is currently not available for consumption at runtime, but could be configured to be so.\nThis can happen either because it has not been setup for use or disabled by an admin / user.\n\nIf the resource is not available in principle for a particular system instance, e.g. due to lack of entitlement, it MUST not be described in the system-instance aware perspective.\n\nThis property can only reflect the knowledge of the described system instance itself.\nOutside factors for availability can't need to be considered (e.g. network connectivity, middlewares).\n\nA disabled resource MAY skip describing its resource definitions.\n"
+        },
         "lifecycleStatus": {
           "type": "string",
           "description": "Lifecycle status of the Data Product as a whole.\n\nMUST be provided when describing the system-instance aware (run-time) perspective.\nSHOULD NOT be provided in static (design-time) perspective. Static aggregators MUST ignore this property.",
