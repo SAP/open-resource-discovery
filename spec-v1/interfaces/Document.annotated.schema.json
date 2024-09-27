@@ -84,7 +84,11 @@
           "oneOf": [
             {
               "const": "none",
-              "description": "No policy level chosen. Only the base rules on how to create correct ORD documents apply.\nThis corresponds to the SAP `sap:base:v1` compliance level."
+              "description": "No policy level chosen. Only the base rules on how to create correct ORD documents apply."
+            },
+            {
+              "const": "sap:base:v1",
+              "description": "Basic SAP rules and guidelines apply. This just ensures technical correctness and essential validations.\nIf chosen the [SAP Base V1](../../spec-extensions/policy-levels/sap-base-v1) rules MUST be followed."
             },
             {
               "const": "sap:core:v1",
@@ -1251,7 +1255,11 @@
           "oneOf": [
             {
               "const": "none",
-              "description": "No policy level chosen. Only the base rules on how to create correct ORD documents apply.\nThis corresponds to the SAP `sap:base:v1` compliance level."
+              "description": "No policy level chosen. Only the base rules on how to create correct ORD documents apply."
+            },
+            {
+              "const": "sap:base:v1",
+              "description": "Basic SAP rules and guidelines apply. This just ensures technical correctness and essential validations.\nIf chosen the [SAP Base V1](../../spec-extensions/policy-levels/sap-base-v1) rules MUST be followed."
             },
             {
               "const": "sap:core:v1",
@@ -1815,7 +1823,11 @@
           "oneOf": [
             {
               "const": "none",
-              "description": "No policy level chosen. Only the base rules on how to create correct ORD documents apply.\nThis corresponds to the SAP `sap:base:v1` compliance level."
+              "description": "No policy level chosen. Only the base rules on how to create correct ORD documents apply."
+            },
+            {
+              "const": "sap:base:v1",
+              "description": "Basic SAP rules and guidelines apply. This just ensures technical correctness and essential validations.\nIf chosen the [SAP Base V1](../../spec-extensions/policy-levels/sap-base-v1) rules MUST be followed."
             },
             {
               "const": "sap:core:v1",
@@ -2150,7 +2162,11 @@
           "oneOf": [
             {
               "const": "none",
-              "description": "No policy level chosen. Only the base rules on how to create correct ORD documents apply.\nThis corresponds to the SAP `sap:base:v1` compliance level."
+              "description": "No policy level chosen. Only the base rules on how to create correct ORD documents apply."
+            },
+            {
+              "const": "sap:base:v1",
+              "description": "Basic SAP rules and guidelines apply. This just ensures technical correctness and essential validations.\nIf chosen the [SAP Base V1](../../spec-extensions/policy-levels/sap-base-v1) rules MUST be followed."
             },
             {
               "const": "sap:core:v1",
@@ -2736,7 +2752,11 @@
           "oneOf": [
             {
               "const": "none",
-              "description": "No policy level chosen. Only the base rules on how to create correct ORD documents apply.\nThis corresponds to the SAP `sap:base:v1` compliance level."
+              "description": "No policy level chosen. Only the base rules on how to create correct ORD documents apply."
+            },
+            {
+              "const": "sap:base:v1",
+              "description": "Basic SAP rules and guidelines apply. This just ensures technical correctness and essential validations.\nIf chosen the [SAP Base V1](../../spec-extensions/policy-levels/sap-base-v1) rules MUST be followed."
             },
             {
               "const": "sap:core:v1",
@@ -4980,7 +5000,11 @@
       "oneOf": [
         {
           "const": "none",
-          "description": "No policy level chosen. Only the base rules on how to create correct ORD documents apply.\nThis corresponds to the SAP `sap:base:v1` compliance level."
+          "description": "No policy level chosen. Only the base rules on how to create correct ORD documents apply."
+        },
+        {
+          "const": "sap:base:v1",
+          "description": "Basic SAP rules and guidelines apply. This just ensures technical correctness and essential validations.\nIf chosen the [SAP Base V1](../../spec-extensions/policy-levels/sap-base-v1) rules MUST be followed."
         },
         {
           "const": "sap:core:v1",

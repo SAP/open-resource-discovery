@@ -250,6 +250,7 @@ components:
           default: none
           enum:
             - none
+            - sap:base:v1
             - sap:core:v1
             - custom
           example: sap:core:v1
@@ -466,6 +467,7 @@ components:
           default: none
           enum:
             - none
+            - sap:base:v1
             - sap:core:v1
             - custom
           example: sap:core:v1
@@ -1663,6 +1665,7 @@ components:
           default: none
           enum:
             - none
+            - sap:base:v1
             - sap:core:v1
             - custom
           example: sap:core:v1
@@ -2272,6 +2275,7 @@ components:
           default: none
           enum:
             - none
+            - sap:base:v1
             - sap:core:v1
             - custom
           example: sap:core:v1
@@ -2636,6 +2640,7 @@ components:
           default: none
           enum:
             - none
+            - sap:base:v1
             - sap:core:v1
             - custom
           example: sap:core:v1
@@ -3186,6 +3191,7 @@ components:
           default: none
           enum:
             - none
+            - sap:base:v1
             - sap:core:v1
             - custom
           example: sap:core:v1
