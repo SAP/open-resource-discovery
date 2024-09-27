@@ -1,13 +1,16 @@
 ---
 title: SAP Core v1
 description: "sap:core:v1 compliance level."
+sidebar_position: 1
 ---
 
 # SAP Core Policy Level (v1.0)
 
 ## Description
 
-This policy level (aka compliance level) `sap:core:v1` MUST be fulfilled by all SAP applications and services.
+This policy level (aka compliance level) `sap:core:v1` is based on the [`sap:base:v1`](./sap-base-v1.md) policy level and inherits all its expectations.
+
+It MUST be fulfilled by all SAP applications and services.
 Exceptions are only allowed on a case by case basis.
 
 This policy level is based on various SAP guidelines and rules - most of them which are already established.
@@ -135,7 +138,7 @@ The following constraints apply in addition to the constraints defined in the [O
 - For [Packages](../../spec-v1/interfaces/document.md#package) with policy level sap, the Governance Guidelines for API Packages MUST be followed.
   - This includes the current limitation that Packages MUST NOT contain mixed resource types. E.g., a Package must only contain either APIs or Events, but never both together.
   - SAP Business Accelerator Hub publishing becomes slow if too much content is in a Package (> 100 resources). Consider creating smaller packages that are split around the aspect of what needs to be published in one transaction.
-- The `vendor` of a Package MUST be set to `sap:vendor:SAP:`.
+- The vendor of a Package MUST be set and be equal to one of the allowed values: `sap:vendor:SAP:`, `customer:vendor:Customer:`.
 
 ### Consumption Bundle
 

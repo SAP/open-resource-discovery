@@ -37,7 +37,7 @@ export interface ORDDocument {
      * The policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.
      *
      */
-    policyLevel?: "none" | "sap:core:v1" | "custom";
+    policyLevel?: "none" | "sap:base:v1" | "sap:core:v1" | "custom";
     /**
      * If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.
      * The policy level is inherited from packages to resources they contain, but can be overwritten at resource level.
@@ -521,7 +521,7 @@ export interface APIResource {
      * The policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.
      *
      */
-    policyLevel?: "none" | "sap:core:v1" | "custom";
+    policyLevel?: "none" | "sap:base:v1" | "sap:core:v1" | "custom";
     /**
      * If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.
      * The policy level is inherited from packages to resources they contain, but can be overwritten at resource level.
@@ -1133,7 +1133,7 @@ export interface EventResource {
      * The policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.
      *
      */
-    policyLevel?: "none" | "sap:core:v1" | "custom";
+    policyLevel?: "none" | "sap:base:v1" | "sap:core:v1" | "custom";
     /**
      * If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.
      * The policy level is inherited from packages to resources they contain, but can be overwritten at resource level.
@@ -1389,7 +1389,7 @@ export interface EntityType {
      * The policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.
      *
      */
-    policyLevel?: "none" | "sap:core:v1" | "custom";
+    policyLevel?: "none" | "sap:base:v1" | "sap:core:v1" | "custom";
     /**
      * If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.
      * The policy level is inherited from packages to resources they contain, but can be overwritten at resource level.
@@ -1868,7 +1868,7 @@ export interface DataProduct {
      * The policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.
      *
      */
-    policyLevel?: "none" | "sap:core:v1" | "custom";
+    policyLevel?: "none" | "sap:base:v1" | "sap:core:v1" | "custom";
     /**
      * If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.
      * The policy level is inherited from packages to resources they contain, but can be overwritten at resource level.
@@ -2402,7 +2402,7 @@ export interface Package {
      * The policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.
      *
      */
-    policyLevel?: "none" | "sap:core:v1" | "custom";
+    policyLevel?: "none" | "sap:base:v1" | "sap:core:v1" | "custom";
     /**
      * If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.
      * The policy level is inherited from packages to resources they contain, but can be overwritten at resource level.

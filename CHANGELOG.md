@@ -10,6 +10,14 @@ For a roadmap including expected timeline, please refer to [ROADMAP.md](./ROADMA
 
 ## [unreleased]
 
+## [1.9.8]
+
+### Added
+
+- Added explicit `sap:base:v1` policy level to not conflate it with `none`
+  - So far we only had SAP to use ORD, so we assumed that `none` equals to our `sap:base:v1`.
+    By introducing this policy level, we can now keep `none` unopinionated.
+
 ## [1.9.7]
 
 ### Changed
