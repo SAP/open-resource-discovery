@@ -1799,7 +1799,7 @@ export interface DataProduct {
      */
     category: "business-object" | "analytical" | "other";
     /**
-     * List of entity types that are at least partially exposed by the data product.
+     * Aggregated list of entity types that are at least partially exposed by the data product. Detailed mapping can be found on the output port schema level.
      */
     entityTypes?: string[];
     /**
@@ -2338,6 +2338,8 @@ export interface Product {
  * In any case, the Package `ordID` namespace MUST reflect the namespace of the providing application (which hosts the resource), not the resource definition owner, which could be a customer or partner.
  *
  * A package SHOULD contain at least one resource. Avoid empty packages.
+ *
+ * The package assignment of a resource MAY change, so consumers MUST not rely on this to be stable.
  *
  * A package does not have a `visibility` property.
  * Whether it is displayed is decided by the fact, whether it contains any visible resources according to the visibility role of the aggregator.

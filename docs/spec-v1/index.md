@@ -572,8 +572,8 @@ A complete namespace MUST match the following [regular expression](https://en.wi
 ^[a-z0-9]+(?:[.][a-z0-9]+)*$
 ```
 
-> ℹ ORD can already be used outside of the SAP context, but this requires the adopting company to take care of namespaces.
-> It does not matter this is achieved, but it needs to be ensured that namespaces within the company are conflict free and follow the ORD namespace structure and constraints.
+> ℹ ORD can already be used outside of the SAP context, but this requires to take care of namespaces.
+> It needs to be ensured that namespaces within the company are conflict free and follow the ORD namespace structure and constraints.
 
 #### Structure of Namespaces
 
@@ -584,6 +584,7 @@ Namespaces MUST follow the below structure:
 ```xml
 <vendorNamespace> := <vendorId>
     <vendorId> := identifier for the vendor / organization.
+    `customer` is a reserved vendor ID for [customer content / systems](#customer-namespace).
 
 <systemNamespace> := <vendorNamespace>.<systemTypeId>
     <systemTypeId> := identifier for the system type (service / application).
@@ -592,11 +593,11 @@ Namespaces MUST follow the below structure:
     <authorityId> := identifier for the authority.
 ```
 
-Optionally, Sub-Contexts can be defined as sub namespaces for system and authority namespaces:
+Optionally, sub-contexts can be defined as sub namespaces for system and authority namespaces:
 
 ```xml
 <namespace> := <systemNamespace/authorityNamespace>[.<subContext>]
-    <subContext> := sub context below system or authority namespace. May consist of multiple fragments.
+    <subContext> := sub-context below application or authority namespace. May consist of multiple fragments.
 ```
 
 **Constraints**:
@@ -637,7 +638,7 @@ There there can be hierarchical groupings of them to higher, logical concepts an
 Here we simplify on purpose and **treat the identity of an application / service type flatly, without hierarchy**.
 How this boundary is drawn depends on the technical decisions of the application / service.
 
-To model a more complex application or organizational structure, for instance containing multiple modules / components, further sub-fragments MAY be indicated via [subcontext namespaces](#subcontext-namespace).
+To model a more complex application or organizational structure, for instance containing multiple modules / components, further sub-fragments MAY be indicated via [sub-context namespaces](#sub-context-namespace).
 
 System namespaces are sub-namespaces of exactly one vendor namespace.
 
@@ -654,10 +655,8 @@ An system namespace MUST be constructed according to the following rules:
 
 #### Authority Namespace
 
-An <dfn id="def-ord-authority-namespace">authority namespace</dfn> is a stable and globally unique identifier namespace that corresponds to an application or service (ORD <a href="#def-system-type">system type</a>).
-
-An **authority** is an organizational unit responsible for cross-alignment and governance.
-Authority namespaces are relevant when contracts and interfaces are owned and defined on a level that spans across individual applications or services.
+An <dfn id="def-authority-namespace">authority namespace</dfn> is a stable and globally unique identifier namespace that corresponds to an **organizational unit** responsible for cross-alignment and governance.
+Authority namespaces are relevant when contracts, interfaces or taxonomy are owned and defined on a level that spans across individual applications or services.
 
 An authority namespace MUST be constructed according to the following rules:
 
@@ -670,27 +669,28 @@ An authority namespace MUST be constructed according to the following rules:
 
 **Examples**: `sap.odm`.
 
-#### Subcontext Namespace
+#### Sub-Context Namespace
 
-A <dfn id="def-ord-subcontext-namespace">subcontext namespace</dfn> is a stable and globally unique identifier namespace that allows for further sub-grouping within an [system namespace](#system-namespace) or [authority namespace](#system-namespace).
+A <dfn id="def-ord-sub-context-namespace">sub-context namespace</dfn> is a stable and globally unique identifier namespace that allows for further namespacing within an [system namespace](#system-namespace) or [authority namespace](#system-namespace).
 
-A subcontext can be motivated by ownership, domain or technical modularity concerns.
+A sub-context can be motivated by ownership, ID uniqueness, domain or technical modularity concerns.
   * A Sub-Context MUST be directly below an application / service namespace or an authority namespace.
-  * A Sub-Context MAY be provided or not, but if they are described here, the list MUST be complete.
   * A Sub-Context MAY contain further sub-namespaces, e.g. `subcontext.subsubcontext`.
   * **The Sub-Context MUST NOT be interpreted as identity by services and consumers.**.
 
-An subcontext namespace MUST be constructed according to the following rules:
+An sub-context namespace MUST be constructed according to the following rules:
 
-`<subcontextNamespace>` := `<systemNamespace|authorityNamespace>.<subContextName>`
+`<subContextNamespace>` := `<systemNamespace|authorityNamespace>.<subContextName>`
 
 - `<systemNamespace|authorityNamespace>` MUST be a valid [system namespace](#system-namespace) or [authority namespace](#system-namespace).
 - `<subContextName>` is the identifier of the application / service.
   - MUST only consist of lower case ASCII letters (`a-z`) and digits (`0-9`) (`^[a-z0-9]+$`).
-  - MAY include further subcontext namespaces, separated by `.`.
+  - MAY include further sub-context namespaces, separated by `.`.
 - MUST match Regexp: `^[a-z0-9]+(?:[.][a-z0-9]+){2,}$`
 
 **Examples**: `sap.billing.sb`, `sap.s4.beh`, `sap.odm.finance.bank`.
+
+It is NOT RECOMMENDED to use sub-context namespaces for grouping purposes only, see [grouping and bundling](../details/articles/grouping-and-bundling.md#namespaces).
 
 ### ORD ID
 
@@ -721,11 +721,15 @@ It MUST be constructed as defined here:
   The namespace MUST reflect the provider of the described resource.
 
   - For `Package`, `ConsumptionBundle`, `APIResource` and `EventResource`, `Capability` and `IntegrationDependency`:
-    - MUST be a valid [system namespace](#system-namespace) or an [subcontext namespace](#subcontext-namespace) thereof
+    - MUST be a valid [system namespace](#system-namespace) or an [sub-context namespace](#sub-context-namespace) thereof
   - For `EntityType`
-    - MUST be a valid [system namespace](#system-namespace), [authority namespace](#authority-namespace) or [subcontext namespace](#subcontext-namespace)
+    - MUST be a valid [system namespace](#system-namespace), [authority namespace](#authority-namespace) or [sub-context namespace](#sub-context-namespace)
   - For `Vendor` and `Product`:
     - MUST be a valid [vendor namespace](#def-ord-vendor-namespace) for `Vendor` and `Product`
+  - The provider is the system hosting the described resource.
+    - In advanced cases, the provider could be an embedded system / sidecar with its own system namespace.
+      This can lead to multiple system namespaces within one system.
+      In this case it needs to be taken care that static publishing does not create conflicts, e.g. through moving the publishing responsibility to the embedded system (and not by the parent system).
 
 - **`<conceptName>`** := The ORD concept name of the described resource / taxonomy.
 
@@ -803,7 +807,7 @@ It MUST be constructed as defined here:
 
   - MUST be a valid [namespace](#namespaces).
 
-- **`<conceptName>`**: the name of the target concept
+- **`<conceptName>`**: the name of the target concept (free choice of concept name)
 
   - MUST only contain alphanumeric characters and the special characters `-`, `_`, `/` and `.`.
   - MUST be unique within the chosen `<namespace>`.
@@ -845,7 +849,7 @@ It MUST be constructed as defined here:
 
   - MUST be a valid [namespace](#namespaces).
 
-- **`<conceptName>`**: the name of the target concept
+- **`<conceptName>`**: the name of the target concept (free choice of concept name)
 
   - MUST only contain alphanumeric characters and the special characters `-`, `_`, `/` and `.`.
   - MUST be unique within the chosen `<namespace>`.

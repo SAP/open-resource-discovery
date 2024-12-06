@@ -1,7 +1,7 @@
 ---
 title: SAP Core v1
 description: "sap:core:v1 compliance level."
-sidebar_position: 1
+sidebar_position: 2
 ---
 
 # SAP Core Policy Level (v1.0)
@@ -77,11 +77,11 @@ The following constraints apply in addition to the constraints defined in the [O
 
 - All `title` values (except link titles) MAY use the following specially approved terms:
 
-  | Approved Term    | Description                            |
-  | ---------------- | -------------------------------------- |
-  | `S/4HANA`        | Approved product name                  |
-  | `country/region` | Approved name                          |
-  | `G/L`            | General ledger. Approved abbreviation. |
+  | Approved Term                         | Description                            |
+  | ------------------------------------- | -------------------------------------- |
+  | `S/4HANA`                             | Approved product name                  |
+  | `country/region`<br/>`Country/Region` | Approved name                          |
+  | `G/L`                                 | General ledger. Approved abbreviation. |
 
 ### Description Constraints
 
@@ -100,25 +100,26 @@ The following constraints apply in addition to the constraints defined in the [O
 - All `shortDescription` values MUST NOT repeat or start with the object name.
 - All `shortDescription` values SHOULD use the following charset:
 
-  | Chars        | Description           |
-  | ------------ | --------------------- |
-  | `A-Z`, `a-z` | Latin letters         |
-  | `0-9`        | Numbers               |
-  | ` `          | Space                 |
-  | `_`          | Underscores           |
-  | `-` `—` `–`  | Different hyphens     |
-  | `.`          | Fullstop (Period)     |
-  | `,`          | Comma                 |
-  | `(` `)`      | Parentheses           |
-  | `'s`         | Possessive apostrophe |
+  | Chars        | Description                                                            |
+  | ------------ | ---------------------------------------------------------------------- |
+  | `A-Z`, `a-z` | Latin letters                                                          |
+  | `0-9`        | Numbers                                                                |
+  | ` `          | Space                                                                  |
+  | `_`          | Underscores                                                            |
+  | `-` `—` `–`  | Different hyphens                                                      |
+  | `.`          | Fullstop (Period)                                                      |
+  | `,`          | Comma                                                                  |
+  | `(` `)`      | Parentheses                                                            |
+  | `'s`         | Possessive apostrophe for nouns                                        |
+  | `s'`         | Possessive apostrophe is added to plural proper nouns that ends in `s` |
 
 - All `shortDescription` values MAY use the following specially approved terms:
 
-  | Approved Name    | Description                            |
-  | ---------------- | -------------------------------------- |
-  | `S/4HANA`        | Approved product name                  |
-  | `country/region` | Approved name                          |
-  | `G/L`            | General ledger. Approved abbreviation. |
+  | Approved Name                         | Description                            |
+  | ------------------------------------- | -------------------------------------- |
+  | `S/4HANA`                             | Approved product name                  |
+  | `country/region`<br/>`Country/Region` | Approved name                          |
+  | `G/L`                                 | General ledger. Approved abbreviation. |
 
 ### Misc Constraints
 
@@ -136,7 +137,10 @@ The following constraints apply in addition to the constraints defined in the [O
 ### Package
 
 - For [Packages](../../spec-v1/interfaces/document.md#package) with policy level sap, the Governance Guidelines for API Packages MUST be followed.
-  - This includes the current limitation that Packages MUST NOT contain mixed resource types. E.g., a Package must only contain either APIs or Events, but never both together.
+  - This includes current limitations:
+    - Packages MUST NOT be shared by multiple provider (source) systems
+    - Packages MUST NOT contain mixed resource types. E.g., a Package must only contain either APIs or Events, but never both together.
+    - Packages MUST NOT contain content of mixed `visibility`
   - SAP Business Accelerator Hub publishing becomes slow if too much content is in a Package (> 100 resources). Consider creating smaller packages that are split around the aspect of what needs to be published in one transaction.
 - The vendor of a Package MUST be set and be equal to one of the allowed values: `sap:vendor:SAP:`, `customer:vendor:Customer:`.
 

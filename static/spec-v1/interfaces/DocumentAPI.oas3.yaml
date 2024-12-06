@@ -360,6 +360,9 @@ components:
         A package SHOULD contain at least one resource. Avoid empty packages.
 
 
+        The package assignment of a resource MAY change, so consumers MUST not rely on this to be stable.
+
+
         A package does not have a `visibility` property.
 
         Whether it is displayed is decided by the fact, whether it contains any visible resources according to the
@@ -2976,7 +2979,9 @@ components:
           example: business-object
         entityTypes:
           type: array
-          description: List of entity types that are at least partially exposed by the data product.
+          description: >-
+            Aggregated list of entity types that are at least partially exposed by the data product. Detailed mapping
+            can be found on the output port schema level.
           items:
             type: string
             pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):(entityType):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$

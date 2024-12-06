@@ -32,10 +32,27 @@ Some of them have a specific indented usage, while others offer the application 
   * This concept is very flexible, but still well governed and machine-readable.
   * It works similar to Packages or Consumption Bundles, but allows the ORD Provider to define their own group categories and their semantics.
 
+### Namespaces
+
+The ORD IDs contain a [namespace](../../spec-v1/index.md#namespaces), which MAY include optional [sub-context namespaces](../../spec-v1/index.md#sub-context-namespace).
+They act like a [DDD Bounded Context](https://martinfowler.com/bliki/BoundedContext.html) and allow the same `<resourceName>` to appear in multiple sub-namespaces.
+
+Please be aware that changing the sub-context namespace is an incompatible change, as the ORD IDs change.
+Therefore it's NOT RECOMMENDED to use sub-context namespaces just for the purpose of grouping (use [groups](#groups) instead).
+They should only be used if they are expected to be stable and are necessary to ensure the overall ORD ID is conflict free.
+A good reason is to ensure that sub-teams can work independently on content and have an isolated, conflict free sub-namespace.
+
 ### ORD Documents
 
 ORD Documents are only used to transport ORD information to the aggregator and have no impact on grouping and bundling.
 However, there are still some [Considerations on the granularity of ORD Documents](../../spec-v1/index.md#considerations-on-the-granularity-of-ord-documents).
+
+## Best Practices and Recommendations
+
+* Avoid using [namespaces](#namespaces) for the purpose of grouping, if possible.
+* To express end-user facing taxonomy, use [groups](#groups) and not tags or labels as they have no human-readable labels and are meant more for machine
+* Packages are less flexible for grouping than [groups](#groups), so the latter are recommended and can be complementary.
+  Use [packages](#package) to group ORD resources published together and making use of the information reuse.
 
 ## Detailed Explanations
 

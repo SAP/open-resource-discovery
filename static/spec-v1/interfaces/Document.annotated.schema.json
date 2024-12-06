@@ -22,7 +22,7 @@
     "Package": {
       "type": "object",
       "title": "Package",
-      "description": "A [**Package**](../../details/articles/grouping-and-bundling#package) organizes a set of related resources together, by publishing and catalog presentation concerns.\n\nThe Package can also be used to indicate which products or vendors provided the packaged resources.\nFor partner or customer content, the package can indicate this via the `vendor` and `partOfProducts` assignments.\nIn any case, the Package `ordID` namespace MUST reflect the namespace of the providing application (which hosts the resource), not the resource definition owner, which could be a customer or partner.\n\nA package SHOULD contain at least one resource. Avoid empty packages.\n\nA package does not have a `visibility` property.\nWhether it is displayed is decided by the fact, whether it contains any visible resources according to the visibility role of the aggregator.\n\nTo learn more about the concept and further guidance, see [Package](../../details/articles/grouping-and-bundling#package).",
+      "description": "A [**Package**](../../details/articles/grouping-and-bundling#package) organizes a set of related resources together, by publishing and catalog presentation concerns.\n\nThe Package can also be used to indicate which products or vendors provided the packaged resources.\nFor partner or customer content, the package can indicate this via the `vendor` and `partOfProducts` assignments.\nIn any case, the Package `ordID` namespace MUST reflect the namespace of the providing application (which hosts the resource), not the resource definition owner, which could be a customer or partner.\n\nA package SHOULD contain at least one resource. Avoid empty packages.\n\nThe package assignment of a resource MAY change, so consumers MUST not rely on this to be stable.\n\nA package does not have a `visibility` property.\nWhether it is displayed is decided by the fact, whether it contains any visible resources according to the visibility role of the aggregator.\n\nTo learn more about the concept and further guidance, see [Package](../../details/articles/grouping-and-bundling#package).",
       "properties": {
         "ordId": {
           "type": "string",
@@ -753,7 +753,7 @@
             },
             {
               "const": "deprecated",
-              "description": "Resource has been deprecated.\n\nIf successor resources exist, they MUST be referenced through `successors`.\nIf it is deprecated without defining its `successors`, a `sunsetDate` SHOULD be provided.\n\nA deprecated resource MAY be decommissioned (removed) in the future.\nThis removal MUST be explicitly indicated through a `Tombstone`.\nOnce the resource is decommissioned, it MUST be removed from ORD."
+              "description": "Resource has been deprecated.\n\nIf successor resources exist, they MUST be referenced through `successors`.\nIf it is deprecated without defining its `successors`, a `sunsetDate` SHOULD be provided.\n\nA deprecated resource MAY be decommissioned (removed) in the future, through setting a `Tombstone`.\nOnce the resource is decommissioned, it MUST be removed from ORD (which is why there is no release status for decommissioned)."
             }
           ],
           "examples": [
@@ -1488,7 +1488,7 @@
             },
             {
               "const": "deprecated",
-              "description": "Resource has been deprecated.\n\nIf successor resources exist, they MUST be referenced through `successors`.\nIf it is deprecated without defining its `successors`, a `sunsetDate` SHOULD be provided.\n\nA deprecated resource MAY be decommissioned (removed) in the future.\nThis removal MUST be explicitly indicated through a `Tombstone`.\nOnce the resource is decommissioned, it MUST be removed from ORD."
+              "description": "Resource has been deprecated.\n\nIf successor resources exist, they MUST be referenced through `successors`.\nIf it is deprecated without defining its `successors`, a `sunsetDate` SHOULD be provided.\n\nA deprecated resource MAY be decommissioned (removed) in the future, through setting a `Tombstone`.\nOnce the resource is decommissioned, it MUST be removed from ORD (which is why there is no release status for decommissioned)."
             }
           ],
           "examples": [
@@ -2047,7 +2047,7 @@
             },
             {
               "const": "deprecated",
-              "description": "Resource has been deprecated.\n\nIf successor resources exist, they MUST be referenced through `successors`.\nIf it is deprecated without defining its `successors`, a `sunsetDate` SHOULD be provided.\n\nA deprecated resource MAY be decommissioned (removed) in the future.\nThis removal MUST be explicitly indicated through a `Tombstone`.\nOnce the resource is decommissioned, it MUST be removed from ORD."
+              "description": "Resource has been deprecated.\n\nIf successor resources exist, they MUST be referenced through `successors`.\nIf it is deprecated without defining its `successors`, a `sunsetDate` SHOULD be provided.\n\nA deprecated resource MAY be decommissioned (removed) in the future, through setting a `Tombstone`.\nOnce the resource is decommissioned, it MUST be removed from ORD (which is why there is no release status for decommissioned)."
             }
           ],
           "examples": [
@@ -2219,7 +2219,6 @@
       "type": "object",
       "title": "Data Product",
       "x-introduced-in-version": "1.8.0",
-      "x-feature-status": "beta",
       "description": "A [Data Product](../../details/articles/data-product) is a data set exposed for consumption outside the boundaries of the producing application via APIs and described by high quality metadata that can be accessed through the [ORD Aggregator](../../spec-v1/#ord-aggregator).\n\nPlease note that this concept is in beta, see [Data Product - Beta Status](../../details/articles/data-product#beta-status).",
       "properties": {
         "ordId": {
@@ -2241,6 +2240,7 @@
           ]
         },
         "correlationIds": {
+          "x-feature-status": "beta",
           "type": "array",
           "description": "Correlation IDs can be used to create a reference to related data in other repositories (especially to the system of record).\n\nThey express an \"identity\" / \"equals\" / \"mappable\" relationship to the target ID.\n\nIf a \"part of\" relationship needs to be expressed, use the `partOfGroups` assignment instead.\n\nMUST be a valid [Correlation ID](../index.md#correlation-id).",
           "items": {
@@ -2293,6 +2293,7 @@
           ]
         },
         "partOfGroups": {
+          "x-feature-status": "beta",
           "type": "array",
           "items": {
             "type": "string",
@@ -2353,7 +2354,7 @@
             },
             {
               "const": "deprecated",
-              "description": "Resource has been deprecated.\n\nIf successor resources exist, they MUST be referenced through `successors`.\nIf it is deprecated without defining its `successors`, a `sunsetDate` SHOULD be provided.\n\nA deprecated resource MAY be decommissioned (removed) in the future.\nThis removal MUST be explicitly indicated through a `Tombstone`.\nOnce the resource is decommissioned, it MUST be removed from ORD."
+              "description": "Resource has been deprecated.\n\nIf successor resources exist, they MUST be referenced through `successors`.\nIf it is deprecated without defining its `successors`, a `sunsetDate` SHOULD be provided.\n\nA deprecated resource MAY be decommissioned (removed) in the future, through setting a `Tombstone`.\nOnce the resource is decommissioned, it MUST be removed from ORD (which is why there is no release status for decommissioned)."
             }
           ],
           "examples": [
@@ -2361,6 +2362,7 @@
           ]
         },
         "disabled": {
+          "x-feature-status": "beta",
           "type": "boolean",
           "default": false,
           "description": "Indicates that this resource is currently not available for consumption at runtime, but could be configured to be so.\nThis can happen either because it has not been setup for use or disabled by an admin / user.\n\nIf the resource is not available in principle for a particular system instance, e.g. due to lack of entitlement, it MUST not be described in the system-instance aware perspective.\n\nThis property can only reflect the knowledge of the described system instance itself.\nOutside factors for availability can't need to be considered (e.g. network connectivity, middlewares).\n\nA disabled resource MAY skip describing its resource definitions.\n",
@@ -2404,6 +2406,7 @@
           ]
         },
         "deprecationDate": {
+          "x-feature-status": "beta",
           "type": "string",
           "format": "date-time",
           "description": "The deprecation date defines when the resource has been set as deprecated.\nThis is not to be confused with the `sunsetDate` which defines when the resource will be actually decommissioned / removed.\n\nIf the `releaseStatus` is set to `deprecated`, the `deprecationDate` SHOULD be provided.\n\nThe date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).",
@@ -2412,6 +2415,7 @@
           ]
         },
         "sunsetDate": {
+          "x-feature-status": "beta",
           "type": "string",
           "format": "date-time",
           "description": "The sunset date defines when the resource is scheduled to be decommissioned/removed.\n\nIf the `releaseStatus` is set to `deprecated`, the `sunsetDate` SHOULD be provided (if already known).\nOnce the sunset date is known and ready to be communicated externally, it MUST be provided here.\n\nThe date format MUST comply with [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6).",
@@ -2420,6 +2424,7 @@
           ]
         },
         "successors": {
+          "x-feature-status": "beta",
           "type": "array",
           "description": "The successor resource(s).\n\nMUST be a valid reference to an ORD ID.\n\nIf the `releaseStatus` is set to `deprecated`, `successors` MUST be provided if one exists.\nIf `successors` is given, the described resource SHOULD set its `releaseStatus` to `deprecated`.",
           "items": {
@@ -2437,6 +2442,7 @@
           ]
         },
         "changelogEntries": {
+          "x-feature-status": "beta",
           "type": "array",
           "description": "Contains changelog entries that summarize changes with special regards to version and releaseStatus",
           "items": {
@@ -2482,8 +2488,9 @@
           ]
         },
         "entityTypes": {
+          "x-feature-status": "beta",
           "type": "array",
-          "description": "List of entity types that are at least partially exposed by the data product.",
+          "description": "Aggregated list of entity types that are at least partially exposed by the data product. Detailed mapping can be found on the output port schema level.",
           "items": {
             "type": "string",
             "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):(entityType):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
@@ -2500,6 +2507,7 @@
           ]
         },
         "inputPorts": {
+          "x-feature-status": "beta",
           "type": "array",
           "description": "The input ports of a data product indicate the data inputs for lineage purposes.\n\nIt is a list of Integration Dependencies, whose aspects will form the actual input ports.\n\nInput ports can also be understood as the public interface to ingest data into the data product.\nData products of type `derived` consume data through the input ports. Different input ports allowing ingestion of different sub-sets building up the data-set for the data product.\nData products of type `base` might not have any input ports. Their data sets are typically based directly on the applications / services own data.",
           "minItems": 0,
@@ -2543,6 +2551,7 @@
           ]
         },
         "dataProductLinks": {
+          "x-feature-status": "beta",
           "type": "array",
           "description": "Links with semantic meaning that are specific to Data Product Resources.",
           "items": {
@@ -2550,6 +2559,7 @@
           }
         },
         "links": {
+          "x-feature-status": "beta",
           "type": "array",
           "description": "Generic Links with arbitrary meaning and content.",
           "items": {
@@ -2557,6 +2567,7 @@
           }
         },
         "industry": {
+          "x-feature-status": "beta",
           "type": "array",
           "items": {
             "type": "string",
@@ -2656,6 +2667,7 @@
           ]
         },
         "lineOfBusiness": {
+          "x-feature-status": "beta",
           "type": "array",
           "items": {
             "type": "string",
@@ -2723,6 +2735,7 @@
           ]
         },
         "tags": {
+          "x-feature-status": "beta",
           "type": "array",
           "items": {
             "type": "string",
@@ -2738,14 +2751,17 @@
           ]
         },
         "labels": {
+          "x-feature-status": "beta",
           "$ref": "#/definitions/Labels",
           "description": "Generic labels that can be applied to most ORD information."
         },
         "documentationLabels": {
+          "x-feature-status": "beta",
           "$ref": "#/definitions/DocumentationLabels",
           "description": "Generic documentation labels that can be applied to most ORD information."
         },
         "policyLevel": {
+          "x-feature-status": "beta",
           "type": "string",
           "description": "The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that the described resources need to be compliant with.\nDepending on the chosen policy level, additional expectations and validations rules will be applied.\n\nThe policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.\n",
           "x-introduced-in-version": "1.3.0",
@@ -2773,6 +2789,7 @@
           ]
         },
         "customPolicyLevel": {
+          "x-feature-status": "beta",
           "type": "string",
           "description": "If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.\nThe policy level is inherited from packages to resources they contain, but can be overwritten at resource level.\n\nMUST only be provided if `policyLevel` is set to `custom`.\nMUST be a valid [Specification ID](../index.md#specification-id).",
           "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
@@ -2782,6 +2799,7 @@
           ]
         },
         "systemInstanceAware": {
+          "x-feature-status": "beta",
           "type": "boolean",
           "description": "Defines whether this ORD resource is **system instance aware**.\nThis is the case (and relevant) when the referenced resource definitions are potentially different between **system instances**.\n\nIf this behavior applies, `systemInstanceAware` MUST be set to true.\nAn ORD aggregator that represents a system instance aware perspective MUST fetch the referenced resource definitions,\nnot just once per system type, but once per **system instance**.",
           "default": false,
@@ -3350,7 +3368,7 @@
             },
             {
               "const": "deprecated",
-              "description": "Resource has been deprecated.\n\nIf successor resources exist, they MUST be referenced through `successors`.\nIf it is deprecated without defining its `successors`, a `sunsetDate` SHOULD be provided.\n\nA deprecated resource MAY be decommissioned (removed) in the future.\nThis removal MUST be explicitly indicated through a `Tombstone`.\nOnce the resource is decommissioned, it MUST be removed from ORD."
+              "description": "Resource has been deprecated.\n\nIf successor resources exist, they MUST be referenced through `successors`.\nIf it is deprecated without defining its `successors`, a `sunsetDate` SHOULD be provided.\n\nA deprecated resource MAY be decommissioned (removed) in the future, through setting a `Tombstone`.\nOnce the resource is decommissioned, it MUST be removed from ORD (which is why there is no release status for decommissioned)."
             }
           ],
           "examples": [
@@ -3659,7 +3677,7 @@
             },
             {
               "const": "deprecated",
-              "description": "Resource has been deprecated.\n\nIf successor resources exist, they MUST be referenced through `successors`.\nIf it is deprecated without defining its `successors`, a `sunsetDate` SHOULD be provided.\n\nA deprecated resource MAY be decommissioned (removed) in the future.\nThis removal MUST be explicitly indicated through a `Tombstone`.\nOnce the resource is decommissioned, it MUST be removed from ORD."
+              "description": "Resource has been deprecated.\n\nIf successor resources exist, they MUST be referenced through `successors`.\nIf it is deprecated without defining its `successors`, a `sunsetDate` SHOULD be provided.\n\nA deprecated resource MAY be decommissioned (removed) in the future, through setting a `Tombstone`.\nOnce the resource is decommissioned, it MUST be removed from ORD (which is why there is no release status for decommissioned)."
             }
           ],
           "examples": [
@@ -4011,7 +4029,7 @@
             },
             {
               "const": "deprecated",
-              "description": "Resource has been deprecated.\n\nIf successor resources exist, they MUST be referenced through `successors`.\nIf it is deprecated without defining its `successors`, a `sunsetDate` SHOULD be provided.\n\nA deprecated resource MAY be decommissioned (removed) in the future.\nThis removal MUST be explicitly indicated through a `Tombstone`.\nOnce the resource is decommissioned, it MUST be removed from ORD."
+              "description": "Resource has been deprecated.\n\nIf successor resources exist, they MUST be referenced through `successors`.\nIf it is deprecated without defining its `successors`, a `sunsetDate` SHOULD be provided.\n\nA deprecated resource MAY be decommissioned (removed) in the future, through setting a `Tombstone`.\nOnce the resource is decommissioned, it MUST be removed from ORD (which is why there is no release status for decommissioned)."
             }
           ],
           "examples": [

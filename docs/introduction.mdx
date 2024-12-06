@@ -45,18 +45,11 @@ It can be used to describe static documentation, but can also reflect tenant spe
 
 By adopting ORD, an application will implement a single-entry point ([Service Provider Interface](https://en.wikipedia.org/wiki/Service_provider_interface)) that can be used to discover and crawl the relevant information / metadata.
 
-<div style={{"text-align": "center"}}>
+<div style={{"text-align": "center", "max-width": "550px"}}>
 
 ![ORD Provider Overview](/img/ord-provider-overview.svg 'ORD Provider Overview')
 
 </div>
-
-> ℹ Please note that ORD does not replace already established standards to describe resources in detail.
-> For example, plain REST APIs could be described via [OpenAPI](https://www.openapis.org/).
-> ORD will enable the discovery of this fact and can pass along the relevant detailed metadata documents.
-
-<details>
-<summary>More Detail: How ORD helps with Self-Description</summary>
 
 In the picture above, the center is an application or service describing itself.
 They typically have multiple resources and capabilities that are outward facing and are of interest for external consumers.
@@ -76,7 +69,9 @@ This gives both SAP and our customers better introspection about the actual syst
 
 The specification provides a shared contract and alignment point for the ecosystem, spanning various consumers and providers. This allows to have one aligned standard instead of a wild growth of specific point-to-point alignments and integrations.
 
-</details>
+> ℹ Please note that ORD does not replace already established standards to describe resources in detail.
+> For example, plain REST APIs could be described via [OpenAPI](https://www.openapis.org/).
+> ORD will enable the discovery of this fact and can pass along the relevant detailed metadata documents.
 
 ## Data Model Overview
 
@@ -140,22 +135,14 @@ The flow to crawl the application for relevant metadata is the following:
 The [SAP Business Accelerator Hub](https://api.sap.com/) is an ORD aggregator that uses static information to present generic documentation.
 This perspective is very important, as it describes technical aspects of products without the need to first own and provision the system.
 
-<details>
-<summary>More UI examples with annotations</summary>
-
 ![SAP Business Accelerator Hub Example 1](/img/business-accelerator-hub-example1.png 'SAP Business Accelerator Hub Example 1')
 
 ![SAP Business Accelerator Hub Example 2](/img/business-accelerator-hub-example2.png 'SAP Business Accelerator Hub Example 2')
-
-</details>
 
 ### Unified Customer Landscape
 
 Unified Customer Landscape (UCL) is a set of technical services that also offers the system landscape metadata (incl. ORD information) to other applications and services.
 While the [SAP Business Accelerator Hub](#sap-business-accelerator-hub) focuses on the static perspective of a product, the UCL can provide the actual system tenant metadata - including possible customer extensions and customizations.
-
-<details>
-<summary>More UI examples with annotations and more details on UCL</summary>
 
 ![BTP Cockpit System Landscape via UCL](/img/btp-cockpit-ucl-example.png 'BTP Cockpit System Landscape via UCL')
 
@@ -173,8 +160,6 @@ Systems that are in the same formation usually need to get information about eac
 
 In the UI screenshot, the most notable concept is the [ORD System Instance](./index.md#def-system-instance), which is usually a tenant.
 If ORD information are provided, the detail view can show them and they will be made available to other systems in the same formation or account context.
-
-</details>
 
 ## ORD in More Detail
 
