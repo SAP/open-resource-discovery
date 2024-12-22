@@ -2926,7 +2926,7 @@
             },
             {
               "const": "sap-csn-interop-effective-v1",
-              "description": "CSN Interop Effective is a standardized and interoperable flavor of [CSN](https://cap.cloud.sap/docs/cds/csn)and a notation for compact representations of [CDS](https://cap.cloud.sap/docs/cds/) models.\nThe `mediaType` MUST be be set to `application/json`."
+              "description": "[CSN Interop Effective](https://sap.github.io/csn-interop-specification/) is a standardized and interoperable [CSN](https://cap.cloud.sap/docs/cds/csn) export, used to describe [CDS](https://cap.cloud.sap/docs/cds/) models.\nThe `mediaType` MUST be be set to `application/json`."
             },
             {
               "const": "custom",
@@ -5009,7 +5009,7 @@
     },
     "describedSystemInstance": {
       "$ref": "#/definitions/SystemInstance",
-      "description": "Information on the **system instance** that this ORD document describes.\n\nThis information is optional, but RECOMMENDED to add, as it makes the ORD document self contained.\nThe described system instance MUST be identical to the system instance that provides the ORD information."
+      "description": "Information on the **system instance** that this ORD document describes.\n\nThis information is optional, but RECOMMENDED to add, as it makes the ORD document self contained."
     },
     "policyLevel": {
       "type": "string",
