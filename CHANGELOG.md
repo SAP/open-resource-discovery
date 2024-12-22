@@ -12,6 +12,10 @@ For a roadmap including expected timeline, please refer to [ROADMAP.md](./ROADMA
 
 - Allow apostrophe for plural proper nouns in Short Descriptions in Policy Level `sap:core:v1`, e.g. `partners'`.
 
+### Changed
+
+- Removed constraint that `describedSystemInstance` MUST be same as system instance providing the ORD information
+
 ## [1.9.8]
 
 ### Added

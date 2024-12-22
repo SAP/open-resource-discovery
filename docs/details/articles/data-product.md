@@ -4,9 +4,9 @@ description: A Data Product is a data set exposed for consumption outside the bo
 title: Data Product
 ---
 
-# Data Product <span className="feature-status-beta">BETA</span>
+# Data Product
 
-> 🚧 Please note that the [Data Products](../../spec-v1/interfaces/document#data-product) concept is currently in [Beta Status](#beta-status).
+> 🚧 Please note that the [Data Products](../../spec-v1/interfaces/document#data-product) concept still has some missing and some beta properties.
 
 ## Definition
 
@@ -35,7 +35,7 @@ The following aspects of the definition are essential: (1) [data](#data-aspect),
 
 * Above we say that Data Products are consumed via APIs, but to be precise, they are consumed via APIs or Events (we treat events as a special form of API). In this doc, we generally use the term APIs to include Events (it is just more readable than always saying "APIs and/or Events").
 * There is a clear expectation that the APIs are described via [metadata](#metadata-aspect) for machine- and human-readable documentation.
-* For Data Products only certain types of API Protocols and qualities (performant mass read) are adequate.
+* For Data Products only certain types of API Protocols and qualities (performant mass read) are adequate. E.g. SAP uses [Delta Sharing](https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md), which we additionally describe with [CSN Interop](https://sap.github.io/csn-interop-specification/) for richer metadata.
 * Data Products are also expected to describe their data lineage. This is done via Data Product input ports, which are described in details as an ORD [Integration Dependency](../../spec-v1/interfaces/document#integration-dependency)
 
 ### Metadata Aspect
@@ -76,13 +76,13 @@ Data Products are exposed by **Producers** so that they can be used by **Consume
 * Data Product Consumers are applications or services that access and use the data from Data Products. Consumers can be of various types and cover both transactional and analytical applications. An application that processes operational data can be as Data Product consumer, as can analytical products like SAP Datasphere and SAP Analytics Cloud (SAC).
 * The Data Product Directory ([ORD Aggregator](../../spec-v1/#ord-aggregator)) is used by Consumers to find and discover available Data Products.
 
-## Beta Status
+## Current Status
 
-Please note that the Data Product concept is currently in <span className="feature-status-beta" title="This feature is in BETA status and subject to potential changes.">BETA</span>.
+Please note that the Data Product concept still contains some <span className="feature-status-beta" title="This feature is in BETA status and subject to potential changes.">BETA</span> properties.
 
 This has the following implications
 
-* The interface contract is potentially subject to changes, although we aim to avoid breaking changes if possible.
+* The beta-level properties are potentially subject to changes, although we aim to avoid breaking changes if possible.
 * Many data product relevant attributes are currently **not explicitly defined** in the specification yet.
   * Some attributes should be handled via documentation, e.g. Service Level Agreements via [dataProductLinks](../../spec-v1/interfaces/document#data-product_dataproductlinks) of `type`: [`service-level-agreement`](../../spec-v1/interfaces/document#data-product-link_type)
   * Such attributes need to be defined through generic extensibility mechanisms like `labels` and `documentationLabels` or added as text to the documentation.

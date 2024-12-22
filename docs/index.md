@@ -12,8 +12,8 @@ sidebar_position: 0
 <div className="col">
 Open Resource Discovery (ORD) is a protocol that **allows applications and services to self-describe their resources and capabilities** (e.g. ports and adapters).
 
-Typically, ORD is used to describe [APIs](./spec-v1/interfaces/document#api-resource) and [Events](./spec-v1/interfaces/document#event-resource), but it also supports higher-level concepts like [Entity Types](./spec-v1/interfaces/document#entity-type) (Domain / Business Objects) and [Data Products](./details/articles/data-product.md).
-With [Integration Dependencies](./spec-v1/interfaces/document#integration-dependency) the use of external resources can be stated, too.
+ORD can describe [APIs](./spec-v1/interfaces/document#api-resource), [Events](./spec-v1/interfaces/document#event-resource) and higher-level concepts like [Entity Types](./spec-v1/interfaces/document#entity-type) (Domain / Business Objects) and [Data Products](./details/articles/data-product.md).
+With [Integration Dependencies](./spec-v1/interfaces/document#integration-dependency) the use of external resources can be stated.
 In case that the standardized concepts or attributes are not sufficient, there are extensibility attributes and [Capabilities](./spec-v1/interfaces/document#capability).
 All of the described artifacts can share relationships, taxonomy and [grouping](./details/articles/grouping-and-bundling.md) concepts, enabling a **well connected metadata graph**.
 

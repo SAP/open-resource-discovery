@@ -141,7 +141,6 @@ The following constraints apply in addition to the constraints defined in the [O
     - Packages MUST NOT be shared by multiple provider (source) systems
     - Packages MUST NOT contain mixed resource types. E.g., a Package must only contain either APIs or Events, but never both together.
     - Packages MUST NOT contain content of mixed `visibility`
-  - SAP Business Accelerator Hub publishing becomes slow if too much content is in a Package (> 100 resources). Consider creating smaller packages that are split around the aspect of what needs to be published in one transaction.
 - The vendor of a Package MUST be set and be equal to one of the allowed values: `sap:vendor:SAP:`, `customer:vendor:Customer:`.
 
 ### Consumption Bundle
