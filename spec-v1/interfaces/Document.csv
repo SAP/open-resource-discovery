@@ -7,6 +7,7 @@ Package,description,true,string
 Package,version,true,string
 Package,policyLevel,false,string
 Package,customPolicyLevel,false,string
+Package,policyLevels,false,array<string>
 Package,packageLinks,false,array<PackageLink>
 Package,links,false,array<Link>
 Package,licenseType,false,string
@@ -78,6 +79,7 @@ API Resource,labels,false,Labels
 API Resource,documentationLabels,false,DocumentationLabels
 API Resource,policyLevel,false,string
 API Resource,customPolicyLevel,false,string
+API Resource,policyLevels,false,array<string>
 API Resource,systemInstanceAware,false,boolean
 Event Resource,ordId,true,string
 Event Resource,localId,false,string
@@ -116,6 +118,7 @@ Event Resource,labels,false,Labels
 Event Resource,documentationLabels,false,DocumentationLabels
 Event Resource,policyLevel,false,string
 Event Resource,customPolicyLevel,false,string
+Event Resource,policyLevels,false,array<string>
 Event Resource,systemInstanceAware,false,boolean
 Entity Type,ordId,true,string
 Entity Type,localId,true,string
@@ -143,6 +146,7 @@ Entity Type,labels,false,Labels
 Entity Type,documentationLabels,false,DocumentationLabels
 Entity Type,policyLevel,false,string
 Entity Type,customPolicyLevel,false,string
+Entity Type,policyLevels,false,array<string>
 Entity Type,systemInstanceAware,false,boolean
 Data Product,ordId,true,string
 Data Product,localId,false,string
@@ -177,6 +181,7 @@ Data Product,labels,false,Labels
 Data Product,documentationLabels,false,DocumentationLabels
 Data Product,policyLevel,false,string
 Data Product,customPolicyLevel,false,string
+Data Product,policyLevels,false,array<string>
 Data Product,systemInstanceAware,false,boolean
 Data Product Input Port,ordId,true,string
 Data Product Output Port,ordId,true,string
