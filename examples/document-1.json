@@ -2,7 +2,9 @@
   "$schema": "https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Document.schema.json",
   "openResourceDiscovery": "1.9",
   "description": "Example based on ORD Reference App",
-  "policyLevel": "sap:core:v1",
+  "policyLevels": [
+    "sap:core:v1"
+  ],
   "products": [
     {
       "ordId": "sap.foo:product:ord-reference-app:",
@@ -18,7 +20,9 @@
       "shortDescription": "This is a reference application for the Open Resource Discovery standard",
       "description": "This reference application demonstrates how Open Resource Discovery (ORD) can be implemented, demonstrating different resources and discovery aspects",
       "version": "0.3.0",
-      "policyLevel": "sap:core:v1",
+      "policyLevels": [
+        "sap:core:v1"
+      ],
       "partOfProducts": [
         "sap.foo:product:ord-reference-app:"
       ],
@@ -60,8 +64,9 @@
       "visibility": "public",
       "releaseStatus": "active",
       "systemInstanceAware": false,
-      "policyLevel": "custom",
-      "customPolicyLevel": "sap.foo:custom:v1",
+      "policyLevels": [
+        "sap.foo:custom:v1"
+      ],
       "partOfPackage": "sap.foo:package:ord-reference-app:v1",
       "partOfConsumptionBundles": [
         {

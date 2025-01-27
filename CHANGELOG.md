@@ -10,16 +10,29 @@ For a roadmap including expected timeline, please refer to [ROADMAP.md](./ROADMA
 
 ## [unreleased]
 
-- Allow apostrophe for plural proper nouns in Short Descriptions in Policy Level `sap:core:v1`, e.g. `partners'`.
+## [1.9.9]
+
+### Added
+
+- Added `terms-of-use` as a new type for Data Product links.
+- Added `sap:dp:v1` policy level (beta, WIP)
 
 ### Changed
 
+- Deprecated `policyLevel` and `customPolicyLevel` in favor of more flexible `policyLevels` (multiple items)
+  - This makes the policy level concept more flexible, as more than one policy level can apply
+  - Policy levels are now just a Specification ID, no fixed enum + customType (for simplification)
 - Removed constraint that `describedSystemInstance` MUST be same as system instance providing the ORD information
+- Allow apostrophe for plural proper nouns in Short Descriptions in Policy Level `sap:core:v1`, e.g. `partners'`.
+- Added two new Entity Type `level` options: `root-entity` and `sub-entity`.
+- The alpha property `runtimeRestriction` is now just expecting a valid system namespace as value, not a fixed enum value range
+  - This makes the property more flexible, no need for spec changes
 
 ## [1.9.8]
 
 ### Added
 
+- Added How To guide for ORD Provider adoption (as new detail article)
 - Added explicit `sap:base:v1` policy level to not conflate it with `none`
   - So far we only had SAP to use ORD, so we assumed that `none` equals to our `sap:base:v1`.
     By introducing this policy level, we can now keep `none` unopinionated.

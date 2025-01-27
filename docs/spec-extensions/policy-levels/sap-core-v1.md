@@ -1,6 +1,6 @@
 ---
 title: SAP Core v1
-description: "sap:core:v1 compliance level."
+description: "SAP Core v1 policy level"
 sidebar_position: 2
 ---
 
@@ -145,7 +145,7 @@ The following constraints apply in addition to the constraints defined in the [O
 
 ### Consumption Bundle
 
-- For public or internal [API Resources](../../spec-v1/interfaces/document.md#api-resource) with `inbound` or `mixed` direction (consumption pattern): MUST provide and assign a [Consumption Bundle](../../spec-v1/interfaces/document.md#consumption-bundle). This is necessary as some SAP ORD Consumers rely on Consumption Bundles to find and navigate accessible resources.
+- For public or internal [API Resources](../../spec-v1/interfaces/document.md#api-resource) with `inbound` or `mixed` direction (consumption pattern): SHOULD provide and assign a [Consumption Bundle](../../spec-v1/interfaces/document.md#consumption-bundle). This is necessary as some SAP ORD Consumers rely on Consumption Bundles to find and navigate accessible resources.
 
 ### API Resource
 

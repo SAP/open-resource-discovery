@@ -239,7 +239,7 @@ components:
         policyLevel:
           type: string
           description: >
-            The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that the described
+            The [policy level](../../spec-extensions/policy-levels/) (aka. compliance level) that the described
             resources need to be compliant with.
 
             Depending on the chosen policy level, additional expectations and validations rules will be applied.
@@ -252,6 +252,7 @@ components:
             - none
             - sap:base:v1
             - sap:core:v1
+            - sap:dp:v1
             - custom
           example: sap:core:v1
         customPolicyLevel:
@@ -269,6 +270,25 @@ components:
           pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
           maxLength: 255
           example: sap.xref:customPolicy:v1
+        policyLevels:
+          type: array
+          description: >-
+            A list of [policy levels](../../spec-extensions/policy-levels/) that the described resources need to be
+            compliant with.
+
+            For each chosen policy level, additional expectations and validations rules will be applied.
+
+
+            Policy levels can be defined on ORD Document level, but also be overwritten on an individual package or
+            resource level.
+
+
+            A policy level MUST be a valid [Specification ID](../index.md#specification-id).
+          items:
+            type: string
+            pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
+            maxLength: 255
+            example: sap:core:v1
         apiResources:
           type: array
           description: Array of all API Resources that are described in this ORD document.
@@ -459,7 +479,7 @@ components:
         policyLevel:
           type: string
           description: >
-            The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that the described
+            The [policy level](../../spec-extensions/policy-levels/) (aka. compliance level) that the described
             resources need to be compliant with.
 
             Depending on the chosen policy level, additional expectations and validations rules will be applied.
@@ -472,6 +492,7 @@ components:
             - none
             - sap:base:v1
             - sap:core:v1
+            - sap:dp:v1
             - custom
           example: sap:core:v1
         customPolicyLevel:
@@ -489,6 +510,25 @@ components:
           pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
           maxLength: 255
           example: sap.xref:customPolicy:v1
+        policyLevels:
+          type: array
+          description: >-
+            A list of [policy levels](../../spec-extensions/policy-levels/) that the described resources need to be
+            compliant with.
+
+            For each chosen policy level, additional expectations and validations rules will be applied.
+
+
+            Policy levels can be defined on ORD Document level, but also be overwritten on an individual package or
+            resource level.
+
+
+            A policy level MUST be a valid [Specification ID](../index.md#specification-id).
+          items:
+            type: string
+            pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
+            maxLength: 255
+            example: sap:core:v1
         packageLinks:
           type: array
           description: Links with semantic meaning that are specific to packages.
@@ -688,11 +728,13 @@ components:
           example:
             - Automotive
         runtimeRestriction:
-          title: Runtime Restriction
-          description: If provided, all resources that are part of this package can only run on the listed runtime.
+          description: |-
+            If provided, all resources that are part of this package can only run on the listed runtime.
+
+            MUST be a valid [System Namespace](../index.md#system-namespace).
           type: string
-          enum:
-            - sap.datasphere
+          pattern: ^[a-z0-9]+(?:[.][a-z0-9]+){1}$
+          example: sap.datasphere
         tags:
           type: array
           items:
@@ -876,9 +918,7 @@ components:
           example: '2022-12-19T15:47:04+00:00'
         visibility:
           type: string
-          description: |-
-            The visibility/exposure of the described resource or capability.
-            This indicates who is allowed to see (and implicitly also access) this.
+          description: The visibility states who is allowed to "see" the described resource or capability.
           enum:
             - public
             - internal
@@ -1190,9 +1230,7 @@ components:
           example: '2022-12-19T15:47:04+00:00'
         visibility:
           type: string
-          description: |-
-            The visibility/exposure of the described resource or capability.
-            This indicates who is allowed to see (and implicitly also access) this.
+          description: The visibility states who is allowed to "see" the described resource or capability.
           enum:
             - public
             - internal
@@ -1657,7 +1695,7 @@ components:
         policyLevel:
           type: string
           description: >
-            The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that the described
+            The [policy level](../../spec-extensions/policy-levels/) (aka. compliance level) that the described
             resources need to be compliant with.
 
             Depending on the chosen policy level, additional expectations and validations rules will be applied.
@@ -1670,6 +1708,7 @@ components:
             - none
             - sap:base:v1
             - sap:core:v1
+            - sap:dp:v1
             - custom
           example: sap:core:v1
         customPolicyLevel:
@@ -1687,6 +1726,25 @@ components:
           pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
           maxLength: 255
           example: sap.xref:customPolicy:v1
+        policyLevels:
+          type: array
+          description: >-
+            A list of [policy levels](../../spec-extensions/policy-levels/) that the described resources need to be
+            compliant with.
+
+            For each chosen policy level, additional expectations and validations rules will be applied.
+
+
+            Policy levels can be defined on ORD Document level, but also be overwritten on an individual package or
+            resource level.
+
+
+            A policy level MUST be a valid [Specification ID](../index.md#specification-id).
+          items:
+            type: string
+            pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
+            maxLength: 255
+            example: sap:core:v1
         systemInstanceAware:
           type: boolean
           description: >-
@@ -1942,9 +2000,7 @@ components:
           example: '2022-12-19T15:47:04+00:00'
         visibility:
           type: string
-          description: |-
-            The visibility/exposure of the described resource or capability.
-            This indicates who is allowed to see (and implicitly also access) this.
+          description: The visibility states who is allowed to "see" the described resource or capability.
           enum:
             - public
             - internal
@@ -2267,7 +2323,7 @@ components:
         policyLevel:
           type: string
           description: >
-            The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that the described
+            The [policy level](../../spec-extensions/policy-levels/) (aka. compliance level) that the described
             resources need to be compliant with.
 
             Depending on the chosen policy level, additional expectations and validations rules will be applied.
@@ -2280,6 +2336,7 @@ components:
             - none
             - sap:base:v1
             - sap:core:v1
+            - sap:dp:v1
             - custom
           example: sap:core:v1
         customPolicyLevel:
@@ -2297,6 +2354,25 @@ components:
           pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
           maxLength: 255
           example: sap.xref:customPolicy:v1
+        policyLevels:
+          type: array
+          description: >-
+            A list of [policy levels](../../spec-extensions/policy-levels/) that the described resources need to be
+            compliant with.
+
+            For each chosen policy level, additional expectations and validations rules will be applied.
+
+
+            Policy levels can be defined on ORD Document level, but also be overwritten on an individual package or
+            resource level.
+
+
+            A policy level MUST be a valid [Specification ID](../index.md#specification-id).
+          items:
+            type: string
+            pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
+            maxLength: 255
+            example: sap:core:v1
         systemInstanceAware:
           type: boolean
           description: >-
@@ -2507,9 +2583,7 @@ components:
           example: '2022-12-19T15:47:04+00:00'
         visibility:
           type: string
-          description: |-
-            The visibility/exposure of the described resource or capability.
-            This indicates who is allowed to see (and implicitly also access) this.
+          description: The visibility states who is allowed to "see" the described resource or capability.
           enum:
             - public
             - internal
@@ -2574,27 +2648,25 @@ components:
             Defining the abstraction level of the entity type using the DDD terminology.
 
 
-            In Domain-Driven Design, there is a concept of entities and aggregates. There are root entities which may
-            contain
+            In Domain-Driven Design, there is a concept of entities and aggregates.
 
-            further sub entities by composition. The complete “package” is then called an aggregate, which gets its name
-            and identity
+            There are root entities which may contain further sub entities by composition.
 
-            from the root entity.  An aggregate is a cluster of domain objects that can be treated as a single unit. 
-            The root
+            The complete “package” is then called an aggregate, which gets its name and identity from the root entity.
 
-            is the entity that is referenced from outside the aggregate. There must be only one root per aggregate. The
-            root
+            An aggregate is a cluster of domain objects that can be treated as a single unit.
 
-            ensures the integrity of the aggregate. A sub entity is any other non-root entity in the aggregate. Source,
-            see
+            The root is the entity that is referenced from outside the aggregate. There must be only one root per
+            aggregate.
 
-            [Martin Fowler on DDD Aggregate](https://martinfowler.com/bliki/DDD_Aggregate.html)
+            The root ensures the integrity of the aggregate. A sub entity is any other non-root entity in the aggregate.
 
 
-            For now, we decided to only cover the aggregate level, which is described in the enum value.
+            Source, see [Martin Fowler on DDD Aggregate](https://martinfowler.com/bliki/DDD_Aggregate.html)
           enum:
             - aggregate
+            - root-entity
+            - sub-entity
           example: aggregate
         relatedEntityTypes:
           type: array
@@ -2632,7 +2704,7 @@ components:
         policyLevel:
           type: string
           description: >
-            The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that the described
+            The [policy level](../../spec-extensions/policy-levels/) (aka. compliance level) that the described
             resources need to be compliant with.
 
             Depending on the chosen policy level, additional expectations and validations rules will be applied.
@@ -2645,6 +2717,7 @@ components:
             - none
             - sap:base:v1
             - sap:core:v1
+            - sap:dp:v1
             - custom
           example: sap:core:v1
         customPolicyLevel:
@@ -2662,6 +2735,25 @@ components:
           pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
           maxLength: 255
           example: sap.xref:customPolicy:v1
+        policyLevels:
+          type: array
+          description: >-
+            A list of [policy levels](../../spec-extensions/policy-levels/) that the described resources need to be
+            compliant with.
+
+            For each chosen policy level, additional expectations and validations rules will be applied.
+
+
+            Policy levels can be defined on ORD Document level, but also be overwritten on an individual package or
+            resource level.
+
+
+            A policy level MUST be a valid [Specification ID](../index.md#specification-id).
+          items:
+            type: string
+            pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
+            maxLength: 255
+            example: sap:core:v1
         systemInstanceAware:
           type: boolean
           description: >-
@@ -3185,7 +3277,7 @@ components:
         policyLevel:
           type: string
           description: >
-            The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that the described
+            The [policy level](../../spec-extensions/policy-levels/) (aka. compliance level) that the described
             resources need to be compliant with.
 
             Depending on the chosen policy level, additional expectations and validations rules will be applied.
@@ -3198,6 +3290,7 @@ components:
             - none
             - sap:base:v1
             - sap:core:v1
+            - sap:dp:v1
             - custom
           example: sap:core:v1
         customPolicyLevel:
@@ -3215,6 +3308,25 @@ components:
           pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
           maxLength: 255
           example: sap.xref:customPolicy:v1
+        policyLevels:
+          type: array
+          description: >-
+            A list of [policy levels](../../spec-extensions/policy-levels/) that the described resources need to be
+            compliant with.
+
+            For each chosen policy level, additional expectations and validations rules will be applied.
+
+
+            Policy levels can be defined on ORD Document level, but also be overwritten on an individual package or
+            resource level.
+
+
+            A policy level MUST be a valid [Specification ID](../index.md#specification-id).
+          items:
+            type: string
+            pattern: ^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$
+            maxLength: 255
+            example: sap:core:v1
         systemInstanceAware:
           type: boolean
           description: >-
@@ -3780,9 +3892,7 @@ components:
           example: '2022-12-19T15:47:04+00:00'
         visibility:
           type: string
-          description: |-
-            The visibility/exposure of the described resource or capability.
-            This indicates who is allowed to see (and implicitly also access) this.
+          description: The visibility states who is allowed to "see" the described resource or capability.
           enum:
             - public
             - internal
@@ -4154,9 +4264,7 @@ components:
           example: '2022-12-19T15:47:04+00:00'
         visibility:
           type: string
-          description: |-
-            The visibility/exposure of the described resource or capability.
-            This indicates who is allowed to see (and implicitly also access) this.
+          description: The visibility states who is allowed to "see" the described resource or capability.
           enum:
             - public
             - internal
@@ -4530,7 +4638,10 @@ components:
         url:
           type: string
           format: uri
-          description: Optional [URL](https://tools.ietf.org/html/rfc3986) that links to a more detailed changelog entry.
+          description: |-
+            Optional [URL](https://tools.ietf.org/html/rfc3986) that links to a more detailed changelog entry.
+
+            The link target MUST be absolute and SHOULD be openly accessible.
       required:
         - version
         - releaseStatus
@@ -4552,7 +4663,10 @@ components:
         url:
           type: string
           format: uri
-          description: '[URL](https://tools.ietf.org/html/rfc3986) of the link.'
+          description: |-
+            [URL](https://tools.ietf.org/html/rfc3986) of the link.
+
+            The link target MUST be absolute and SHOULD be openly accessible.
           example: https://blogs.sap.com/2018/04/11/testing-of-s4hana-inventory-management-odata-apis-via-sap-api-hub/
         description:
           type: string
@@ -4573,11 +4687,10 @@ components:
       description: |-
         Links with specific semantic meaning that are related to `Package`.
 
-        If a generic `Link` can also be expressed via `PackageLink`, the latter MUST be chosen.
+        If a generic [Link](#link) can also be expressed via a Package Link, the latter MUST be chosen.
       properties:
         type:
           type: string
-          description: Package link type
           enum:
             - terms-of-service
             - license
@@ -4602,7 +4715,10 @@ components:
         url:
           type: string
           format: uri
-          description: '[URL](https://tools.ietf.org/html/rfc3986) to the PackageLink. For more information, see `type`.'
+          description: |-
+            [URL](https://tools.ietf.org/html/rfc3986) to the PackageLink.
+
+            The link target MUST be absolute and SHOULD be openly accessible.
           example: >-
             https://accounts.sap.com/ui/public/showRegisterForm?spName=https://netweaver.ondemand.com&targetUrl=https://cloudintegration.hana.ondemand.com
       required:
@@ -4617,7 +4733,7 @@ components:
       description: |-
         Links with specific semantic meaning that are related to API or event resources.
 
-        If a generic `Link` can also be expressed via an `APIEventResourceLink`, the latter MUST be chosen.
+        If a generic [Link](#link) can also be expressed via an API / Event Resource Link, the latter MUST be chosen.
       properties:
         type:
           type: string
@@ -4649,12 +4765,15 @@ components:
           type: string
           format: uri-reference
           description: >-
-            [URL reference](https://tools.ietf.org/html/rfc3986#section-4.1) (URL or relative reference) to the endpoint
-            or UI for the action.
+            [URL reference](https://tools.ietf.org/html/rfc3986#section-4.1) (URL or relative reference) to the API or
+            Event Resource Link.
 
 
-            If the link is relative to base URL, it is RECOMMENDED to provide a relative URL.
-          example: /some/relative/url
+            The link target SHOULD be absolute and SHOULD be openly accessible.
+
+            If a relative link is given, it is relative to the
+            [`describedSystemInstance.baseUrl`](#system-instance_baseurl).
+          example: https://example.com/some/absolute/url
       required:
         - url
         - type
@@ -4666,17 +4785,13 @@ components:
       title: Data Product Link
       description: |-
         Links with specific semantic meaning that are related to Data Product resources.
-        If a generic `Link` can also be expressed via `DataProductLink`, the latter MUST be chosen.
+        If a generic [Link](#link) can also be expressed via Data Product Link, the latter MUST be chosen.
       properties:
         type:
           type: string
-          description: >-
-            API action type.
-
-            See also: [WADG0001 WebAPI type
-            extension](https://webapi-discovery.github.io/rfcs/rfc0001.html#webapiactions)
           enum:
             - payment
+            - terms-of-use
             - service-level-agreement
             - support
             - custom
@@ -4696,11 +4811,15 @@ components:
           type: string
           format: uri-reference
           description: >-
-            [URL reference](https://tools.ietf.org/html/rfc3986#section-4.1) (URL or relative reference) to the endpoint
-            or UI for the action.
+            [URL reference](https://tools.ietf.org/html/rfc3986#section-4.1) (URL or relative reference) to the Data
+            Product Link.
 
-            If the link is relative to base URL, it is RECOMMENDED to provide a relative URL.
-          example: /some/relative/url
+
+            The link target SHOULD be absolute and SHOULD be openly accessible.
+
+            If a relative link is given, it is relative to the
+            [`describedSystemInstance.baseUrl`](#system-instance_baseurl).
+          example: https://example.com/some/absolute/url
       required:
         - url
         - type
@@ -4716,10 +4835,10 @@ components:
       properties:
         baseUrl:
           type: string
-          format: uri
+          format: uri-reference
           description: |-
             Optional [base URL](../index.md#def-base-url) of the **system instance**.
-            By providing the base URL, all relative references in the document are resolved relative to it.
+            By providing the base URL, relative URLs in the document are resolved relative to it.
 
             The `baseUrl` MUST not contain a leading slash.
 

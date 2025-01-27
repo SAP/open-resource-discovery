@@ -24,6 +24,8 @@ Most notably, the ORD configuration will tell an ORD consumer which ORD document
 
 The configuration endpoint is a [Well-Known URI](https://tools.ietf.org/html/rfc8615#section-3) discovery mechanism.
 
+**Type**: Object(<a href="#ord-configuration_$schema">$schema</a>, <a href="#ord-configuration_baseurl">baseUrl</a>, <a href="#ord-configuration_openresourcediscoveryv1">openResourceDiscoveryV1</a>)
+
 | Property | Type | Description |
 | -------- | ---- | ----------- |
 |<div className="interface-property-name anchor" id="ord-configuration_$schema">$schema<br/><span className="optional">OPTIONAL</span><a className="hash-link" href="#ord-configuration_$schema" title="Configuration.$schema"></a></div>|<div className="interface-property-type">string</div>|<div className="interface-property-description">Optional URL to the ORD document schema (defined as JSON Schema).<br/>If given, this enables code intelligence and validation in supported editors (like VSCode) and tools.<br/><hr/><strong>JSON Schema Format</strong>: `uri-reference`<br/><strong>Recommended Values</strong>: <ul><li>`"https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Configuration.schema.json"`</li></ul></div>|
@@ -34,6 +36,8 @@ The configuration endpoint is a [Well-Known URI](https://tools.ietf.org/html/rfc
 
 The existence of this version indicates that Open Resource Discovery is supported in Version 1.x
 
+**Type**: Object(<a href="#ord-v1-support_documents">documents</a>)
+
 | Property | Type | Description |
 | -------- | ---- | ----------- |
 |<div className="interface-property-name anchor" id="ord-v1-support_documents">documents<br/><span className="optional">OPTIONAL</span><a className="hash-link" href="#ord-v1-support_documents" title="OpenResourceDiscoveryV1.documents"></a></div>|<div className="interface-property-type">Array&lt;[ORD V1 Document Description](#ord-v1-document-description)&gt;</div>|<div className="interface-property-description">List of all ORD documents that can be retrieved.<br/><br/>While it is possible to describe everything in one big ORD document, for bigger services/use cases it might be preferable to split the information into multiple documents.<br/><br/>For more details how to implement this correctly, please refer to the [ORD configuration endpoint](../index.md#ord-configuration-endpoint) section and the [considerations on the granularity of ORD documents](../index.md#considerations-on-the-granularity-of-ord-documents).<br/></div>|
@@ -41,6 +45,8 @@ The existence of this version indicates that Open Resource Discovery is supporte
 ### ORD V1 Document Description
 
 Describes an [ORD Document](../index.md#ord-document) that is available for pull transport consumption.
+
+**Type**: Object(<a href="#ord-v1-document-description_url">url</a>, <a href="#ord-v1-document-description_systeminstanceaware">systemInstanceAware</a>, <a href="#ord-v1-document-description_accessstrategies">accessStrategies</a>)
 
 | Property | Type | Description |
 | -------- | ---- | ----------- |
@@ -51,6 +57,8 @@ Describes an [ORD Document](../index.md#ord-document) that is available for pull
 ### Access Strategy
 
 Defines the [access strategy](../../spec-extensions/access-strategies/) for accessing the ORD documents from the ORD provider.
+
+**Type**: Object(<a href="#access-strategy_type">type</a>, <a href="#access-strategy_customtype">customType</a>, <a href="#access-strategy_customdescription">customDescription</a>)
 
 | Property | Type | Description |
 | -------- | ---- | ----------- |

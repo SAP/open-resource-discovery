@@ -79,8 +79,7 @@
         },
         "policyLevel": {
           "type": "string",
-          "description": "The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that the described resources need to be compliant with.\nDepending on the chosen policy level, additional expectations and validations rules will be applied.\n\nThe policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.\n",
-          "x-introduced-in-version": "1.3.0",
+          "description": "The [policy level](../../spec-extensions/policy-levels/) (aka. compliance level) that the described resources need to be compliant with.\nDepending on the chosen policy level, additional expectations and validations rules will be applied.\n\nThe policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.\n",
           "oneOf": [
             {
               "const": "none",
@@ -95,11 +94,18 @@
               "description": "SAP core rules and guidelines apply.\nIf chosen the [SAP Core V1](../../spec-extensions/policy-levels/sap-core-v1) rules MUST be followed."
             },
             {
+              "const": "sap:dp:v1",
+              "description": "SAP Data Product guidelines apply.\nIf chosen the [SAP Data Product V1](../../spec-extensions/policy-levels/sap-dp-v1) rules MUST be followed."
+            },
+            {
               "const": "custom",
               "description": "Custom policy level.\nFurther validation MAY be defined and implemented by the policy-level owner.\nThis level MAY be chosen by 3rd party or customer solutions.\nIf chosen, `customPolicyLevel` MUST be provided."
             }
           ],
           "default": "none",
+          "x-introduced-in-version": "1.3.0",
+          "x-deprecated": "ORD now support multiple policy levels. Use `policyLevels` (plural) instead.",
+          "x-deprecated-in-version": "1.9.9",
           "examples": [
             "sap:core:v1"
           ]
@@ -109,9 +115,25 @@
           "description": "If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.\nThe policy level is inherited from packages to resources they contain, but can be overwritten at resource level.\n\nMUST only be provided if `policyLevel` is set to `custom`.\nMUST be a valid [Specification ID](../index.md#specification-id).",
           "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
           "maxLength": 255,
+          "x-introduced-in-version": "1.3.0",
+          "x-deprecated": "ORD now support multiple policy levels. Use `policyLevels` (plural) instead.",
+          "x-deprecated-in-version": "1.9.9",
           "examples": [
             "sap.xref:customPolicy:v1"
           ]
+        },
+        "policyLevels": {
+          "type": "array",
+          "description": "A list of [policy levels](../../spec-extensions/policy-levels/) that the described resources need to be compliant with.\nFor each chosen policy level, additional expectations and validations rules will be applied.\n\nPolicy levels can be defined on ORD Document level, but also be overwritten on an individual package or resource level.\n\nA policy level MUST be a valid [Specification ID](../index.md#specification-id).",
+          "x-introduced-in-version": "1.9.9",
+          "items": {
+            "type": "string",
+            "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
+            "maxLength": 255,
+            "examples": [
+              "sap:core:v1"
+            ]
+          }
         },
         "packageLinks": {
           "type": "array",
@@ -353,13 +375,11 @@
         "runtimeRestriction": {
           "x-introduced-in-version": "1.8.0",
           "x-feature-status": "alpha",
-          "title": "Runtime Restriction",
-          "description": "If provided, all resources that are part of this package can only run on the listed runtime.",
+          "description": "If provided, all resources that are part of this package can only run on the listed runtime.\n\nMUST be a valid [System Namespace](../index.md#system-namespace).",
           "type": "string",
-          "oneOf": [
-            {
-              "const": "sap.datasphere"
-            }
+          "pattern": "^[a-z0-9]+(?:[.][a-z0-9]+){1}$",
+          "examples": [
+            "sap.datasphere"
           ]
         },
         "tags": {
@@ -480,19 +500,19 @@
         },
         "visibility": {
           "type": "string",
-          "description": "The visibility/exposure of the described resource or capability.\nThis indicates who is allowed to see (and implicitly also access) this.",
+          "description": "The visibility states who is allowed to \"see\" the described resource or capability.",
           "oneOf": [
             {
               "const": "public",
-              "description": "Resources are publicly accessible to customers and 3rd parties.\nUsually this includes an contract on the API stability, e.g. the [SAP API Deprecation Policy](https://help.sap.com/viewer/84b35b9c39b247e3ba2a31f02beee46d/Cloud/en-US/5cbfda5a9efe4e97a3e24ddaf7ec5c16.html)."
+              "description": "Resources are publicly visible to customers and 3rd parties.\nUsually this includes an contract on the API stability, e.g. the [SAP API Deprecation Policy](https://help.sap.com/viewer/84b35b9c39b247e3ba2a31f02beee46d/Cloud/en-US/5cbfda5a9efe4e97a3e24ddaf7ec5c16.html)."
             },
             {
               "const": "internal",
-              "description": "Resources are accessible to other applications within the same organization.\nHowever, they are not officially exposed and communicated to customers and 3rd parties.\nThey might not come with the same guarantees on API stability.\n\nInternal resources MUST NOT be made available to consumers without checking the necessary access permissions, e.g., a public API Catalog.\nInternal resources MAY be published through an internal API Catalog if the access permissions are ensured by it."
+              "description": "Resources are visible to other applications within the same [vendor](#vendor).\nHowever, they are not officially exposed and communicated to customers and 3rd parties.\nThey might not come with the same guarantees on API stability.\n\nInternal resources MUST NOT be made available to consumers without checking the necessary access permissions, e.g., a public API Catalog.\nInternal resources MAY be published through an internal API Catalog if the access permissions are ensured by it."
             },
             {
               "const": "private",
-              "description": "Resources that are exclusively used within an application or service.\nThis includes resources that may be called from outside but serve purely private purposes and are not supposed to be known by other outside parties.\nE.g., webhooks for provisioning callbacks or backing services.\n\nPrivate resources MUST NOT be made available to public consumers or consumers outside of the \"private\" scope or without the necessary access permissions."
+              "description": "Resources that are exclusive within an application or service.\nThis includes resources that may be called from outside but serve purely private purposes and are not supposed to be known by other outside parties.\nE.g., webhooks for provisioning callbacks or backing services.\n\nPrivate resources MUST NOT be made available to public consumers or consumers outside of the \"private\" scope or without the necessary access permissions."
             }
           ]
         },
@@ -723,19 +743,19 @@
         },
         "visibility": {
           "type": "string",
-          "description": "The visibility/exposure of the described resource or capability.\nThis indicates who is allowed to see (and implicitly also access) this.",
+          "description": "The visibility states who is allowed to \"see\" the described resource or capability.",
           "oneOf": [
             {
               "const": "public",
-              "description": "Resources are publicly accessible to customers and 3rd parties.\nUsually this includes an contract on the API stability, e.g. the [SAP API Deprecation Policy](https://help.sap.com/viewer/84b35b9c39b247e3ba2a31f02beee46d/Cloud/en-US/5cbfda5a9efe4e97a3e24ddaf7ec5c16.html)."
+              "description": "Resources are publicly visible to customers and 3rd parties.\nUsually this includes an contract on the API stability, e.g. the [SAP API Deprecation Policy](https://help.sap.com/viewer/84b35b9c39b247e3ba2a31f02beee46d/Cloud/en-US/5cbfda5a9efe4e97a3e24ddaf7ec5c16.html)."
             },
             {
               "const": "internal",
-              "description": "Resources are accessible to other applications within the same organization.\nHowever, they are not officially exposed and communicated to customers and 3rd parties.\nThey might not come with the same guarantees on API stability.\n\nInternal resources MUST NOT be made available to consumers without checking the necessary access permissions, e.g., a public API Catalog.\nInternal resources MAY be published through an internal API Catalog if the access permissions are ensured by it."
+              "description": "Resources are visible to other applications within the same [vendor](#vendor).\nHowever, they are not officially exposed and communicated to customers and 3rd parties.\nThey might not come with the same guarantees on API stability.\n\nInternal resources MUST NOT be made available to consumers without checking the necessary access permissions, e.g., a public API Catalog.\nInternal resources MAY be published through an internal API Catalog if the access permissions are ensured by it."
             },
             {
               "const": "private",
-              "description": "Resources that are exclusively used within an application or service.\nThis includes resources that may be called from outside but serve purely private purposes and are not supposed to be known by other outside parties.\nE.g., webhooks for provisioning callbacks or backing services.\n\nPrivate resources MUST NOT be made available to public consumers or consumers outside of the \"private\" scope or without the necessary access permissions."
+              "description": "Resources that are exclusive within an application or service.\nThis includes resources that may be called from outside but serve purely private purposes and are not supposed to be known by other outside parties.\nE.g., webhooks for provisioning callbacks or backing services.\n\nPrivate resources MUST NOT be made available to public consumers or consumers outside of the \"private\" scope or without the necessary access permissions."
             }
           ]
         },
@@ -926,7 +946,7 @@
             },
             {
               "const": "sap:delta-sharing:v1",
-              "x-introduced-in-version": "1.9.0",
+              "x-introduced-in-version": "1.9.4",
               "description": "SAP opinionated implementation of `delta-sharing` API protocol. This implementation has some compatible extension wrt. to standard delta-share such as providing key information.\nThe `apiProtocol` MUST be set to `delta-sharing`, as this is a special flavor of Delta Sharing."
             },
             {
@@ -1250,8 +1270,7 @@
         },
         "policyLevel": {
           "type": "string",
-          "description": "The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that the described resources need to be compliant with.\nDepending on the chosen policy level, additional expectations and validations rules will be applied.\n\nThe policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.\n",
-          "x-introduced-in-version": "1.3.0",
+          "description": "The [policy level](../../spec-extensions/policy-levels/) (aka. compliance level) that the described resources need to be compliant with.\nDepending on the chosen policy level, additional expectations and validations rules will be applied.\n\nThe policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.\n",
           "oneOf": [
             {
               "const": "none",
@@ -1266,11 +1285,18 @@
               "description": "SAP core rules and guidelines apply.\nIf chosen the [SAP Core V1](../../spec-extensions/policy-levels/sap-core-v1) rules MUST be followed."
             },
             {
+              "const": "sap:dp:v1",
+              "description": "SAP Data Product guidelines apply.\nIf chosen the [SAP Data Product V1](../../spec-extensions/policy-levels/sap-dp-v1) rules MUST be followed."
+            },
+            {
               "const": "custom",
               "description": "Custom policy level.\nFurther validation MAY be defined and implemented by the policy-level owner.\nThis level MAY be chosen by 3rd party or customer solutions.\nIf chosen, `customPolicyLevel` MUST be provided."
             }
           ],
           "default": "none",
+          "x-introduced-in-version": "1.3.0",
+          "x-deprecated": "ORD now support multiple policy levels. Use `policyLevels` (plural) instead.",
+          "x-deprecated-in-version": "1.9.9",
           "examples": [
             "sap:core:v1"
           ]
@@ -1280,9 +1306,25 @@
           "description": "If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.\nThe policy level is inherited from packages to resources they contain, but can be overwritten at resource level.\n\nMUST only be provided if `policyLevel` is set to `custom`.\nMUST be a valid [Specification ID](../index.md#specification-id).",
           "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
           "maxLength": 255,
+          "x-introduced-in-version": "1.3.0",
+          "x-deprecated": "ORD now support multiple policy levels. Use `policyLevels` (plural) instead.",
+          "x-deprecated-in-version": "1.9.9",
           "examples": [
             "sap.xref:customPolicy:v1"
           ]
+        },
+        "policyLevels": {
+          "type": "array",
+          "description": "A list of [policy levels](../../spec-extensions/policy-levels/) that the described resources need to be compliant with.\nFor each chosen policy level, additional expectations and validations rules will be applied.\n\nPolicy levels can be defined on ORD Document level, but also be overwritten on an individual package or resource level.\n\nA policy level MUST be a valid [Specification ID](../index.md#specification-id).",
+          "x-introduced-in-version": "1.9.9",
+          "items": {
+            "type": "string",
+            "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
+            "maxLength": 255,
+            "examples": [
+              "sap:core:v1"
+            ]
+          }
         },
         "systemInstanceAware": {
           "type": "boolean",
@@ -1458,19 +1500,19 @@
         },
         "visibility": {
           "type": "string",
-          "description": "The visibility/exposure of the described resource or capability.\nThis indicates who is allowed to see (and implicitly also access) this.",
+          "description": "The visibility states who is allowed to \"see\" the described resource or capability.",
           "oneOf": [
             {
               "const": "public",
-              "description": "Resources are publicly accessible to customers and 3rd parties.\nUsually this includes an contract on the API stability, e.g. the [SAP API Deprecation Policy](https://help.sap.com/viewer/84b35b9c39b247e3ba2a31f02beee46d/Cloud/en-US/5cbfda5a9efe4e97a3e24ddaf7ec5c16.html)."
+              "description": "Resources are publicly visible to customers and 3rd parties.\nUsually this includes an contract on the API stability, e.g. the [SAP API Deprecation Policy](https://help.sap.com/viewer/84b35b9c39b247e3ba2a31f02beee46d/Cloud/en-US/5cbfda5a9efe4e97a3e24ddaf7ec5c16.html)."
             },
             {
               "const": "internal",
-              "description": "Resources are accessible to other applications within the same organization.\nHowever, they are not officially exposed and communicated to customers and 3rd parties.\nThey might not come with the same guarantees on API stability.\n\nInternal resources MUST NOT be made available to consumers without checking the necessary access permissions, e.g., a public API Catalog.\nInternal resources MAY be published through an internal API Catalog if the access permissions are ensured by it."
+              "description": "Resources are visible to other applications within the same [vendor](#vendor).\nHowever, they are not officially exposed and communicated to customers and 3rd parties.\nThey might not come with the same guarantees on API stability.\n\nInternal resources MUST NOT be made available to consumers without checking the necessary access permissions, e.g., a public API Catalog.\nInternal resources MAY be published through an internal API Catalog if the access permissions are ensured by it."
             },
             {
               "const": "private",
-              "description": "Resources that are exclusively used within an application or service.\nThis includes resources that may be called from outside but serve purely private purposes and are not supposed to be known by other outside parties.\nE.g., webhooks for provisioning callbacks or backing services.\n\nPrivate resources MUST NOT be made available to public consumers or consumers outside of the \"private\" scope or without the necessary access permissions."
+              "description": "Resources that are exclusive within an application or service.\nThis includes resources that may be called from outside but serve purely private purposes and are not supposed to be known by other outside parties.\nE.g., webhooks for provisioning callbacks or backing services.\n\nPrivate resources MUST NOT be made available to public consumers or consumers outside of the \"private\" scope or without the necessary access permissions."
             }
           ]
         },
@@ -1818,8 +1860,7 @@
         },
         "policyLevel": {
           "type": "string",
-          "description": "The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that the described resources need to be compliant with.\nDepending on the chosen policy level, additional expectations and validations rules will be applied.\n\nThe policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.\n",
-          "x-introduced-in-version": "1.3.0",
+          "description": "The [policy level](../../spec-extensions/policy-levels/) (aka. compliance level) that the described resources need to be compliant with.\nDepending on the chosen policy level, additional expectations and validations rules will be applied.\n\nThe policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.\n",
           "oneOf": [
             {
               "const": "none",
@@ -1834,11 +1875,18 @@
               "description": "SAP core rules and guidelines apply.\nIf chosen the [SAP Core V1](../../spec-extensions/policy-levels/sap-core-v1) rules MUST be followed."
             },
             {
+              "const": "sap:dp:v1",
+              "description": "SAP Data Product guidelines apply.\nIf chosen the [SAP Data Product V1](../../spec-extensions/policy-levels/sap-dp-v1) rules MUST be followed."
+            },
+            {
               "const": "custom",
               "description": "Custom policy level.\nFurther validation MAY be defined and implemented by the policy-level owner.\nThis level MAY be chosen by 3rd party or customer solutions.\nIf chosen, `customPolicyLevel` MUST be provided."
             }
           ],
           "default": "none",
+          "x-introduced-in-version": "1.3.0",
+          "x-deprecated": "ORD now support multiple policy levels. Use `policyLevels` (plural) instead.",
+          "x-deprecated-in-version": "1.9.9",
           "examples": [
             "sap:core:v1"
           ]
@@ -1848,9 +1896,25 @@
           "description": "If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.\nThe policy level is inherited from packages to resources they contain, but can be overwritten at resource level.\n\nMUST only be provided if `policyLevel` is set to `custom`.\nMUST be a valid [Specification ID](../index.md#specification-id).",
           "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
           "maxLength": 255,
+          "x-introduced-in-version": "1.3.0",
+          "x-deprecated": "ORD now support multiple policy levels. Use `policyLevels` (plural) instead.",
+          "x-deprecated-in-version": "1.9.9",
           "examples": [
             "sap.xref:customPolicy:v1"
           ]
+        },
+        "policyLevels": {
+          "type": "array",
+          "description": "A list of [policy levels](../../spec-extensions/policy-levels/) that the described resources need to be compliant with.\nFor each chosen policy level, additional expectations and validations rules will be applied.\n\nPolicy levels can be defined on ORD Document level, but also be overwritten on an individual package or resource level.\n\nA policy level MUST be a valid [Specification ID](../index.md#specification-id).",
+          "x-introduced-in-version": "1.9.9",
+          "items": {
+            "type": "string",
+            "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
+            "maxLength": 255,
+            "examples": [
+              "sap:core:v1"
+            ]
+          }
         },
         "systemInstanceAware": {
           "type": "boolean",
@@ -2017,19 +2081,19 @@
         },
         "visibility": {
           "type": "string",
-          "description": "The visibility/exposure of the described resource or capability.\nThis indicates who is allowed to see (and implicitly also access) this.",
+          "description": "The visibility states who is allowed to \"see\" the described resource or capability.",
           "oneOf": [
             {
               "const": "public",
-              "description": "Resources are publicly accessible to customers and 3rd parties.\nUsually this includes an contract on the API stability, e.g. the [SAP API Deprecation Policy](https://help.sap.com/viewer/84b35b9c39b247e3ba2a31f02beee46d/Cloud/en-US/5cbfda5a9efe4e97a3e24ddaf7ec5c16.html)."
+              "description": "Resources are publicly visible to customers and 3rd parties.\nUsually this includes an contract on the API stability, e.g. the [SAP API Deprecation Policy](https://help.sap.com/viewer/84b35b9c39b247e3ba2a31f02beee46d/Cloud/en-US/5cbfda5a9efe4e97a3e24ddaf7ec5c16.html)."
             },
             {
               "const": "internal",
-              "description": "Resources are accessible to other applications within the same organization.\nHowever, they are not officially exposed and communicated to customers and 3rd parties.\nThey might not come with the same guarantees on API stability.\n\nInternal resources MUST NOT be made available to consumers without checking the necessary access permissions, e.g., a public API Catalog.\nInternal resources MAY be published through an internal API Catalog if the access permissions are ensured by it."
+              "description": "Resources are visible to other applications within the same [vendor](#vendor).\nHowever, they are not officially exposed and communicated to customers and 3rd parties.\nThey might not come with the same guarantees on API stability.\n\nInternal resources MUST NOT be made available to consumers without checking the necessary access permissions, e.g., a public API Catalog.\nInternal resources MAY be published through an internal API Catalog if the access permissions are ensured by it."
             },
             {
               "const": "private",
-              "description": "Resources that are exclusively used within an application or service.\nThis includes resources that may be called from outside but serve purely private purposes and are not supposed to be known by other outside parties.\nE.g., webhooks for provisioning callbacks or backing services.\n\nPrivate resources MUST NOT be made available to public consumers or consumers outside of the \"private\" scope or without the necessary access permissions."
+              "description": "Resources that are exclusive within an application or service.\nThis includes resources that may be called from outside but serve purely private purposes and are not supposed to be known by other outside parties.\nE.g., webhooks for provisioning callbacks or backing services.\n\nPrivate resources MUST NOT be made available to public consumers or consumers outside of the \"private\" scope or without the necessary access permissions."
             }
           ]
         },
@@ -2102,11 +2166,19 @@
         },
         "level": {
           "type": "string",
-          "description": "Defining the abstraction level of the entity type using the DDD terminology.\n\nIn Domain-Driven Design, there is a concept of entities and aggregates. There are root entities which may contain\nfurther sub entities by composition. The complete “package” is then called an aggregate, which gets its name and identity\nfrom the root entity.  An aggregate is a cluster of domain objects that can be treated as a single unit.  The root\nis the entity that is referenced from outside the aggregate. There must be only one root per aggregate. The root\nensures the integrity of the aggregate. A sub entity is any other non-root entity in the aggregate. Source, see\n[Martin Fowler on DDD Aggregate](https://martinfowler.com/bliki/DDD_Aggregate.html)\n\nFor now, we decided to only cover the aggregate level, which is described in the enum value.",
+          "description": "Defining the abstraction level of the entity type using the DDD terminology.\n\nIn Domain-Driven Design, there is a concept of entities and aggregates.\nThere are root entities which may contain further sub entities by composition.\nThe complete “package” is then called an aggregate, which gets its name and identity from the root entity.\nAn aggregate is a cluster of domain objects that can be treated as a single unit.\nThe root is the entity that is referenced from outside the aggregate. There must be only one root per aggregate.\nThe root ensures the integrity of the aggregate. A sub entity is any other non-root entity in the aggregate.\n\nSource, see [Martin Fowler on DDD Aggregate](https://martinfowler.com/bliki/DDD_Aggregate.html)",
           "oneOf": [
             {
               "const": "aggregate",
-              "description": "An aggregate is a tree of entity types. The root entity gives the aggregate its identity and ID.\nBut every entity that is part of the tree due to a composition relationship is also part of the aggregate.\nThe inner structure of an aggregate (sub entities, field, etc.) can be described in the entity type definition."
+              "description": "An aggregate is the combined tree of entity types (combined via composition).\nThe root entity gives the aggregate its identity and ID.\nThe inner structure of an aggregate (sub entities, field, etc.) could be described in the entity type definition."
+            },
+            {
+              "const": "root-entity",
+              "description": "Represents only the root entity (aka DDD aggregate root). Potential composite sub-entities are NOT included (unlike with `aggregate`)."
+            },
+            {
+              "const": "sub-entity",
+              "description": "Represents an individual sub entity (aka composite entity).\nDescribing it in ORD may be necessary if the sub-entities need a dedicated ORD ID.\nHowever, we recommend not to expose the internal structure of aggregate if possible."
             }
           ],
           "examples": [
@@ -2157,8 +2229,7 @@
         },
         "policyLevel": {
           "type": "string",
-          "description": "The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that the described resources need to be compliant with.\nDepending on the chosen policy level, additional expectations and validations rules will be applied.\n\nThe policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.\n",
-          "x-introduced-in-version": "1.3.0",
+          "description": "The [policy level](../../spec-extensions/policy-levels/) (aka. compliance level) that the described resources need to be compliant with.\nDepending on the chosen policy level, additional expectations and validations rules will be applied.\n\nThe policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.\n",
           "oneOf": [
             {
               "const": "none",
@@ -2173,11 +2244,18 @@
               "description": "SAP core rules and guidelines apply.\nIf chosen the [SAP Core V1](../../spec-extensions/policy-levels/sap-core-v1) rules MUST be followed."
             },
             {
+              "const": "sap:dp:v1",
+              "description": "SAP Data Product guidelines apply.\nIf chosen the [SAP Data Product V1](../../spec-extensions/policy-levels/sap-dp-v1) rules MUST be followed."
+            },
+            {
               "const": "custom",
               "description": "Custom policy level.\nFurther validation MAY be defined and implemented by the policy-level owner.\nThis level MAY be chosen by 3rd party or customer solutions.\nIf chosen, `customPolicyLevel` MUST be provided."
             }
           ],
           "default": "none",
+          "x-introduced-in-version": "1.3.0",
+          "x-deprecated": "ORD now support multiple policy levels. Use `policyLevels` (plural) instead.",
+          "x-deprecated-in-version": "1.9.9",
           "examples": [
             "sap:core:v1"
           ]
@@ -2187,9 +2265,25 @@
           "description": "If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.\nThe policy level is inherited from packages to resources they contain, but can be overwritten at resource level.\n\nMUST only be provided if `policyLevel` is set to `custom`.\nMUST be a valid [Specification ID](../index.md#specification-id).",
           "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
           "maxLength": 255,
+          "x-introduced-in-version": "1.3.0",
+          "x-deprecated": "ORD now support multiple policy levels. Use `policyLevels` (plural) instead.",
+          "x-deprecated-in-version": "1.9.9",
           "examples": [
             "sap.xref:customPolicy:v1"
           ]
+        },
+        "policyLevels": {
+          "type": "array",
+          "description": "A list of [policy levels](../../spec-extensions/policy-levels/) that the described resources need to be compliant with.\nFor each chosen policy level, additional expectations and validations rules will be applied.\n\nPolicy levels can be defined on ORD Document level, but also be overwritten on an individual package or resource level.\n\nA policy level MUST be a valid [Specification ID](../index.md#specification-id).",
+          "x-introduced-in-version": "1.9.9",
+          "items": {
+            "type": "string",
+            "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
+            "maxLength": 255,
+            "examples": [
+              "sap:core:v1"
+            ]
+          }
         },
         "systemInstanceAware": {
           "type": "boolean",
@@ -2328,15 +2422,15 @@
           "oneOf": [
             {
               "const": "public",
-              "description": "Resources are publicly accessible to customers and 3rd parties.\nUsually this includes an contract on the API stability, e.g. the [SAP API Deprecation Policy](https://help.sap.com/viewer/84b35b9c39b247e3ba2a31f02beee46d/Cloud/en-US/5cbfda5a9efe4e97a3e24ddaf7ec5c16.html)."
+              "description": "Resources are publicly visible to customers and 3rd parties.\nUsually this includes an contract on the API stability, e.g. the [SAP API Deprecation Policy](https://help.sap.com/viewer/84b35b9c39b247e3ba2a31f02beee46d/Cloud/en-US/5cbfda5a9efe4e97a3e24ddaf7ec5c16.html)."
             },
             {
               "const": "internal",
-              "description": "Resources are accessible to other applications within the same organization.\nHowever, they are not officially exposed and communicated to customers and 3rd parties.\nThey might not come with the same guarantees on API stability.\n\nInternal resources MUST NOT be made available to consumers without checking the necessary access permissions, e.g., a public API Catalog.\nInternal resources MAY be published through an internal API Catalog if the access permissions are ensured by it."
+              "description": "Resources are visible to other applications within the same [vendor](#vendor).\nHowever, they are not officially exposed and communicated to customers and 3rd parties.\nThey might not come with the same guarantees on API stability.\n\nInternal resources MUST NOT be made available to consumers without checking the necessary access permissions, e.g., a public API Catalog.\nInternal resources MAY be published through an internal API Catalog if the access permissions are ensured by it."
             },
             {
               "const": "private",
-              "description": "Resources that are exclusively used within an application or service.\nThis includes resources that may be called from outside but serve purely private purposes and are not supposed to be known by other outside parties.\nE.g., webhooks for provisioning callbacks or backing services.\n\nPrivate resources MUST NOT be made available to public consumers or consumers outside of the \"private\" scope or without the necessary access permissions."
+              "description": "Resources that are exclusive within an application or service.\nThis includes resources that may be called from outside but serve purely private purposes and are not supposed to be known by other outside parties.\nE.g., webhooks for provisioning callbacks or backing services.\n\nPrivate resources MUST NOT be made available to public consumers or consumers outside of the \"private\" scope or without the necessary access permissions."
             }
           ]
         },
@@ -2763,8 +2857,7 @@
         "policyLevel": {
           "x-feature-status": "beta",
           "type": "string",
-          "description": "The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that the described resources need to be compliant with.\nDepending on the chosen policy level, additional expectations and validations rules will be applied.\n\nThe policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.\n",
-          "x-introduced-in-version": "1.3.0",
+          "description": "The [policy level](../../spec-extensions/policy-levels/) (aka. compliance level) that the described resources need to be compliant with.\nDepending on the chosen policy level, additional expectations and validations rules will be applied.\n\nThe policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.\n",
           "oneOf": [
             {
               "const": "none",
@@ -2779,11 +2872,18 @@
               "description": "SAP core rules and guidelines apply.\nIf chosen the [SAP Core V1](../../spec-extensions/policy-levels/sap-core-v1) rules MUST be followed."
             },
             {
+              "const": "sap:dp:v1",
+              "description": "SAP Data Product guidelines apply.\nIf chosen the [SAP Data Product V1](../../spec-extensions/policy-levels/sap-dp-v1) rules MUST be followed."
+            },
+            {
               "const": "custom",
               "description": "Custom policy level.\nFurther validation MAY be defined and implemented by the policy-level owner.\nThis level MAY be chosen by 3rd party or customer solutions.\nIf chosen, `customPolicyLevel` MUST be provided."
             }
           ],
           "default": "none",
+          "x-introduced-in-version": "1.3.0",
+          "x-deprecated": "ORD now support multiple policy levels. Use `policyLevels` (plural) instead.",
+          "x-deprecated-in-version": "1.9.9",
           "examples": [
             "sap:core:v1"
           ]
@@ -2794,9 +2894,25 @@
           "description": "If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.\nThe policy level is inherited from packages to resources they contain, but can be overwritten at resource level.\n\nMUST only be provided if `policyLevel` is set to `custom`.\nMUST be a valid [Specification ID](../index.md#specification-id).",
           "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
           "maxLength": 255,
+          "x-introduced-in-version": "1.3.0",
+          "x-deprecated": "ORD now support multiple policy levels. Use `policyLevels` (plural) instead.",
+          "x-deprecated-in-version": "1.9.9",
           "examples": [
             "sap.xref:customPolicy:v1"
           ]
+        },
+        "policyLevels": {
+          "type": "array",
+          "description": "A list of [policy levels](../../spec-extensions/policy-levels/) that the described resources need to be compliant with.\nFor each chosen policy level, additional expectations and validations rules will be applied.\n\nPolicy levels can be defined on ORD Document level, but also be overwritten on an individual package or resource level.\n\nA policy level MUST be a valid [Specification ID](../index.md#specification-id).",
+          "x-introduced-in-version": "1.9.9",
+          "items": {
+            "type": "string",
+            "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
+            "maxLength": 255,
+            "examples": [
+              "sap:core:v1"
+            ]
+          }
         },
         "systemInstanceAware": {
           "x-feature-status": "beta",
@@ -2922,11 +3038,13 @@
             },
             {
               "const": "sap-sql-api-definition-v1",
-              "description": "Metadata description format for SAP SQL API, following the [SQL interface specification for SAP ecosystem](https://github.com/SAP/sql-interface-specification).\nThe `mediaType` MUST be be set to `application/json`.\nThe `apiProtocol` MUST be set to `sap-sql-api-v1`."
+              "description": "Metadata description format for SAP SQL API, following the [SQL interface specification for SAP ecosystem](https://github.com/SAP/sql-interface-specification).\nThe `mediaType` MUST be be set to `application/json`.\nThe `apiProtocol` MUST be set to `sap-sql-api-v1`.",
+              "x-introduced-in-version": "1.9.4"
             },
             {
               "const": "sap-csn-interop-effective-v1",
-              "description": "[CSN Interop Effective](https://sap.github.io/csn-interop-specification/) is a standardized and interoperable [CSN](https://cap.cloud.sap/docs/cds/csn) export, used to describe [CDS](https://cap.cloud.sap/docs/cds/) models.\nThe `mediaType` MUST be be set to `application/json`."
+              "description": "[CSN Interop Effective](https://sap.github.io/csn-interop-specification/) is a standardized and interoperable [CSN](https://cap.cloud.sap/docs/cds/csn) export, used to describe [CDS](https://cap.cloud.sap/docs/cds/) models.\nThe `mediaType` MUST be be set to `application/json`.",
+              "x-introduced-in-version": "1.9.4"
             },
             {
               "const": "custom",
@@ -3338,19 +3456,19 @@
         },
         "visibility": {
           "type": "string",
-          "description": "The visibility/exposure of the described resource or capability.\nThis indicates who is allowed to see (and implicitly also access) this.",
+          "description": "The visibility states who is allowed to \"see\" the described resource or capability.",
           "oneOf": [
             {
               "const": "public",
-              "description": "Resources are publicly accessible to customers and 3rd parties.\nUsually this includes an contract on the API stability, e.g. the [SAP API Deprecation Policy](https://help.sap.com/viewer/84b35b9c39b247e3ba2a31f02beee46d/Cloud/en-US/5cbfda5a9efe4e97a3e24ddaf7ec5c16.html)."
+              "description": "Resources are publicly visible to customers and 3rd parties.\nUsually this includes an contract on the API stability, e.g. the [SAP API Deprecation Policy](https://help.sap.com/viewer/84b35b9c39b247e3ba2a31f02beee46d/Cloud/en-US/5cbfda5a9efe4e97a3e24ddaf7ec5c16.html)."
             },
             {
               "const": "internal",
-              "description": "Resources are accessible to other applications within the same organization.\nHowever, they are not officially exposed and communicated to customers and 3rd parties.\nThey might not come with the same guarantees on API stability.\n\nInternal resources MUST NOT be made available to consumers without checking the necessary access permissions, e.g., a public API Catalog.\nInternal resources MAY be published through an internal API Catalog if the access permissions are ensured by it."
+              "description": "Resources are visible to other applications within the same [vendor](#vendor).\nHowever, they are not officially exposed and communicated to customers and 3rd parties.\nThey might not come with the same guarantees on API stability.\n\nInternal resources MUST NOT be made available to consumers without checking the necessary access permissions, e.g., a public API Catalog.\nInternal resources MAY be published through an internal API Catalog if the access permissions are ensured by it."
             },
             {
               "const": "private",
-              "description": "Resources that are exclusively used within an application or service.\nThis includes resources that may be called from outside but serve purely private purposes and are not supposed to be known by other outside parties.\nE.g., webhooks for provisioning callbacks or backing services.\n\nPrivate resources MUST NOT be made available to public consumers or consumers outside of the \"private\" scope or without the necessary access permissions."
+              "description": "Resources that are exclusive within an application or service.\nThis includes resources that may be called from outside but serve purely private purposes and are not supposed to be known by other outside parties.\nE.g., webhooks for provisioning callbacks or backing services.\n\nPrivate resources MUST NOT be made available to public consumers or consumers outside of the \"private\" scope or without the necessary access permissions."
             }
           ]
         },
@@ -3647,19 +3765,19 @@
         },
         "visibility": {
           "type": "string",
-          "description": "The visibility/exposure of the described resource or capability.\nThis indicates who is allowed to see (and implicitly also access) this.",
+          "description": "The visibility states who is allowed to \"see\" the described resource or capability.",
           "oneOf": [
             {
               "const": "public",
-              "description": "Resources are publicly accessible to customers and 3rd parties.\nUsually this includes an contract on the API stability, e.g. the [SAP API Deprecation Policy](https://help.sap.com/viewer/84b35b9c39b247e3ba2a31f02beee46d/Cloud/en-US/5cbfda5a9efe4e97a3e24ddaf7ec5c16.html)."
+              "description": "Resources are publicly visible to customers and 3rd parties.\nUsually this includes an contract on the API stability, e.g. the [SAP API Deprecation Policy](https://help.sap.com/viewer/84b35b9c39b247e3ba2a31f02beee46d/Cloud/en-US/5cbfda5a9efe4e97a3e24ddaf7ec5c16.html)."
             },
             {
               "const": "internal",
-              "description": "Resources are accessible to other applications within the same organization.\nHowever, they are not officially exposed and communicated to customers and 3rd parties.\nThey might not come with the same guarantees on API stability.\n\nInternal resources MUST NOT be made available to consumers without checking the necessary access permissions, e.g., a public API Catalog.\nInternal resources MAY be published through an internal API Catalog if the access permissions are ensured by it."
+              "description": "Resources are visible to other applications within the same [vendor](#vendor).\nHowever, they are not officially exposed and communicated to customers and 3rd parties.\nThey might not come with the same guarantees on API stability.\n\nInternal resources MUST NOT be made available to consumers without checking the necessary access permissions, e.g., a public API Catalog.\nInternal resources MAY be published through an internal API Catalog if the access permissions are ensured by it."
             },
             {
               "const": "private",
-              "description": "Resources that are exclusively used within an application or service.\nThis includes resources that may be called from outside but serve purely private purposes and are not supposed to be known by other outside parties.\nE.g., webhooks for provisioning callbacks or backing services.\n\nPrivate resources MUST NOT be made available to public consumers or consumers outside of the \"private\" scope or without the necessary access permissions."
+              "description": "Resources that are exclusive within an application or service.\nThis includes resources that may be called from outside but serve purely private purposes and are not supposed to be known by other outside parties.\nE.g., webhooks for provisioning callbacks or backing services.\n\nPrivate resources MUST NOT be made available to public consumers or consumers outside of the \"private\" scope or without the necessary access permissions."
             }
           ]
         },
@@ -4055,7 +4173,7 @@
         "url": {
           "type": "string",
           "format": "uri",
-          "description": "Optional [URL](https://tools.ietf.org/html/rfc3986) that links to a more detailed changelog entry."
+          "description": "Optional [URL](https://tools.ietf.org/html/rfc3986) that links to a more detailed changelog entry.\n\nThe link target MUST be absolute and SHOULD be openly accessible."
         }
       },
       "additionalProperties": false,
@@ -4081,7 +4199,7 @@
         "url": {
           "type": "string",
           "format": "uri",
-          "description": "[URL](https://tools.ietf.org/html/rfc3986) of the link.",
+          "description": "[URL](https://tools.ietf.org/html/rfc3986) of the link.\n\nThe link target MUST be absolute and SHOULD be openly accessible.",
           "examples": [
             "https://blogs.sap.com/2018/04/11/testing-of-s4hana-inventory-management-odata-apis-via-sap-api-hub/"
           ]
@@ -4110,15 +4228,14 @@
     "PackageLink": {
       "type": "object",
       "title": "Package Link",
-      "description": "Links with specific semantic meaning that are related to `Package`.\n\nIf a generic `Link` can also be expressed via `PackageLink`, the latter MUST be chosen.",
+      "description": "Links with specific semantic meaning that are related to `Package`.\n\nIf a generic [Link](#link) can also be expressed via a Package Link, the latter MUST be chosen.",
       "properties": {
         "type": {
           "type": "string",
-          "description": "Package link type",
           "oneOf": [
             {
               "const": "terms-of-service",
-              "description": "Link to human-readable terms of service documentation."
+              "description": "Link to human-readable terms of service / use documentation."
             },
             {
               "const": "license",
@@ -4165,7 +4282,7 @@
         "url": {
           "type": "string",
           "format": "uri",
-          "description": "[URL](https://tools.ietf.org/html/rfc3986) to the PackageLink. For more information, see `type`.",
+          "description": "[URL](https://tools.ietf.org/html/rfc3986) to the PackageLink.\n\nThe link target MUST be absolute and SHOULD be openly accessible.",
           "examples": [
             "https://accounts.sap.com/ui/public/showRegisterForm?spName=https://netweaver.ondemand.com&targetUrl=https://cloudintegration.hana.ondemand.com"
           ]
@@ -4185,7 +4302,7 @@
     "APIEventResourceLink": {
       "type": "object",
       "title": "API and Event Resource Link",
-      "description": "Links with specific semantic meaning that are related to API or event resources.\n\nIf a generic `Link` can also be expressed via an `APIEventResourceLink`, the latter MUST be chosen.",
+      "description": "Links with specific semantic meaning that are related to API or event resources.\n\nIf a generic [Link](#link) can also be expressed via an API / Event Resource Link, the latter MUST be chosen.",
       "properties": {
         "type": {
           "type": "string",
@@ -4240,10 +4357,10 @@
         "url": {
           "type": "string",
           "format": "uri-reference",
-          "description": "[URL reference](https://tools.ietf.org/html/rfc3986#section-4.1) (URL or relative reference) to the endpoint or UI for the action.\n\nIf the link is relative to base URL, it is RECOMMENDED to provide a relative URL.",
+          "description": "[URL reference](https://tools.ietf.org/html/rfc3986#section-4.1) (URL or relative reference) to the API or Event Resource Link.\n\nThe link target SHOULD be absolute and SHOULD be openly accessible.\nIf a relative link is given, it is relative to the [`describedSystemInstance.baseUrl`](#system-instance_baseurl).",
           "examples": [
-            "/some/relative/url",
-            "https://example.com/some/absolute/url"
+            "https://example.com/some/absolute/url",
+            "/some/relative/url"
           ]
         }
       },
@@ -4262,15 +4379,18 @@
     "DataProductLink": {
       "type": "object",
       "title": "Data Product Link",
-      "description": "Links with specific semantic meaning that are related to Data Product resources.\nIf a generic `Link` can also be expressed via `DataProductLink`, the latter MUST be chosen.",
+      "description": "Links with specific semantic meaning that are related to Data Product resources.\nIf a generic [Link](#link) can also be expressed via Data Product Link, the latter MUST be chosen.",
       "properties": {
         "type": {
           "type": "string",
-          "description": "API action type.\nSee also: [WADG0001 WebAPI type extension](https://webapi-discovery.github.io/rfcs/rfc0001.html#webapiactions)",
           "oneOf": [
             {
               "const": "payment",
               "description": "Links to a resource detailing pricing details of the data product."
+            },
+            {
+              "const": "terms-of-use",
+              "description": "Set of legal guidelines or contractual agreement that outline how a user can access, utilize, and share data\nprovided through a specific data product, essentially defining the permitted and prohibited actions when interacting with,\nprocessing or storing data, often including details about privacy, security, and potential limitations\non data usage depending on the specific data product and its intended purposes."
             },
             {
               "const": "service-level-agreement",
@@ -4301,9 +4421,8 @@
         "url": {
           "type": "string",
           "format": "uri-reference",
-          "description": "[URL reference](https://tools.ietf.org/html/rfc3986#section-4.1) (URL or relative reference) to the endpoint or UI for the action.\nIf the link is relative to base URL, it is RECOMMENDED to provide a relative URL.",
+          "description": "[URL reference](https://tools.ietf.org/html/rfc3986#section-4.1) (URL or relative reference) to the Data Product Link.\n\nThe link target SHOULD be absolute and SHOULD be openly accessible.\nIf a relative link is given, it is relative to the [`describedSystemInstance.baseUrl`](#system-instance_baseurl).",
           "examples": [
-            "/some/relative/url",
             "https://example.com/some/absolute/url"
           ]
         }
@@ -4327,8 +4446,8 @@
       "properties": {
         "baseUrl": {
           "type": "string",
-          "format": "uri",
-          "description": "Optional [base URL](../index.md#def-base-url) of the **system instance**.\nBy providing the base URL, all relative references in the document are resolved relative to it.\n\nThe `baseUrl` MUST not contain a leading slash.\n\nMUST be provided if the base URL is not known to the ORD aggregators.\nMUST be provided when the document needs to be fully self contained, e.g. when used for manual imports.",
+          "format": "uri-reference",
+          "description": "Optional [base URL](../index.md#def-base-url) of the **system instance**.\nBy providing the base URL, relative URLs in the document are resolved relative to it.\n\nThe `baseUrl` MUST not contain a leading slash.\n\nMUST be provided if the base URL is not known to the ORD aggregators.\nMUST be provided when the document needs to be fully self contained, e.g. when used for manual imports.",
           "pattern": "^http[s]?:\\/\\/[^:\\/\\s]+\\.[^:\\/\\s\\.]+(:\\d+)?(\\/[a-zA-Z0-9-\\._~]+)*$",
           "examples": [
             "https://example-sap-system.com",
@@ -5013,8 +5132,7 @@
     },
     "policyLevel": {
       "type": "string",
-      "description": "The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that the described resources need to be compliant with.\nDepending on the chosen policy level, additional expectations and validations rules will be applied.\n\nThe policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.\n",
-      "x-introduced-in-version": "1.3.0",
+      "description": "The [policy level](../../spec-extensions/policy-levels/) (aka. compliance level) that the described resources need to be compliant with.\nDepending on the chosen policy level, additional expectations and validations rules will be applied.\n\nThe policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.\n",
       "oneOf": [
         {
           "const": "none",
@@ -5029,11 +5147,18 @@
           "description": "SAP core rules and guidelines apply.\nIf chosen the [SAP Core V1](../../spec-extensions/policy-levels/sap-core-v1) rules MUST be followed."
         },
         {
+          "const": "sap:dp:v1",
+          "description": "SAP Data Product guidelines apply.\nIf chosen the [SAP Data Product V1](../../spec-extensions/policy-levels/sap-dp-v1) rules MUST be followed."
+        },
+        {
           "const": "custom",
           "description": "Custom policy level.\nFurther validation MAY be defined and implemented by the policy-level owner.\nThis level MAY be chosen by 3rd party or customer solutions.\nIf chosen, `customPolicyLevel` MUST be provided."
         }
       ],
       "default": "none",
+      "x-introduced-in-version": "1.3.0",
+      "x-deprecated": "ORD now support multiple policy levels. Use `policyLevels` (plural) instead.",
+      "x-deprecated-in-version": "1.9.9",
       "examples": [
         "sap:core:v1"
       ]
@@ -5043,9 +5168,25 @@
       "description": "If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.\nThe policy level is inherited from packages to resources they contain, but can be overwritten at resource level.\n\nMUST only be provided if `policyLevel` is set to `custom`.\nMUST be a valid [Specification ID](../index.md#specification-id).",
       "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
       "maxLength": 255,
+      "x-introduced-in-version": "1.3.0",
+      "x-deprecated": "ORD now support multiple policy levels. Use `policyLevels` (plural) instead.",
+      "x-deprecated-in-version": "1.9.9",
       "examples": [
         "sap.xref:customPolicy:v1"
       ]
+    },
+    "policyLevels": {
+      "type": "array",
+      "description": "A list of [policy levels](../../spec-extensions/policy-levels/) that the described resources need to be compliant with.\nFor each chosen policy level, additional expectations and validations rules will be applied.\n\nPolicy levels can be defined on ORD Document level, but also be overwritten on an individual package or resource level.\n\nA policy level MUST be a valid [Specification ID](../index.md#specification-id).",
+      "x-introduced-in-version": "1.9.9",
+      "items": {
+        "type": "string",
+        "pattern": "^([a-z0-9]+(?:[.][a-z0-9]+)*):([a-zA-Z0-9._\\-]+):(v0|v[1-9][0-9]*)$",
+        "maxLength": 255,
+        "examples": [
+          "sap:core:v1"
+        ]
+      }
     },
     "apiResources": {
       "type": "array",
@@ -5148,6 +5289,6 @@
     "openResourceDiscovery"
   ],
   "x-recommended": [
-    "policyLevel"
+    "policyLevels"
   ]
 }

@@ -1,7 +1,9 @@
 {
   "$schema": "https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Document.schema.json",
   "openResourceDiscovery": "1.9",
-  "policyLevel": "sap:core:v1",
+  "policyLevels": [
+    "sap:core:v1"
+  ],
   "products": [
     {
       "ordId": "sap:product:SampleProduct:",

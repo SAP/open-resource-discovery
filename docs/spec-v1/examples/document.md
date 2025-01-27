@@ -9,7 +9,9 @@
   "$schema": "https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Document.schema.json",
   "openResourceDiscovery": "1.9",
   "description": "Example based on ORD Reference App",
-  "policyLevel": "sap:core:v1",
+  "policyLevels": [
+    "sap:core:v1"
+  ],
   "products": [
     {
       "ordId": "sap.foo:product:ord-reference-app:",
@@ -25,7 +27,9 @@
       "shortDescription": "This is a reference application for the Open Resource Discovery standard",
       "description": "This reference application demonstrates how Open Resource Discovery (ORD) can be implemented, demonstrating different resources and discovery aspects",
       "version": "0.3.0",
-      "policyLevel": "sap:core:v1",
+      "policyLevels": [
+        "sap:core:v1"
+      ],
       "partOfProducts": [
         "sap.foo:product:ord-reference-app:"
       ],
@@ -67,8 +71,9 @@
       "visibility": "public",
       "releaseStatus": "active",
       "systemInstanceAware": false,
-      "policyLevel": "custom",
-      "customPolicyLevel": "sap.foo:custom:v1",
+      "policyLevels": [
+        "sap.foo:custom:v1"
+      ],
       "partOfPackage": "sap.foo:package:ord-reference-app:v1",
       "partOfConsumptionBundles": [
         {
@@ -215,7 +220,9 @@
 {
   "$schema": "https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Document.schema.json",
   "openResourceDiscovery": "1.9",
-  "policyLevel": "sap:core:v1",
+  "policyLevels": [
+    "sap:core:v1"
+  ],
   "products": [
     {
       "ordId": "sap:product:SampleProduct:",
@@ -1088,7 +1095,9 @@
   "$schema": "https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Document.schema.json",
   "openResourceDiscovery": "1.9",
   "description": "This Example demonstrates the Entity Type Mapping feature",
-  "policyLevel": "sap:core:v1",
+  "policyLevels": [
+    "sap:core:v1"
+  ],
   "apiResources": [
     {
       "ordId": "sap.s4:apiResource:SomeODataAPI:v2",
@@ -1278,7 +1287,9 @@
   "$schema": "https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Document.schema.json",
   "openResourceDiscovery": "1.9",
   "description": "Example for entity types as they will be exposed by ODM",
-  "policyLevel": "sap:core:v1",
+  "policyLevels": [
+    "sap:core:v1"
+  ],
   "packages": [
     {
       "ordId": "sap.odm:package:OdmEntities:v1",
@@ -1286,7 +1297,9 @@
       "shortDescription": "This package includes all aligned ODM Entities",
       "description": "The ODM Entities are governed by the ODM Governance Board. They are semantically cross-LoB aligned and provide an unambiguous taxonomy",
       "version": "1.0.0",
-      "policyLevel": "sap:core:v1",
+      "policyLevels": [
+        "sap:core:v1"
+      ],
       "vendor": "sap:vendor:SAP:"
     }
   ],
@@ -1323,7 +1336,9 @@
   "$schema": "https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Document.schema.json",
   "openResourceDiscovery": "1.9",
   "description": "This ORD Document example contains more special examples, like custom SAP protocols",
-  "policyLevel": "sap:core:v1",
+  "policyLevels": [
+    "sap:core:v1"
+  ],
   "consumptionBundles": [
     {
       "ordId": "sap.foo:consumptionBundle:basicAuth:v1",

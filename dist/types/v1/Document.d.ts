@@ -3,10 +3,6 @@
  */
 export type Usage = "external" | "local";
 /**
- * If provided, all resources that are part of this package can only run on the listed runtime.
- */
-export type RuntimeRestriction = "sap.datasphere";
-/**
  * The [ORD Document](../index.md#ord-document) object serves as a wrapper for the **ORD resources** and **ORD taxonomy** and adds further top-level information
  * that are specific to the document/the service it describes.
  *
@@ -31,13 +27,13 @@ export interface ORDDocument {
     description?: string;
     describedSystemInstance?: SystemInstance;
     /**
-     * The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that the described resources need to be compliant with.
+     * The [policy level](../../spec-extensions/policy-levels/) (aka. compliance level) that the described resources need to be compliant with.
      * Depending on the chosen policy level, additional expectations and validations rules will be applied.
      *
      * The policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.
      *
      */
-    policyLevel?: "none" | "sap:base:v1" | "sap:core:v1" | "custom";
+    policyLevel?: "none" | "sap:base:v1" | "sap:core:v1" | "sap:dp:v1" | "custom";
     /**
      * If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.
      * The policy level is inherited from packages to resources they contain, but can be overwritten at resource level.
@@ -46,6 +42,15 @@ export interface ORDDocument {
      * MUST be a valid [Specification ID](../index.md#specification-id).
      */
     customPolicyLevel?: string;
+    /**
+     * A list of [policy levels](../../spec-extensions/policy-levels/) that the described resources need to be compliant with.
+     * For each chosen policy level, additional expectations and validations rules will be applied.
+     *
+     * Policy levels can be defined on ORD Document level, but also be overwritten on an individual package or resource level.
+     *
+     * A policy level MUST be a valid [Specification ID](../index.md#specification-id).
+     */
+    policyLevels?: string[];
     /**
      * Array of all API Resources that are described in this ORD document.
      */
@@ -109,7 +114,7 @@ export interface ORDDocument {
 export interface SystemInstance {
     /**
      * Optional [base URL](../index.md#def-base-url) of the **system instance**.
-     * By providing the base URL, all relative references in the document are resolved relative to it.
+     * By providing the base URL, relative URLs in the document are resolved relative to it.
      *
      * The `baseUrl` MUST not contain a leading slash.
      *
@@ -333,8 +338,7 @@ export interface APIResource {
      */
     lastUpdate?: string;
     /**
-     * The visibility/exposure of the described resource or capability.
-     * This indicates who is allowed to see (and implicitly also access) this.
+     * The visibility states who is allowed to "see" the described resource or capability.
      */
     visibility: "public" | "internal" | "private";
     /**
@@ -515,13 +519,13 @@ export interface APIResource {
     labels?: Labels;
     documentationLabels?: DocumentationLabels;
     /**
-     * The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that the described resources need to be compliant with.
+     * The [policy level](../../spec-extensions/policy-levels/) (aka. compliance level) that the described resources need to be compliant with.
      * Depending on the chosen policy level, additional expectations and validations rules will be applied.
      *
      * The policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.
      *
      */
-    policyLevel?: "none" | "sap:base:v1" | "sap:core:v1" | "custom";
+    policyLevel?: "none" | "sap:base:v1" | "sap:core:v1" | "sap:dp:v1" | "custom";
     /**
      * If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.
      * The policy level is inherited from packages to resources they contain, but can be overwritten at resource level.
@@ -530,6 +534,15 @@ export interface APIResource {
      * MUST be a valid [Specification ID](../index.md#specification-id).
      */
     customPolicyLevel?: string;
+    /**
+     * A list of [policy levels](../../spec-extensions/policy-levels/) that the described resources need to be compliant with.
+     * For each chosen policy level, additional expectations and validations rules will be applied.
+     *
+     * Policy levels can be defined on ORD Document level, but also be overwritten on an individual package or resource level.
+     *
+     * A policy level MUST be a valid [Specification ID](../index.md#specification-id).
+     */
+    policyLevels?: string[];
     /**
      * Defines whether this ORD resource is **system instance aware**.
      * This is the case (and relevant) when the referenced resource definitions are potentially different between **system instances**.
@@ -591,6 +604,8 @@ export interface ChangelogEntry {
     description?: string;
     /**
      * Optional [URL](https://tools.ietf.org/html/rfc3986) that links to a more detailed changelog entry.
+     *
+     * The link target MUST be absolute and SHOULD be openly accessible.
      */
     url?: string;
 }
@@ -784,7 +799,7 @@ export interface EntityTypeTargetCorrelationID {
 /**
  * Links with specific semantic meaning that are related to API or event resources.
  *
- * If a generic `Link` can also be expressed via an `APIEventResourceLink`, the latter MUST be chosen.
+ * If a generic [Link](#link) can also be expressed via an API / Event Resource Link, the latter MUST be chosen.
  */
 export interface APIAndEventResourceLink {
     /**
@@ -800,9 +815,10 @@ export interface APIAndEventResourceLink {
      */
     customType?: string;
     /**
-     * [URL reference](https://tools.ietf.org/html/rfc3986#section-4.1) (URL or relative reference) to the endpoint or UI for the action.
+     * [URL reference](https://tools.ietf.org/html/rfc3986#section-4.1) (URL or relative reference) to the API or Event Resource Link.
      *
-     * If the link is relative to base URL, it is RECOMMENDED to provide a relative URL.
+     * The link target SHOULD be absolute and SHOULD be openly accessible.
+     * If a relative link is given, it is relative to the [`describedSystemInstance.baseUrl`](#system-instance_baseurl).
      */
     url: string;
 }
@@ -819,6 +835,8 @@ export interface Link {
     title: string;
     /**
      * [URL](https://tools.ietf.org/html/rfc3986) of the link.
+     *
+     * The link target MUST be absolute and SHOULD be openly accessible.
      */
     url: string;
     /**
@@ -987,8 +1005,7 @@ export interface EventResource {
      */
     lastUpdate?: string;
     /**
-     * The visibility/exposure of the described resource or capability.
-     * This indicates who is allowed to see (and implicitly also access) this.
+     * The visibility states who is allowed to "see" the described resource or capability.
      */
     visibility: "public" | "internal" | "private";
     /**
@@ -1127,13 +1144,13 @@ export interface EventResource {
     labels?: Labels;
     documentationLabels?: DocumentationLabels;
     /**
-     * The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that the described resources need to be compliant with.
+     * The [policy level](../../spec-extensions/policy-levels/) (aka. compliance level) that the described resources need to be compliant with.
      * Depending on the chosen policy level, additional expectations and validations rules will be applied.
      *
      * The policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.
      *
      */
-    policyLevel?: "none" | "sap:base:v1" | "sap:core:v1" | "custom";
+    policyLevel?: "none" | "sap:base:v1" | "sap:core:v1" | "sap:dp:v1" | "custom";
     /**
      * If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.
      * The policy level is inherited from packages to resources they contain, but can be overwritten at resource level.
@@ -1142,6 +1159,15 @@ export interface EventResource {
      * MUST be a valid [Specification ID](../index.md#specification-id).
      */
     customPolicyLevel?: string;
+    /**
+     * A list of [policy levels](../../spec-extensions/policy-levels/) that the described resources need to be compliant with.
+     * For each chosen policy level, additional expectations and validations rules will be applied.
+     *
+     * Policy levels can be defined on ORD Document level, but also be overwritten on an individual package or resource level.
+     *
+     * A policy level MUST be a valid [Specification ID](../index.md#specification-id).
+     */
+    policyLevels?: string[];
     /**
      * Defines whether this ORD resource is **system instance aware**.
      * This is the case (and relevant) when the referenced resource definitions are potentially different between **system instances**.
@@ -1310,8 +1336,7 @@ export interface EntityType {
      */
     lastUpdate?: string;
     /**
-     * The visibility/exposure of the described resource or capability.
-     * This indicates who is allowed to see (and implicitly also access) this.
+     * The visibility states who is allowed to "see" the described resource or capability.
      */
     visibility: "public" | "internal" | "private";
     /**
@@ -1352,16 +1377,16 @@ export interface EntityType {
     /**
      * Defining the abstraction level of the entity type using the DDD terminology.
      *
-     * In Domain-Driven Design, there is a concept of entities and aggregates. There are root entities which may contain
-     * further sub entities by composition. The complete “package” is then called an aggregate, which gets its name and identity
-     * from the root entity.  An aggregate is a cluster of domain objects that can be treated as a single unit.  The root
-     * is the entity that is referenced from outside the aggregate. There must be only one root per aggregate. The root
-     * ensures the integrity of the aggregate. A sub entity is any other non-root entity in the aggregate. Source, see
-     * [Martin Fowler on DDD Aggregate](https://martinfowler.com/bliki/DDD_Aggregate.html)
+     * In Domain-Driven Design, there is a concept of entities and aggregates.
+     * There are root entities which may contain further sub entities by composition.
+     * The complete “package” is then called an aggregate, which gets its name and identity from the root entity.
+     * An aggregate is a cluster of domain objects that can be treated as a single unit.
+     * The root is the entity that is referenced from outside the aggregate. There must be only one root per aggregate.
+     * The root ensures the integrity of the aggregate. A sub entity is any other non-root entity in the aggregate.
      *
-     * For now, we decided to only cover the aggregate level, which is described in the enum value.
+     * Source, see [Martin Fowler on DDD Aggregate](https://martinfowler.com/bliki/DDD_Aggregate.html)
      */
-    level: "aggregate";
+    level: "aggregate" | "root-entity" | "sub-entity";
     /**
      * States that this Entity Type is related to another Entity Type.
      *
@@ -1383,13 +1408,13 @@ export interface EntityType {
     labels?: Labels;
     documentationLabels?: DocumentationLabels;
     /**
-     * The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that the described resources need to be compliant with.
+     * The [policy level](../../spec-extensions/policy-levels/) (aka. compliance level) that the described resources need to be compliant with.
      * Depending on the chosen policy level, additional expectations and validations rules will be applied.
      *
      * The policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.
      *
      */
-    policyLevel?: "none" | "sap:base:v1" | "sap:core:v1" | "custom";
+    policyLevel?: "none" | "sap:base:v1" | "sap:core:v1" | "sap:dp:v1" | "custom";
     /**
      * If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.
      * The policy level is inherited from packages to resources they contain, but can be overwritten at resource level.
@@ -1398,6 +1423,15 @@ export interface EntityType {
      * MUST be a valid [Specification ID](../index.md#specification-id).
      */
     customPolicyLevel?: string;
+    /**
+     * A list of [policy levels](../../spec-extensions/policy-levels/) that the described resources need to be compliant with.
+     * For each chosen policy level, additional expectations and validations rules will be applied.
+     *
+     * Policy levels can be defined on ORD Document level, but also be overwritten on an individual package or resource level.
+     *
+     * A policy level MUST be a valid [Specification ID](../index.md#specification-id).
+     */
+    policyLevels?: string[];
     /**
      * Defines whether this ORD resource is **system instance aware**.
      * This is the case (and relevant) when the referenced resource definitions are potentially different between **system instances**.
@@ -1534,8 +1568,7 @@ export interface Capability {
      */
     lastUpdate?: string;
     /**
-     * The visibility/exposure of the described resource or capability.
-     * This indicates who is allowed to see (and implicitly also access) this.
+     * The visibility states who is allowed to "see" the described resource or capability.
      */
     visibility: "public" | "internal" | "private";
     /**
@@ -1862,13 +1895,13 @@ export interface DataProduct {
     labels?: Labels;
     documentationLabels?: DocumentationLabels;
     /**
-     * The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that the described resources need to be compliant with.
+     * The [policy level](../../spec-extensions/policy-levels/) (aka. compliance level) that the described resources need to be compliant with.
      * Depending on the chosen policy level, additional expectations and validations rules will be applied.
      *
      * The policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.
      *
      */
-    policyLevel?: "none" | "sap:base:v1" | "sap:core:v1" | "custom";
+    policyLevel?: "none" | "sap:base:v1" | "sap:core:v1" | "sap:dp:v1" | "custom";
     /**
      * If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.
      * The policy level is inherited from packages to resources they contain, but can be overwritten at resource level.
@@ -1877,6 +1910,15 @@ export interface DataProduct {
      * MUST be a valid [Specification ID](../index.md#specification-id).
      */
     customPolicyLevel?: string;
+    /**
+     * A list of [policy levels](../../spec-extensions/policy-levels/) that the described resources need to be compliant with.
+     * For each chosen policy level, additional expectations and validations rules will be applied.
+     *
+     * Policy levels can be defined on ORD Document level, but also be overwritten on an individual package or resource level.
+     *
+     * A policy level MUST be a valid [Specification ID](../index.md#specification-id).
+     */
+    policyLevels?: string[];
     /**
      * Defines whether this ORD resource is **system instance aware**.
      * This is the case (and relevant) when the referenced resource definitions are potentially different between **system instances**.
@@ -1918,14 +1960,10 @@ export interface DataProductOutputPort {
 }
 /**
  * Links with specific semantic meaning that are related to Data Product resources.
- * If a generic `Link` can also be expressed via `DataProductLink`, the latter MUST be chosen.
+ * If a generic [Link](#link) can also be expressed via Data Product Link, the latter MUST be chosen.
  */
 export interface DataProductLink {
-    /**
-     * API action type.
-     * See also: [WADG0001 WebAPI type extension](https://webapi-discovery.github.io/rfcs/rfc0001.html#webapiactions)
-     */
-    type: "payment" | "service-level-agreement" | "support" | "custom";
+    type: "payment" | "terms-of-use" | "service-level-agreement" | "support" | "custom";
     /**
      * If the fixed `type` enum values need to be extended, an arbitrary `customType` can be provided.
      *
@@ -1935,8 +1973,10 @@ export interface DataProductLink {
      */
     customType?: string;
     /**
-     * [URL reference](https://tools.ietf.org/html/rfc3986#section-4.1) (URL or relative reference) to the endpoint or UI for the action.
-     * If the link is relative to base URL, it is RECOMMENDED to provide a relative URL.
+     * [URL reference](https://tools.ietf.org/html/rfc3986#section-4.1) (URL or relative reference) to the Data Product Link.
+     *
+     * The link target SHOULD be absolute and SHOULD be openly accessible.
+     * If a relative link is given, it is relative to the [`describedSystemInstance.baseUrl`](#system-instance_baseurl).
      */
     url: string;
 }
@@ -2056,8 +2096,7 @@ export interface IntegrationDependency {
      */
     lastUpdate?: string;
     /**
-     * The visibility/exposure of the described resource or capability.
-     * This indicates who is allowed to see (and implicitly also access) this.
+     * The visibility states who is allowed to "see" the described resource or capability.
      */
     visibility: "public" | "internal" | "private";
     /**
@@ -2398,13 +2437,13 @@ export interface Package {
      */
     version: string;
     /**
-     * The [policy level](../../spec-extensions/access-strategies/) (aka. compliance level) that the described resources need to be compliant with.
+     * The [policy level](../../spec-extensions/policy-levels/) (aka. compliance level) that the described resources need to be compliant with.
      * Depending on the chosen policy level, additional expectations and validations rules will be applied.
      *
      * The policy level can be defined on ORD Document level, but also be overwritten on an individual package or resource level.
      *
      */
-    policyLevel?: "none" | "sap:base:v1" | "sap:core:v1" | "custom";
+    policyLevel?: "none" | "sap:base:v1" | "sap:core:v1" | "sap:dp:v1" | "custom";
     /**
      * If the fixed `policyLevel` values need to be extended, an arbitrary `customPolicyLevel` can be provided.
      * The policy level is inherited from packages to resources they contain, but can be overwritten at resource level.
@@ -2413,6 +2452,15 @@ export interface Package {
      * MUST be a valid [Specification ID](../index.md#specification-id).
      */
     customPolicyLevel?: string;
+    /**
+     * A list of [policy levels](../../spec-extensions/policy-levels/) that the described resources need to be compliant with.
+     * For each chosen policy level, additional expectations and validations rules will be applied.
+     *
+     * Policy levels can be defined on ORD Document level, but also be overwritten on an individual package or resource level.
+     *
+     * A policy level MUST be a valid [Specification ID](../index.md#specification-id).
+     */
+    policyLevels?: string[];
     /**
      * Links with semantic meaning that are specific to packages.
      */
@@ -2480,7 +2528,12 @@ export interface Package {
      * `industry` that are assigned to a `Package` are inherited to all of the ORD resources it contains.
      */
     industry?: ((string | "Aerospace and Defense" | "Automotive" | "Banking" | "Chemicals" | "Consumer Products" | "Defense and Security" | "Engineering Construction and Operations" | "Healthcare" | "Higher Education and Research" | "High Tech" | "Industrial Machinery and Components" | "Insurance" | "Life Sciences" | "Media" | "Mill Products" | "Mining" | "Oil and Gas" | "Professional Services" | "Public Sector" | "Retail" | "Sports and Entertainment" | "Telecommunications" | "Travel and Transportation" | "Utilities" | "Wholesale Distribution") & string)[];
-    runtimeRestriction?: RuntimeRestriction;
+    /**
+     * If provided, all resources that are part of this package can only run on the listed runtime.
+     *
+     * MUST be a valid [System Namespace](../index.md#system-namespace).
+     */
+    runtimeRestriction?: string;
     /**
      * List of free text style tags.
      * No special characters are allowed except `-`, `_`, `.`, `/` and ` `.
@@ -2494,12 +2547,9 @@ export interface Package {
 /**
  * Links with specific semantic meaning that are related to `Package`.
  *
- * If a generic `Link` can also be expressed via `PackageLink`, the latter MUST be chosen.
+ * If a generic [Link](#link) can also be expressed via a Package Link, the latter MUST be chosen.
  */
 export interface PackageLink {
-    /**
-     * Package link type
-     */
     type: "terms-of-service" | "license" | "client-registration" | "payment" | "sandbox" | "service-level-agreement" | "support" | "custom";
     /**
      * If the fixed `type` enum values need to be extended, an arbitrary `customType` can be provided.
@@ -2510,7 +2560,9 @@ export interface PackageLink {
      */
     customType?: string;
     /**
-     * [URL](https://tools.ietf.org/html/rfc3986) to the PackageLink. For more information, see `type`.
+     * [URL](https://tools.ietf.org/html/rfc3986) to the PackageLink.
+     *
+     * The link target MUST be absolute and SHOULD be openly accessible.
      */
     url: string;
     [k: string]: any | undefined;
@@ -2604,8 +2656,7 @@ export interface ConsumptionBundle {
      */
     lastUpdate?: string;
     /**
-     * The visibility/exposure of the described resource or capability.
-     * This indicates who is allowed to see (and implicitly also access) this.
+     * The visibility states who is allowed to "see" the described resource or capability.
      */
     visibility?: "public" | "internal" | "private";
     /**

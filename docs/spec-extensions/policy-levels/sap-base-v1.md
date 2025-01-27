@@ -1,6 +1,6 @@
 ---
 title: SAP Base v1
-description: "sap:base:v1 compliance level."
+description: "SAP Base v1 policy level"
 sidebar_position: 1
 ---
 
