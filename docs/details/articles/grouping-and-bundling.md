@@ -13,24 +13,24 @@ Some of them have a specific indented usage, while others offer the application 
 
 ### Predefined Grouping Concepts
 
-* The [**Package**](#package) is the only mandatory bundling concept.
-  * Every ORD Resource MUST be assigned to exactly one Package.
-  * The concerns of a Package are:
-    * What is published together
-    * How the published information are presented on a catalog, e.g. in SAPs case the [Business Accelerator Hub](https://api.sap.com/)
-* The [**Consumption Bundle**](#consumption-bundle)
-  * API or Event Resources MAY be assigned to 0..n Consumption Bundles
-  * The concern is technical: What resources can be consumed together with the same set of credentials and auth mechanism
-* The [**Entity Type**](#entity-type) may not be perceived as a grouping mechanism, but in practice it is very useful to group APIs, Events and other resources by a shared Business Object / Business Term.
-  * API Resources, Event Resources, Capabilities, Data Products and other Entity Types can be assigned to 0..n Entity Types.
+- The [**Package**](#package) is the only mandatory bundling concept.
+  - Every ORD Resource MUST be assigned to exactly one Package.
+  - The concerns of a Package are:
+    - What is published together
+    - How the published information are presented on a catalog, e.g. in SAPs case the [Business Accelerator Hub](https://api.sap.com/)
+- The [**Consumption Bundle**](#consumption-bundle)
+  - API or Event Resources MAY be assigned to 0..n Consumption Bundles
+  - The concern is technical: What resources can be consumed together with the same set of credentials and auth mechanism
+- The [**Entity Type**](#entity-type) may not be perceived as a grouping mechanism, but in practice it is very useful to group APIs, Events and other resources by a shared Business Object / Business Term.
+  - API Resources, Event Resources, Capabilities, Data Products and other Entity Types can be assigned to 0..n Entity Types.
 
 ### Generic Grouping Concepts
 
-* [**Tags**](#tags) (via the `tags` array property) can be used to freely tag all kinds of ORD resources in [Folksonomy](https://en.wikipedia.org/wiki/Folksonomy) style.
-* [**Labels**](#labels) are similar to tags, but they allow to also define the "key" and are mostly useful for simplifying querying / selecting resources on an API level.
-* [**Groups**](#groups) allow to define custom **Group Types** that can be published via ORD as well.
-  * This concept is very flexible, but still well governed and machine-readable.
-  * It works similar to Packages or Consumption Bundles, but allows the ORD Provider to define their own group categories and their semantics.
+- [**Tags**](#tags) (via the `tags` array property) can be used to freely tag all kinds of ORD resources in [Folksonomy](https://en.wikipedia.org/wiki/Folksonomy) style.
+- [**Labels**](#labels) are similar to tags, but they allow to also define the "key" and are mostly useful for simplifying querying / selecting resources on an API level.
+- [**Groups**](#groups) allow to define custom **Group Types** that can be published via ORD as well.
+  - This concept is very flexible, but still well governed and machine-readable.
+  - It works similar to Packages or Consumption Bundles, but allows the ORD Provider to define their own group categories and their semantics.
 
 ### Namespaces
 
@@ -49,9 +49,9 @@ However, there are still some [Considerations on the granularity of ORD Document
 
 ## Best Practices and Recommendations
 
-* Avoid using [namespaces](#namespaces) for the purpose of grouping, if possible.
-* To express end-user facing taxonomy, use [groups](#groups) and not tags or labels as they have no human-readable labels and are meant more for machine
-* Packages are less flexible for grouping than [groups](#groups), so the latter are recommended and can be complementary.
+- Avoid using [namespaces](#namespaces) for the purpose of grouping, if possible.
+- To express end-user facing taxonomy, use [groups](#groups) and not tags or labels as they have no human-readable labels and are meant more for machine
+- Packages are less flexible for grouping than [groups](#groups), so the latter are recommended and can be complementary.
   Use [packages](#package) to group ORD resources published together and making use of the information reuse.
 
 ## Detailed Explanations
@@ -64,17 +64,17 @@ It can also express information about the resource providers, terms of use of th
 
 The granularity of Packages is driven by all of the following concerns:
 
-* The resources are created by the same vendor or customer, exposed by the same described system.
-* The resources are published together. They share the same publishing ownership.
-* The resources share certain aspects/taxonomy that is inherited down to them (e.g. `vendor`).
-* If applicable: The resources are meant to be used by only a particular target platform / software.
+- The resources are created by the same vendor or customer, exposed by the same described system.
+- The resources are published together. They share the same publishing ownership.
+- The resources share certain aspects/taxonomy that is inherited down to them (e.g. `vendor`).
+- If applicable: The resources are meant to be used by only a particular target platform / software.
 
 All resources that are not created by the described systems vendor MUST be put into separate packages.
 This is the case, when:
 
-* The resources are created by the customer (user) of the system.
+- The resources are created by the customer (user) of the system.
   All such resources MUST be assigned to a dedicated Package, where `vendor` is set to `customer:vendor:Customer:`.
-* The resources are created by partners or third parties.
+- The resources are created by partners or third parties.
   All such resources MUST be assigned to a dedicated Package for each partner / third party.
   The `vendor` MUST be set to a registered, matching Vendor ID (implies also a registered namespace).
 

@@ -45,7 +45,7 @@ This specification defines the following terms (for the ORD context):
     ORD resource information MAY be <a href="#def-system-instance-aware">system instance aware</a>, depending on the implementation of the <a href="#def-system-type">system type</a>.
 
   - <dfn id="def-ord-taxonomy">ORD taxonomy</dfn> is used to categorize and structure <a href="#def-resource">resources</a>.
-    Taxonomies span across <a href="#def-product">products</a> and <a href="#def-system-type">system types</a> and resources and therefore fall under the  <a href="#def-cross-system">cross-system</a> information category.
+    Taxonomies span across <a href="#def-product">products</a> and <a href="#def-system-type">system types</a> and resources and therefore fall under the <a href="#def-cross-system">cross-system</a> information category.
     - Some taxonomies are implemented as dedicated Entities (e.g. `Package`, `Product`) that can express additional information.
       They are defined by the <a href="#def-ord-provider">ORD providers</a> in a decentralized manner.
     - Other taxonomies are provided via fixed enums (code lists) and are defined as part of ORD itself, e.g. tags.
@@ -62,7 +62,7 @@ This specification defines the following terms (for the ORD context):
 
 - A <dfn id="def-system-installation">system installation</dfn> is a concrete running instance of a <a href="#def-system-type">system type</a>. If the system type supports tenant isolation, a system installation may offer multiple <a href="#def-system-instance">system instance</a>. A system installation has at least one [base URL](#def-base-url).
 
-- A <dfn id="def-system-instance">system instance</dfn> is running instance of a <a href="#def-system-type">system type</a> and  always refers to the *most specific* instance from a customer / account perspective. Usually this is the boundary where the isolation of resources, capabilities and data is ensured.
+- A <dfn id="def-system-instance">system instance</dfn> is running instance of a <a href="#def-system-type">system type</a> and always refers to the _most specific_ instance from a customer / account perspective. Usually this is the boundary where the isolation of resources, capabilities and data is ensured.
   If the system type offers tenant isolation (multi-tenancy), system instance refers to a tenant. If there is no tenant isolation, there are two options: Either the isolation is achieved by having a dedicated [system installation](#def-system-installation) per tenant or system isolation does not matter. In those cases system instance equals the system installation.
 
   To illustrate this, think of an API resource. It may be differently described between system-instances of the same type due to configuration and extensibility. But for sure, the API of one system-instance acts on their own isolated data set (potentially also users).
@@ -110,7 +110,7 @@ An ORD provider MUST use one of the standardized [ORD transport modes](#ord-tran
 
 > 📖 See also: [How To Adopt ORD as a Provider](../details/articles/adopt-ord-as-provider.md).
 
-![ORD Provider Role](/img/ord-role-provider.svg 'ORD Provider Role')
+![ORD Provider Role](/img/ord-role-provider.svg "ORD Provider Role")
 
 ### ORD Aggregator
 
@@ -130,7 +130,7 @@ It MUST support all [ORD transport modes](#ord-transport-modes) that are used by
 
 It SHOULD support the proposed optimizations for the transport modes, e.g. make use of `systemInstanceAware`, `lastUpdate` properties and support the proposed HTTP cache mechanisms. This has the potential to significantly reduce overall TCO.
 
-![ORD Aggregator Role](/img/ord-role-aggregator.svg 'ORD Aggregator Role')
+![ORD Aggregator Role](/img/ord-role-aggregator.svg "ORD Aggregator Role")
 
 ### ORD Consumer
 
@@ -147,7 +147,7 @@ An ORD consumer that receives information with a `visibility` of `private` or `i
 The ORD consumer MUST ensure that private and internal information is not exposed to consumers without the corresponding permissions.
 If the ORD consumer only needs public information, it SHOULD only request those from the ORD aggregator in the first place.
 
-![ORD Consumer Role](/img/ord-role-consumer.svg 'ORD Consumer Role')
+![ORD Consumer Role](/img/ord-role-consumer.svg "ORD Consumer Role")
 
 ## ORD Transport Modes
 
@@ -177,7 +177,7 @@ This is implemented by providing an [ORD Document API](#ord-document-api).
 
 ##### Pull Transport Sequence Diagram
 
-![Pull Transport - Sequence Diagram](/img/ord-pull-transport-sequence.svg 'Pull Transport - Sequence Diagram')
+![Pull Transport - Sequence Diagram](/img/ord-pull-transport-sequence.svg "Pull Transport - Sequence Diagram")
 
 ### Other Modes of Transport
 
@@ -236,7 +236,7 @@ It is therefore RECOMMENDED to use American English for human-readable titles an
 
 #### ORD Document Data Model (Simplified)
 
-![High-Level ORD Entities (simplified)](/img/ord-high-level-data-model.drawio.svg 'High-Level ORD Entities (simplified)')
+![High-Level ORD Entities (simplified)](/img/ord-high-level-data-model.drawio.svg "High-Level ORD Entities (simplified)")
 
 #### Considerations on the ORD Content
 
@@ -577,7 +577,7 @@ A complete namespace MUST match the following [regular expression](https://en.wi
 
 #### Structure of Namespaces
 
-![Namespace Concept Overview](/img/namespace-concept.svg 'Namespace Concept Overview')
+![Namespace Concept Overview](/img/namespace-concept.svg "Namespace Concept Overview")
 
 Namespaces MUST follow the below structure:
 
@@ -602,11 +602,11 @@ Optionally, sub-contexts can be defined as sub namespaces for system and authori
 
 **Constraints**:
 
-* A namespace MUST be ensured to be conflict free. This falls into the responsibility of the registered namespace owner. This registry can be used to ensure this for registered namespaces and sub-namespaces, but within them there needs to be some local governance.
-* All SAP applications and services MUST use the `sap` vendor namespace.
-* System namespaces and authority namespaces MUST always be a sub-namespace of a vendor namespace.
-* A sub-context namespace MUST always be a sub-namespace of either a system namespace or an authority namespace.
-* If sub-context namespaces are described in this registry, the list MUST be complete.
+- A namespace MUST be ensured to be conflict free. This falls into the responsibility of the registered namespace owner. This registry can be used to ensure this for registered namespaces and sub-namespaces, but within them there needs to be some local governance.
+- All SAP applications and services MUST use the `sap` vendor namespace.
+- System namespaces and authority namespaces MUST always be a sub-namespace of a vendor namespace.
+- A sub-context namespace MUST always be a sub-namespace of either a system namespace or an authority namespace.
+- If sub-context namespaces are described in this registry, the list MUST be complete.
 
 #### Vendor Namespace
 
@@ -674,9 +674,10 @@ An authority namespace MUST be constructed according to the following rules:
 A <dfn id="def-ord-sub-context-namespace">sub-context namespace</dfn> is a stable and globally unique identifier namespace that allows for further namespacing within an [system namespace](#system-namespace) or [authority namespace](#system-namespace).
 
 A sub-context can be motivated by ownership, ID uniqueness, domain or technical modularity concerns.
-  * A Sub-Context MUST be directly below an application / service namespace or an authority namespace.
-  * A Sub-Context MAY contain further sub-namespaces, e.g. `subcontext.subsubcontext`.
-  * **The Sub-Context MUST NOT be interpreted as identity by services and consumers.**.
+
+- A Sub-Context MUST be directly below an application / service namespace or an authority namespace.
+- A Sub-Context MAY contain further sub-namespaces, e.g. `subcontext.subsubcontext`.
+- **The Sub-Context MUST NOT be interpreted as identity by services and consumers.**.
 
 An sub-context namespace MUST be constructed according to the following rules:
 
@@ -833,9 +834,9 @@ A Correlation ID MUST match the following [regular expression](https://en.wikipe
 
 Examples (contrived):
 
-* `sap.s4:communicationScenario:SAP_COM_0008`
-* `sap.cld:system:500064231`
-* `sap.cld:tenant:741234567`
+- `sap.s4:communicationScenario:SAP_COM_0008`
+- `sap.cld:system:500064231`
+- `sap.cld:tenant:741234567`
 
 ### Concept ID
 
@@ -869,9 +870,9 @@ A Concept ID MUST match the following [regular expression](https://en.wikipedia.
 
 Examples (contrived):
 
-* `sap.cap:service`
-* `sap.s4:communicationScenario`
-* `sap.cld:system`
+- `sap.cap:service`
+- `sap.s4:communicationScenario`
+- `sap.cld:system`
 
 ### Specification ID
 
@@ -932,7 +933,7 @@ When an ORD resource has been removed (decommissioned) or an ORD taxonomy is no 
 - MUST be removed from ORD
 - Its removal MUST be indicated by explicitly setting a [`Tombstone`](interfaces/document.md#document.tombstones).
 
-![IDs, Version and Lifecycle](/img/versioning-and-lifecycle.svg 'IDs, Version and Lifecycle')
+![IDs, Version and Lifecycle](/img/versioning-and-lifecycle.svg "IDs, Version and Lifecycle")
 
 ### Common REST Characteristics
 

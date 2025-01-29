@@ -21,9 +21,9 @@ A library can not solve this problem for you, only frameworks which have a rich 
 
 That leaves the main challenge to create the ORD documents correctly. Two things are usually helpful here:
 
-* Use a validator to ensure that the ORD Documents are correct and compliant, ideally as CI/CD step or test cases.
-* Implement against a generated (ideally type safe) ORD document interface.
-  * ORD comes with a [JSON Schema definition](https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Document.schema.json), which can be converted into interfaces / clients for most programming languages.
+- Use a validator to ensure that the ORD Documents are correct and compliant, ideally as CI/CD step or test cases.
+- Implement against a generated (ideally type safe) ORD document interface.
+  - ORD comes with a [JSON Schema definition](https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Document.schema.json), which can be converted into interfaces / clients for most programming languages.
     This can be done with converters like [quicktype](https://quicktype.io/).
 
 #### Is ORD already used outside of SAP?
@@ -63,30 +63,3 @@ that the resources and information that are described through it are "open".
 They can be categorized explicitly, e.g. through `visibility`.
 
 > 🎧 Checkout the openSAP podcast [The Open Source Way - Open Resource Discovery](https://podcast.opensap.info/open-source-way/2024/06/14/open-resource-discovery-ord/).
-
-<!-- internal -->
-
-### ORD at SAP
-
-#### Q: How does ORD relate to the Open Discovery API / API Event Discovery?
-
-The Open Discovery API standard is the predecessor of Open Resource Discovery.
-It was developed by Harsh Jegadeesan and Divya Mary.
-The old Open Discovery API has been implemented (in different variants / states) by some SAP Applications, e.g. by the API Hub or S4/Hana.
-
-It's adoption by LoBs was however not mandated by the corresponding Technology Guideline TG03.
-
-With Open Resource Discovery, the scope of the specification has widened and changed a bit.
-
-- There is a distinction between the API that a LoB needs to provide (simplified API) and the API that an ORD aggregator (like API Hub) needs to provide
-  - The goal is to simplify the adoption for SAP applications
-- ORD is not specifically about APIs and Events anymore but is meant to express all kind of system resources (therefore the name change)
-- A new goal is to have a decentralized implementation with full automation around discovery.
-  ORD Providers and ORD aggregators should not have to create explicit integration between them.
-  Instead we aim for a plug-and-play architecture.
-- ORD also considers additional use cases of the [Unified Customer Landscape](https://sapedia.one.int.sap/wiki/Unified_Customer_Landscape)
-
-An implementation of the legacy **Open Discovery API** will provide most, but not all of the ORD information. Since there is no standardized state of it, it needs to be integrated individually and explicitly (no plug-and-play automated discovery).
-It was mainly used as a publication channel of **system instance unaware** information to the [API Hub](https://api.sap.com/).
-
-<!-- /internal -->

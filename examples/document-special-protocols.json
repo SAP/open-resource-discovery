@@ -2,9 +2,7 @@
   "$schema": "https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Document.schema.json",
   "openResourceDiscovery": "1.9",
   "description": "This ORD Document example contains more special examples, like custom SAP protocols",
-  "policyLevels": [
-    "sap:core:v1"
-  ],
+  "policyLevels": ["sap:core:v1"],
   "consumptionBundles": [
     {
       "ordId": "sap.foo:consumptionBundle:basicAuth:v1",
@@ -40,9 +38,7 @@
           "ordId": "sap.foo:consumptionBundle:basicAuth:v1"
         }
       ],
-      "entryPoints": [
-        "/some/rfc/api/url/v1"
-      ],
+      "entryPoints": ["/some/rfc/api/url/v1"],
       "resourceDefinitions": [
         {
           "type": "sap-rfc-metadata-v1",
@@ -100,9 +96,7 @@
       ],
       "apiProtocol": "odata-v4",
       "direction": "inbound",
-      "entryPoints": [
-        "/some/ape/api/url/v1"
-      ],
+      "entryPoints": ["/some/ape/api/url/v1"],
       "implementationStandard": "sap:cdi-api:v1",
       "resourceDefinitions": [
         {

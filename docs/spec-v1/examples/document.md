@@ -9,9 +9,7 @@
   "$schema": "https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Document.schema.json",
   "openResourceDiscovery": "1.9",
   "description": "Example based on ORD Reference App",
-  "policyLevels": [
-    "sap:core:v1"
-  ],
+  "policyLevels": ["sap:core:v1"],
   "products": [
     {
       "ordId": "sap.foo:product:ord-reference-app:",
@@ -27,26 +25,15 @@
       "shortDescription": "This is a reference application for the Open Resource Discovery standard",
       "description": "This reference application demonstrates how Open Resource Discovery (ORD) can be implemented, demonstrating different resources and discovery aspects",
       "version": "0.3.0",
-      "policyLevels": [
-        "sap:core:v1"
-      ],
-      "partOfProducts": [
-        "sap.foo:product:ord-reference-app:"
-      ],
+      "policyLevels": ["sap:core:v1"],
+      "partOfProducts": ["sap.foo:product:ord-reference-app:"],
       "vendor": "sap:vendor:SAP:",
-      "tags": [
-        "reference application"
-      ],
+      "tags": ["reference application"],
       "labels": {
-        "customLabel": [
-          "labels are more flexible than tags as you can define your own keys"
-        ]
+        "customLabel": ["labels are more flexible than tags as you can define your own keys"]
       },
       "documentationLabels": {
-        "Some Aspect": [
-          "Markdown Documentation [with links](#)",
-          "With multiple values"
-        ]
+        "Some Aspect": ["Markdown Documentation [with links](#)", "With multiple values"]
       }
     }
   ],
@@ -71,18 +58,14 @@
       "visibility": "public",
       "releaseStatus": "active",
       "systemInstanceAware": false,
-      "policyLevels": [
-        "sap.foo:custom:v1"
-      ],
+      "policyLevels": ["sap.foo:custom:v1"],
       "partOfPackage": "sap.foo:package:ord-reference-app:v1",
       "partOfConsumptionBundles": [
         {
           "ordId": "sap.foo:consumptionBundle:noAuth:v1"
         }
       ],
-      "partOfGroups": [
-        "sap.foo:groupTypeAbc:sap.foo:groupAssignmentValue"
-      ],
+      "partOfGroups": ["sap.foo:groupTypeAbc:sap.foo:groupAssignmentValue"],
       "apiProtocol": "rest",
       "apiResourceLinks": [
         {
@@ -102,9 +85,7 @@
           ]
         }
       ],
-      "entryPoints": [
-        "/astronomy/v1"
-      ],
+      "entryPoints": ["/astronomy/v1"],
       "extensible": {
         "supported": "no"
       }
@@ -210,6 +191,7 @@
     }
   ]
 }
+
 ```
 
 ### ./examples/document-data-product.json
@@ -220,9 +202,7 @@
 {
   "$schema": "https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Document.schema.json",
   "openResourceDiscovery": "1.9",
-  "policyLevels": [
-    "sap:core:v1"
-  ],
+  "policyLevels": ["sap:core:v1"],
   "products": [
     {
       "ordId": "sap:product:SampleProduct:",
@@ -239,9 +219,7 @@
       "description": "...",
       "version": "1.0.0",
       "vendor": "sap:vendor:SAP:",
-      "partOfProducts": [
-        "sap:product:SampleProduct:"
-      ]
+      "partOfProducts": ["sap:product:SampleProduct:"]
     },
     {
       "ordId": "sap.xref:package:SomePackageIntegrationDependencies:v1",
@@ -250,9 +228,7 @@
       "description": "...",
       "version": "1.0.0",
       "vendor": "sap:vendor:SAP:",
-      "partOfProducts": [
-        "sap:product:SampleProduct:"
-      ]
+      "partOfProducts": ["sap:product:SampleProduct:"]
     },
     {
       "ordId": "sap.xref:package:SomePackageAPIs:v1",
@@ -261,9 +237,7 @@
       "description": "...",
       "version": "1.0.0",
       "vendor": "sap:vendor:SAP:",
-      "partOfProducts": [
-        "sap:product:SampleProduct:"
-      ]
+      "partOfProducts": ["sap:product:SampleProduct:"]
     },
     {
       "ordId": "sap.xref:package:SomePackageEvents:v1",
@@ -272,9 +246,7 @@
       "description": "...",
       "version": "1.0.0",
       "vendor": "sap:vendor:SAP:",
-      "partOfProducts": [
-        "sap:product:SampleProduct:"
-      ]
+      "partOfProducts": ["sap:product:SampleProduct:"]
     }
   ],
   "consumptionBundles": [
@@ -291,9 +263,7 @@
     {
       "ordId": "sap.xref:dataProduct:Customer:v1",
       "localId": "Customer",
-      "correlationIds": [
-        "sap.xref:foo:bar"
-      ],
+      "correlationIds": ["sap.xref:foo:bar"],
       "title": "Customer",
       "shortDescription": "A deprecated DP example",
       "description": "The Customer data product offers access to all customers. And can be very long ........",
@@ -304,9 +274,7 @@
       "lastUpdate": "2020-12-08T15:47:04+00:00",
       "deprecationDate": "2020-12-08T15:47:04+00:00",
       "sunsetDate": "2022-01-08T15:47:04+00:00",
-      "successors": [
-        "sap.xref:dataProduct:Customer:v2"
-      ],
+      "successors": ["sap.xref:dataProduct:Customer:v2"],
       "type": "primary",
       "category": "business-object",
       "outputPorts": [
@@ -319,9 +287,7 @@
     {
       "ordId": "sap.xref:dataProduct:Customer:v2",
       "localId": "Customer",
-      "correlationIds": [
-        "sap.xref:foo:bar"
-      ],
+      "correlationIds": ["sap.xref:foo:bar"],
       "title": "Customer",
       "shortDescription": "A minimal DP example",
       "description": "The Customer data product offers access to all customers. And can be very long ........",
@@ -342,9 +308,7 @@
     {
       "ordId": "sap.xref:dataProduct:CustomerOrder:v1",
       "localId": "CustomerOrder",
-      "correlationIds": [
-        "sap.xref:foo:bar"
-      ],
+      "correlationIds": ["sap.xref:foo:bar"],
       "title": "Customer Order",
       "shortDescription": "The full example",
       "description": "The data product Customer Order offers access to all online and offline orders submitted by customers. It provides a customer view on the orders. For fulfillment-specific aspects please refer to the data product Fulfillment Order.",
@@ -371,10 +335,7 @@
       ],
       "type": "derived",
       "category": "business-object",
-      "entityTypes": [
-        "sap.odm:entityType:CustomerOrder:v1",
-        "sap.odm:entityType:RetailTransaction:v1"
-      ],
+      "entityTypes": ["sap.odm:entityType:CustomerOrder:v1", "sap.odm:entityType:RetailTransaction:v1"],
       "inputPorts": [
         {
           "ordId": "sap.xref:integrationDependency:CustomerOrder:v1"
@@ -421,24 +382,11 @@
           "url": "https://blogs.sap.com/2018/04/11/testing-of-s4hana-inventory-management-odata-apis-via-sap-api-hub/"
         }
       ],
-      "industry": [
-        "Retail",
-        "Consumer Products"
-      ],
-      "lineOfBusiness": [
-        "Sales"
-      ],
-      "tags": [
-        "CustomerOrder",
-        "Order",
-        "Online Sales",
-        "Offline Sales"
-      ],
+      "industry": ["Retail", "Consumer Products"],
+      "lineOfBusiness": ["Sales"],
+      "tags": ["CustomerOrder", "Order", "Online Sales", "Offline Sales"],
       "labels": {
-        "label-key-1": [
-          "label-value-1",
-          "label-value-2"
-        ]
+        "label-key-1": ["label-value-1", "label-value-2"]
       },
       "documentationLabels": {
         "Scope Items": [
@@ -526,9 +474,7 @@
           "ordId": "sap.foo:consumptionBundle:someAuth:v1"
         }
       ],
-      "entryPoints": [
-        "./CSN_EXPOSURE"
-      ],
+      "entryPoints": ["./CSN_EXPOSURE"],
       "implementationStandard": "sap:csn-exposure:v1",
       "resourceDefinitions": [
         {
@@ -562,9 +508,7 @@
           "ordId": "sap.foo:consumptionBundle:someAuth:v1"
         }
       ],
-      "entryPoints": [
-        "sap://my.lob.data.platform.endpoint:30015"
-      ],
+      "entryPoints": ["sap://my.lob.data.platform.endpoint:30015"],
       "apiProtocol": "sap-sql-api-v1",
       "resourceDefinitions": [
         {
@@ -579,9 +523,7 @@
         }
       ],
       "implementationStandard": "sap:hana-cloud-sql:v1",
-      "supportedUseCases": [
-        "data-federation"
-      ],
+      "supportedUseCases": ["data-federation"],
       "entityTypeMappings": [
         {
           "entityTypeTargets": [
@@ -622,30 +564,15 @@
         "supported": "manual",
         "description": "API can be extended by custom fields on the following business contexts (field usage for this API needs to be selected):\r\n* Procurement: Purchasing Document (MM_PURDOC_HEADER)\r\n* Procurement: Purchasing Document Item (MM_PURDOC_ITEM)\r\n\r\n[How to add an extension field to an API](https://help.sap.com/viewer/9a281eac983f4f688d0deedc96b3c61c/latest/en-US/57909455bf7c4fdd8bcf48d76c1eae33.html)"
       },
-      "countries": [
-        "DE",
-        "US"
-      ],
-      "lineOfBusiness": [
-        "Sales"
-      ],
-      "industry": [
-        "Retail",
-        "Consumer Products"
-      ],
-      "tags": [
-        "Commerce"
-      ],
+      "countries": ["DE", "US"],
+      "lineOfBusiness": ["Sales"],
+      "industry": ["Retail", "Consumer Products"],
+      "tags": ["Commerce"],
       "labels": {
-        "label-key-1": [
-          "label-value-1",
-          "label-value-2"
-        ]
+        "label-key-1": ["label-value-1", "label-value-2"]
       },
       "documentationLabels": {
-        "Expected Access Performance ": [
-          "free text/markdown"
-        ]
+        "Expected Access Performance ": ["free text/markdown"]
       }
     },
     {
@@ -664,9 +591,7 @@
           "ordId": "sap.foo:consumptionBundle:someAuth:v1"
         }
       ],
-      "entryPoints": [
-        "sap://my.lob.data.platform.endpoint:30015"
-      ],
+      "entryPoints": ["sap://my.lob.data.platform.endpoint:30015"],
       "apiProtocol": "odata-v2",
       "resourceDefinitions": [
         {
@@ -731,9 +656,7 @@
           "ordId": "sap.foo:consumptionBundle:someAuth:v1"
         }
       ],
-      "entryPoints": [
-        "sap://my.lob.data.platform.endpoint:30015"
-      ],
+      "entryPoints": ["sap://my.lob.data.platform.endpoint:30015"],
       "apiProtocol": "sap-sql-api-v1",
       "resourceDefinitions": [
         {
@@ -748,9 +671,7 @@
         }
       ],
       "implementationStandard": "sap:hana-cloud-sql:v1",
-      "supportedUseCases": [
-        "data-federation"
-      ],
+      "supportedUseCases": ["data-federation"],
       "entityTypeMappings": [
         {
           "entityTypeTargets": [
@@ -790,30 +711,15 @@
       "extensible": {
         "supported": "no"
       },
-      "countries": [
-        "DE",
-        "US"
-      ],
-      "lineOfBusiness": [
-        "Sales"
-      ],
-      "industry": [
-        "Retail",
-        "Consumer Products"
-      ],
-      "tags": [
-        "Commerce"
-      ],
+      "countries": ["DE", "US"],
+      "lineOfBusiness": ["Sales"],
+      "industry": ["Retail", "Consumer Products"],
+      "tags": ["Commerce"],
       "labels": {
-        "label-key-1": [
-          "label-value-1",
-          "label-value-2"
-        ]
+        "label-key-1": ["label-value-1", "label-value-2"]
       },
       "documentationLabels": {
-        "Expected Access Performance ": [
-          "free text/markdown"
-        ]
+        "Expected Access Performance ": ["free text/markdown"]
       }
     },
     {
@@ -831,14 +737,10 @@
           "ordId": "sap.foo:consumptionBundle:someAuth:v1"
         }
       ],
-      "entryPoints": [
-        "sap://my.lob.data.platform.endpoint:30015"
-      ],
+      "entryPoints": ["sap://my.lob.data.platform.endpoint:30015"],
       "apiProtocol": "delta-sharing",
       "implementationStandard": "sap:delta-sharing:v1",
-      "supportedUseCases": [
-        "streaming"
-      ],
+      "supportedUseCases": ["streaming"],
       "entityTypeMappings": [
         {
           "entityTypeTargets": [
@@ -865,30 +767,15 @@
       "extensible": {
         "supported": "no"
       },
-      "countries": [
-        "DE",
-        "US"
-      ],
-      "lineOfBusiness": [
-        "Sales"
-      ],
-      "industry": [
-        "Retail",
-        "Consumer Products"
-      ],
-      "tags": [
-        "Commerce"
-      ],
+      "countries": ["DE", "US"],
+      "lineOfBusiness": ["Sales"],
+      "industry": ["Retail", "Consumer Products"],
+      "tags": ["Commerce"],
       "labels": {
-        "label-key-1": [
-          "label-value-1",
-          "label-value-2"
-        ]
+        "label-key-1": ["label-value-1", "label-value-2"]
       },
       "documentationLabels": {
-        "Expected Access Performance ": [
-          "free text/markdown"
-        ]
+        "Expected Access Performance ": ["free text/markdown"]
       }
     },
     {
@@ -906,9 +793,7 @@
           "ordId": "sap.foo:consumptionBundle:someAuth:v1"
         }
       ],
-      "entryPoints": [
-        "sap://my.lob.data.platform.endpoint:30015"
-      ],
+      "entryPoints": ["sap://my.lob.data.platform.endpoint:30015"],
       "apiProtocol": "rest",
       "resourceDefinitions": [
         {
@@ -922,9 +807,7 @@
           ]
         }
       ],
-      "supportedUseCases": [
-        "snapshot"
-      ],
+      "supportedUseCases": ["snapshot"],
       "entityTypeMappings": [
         {
           "entityTypeTargets": [
@@ -964,30 +847,15 @@
       "extensible": {
         "supported": "no"
       },
-      "countries": [
-        "DE",
-        "US"
-      ],
-      "lineOfBusiness": [
-        "Sales"
-      ],
-      "industry": [
-        "Retail",
-        "Consumer Products"
-      ],
-      "tags": [
-        "Commerce"
-      ],
+      "countries": ["DE", "US"],
+      "lineOfBusiness": ["Sales"],
+      "industry": ["Retail", "Consumer Products"],
+      "tags": ["Commerce"],
       "labels": {
-        "label-key-1": [
-          "label-value-1",
-          "label-value-2"
-        ]
+        "label-key-1": ["label-value-1", "label-value-2"]
       },
       "documentationLabels": {
-        "Expected Access Performance ": [
-          "free text/markdown"
-        ]
+        "Expected Access Performance ": ["free text/markdown"]
       }
     }
   ],
@@ -1084,6 +952,7 @@
     }
   ]
 }
+
 ```
 
 ### ./examples/document-entity-type-mapping.json
@@ -1095,9 +964,7 @@
   "$schema": "https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Document.schema.json",
   "openResourceDiscovery": "1.9",
   "description": "This Example demonstrates the Entity Type Mapping feature",
-  "policyLevels": [
-    "sap:core:v1"
-  ],
+  "policyLevels": ["sap:core:v1"],
   "apiResources": [
     {
       "ordId": "sap.s4:apiResource:SomeODataAPI:v2",
@@ -1141,9 +1008,7 @@
           ]
         }
       ],
-      "entryPoints": [
-        "/API_RFQ_PROCESS_SRV/v1"
-      ],
+      "entryPoints": ["/API_RFQ_PROCESS_SRV/v1"],
       "entityTypeMappings": [
         {
           "apiModelSelectors": [
@@ -1197,9 +1062,7 @@
           ]
         }
       ],
-      "entryPoints": [
-        "/path/to/api/v1"
-      ],
+      "entryPoints": ["/path/to/api/v1"],
       "entityTypeMappings": [
         {
           "apiModelSelectors": [
@@ -1276,6 +1139,7 @@
   ],
   "entityTypes": []
 }
+
 ```
 
 ### ./examples/document-entity-types.json
@@ -1287,9 +1151,7 @@
   "$schema": "https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Document.schema.json",
   "openResourceDiscovery": "1.9",
   "description": "Example for entity types as they will be exposed by ODM",
-  "policyLevels": [
-    "sap:core:v1"
-  ],
+  "policyLevels": ["sap:core:v1"],
   "packages": [
     {
       "ordId": "sap.odm:package:OdmEntities:v1",
@@ -1297,9 +1159,7 @@
       "shortDescription": "This package includes all aligned ODM Entities",
       "description": "The ODM Entities are governed by the ODM Governance Board. They are semantically cross-LoB aligned and provide an unambiguous taxonomy",
       "version": "1.0.0",
-      "policyLevels": [
-        "sap:core:v1"
-      ],
+      "policyLevels": ["sap:core:v1"],
       "vendor": "sap:vendor:SAP:"
     }
   ],
@@ -1325,6 +1185,7 @@
     }
   ]
 }
+
 ```
 
 ### ./examples/document-special-protocols.json
@@ -1336,9 +1197,7 @@
   "$schema": "https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Document.schema.json",
   "openResourceDiscovery": "1.9",
   "description": "This ORD Document example contains more special examples, like custom SAP protocols",
-  "policyLevels": [
-    "sap:core:v1"
-  ],
+  "policyLevels": ["sap:core:v1"],
   "consumptionBundles": [
     {
       "ordId": "sap.foo:consumptionBundle:basicAuth:v1",
@@ -1374,9 +1233,7 @@
           "ordId": "sap.foo:consumptionBundle:basicAuth:v1"
         }
       ],
-      "entryPoints": [
-        "/some/rfc/api/url/v1"
-      ],
+      "entryPoints": ["/some/rfc/api/url/v1"],
       "resourceDefinitions": [
         {
           "type": "sap-rfc-metadata-v1",
@@ -1434,9 +1291,7 @@
       ],
       "apiProtocol": "odata-v4",
       "direction": "inbound",
-      "entryPoints": [
-        "/some/ape/api/url/v1"
-      ],
+      "entryPoints": ["/some/ape/api/url/v1"],
       "implementationStandard": "sap:cdi-api:v1",
       "resourceDefinitions": [
         {
@@ -1466,6 +1321,7 @@
     }
   ]
 }
+
 ```
 
 

@@ -29,6 +29,6 @@ Please see our [guideline for AI-generated code contributions to SAP Open Source
 4. Create a pull request in the repository using this branch.
 5. Follow the link posted by the CLA assistant to your pull request and accept it, as described above.
 6. Wait for our code review and approval, possibly enhancing your change on request.
-    - Note that the maintainers have many duties. So, depending on the required effort for reviewing, testing, and clarification, this may take a while.
+   - Note that the maintainers have many duties. So, depending on the required effort for reviewing, testing, and clarification, this may take a while.
 7. Once the change has been approved and merged, we will inform you in a comment.
 8. Celebrate!

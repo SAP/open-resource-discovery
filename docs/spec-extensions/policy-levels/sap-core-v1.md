@@ -153,6 +153,7 @@ The following constraints apply in addition to the constraints defined in the [O
   The first link includes a decision table for internal vs. external, which corresponds to `visibility` internal vs. public in ORD.
 - The [`extensible`](../../spec-v1/interfaces/document.md#api-resource_extensible) property MUST be provided.
 - For API Resources with `visibility`: "public" or "internal":
+
   - Resource definitions MUST be provided for OData, REST, GraphQL and SOAP APIs.
   - OData APIs MUST have a resource definition of `"type": "edmx"` AND additionally one of either `"type": "openapi-v3"` or `"type": "openapi-v2"`.
   - Plain REST APIs MUST have a resource definition of `"type": "openapi-v3"` (RECOMMENDED) or `"type": "openapi-v2"`.

@@ -57,7 +57,7 @@ export interface ORDV1DocumentDescription {
    * Whether the information in the ORD document is **system instance aware**.
    *
    * This is the case when the provided ORD document potentially differs between **system instances**.
-   * Please note that if a system does not support multitenancy, most likely each system instance has its own
+   * Please note that if a system does not support multi-tenancy, most likely each system instance has its own
    * URL and different system instances could even be deployed in a different state (version).
    * If those conditions apply, `systemInstanceAware` MUST be set to true.
    *

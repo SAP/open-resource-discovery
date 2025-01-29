@@ -18,6 +18,7 @@ In case that the standardized concepts or attributes are not sufficient, there a
 All of the described artifacts can share relationships, taxonomy and [grouping](./details/articles/grouping-and-bundling.md) concepts, enabling a **well connected metadata graph**.
 
 ORD can be used for **static documentation** (like API / data catalogs and marketplaces) or to describe a **run-time system landscape** (with tenant specific configuration and extensions).
+
 </div>
 <div className="col">
 <div style={{"text-align": "center", "max-width": "600px"}}>
@@ -44,12 +45,12 @@ Read the 📄 [ORD Introduction](./introduction.mdx) and watch the 🎦[ORD Vide
 Information expressed or discovered through ORD can be used to build static **metadata catalogs** or do detailed **runtime inspection of actual system landscapes**.
 Based on this, many end-user use cases can be realized, e.g.:
 
-* API and event catalog
-* Data product directory/catalog
-* Landscape specific API/event discovery for development platforms, platform engineering and low-code/no-code development
-* Support admins in configuring services (discovery & automation)
-* AI grounding & training
-* Generic channel to describe, discover and exchange system capabilities between providers and consumers (even across vendors)
+- API and event catalog
+- Data product directory/catalog
+- Landscape specific API/event discovery for development platforms, platform engineering and low-code/no-code development
+- Support admins in configuring services (discovery & automation)
+- AI grounding & training
+- Generic channel to describe, discover and exchange system capabilities between providers and consumers (even across vendors)
 
 ## Goals
 
@@ -86,7 +87,7 @@ Based on this, many end-user use cases can be realized, e.g.:
 
 ## Future Plans
 
-Now that ORD is [open-source](https://sap.github.io/open-resource-discovery/), a potential next step is to work with partners on a true industry wide standard, as ORD is currently focused on  SAPs requirements.
+Now that ORD is [open-source](https://sap.github.io/open-resource-discovery/), a potential next step is to work with partners on a true industry wide standard, as ORD is currently focused on SAPs requirements.
 We are also part of the publicly funded [IPCEI CIS](https://www.bmwk.de/Redaktion/EN/Artikel/Industry/ipcei-cis.html) project, where we also work towards this goal.
 
 The specification itself is designed to be generic, so most SAP specific aspects are described as [spec extensions](./spec-extensions).

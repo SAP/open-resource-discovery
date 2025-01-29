@@ -7,7 +7,7 @@ description: Access without mandatory authentication and authorization.
 
 ## Description
 
-The `open` access strategy indicates that there is no mandatory authentication and authorization to access the information. A regular HTTP GET call will be sufficient as the information are *unprotected*.
+The `open` access strategy indicates that there is no mandatory authentication and authorization to access the information. A regular HTTP GET call will be sufficient as the information are _unprotected_.
 
 Whether this is a valid choice depends on the security considerations that the ORD providers are subject to.
 

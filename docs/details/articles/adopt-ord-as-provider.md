@@ -71,9 +71,10 @@ We recommend implementing the ORD Document API just like any other API that your
 How you do this may depend on your programming language, framework and backend architecture.
 
 The API itself consists just of three different types of API GET operations:
-* One to implement the [ORD Configuration Endpoint](../../spec-v1/index.md#ord-configuration-endpoint)
-* One to return all [ORD Documents](../../spec-v1/index.md#ord-document)
-* One to return the "attached" metadata documents (ORD Resource Definitions)
+
+- One to implement the [ORD Configuration Endpoint](../../spec-v1/index.md#ord-configuration-endpoint)
+- One to return all [ORD Documents](../../spec-v1/index.md#ord-document)
+- One to return the "attached" metadata documents (ORD Resource Definitions)
 
 Please note that you may need to [protect the API access](#protect-ord-document-api-access).
 

@@ -2,9 +2,7 @@
   "$schema": "https://sap.github.io/open-resource-discovery/spec-v1/interfaces/Document.schema.json",
   "openResourceDiscovery": "1.9",
   "description": "This Example demonstrates the Entity Type Mapping feature",
-  "policyLevels": [
-    "sap:core:v1"
-  ],
+  "policyLevels": ["sap:core:v1"],
   "apiResources": [
     {
       "ordId": "sap.s4:apiResource:SomeODataAPI:v2",
@@ -48,9 +46,7 @@
           ]
         }
       ],
-      "entryPoints": [
-        "/API_RFQ_PROCESS_SRV/v1"
-      ],
+      "entryPoints": ["/API_RFQ_PROCESS_SRV/v1"],
       "entityTypeMappings": [
         {
           "apiModelSelectors": [
@@ -104,9 +100,7 @@
           ]
         }
       ],
-      "entryPoints": [
-        "/path/to/api/v1"
-      ],
+      "entryPoints": ["/path/to/api/v1"],
       "entityTypeMappings": [
         {
           "apiModelSelectors": [

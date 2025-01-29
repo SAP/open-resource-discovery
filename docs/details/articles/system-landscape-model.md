@@ -41,9 +41,10 @@ Optionally, a System Instance or a Type could also have several [System Versions
 They are described in more detail behind the link.
 
 It should be pointed out that the:
-* [vendor namespace](../../spec-v1/index.md#vendor-namespace) corresponds to the [ORD Vendor](../../spec-v1/interfaces/document.md#vendor).
-* [system namespace](../../spec-v1/index.md#system-namespace) corresponds to the [ORD System Type](../../spec-v1/index.md#def-system-type).
-* [sub-context namespaces](../../spec-v1/index.md#subcontext-namespace) have no corresponding ORD concept.
+
+- [vendor namespace](../../spec-v1/index.md#vendor-namespace) corresponds to the [ORD Vendor](../../spec-v1/interfaces/document.md#vendor).
+- [system namespace](../../spec-v1/index.md#system-namespace) corresponds to the [ORD System Type](../../spec-v1/index.md#def-system-type).
+- [sub-context namespaces](../../spec-v1/index.md#subcontext-namespace) have no corresponding ORD concept.
 
 ## System Resources and Capabilities
 
@@ -66,17 +67,17 @@ Here is an overview which ORD concepts can be dynamic (different per System Inst
 
 | ORD Concept            | Category              | Can be Dynamic | Can be Global | Always Global |
 | ---------------------- | --------------------- | -------------- | ------------- | ------------- |
-| API Resource           | Resource / Capability | ✅              | ❌             | ❌             |
-| Event Resource         | Resource / Capability | ✅              | ❌             | ❌             |
-| Capability             | Resource / Capability | ✅              | ❌             | ❌             |
-| Data Product           | Resource / Capability | ✅              | ❌             | ❌             |
-| Integration Dependency | Resource / Capability | ✅              | ❌             | ❌             |
-| Entity Type            | Taxonomy              | ✅              | ✅             | ❌             |
-| Vendor                 | Taxonomy              | ❌              | ✅             | ✅             |
-| Product                | Taxonomy              | ❌              | ✅             | ✅             |
-| Package                | Taxonomy              | ❌              | ✅             | ❌             |
-| Consumption Bundle     | Taxonomy              | ❌              | ✅             | ❌             |
-| Group / Group Type     | Taxonomy              | ✅              | ✅             | ❌             |
+| API Resource           | Resource / Capability | ✅             | ❌            | ❌            |
+| Event Resource         | Resource / Capability | ✅             | ❌            | ❌            |
+| Capability             | Resource / Capability | ✅             | ❌            | ❌            |
+| Data Product           | Resource / Capability | ✅             | ❌            | ❌            |
+| Integration Dependency | Resource / Capability | ✅             | ❌            | ❌            |
+| Entity Type            | Taxonomy              | ✅             | ✅            | ❌            |
+| Vendor                 | Taxonomy              | ❌             | ✅            | ✅            |
+| Product                | Taxonomy              | ❌             | ✅            | ✅            |
+| Package                | Taxonomy              | ❌             | ✅            | ❌            |
+| Consumption Bundle     | Taxonomy              | ❌             | ✅            | ❌            |
+| Group / Group Type     | Taxonomy              | ✅             | ✅            | ❌            |
 
 ## Big Picture
 

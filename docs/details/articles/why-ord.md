@@ -59,17 +59,18 @@ Therefore, the commitment of all LoBs and areas is required to exploit the full 
 
 Depending on the role of the adopter the value proposition is different:
 
-* If you are an application or service, that needs to provide ORD information, you are in the [ORD Provider](#benefits-to-ord-providers) role.
-  * The provider benefits from having one protocol for providing the information and not multiple.
-  * The provider only needs to publish to two ORD aggregators and avoids having many more point-to-point integrations to the various consumers.
-  * The use cases that ORD consumers provide may very well serve the same customer and solve commonly shared problems, see ORD Adoption Status - ORD Consumers for examples.
-  * See [Benefits to ORD Providers](#benefits-to-ord-providers) for more elaboration.
+- If you are an application or service, that needs to provide ORD information, you are in the [ORD Provider](#benefits-to-ord-providers) role.
 
-* If you make use of ORD information, you are in the role of an [ORD Consumer](#benefits-to-ord-consumers).
-  * Consumers benefit from having a shared, aligned standard and central aggregators to get the information from.
-  * If an application / service already adopted ORD and information is missing, the Consumer could extend the ORD protocol to add missing information.
+  - The provider benefits from having one protocol for providing the information and not multiple.
+  - The provider only needs to publish to two ORD aggregators and avoids having many more point-to-point integrations to the various consumers.
+  - The use cases that ORD consumers provide may very well serve the same customer and solve commonly shared problems, see ORD Adoption Status - ORD Consumers for examples.
+  - See [Benefits to ORD Providers](#benefits-to-ord-providers) for more elaboration.
+
+- If you make use of ORD information, you are in the role of an [ORD Consumer](#benefits-to-ord-consumers).
+  - Consumers benefit from having a shared, aligned standard and central aggregators to get the information from.
+  - If an application / service already adopted ORD and information is missing, the Consumer could extend the ORD protocol to add missing information.
     Since the protocol and integrations are already there, the implementation effort is greatly reduced for all parties.
-  * See [Benefits to ORD Consumers](#benefits-to-ord-consumers).
+  - See [Benefits to ORD Consumers](#benefits-to-ord-consumers).
 
 ### Benefits to ORD Providers
 
@@ -86,8 +87,9 @@ Instead of implementing integrations and service provider interfaces (SPI) for e
 This reduces the number of APIs and integrations that need to be developed and maintained and therefore reduces our overall TCO for metadata publishing and integration.
 
 ORD can be used to describe two different application perspectives:
-* The **static catalog** ("yellow-pages") view for publishing to [SAP Business Accelerator Hub](https://api.sap.com/).
-* The **as-is** view that describe the actual, customer specific runtime view (reflecting customizations and extensions).
+
+- The **static catalog** ("yellow-pages") view for publishing to [SAP Business Accelerator Hub](https://api.sap.com/).
+- The **as-is** view that describe the actual, customer specific runtime view (reflecting customizations and extensions).
 
 ![Reduce ORD Provider TCO](/img/ord-motivation-reduce-provider-tco.svg)
 

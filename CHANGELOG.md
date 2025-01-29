@@ -10,6 +10,12 @@ For a roadmap including expected timeline, please refer to [ROADMAP.md](./ROADMA
 
 ## [unreleased]
 
+## [1.9.10]
+
+### Added
+
+- Added `countries` to Data Products (like for APIs, Events and Packages)
+
 ## [1.9.9]
 
 ### Added

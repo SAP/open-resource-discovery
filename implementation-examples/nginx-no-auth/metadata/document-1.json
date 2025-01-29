@@ -1,8 +1,6 @@
 {
   "openResourceDiscovery": "1.9",
-  "policyLevels": [
-    "sap:core:v1"
-  ],
+  "policyLevels": ["sap:core:v1"],
   "apiResources": [
     {
       "ordId": "sap.foo:apiResource:astronomy:v1",
@@ -30,9 +28,7 @@
           "url": "/metadata/astronomy-v1.oas3.json"
         }
       ],
-      "entryPoints": [
-        "/astronomy/v1"
-      ],
+      "entryPoints": ["/astronomy/v1"],
       "extensible": {
         "supported": "no"
       }
