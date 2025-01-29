@@ -2076,6 +2076,14 @@ export interface DataProduct {
   ) &
     string)[];
   /**
+   * List of countries that the package resources are applicable to.
+   *
+   * MUST be expressed as an array of country codes according to [IES ISO-3166 ALPHA-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+   *
+   * `countries` that are assigned to a `Package` are inherited to all of the ORD resources it contains.
+   */
+  countries?: string[];
+  /**
    * List of free text style tags.
    * No special characters are allowed except `-`, `_`, `.`, `/` and ` `.
    *

@@ -2651,6 +2651,20 @@
             ]
           ]
         },
+        "countries": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z]{2}$"
+          },
+          "description": "List of countries that the package resources are applicable to.\n\nMUST be expressed as an array of country codes according to [IES ISO-3166 ALPHA-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).\n\n`countries` that are assigned to a `Package` are inherited to all of the ORD resources it contains.",
+          "examples": [
+            [
+              "DE",
+              "US"
+            ]
+          ]
+        },
         "tags": {
           "type": "array",
           "items": {

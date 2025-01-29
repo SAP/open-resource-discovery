@@ -176,6 +176,7 @@ Data Product,dataProductLinks,false,array<DataProductLink>
 Data Product,links,false,array<Link>
 Data Product,industry,false,array<string>
 Data Product,lineOfBusiness,false,array<string>
+Data Product,countries,false,array<string>
 Data Product,tags,false,array<string>
 Data Product,labels,false,Labels
 Data Product,documentationLabels,false,DocumentationLabels
