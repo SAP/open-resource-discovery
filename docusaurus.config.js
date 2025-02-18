@@ -7,8 +7,8 @@ import { themes as prismThemes } from "prism-react-renderer";
 const config = {
   title: "Open Resource Discovery",
   tagline: "An aligned protocol for publishing and discovering metadata about systems.",
-  url: "https://sap.github.io",
-  baseUrl: "/open-resource-discovery",
+  url: "https://open-resource-discovery.github.io",
+  baseUrl: "/specification",
   trailingSlash: false,
   onBrokenLinks: "throw",
   onDuplicateRoutes: "throw",
@@ -18,8 +18,8 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: "SAP", // Usually your GitHub org/user name.
-  projectName: "open-resource-discovery", // Usually your repo name.
+  organizationName: "open-resource-discovery", // Usually your GitHub org/user name.
+  projectName: "specification", // Usually your repo name.
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
@@ -44,7 +44,7 @@ const config = {
           routeBasePath: "/", // Serve the docs at the site's root
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: "https://github.com/SAP/open-resource-discovery/tree/main/",
+          editUrl: "https://github.com/open-resource-discovery/specification/tree/main/",
         },
         blog: false, // disable the blog plugin
         theme: {
@@ -54,7 +54,7 @@ const config = {
     ],
   ],
 
-  scripts: ["/open-resource-discovery/js/custom.js"],
+  scripts: ["/specification/js/custom.js"],
 
   themes: [
     "@docusaurus/theme-mermaid",
@@ -149,7 +149,7 @@ const config = {
               },
               {
                 label: "Changelog",
-                to: "https://github.com/SAP/open-resource-discovery/blob/main/CHANGELOG.md",
+                to: "https://github.com/open-resource-discovery/specification/blob/main/CHANGELOG.md",
               },
             ],
           },
@@ -190,7 +190,7 @@ const config = {
             ],
           },
           {
-            href: "https://github.com/SAP/open-resource-discovery",
+            href: "https://github.com/open-resource-discovery/specification",
             label: "GitHub",
             position: "right",
           },
@@ -213,7 +213,7 @@ const config = {
           },
           {
             label: "GitHub Repository",
-            to: "https://github.com/SAP/open-resource-discovery",
+            to: "https://github.com/open-resource-discovery/specification",
           },
         ],
         copyright: `Copyright © ${new Date().getFullYear()} SAP SE. Made available under Apache License 2.0.\n\n This site is hosted by GitHub Pages. Please see the GitHub Privacy Statement for any information how GitHub processes your personal data.`,
